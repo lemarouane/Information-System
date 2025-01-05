@@ -1,0 +1,188 @@
+
+{% extends 'template.html.twig' %}
+
+{% block title %}{{'cooperation'|trans}} {% endblock %} 
+ 
+{% block body %}
+
+				<!--breadcrumb-->
+
+                <div class="page-breadcrumb d-none d-sm-flex align-items-center mb-3">
+                        <div class="breadcrumb-title pe-3">{{'cooperation'|trans}}</div>
+                        <div class="ps-3">
+                            <nav aria-label="breadcrumb">
+                            <ol class="breadcrumb mb-0 p-0">
+                                <li class="breadcrumb-item"><a href="javascript:;"><i class="bi bi-file-earmark-post"></i></a>
+                                </li>
+                                <li class="breadcrumb-item active" aria-current="page">{{'convs'|trans}} 
+               {% if fil is defined %}
+    {{'non_trait'|trans}}  <span style="font-weight:bold;"> - {{'filiere'|trans}} : {{fil}} </span> 
+{% endif %} </li> 
+                            </ol>
+                            </nav>
+                        </div>
+         
+                </div>
+                <hr>
+                {% if conventions is not empty %}
+                <div class="card border-top border-success border-0 border-3">
+                    
+                    <div class="card-body">
+                        <div class="table-responsive">
+                        <table id="exe1" class="table table-striped table-bordered dataTable" style="text-align:center !important ;">
+                            <thead>
+                            <tr>
+                                    <th style="text-align:center !important ;">{{'date_demande'|trans}}</th>
+                                    <th style="text-align:center !important ;">{{'nom'|trans}}</th>
+                                    <th style="text-align:center !important ;">{{'prenom'|trans}}</th>
+                                    <th style="text-align:center !important ;">{{'email'|trans}}</th>
+                                    <th style="text-align:center !important ;">{{'tel'|trans}}</th>
+                                    <th style="text-align:center !important ;">{{'filiere'|trans}}</th>
+                                    <th style="text-align:center !important ;">{{'date_debut'|trans}}</th>
+                                    <th style="text-align:center !important ;">{{'date_fin'|trans}}</th>
+                                    <th style="text-align:center !important ;">{{'fichier_joint'|trans}}</th>   
+                                    <th style="text-align:center !important ;">{{'conv_signe'|trans}}</th>
+{% if "ROLE_SERVICEEXT" in app.user.roles or "ROLE_CHEF_FIL" in app.user.roles or "ROLE_ADMIN" in app.user.roles %}   
+                                    <th style="text-align:center !important ;">{{'op'|trans}}</th>
+{% endif %}   
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for convention in conventions %}
+                                    <tr>
+                                        <td><label>{{convention.dateenvoie ? convention.dateenvoie|date('d-m-Y H:i:s') : '' }}</label></td>
+                                        <td><label>{{ convention.user.nom }}</label></td>
+                                        <td><label>{{ convention.user.prenom }}</label></td>
+                                        <td><label>{{ convention.user.email }}</label></td>
+                                        <td><label>{{ convention.phone }}</label></td>
+                                        <td><label>{{ convention.filiere}}</label></td>
+                                        <td><label>{{ convention.dateDebut|date('d-m-Y')}}</label></td>
+                                        <td><label>{{ convention.dateFin|date('d-m-Y')}}</label></td>
+                                        {% if convention.fichier is not empty %}
+                                            <td>
+                                               
+                                                <a href="/e-doc/public/stage/{{ convention.fichier }}"  class="text-primary icons1" style="text-align:center" onclick="window.open(this.href); return false;"><i class="bi bi-file-earmark-fill"></i>
+                                                    </a>
+                                            </td>
+                                        {% else %}
+                                            <td> </td>
+                                        {% endif %}
+                                        
+                                            {% if nbStages is not empty %}
+                                                <td style="text-align: center">
+                                                {% for list in nbStages %}
+                                                    {% if list['etudiant'] == convention.user.id %}
+                                                        <a data-user="{{list["etudiant"]}}" href="#" class="text-primary icons1" data-bs-toggle="modal" data-bs-target="#modalStageForm"  data-bs-toggle="tooltip" data-bs-placement="bottom" aria-label="afficher"><i class="bi bi-eye-fill"></i></a>
+                                                    {% endif %}
+                                                {% endfor %}
+                                                </td>
+                                            {% else %}
+                                                <td></td>
+                                            {% endif %}
+                                  {% if "ROLE_SERVICEEXT" in app.user.roles or "ROLE_CHEF_FIL" in app.user.roles or "ROLE_ADMIN" in app.user.roles  %}  
+                                        <td>
+                                            <div class="text-center">
+                                                <a data-user="{{convention.id}}" href="#" class="text-success icons" data-bs-toggle="modal" data-bs-target="#dataModalOrdre"  data-bs-toggle="tooltip" data-bs-placement="bottom" aria-label="Edit"><i class="bi bi-check2-circle" ></i></a>
+                                        &nbsp; &nbsp; 
+                                            <a href="{{ path('conventions_loop', { 'id': convention.id }) }}"><i class="bi bi-search"></i></a>
+                                            </div>
+                                        </td>
+                                {% endif %}   
+                                    </tr>
+                                {% endfor %}
+                                
+                            </tbody>
+
+                                
+                        </table>
+                        
+                        </div>
+                        
+                    
+                    
+					</div>
+                        {% if is_granted("ROLE_SERVICEEXT") == true or is_granted("ROLE_ADMIN") == true %}
+                            <form action="{{ path('convention_imprimer') }}" method="post">
+                                    <input type="submit" value="Exporter toutes les conventions" class="btn btn-success" style="margin:10px">
+                            </form>
+                        {% endif %}
+                    
+				</div>
+                {% else %}
+                      <div class="alert alert-success" >
+                          <strong>{{'MOD_EMPTY_DEM'|trans}}</strong>  
+                      </div>
+                {% endif %}
+                <div id="dataModalOrdre" class="modal fade">  
+                    <div class="modal-dialog">   
+                        <div class="modal-content">  
+                            <div class="modal-header">  
+                                <h4 class="modal-title"></h4>  
+                            </div> 
+                            <form method="post" id="ordre_form">
+                                <div class="modal-body row g-3" >
+                                    <div id="path-to-convention" data-href="{{ path('decisionstage', {id:'1111'})}}"> </div>
+                                    <div class="form-group">
+                                        <div>
+                                            <label  class="form-label">{{'n_doc'|trans}}</label>
+                                            <input id="iddocument" name="searchParam[iddocument]" class="form-control" disabled/>
+                                        </div>   
+                    
+                                    </div>  
+                                    <div class="form-group">
+                                        <label  class="form-label">{{'action'|trans}}</label>
+                                        <select id="ordre"  name="searchParam[decision]" class="form-select">
+                                            <option value="1">{{'accepter'|trans}}</option>
+                                            <option value="0">{{'refuser'|trans}}</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group" id="motifText">
+                                        <label class="form-label">{{'motif'|trans}}:</label>
+                                        <textarea class="form-control" name="searchParam[motif]" rows="3" placeholder="..."></textarea>
+                                    </div>   
+                                </div>  
+                                <div class="modal-footer">
+                                    <input type="submit" name="ordreName" id="ordreId" value="{{'valider'|trans}}" style="float: left" class="btn btn-success" />  
+                                    <button  type="button" class="btn btn-danger" data-bs-dismiss="modal">{{'fermer'|trans}}</button> 
+                                </div> 
+                            </form> 
+                        </div>  
+                    </div>  
+                </div>
+
+                <div id="modalStageForm"  class="modal fade col-lg-12 col-md-12 col-sm-12 col-xs-12" tabindex="-1" aria-hidden="true">  
+                    <div class=" modal-dialog modal-lg col-lg-12 col-md-12 col-sm-12 col-xs-12">  
+                        <div class="modal-content col-lg-12 col-md-12 col-sm-12 col-xs-12" >  
+                            <div class="modal-header">  
+                                <h4 class="modal-title">  {{'liste_convention'|trans}}</h4>  
+                            </div> 
+                            <div class="modal-body" id="ordret_detail" >
+                            <div id="path-to-nbconvention" data-href="{{ path('afficherListeConvention')}}"> </div>
+                            <p class="ElevesPage__ModalText-hxecJS bhnaPl"  id="conventionList" style="height: 400px;">
+
+                            </p> 
+                            </div>  
+                            <div class="modal-footer">  
+                                <button type="button" class="btn btn-danger"  data-bs-dismiss="modal">{{'fermer'|trans}}</button>  
+                            </div> 
+                        </div>  
+                    </div>  
+                </div>
+
+
+
+
+
+
+
+  
+{% endblock %}
+{% block javascripts %}
+    {{parent()}}
+	
+    {{ encore_entry_script_tags('convention') }}
+        
+
+
+{% endblock %}
+

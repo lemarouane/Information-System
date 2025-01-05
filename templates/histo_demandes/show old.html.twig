@@ -1,0 +1,46 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}HistoDemandes{% endblock %}
+
+{% block body %}
+    <h1>HistoDemandes</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ histo_demande.id }}</td>
+            </tr>
+            <tr>
+                <th>Type_demande</th>
+                <td>{{ histo_demande.typeDemande }}</td>
+            </tr>
+            <tr>
+                <th>Id_demande</th>
+                <td>{{ histo_demande.idDemande }}</td>
+            </tr>
+            <tr>
+                <th>DateEnvoie</th>
+                <td>{{ histo_demande.dateEnvoie ? histo_demande.dateEnvoie|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+            <tr>
+                <th>DateValidation</th>
+                <td>{{ histo_demande.dateValidation ? histo_demande.dateValidation|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+            <tr>
+                <th>Statut</th>
+                <td>{{ histo_demande.statut }}</td>
+            </tr>
+            <tr>
+                <th>Niveau</th>
+                <td>{{ histo_demande.niveau }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_histo_demandes_index') }}">back to list</a>
+
+    <a href="{{ path('app_histo_demandes_edit', {'id': histo_demande.id}) }}">edit</a>
+
+    {{ include('histo_demandes/_delete_form.html.twig') }}
+{% endblock %}

@@ -1,0 +1,58 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{'password_check.m0'|trans}}{% endblock %}
+
+{% block stylesheets %}
+    {{ encore_entry_link_tags('app') }}
+{% endblock %}
+
+
+
+{% block body %}
+
+  <!--start wrapper-->
+  <div class="wrapper">
+    
+       <!--start content-->
+       <main class="authentication-content">
+        <div class="container-fluid">
+          <div class="authentication-card">
+            <div class="card shadow rounded-0 overflow-hidden">
+              <div class="row g-0">
+                <div class="col-lg-6 d-flex align-items-center justify-content-center border-end">
+                  <img src="{{asset('build/images/error/forgot-password-frent-img.jpg')}}" class="img-fluid" alt="">
+                </div>
+                <div class="col-lg-6">
+ 
+                  <div class="card-body p-4 p-sm-5">
+                    <h5 class="card-text mb-5">{{'password_check.m1'|trans}}</h5>
+                    <p class="card-text mb-5">{{'password_check.m2'|trans}} {{ resetToken.expirationMessageKey|trans(resetToken.expirationMessageData, 'ResetPasswordBundle') }}.</p>
+                
+                    <p class="card-text mb-5">{{'password_check.m3'|trans}} <a href="{{ path('app_forgot_password_request') }}">{{'password_check.m4'|trans}} </a>.</p>
+
+                    <div class="d-grid gap-3">
+                              <a href="{{path('app_login')}}" class="btn btn-lg btn-primary radius-30">{{'Back'|trans}}</a>
+                            </div>
+                  </div>
+                          
+                        </div>
+                 </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+       </main>
+        
+       <!--end page main-->
+
+  </div>
+  <!--end wrapper-->
+
+
+
+ 
+{% endblock %}
+ {% block javascripts %}
+            {{ encore_entry_script_tags('app') }} 
+{% endblock %}

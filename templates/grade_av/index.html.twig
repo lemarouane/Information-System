@@ -1,0 +1,39 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}GradeAv index{% endblock %}
+
+{% block body %}
+    <h1>GradeAv index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Rapide</th>
+                <th>Exceptionnel</th>
+                <th>Normale</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for grade_av in grade_avs %}
+            <tr>
+                <td>{{ grade_av.id }}</td>
+                <td>{{ grade_av.rapide }}</td>
+                <td>{{ grade_av.exceptionnel }}</td>
+                <td>{{ grade_av.normale }}</td>
+                <td>
+                    <a href="{{ path('app_grade_av_show', {'id': grade_av.id}) }}">show</a>
+                    <a href="{{ path('app_grade_av_edit', {'id': grade_av.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="5">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_grade_av_new') }}">Create new</a>
+{% endblock %}

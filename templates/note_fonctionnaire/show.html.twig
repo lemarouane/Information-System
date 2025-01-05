@@ -1,0 +1,58 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}NoteFonctionnaire{% endblock %}
+
+{% block body %}
+    <h1>NoteFonctionnaire</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ note_fonctionnaire.id }}</td>
+            </tr>
+            <tr>
+                <th>Note1</th>
+                <td>{{ note_fonctionnaire.note1 }}</td>
+            </tr>
+            <tr>
+                <th>Note2</th>
+                <td>{{ note_fonctionnaire.note2 }}</td>
+            </tr>
+            <tr>
+                <th>Note3</th>
+                <td>{{ note_fonctionnaire.note3 }}</td>
+            </tr>
+            <tr>
+                <th>Note4</th>
+                <td>{{ note_fonctionnaire.note4 }}</td>
+            </tr>
+            <tr>
+                <th>Note5</th>
+                <td>{{ note_fonctionnaire.note5 }}</td>
+            </tr>
+            <tr>
+                <th>NoteAnuelle</th>
+                <td>{{ note_fonctionnaire.noteAnuelle }}</td>
+            </tr>
+            <tr>
+                <th>Annee</th>
+                <td>{{ note_fonctionnaire.annee }}</td>
+            </tr>
+            <tr>
+                <th>Remarque</th>
+                <td>{{ note_fonctionnaire.remarque }}</td>
+            </tr>
+            <tr>
+                <th>Lien</th>
+                <td>{{ note_fonctionnaire.lien }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_note_fonctionnaire_index') }}">back to list</a>
+
+    <a href="{{ path('app_note_fonctionnaire_edit', {'id': note_fonctionnaire.id}) }}">edit</a>
+
+    {{ include('note_fonctionnaire/_delete_form.html.twig') }}
+{% endblock %}

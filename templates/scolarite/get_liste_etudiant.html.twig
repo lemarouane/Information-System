@@ -1,0 +1,139 @@
+{% extends 'template.html.twig' %}
+
+{% block title %}{{'exporter_liste'|trans}}{% endblock %}
+{% block stylesheets %}
+        {{ parent() }}
+        <link href="{{ asset('uploads/css/bootstrap-material-datetimepicker1.min.css') }}" rel="stylesheet" >
+{% endblock %}
+{% block body %}
+<style>
+    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
+    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
+</style>
+     
+        <!--breadcrumb-->
+            <div class="page-breadcrumb d-none d-sm-flex align-items-center mb-3">
+              <div class="breadcrumb-title pe-3">  {{'exporter_liste'|trans}}</div>
+              <div class="ps-3">
+                <nav aria-label="breadcrumb">
+                  <ol class="breadcrumb mb-0 p-0">
+                    <li class="breadcrumb-item"><a href="javascript:;"><i class="bi bi-download"></i></a>
+                    </li>
+                    <li class="breadcrumb-item active" aria-current="page"> {{'exporter_liste'|trans}} </li>
+                  </ol>
+                </nav>
+              </div>
+         
+            </div>
+            <!--end breadcrumb-->
+
+              <div class="row">
+                 <div class="col-lg-12 mx-auto">
+                   {% include "flaches.html.twig" %}
+                  <div class="card">
+
+                    <div class="card-body">
+                       <div class="row g-3">
+                            <div class="col-12 col-lg-6">
+                                <div class="card shadow-none bg-light border">
+                                    <div class="card-body">
+                                        <div class="">
+                                            
+                                        </div>
+                                        <form name="importFile" method="post" action="{{ path('get_liste_etudiant') }}" enctype="multipart/form-data">
+                                            <div class="row g-3">
+                                                <div class="form-group col-sm-12">
+                                                    <label class="form-label">{{'get_liste_is_la'|trans}}</label>
+                                                    <select class="form-control" id="listeDoc" name="importFile[listeDoc]" >
+                                                        <option value="LI"> {{'inscrits'|trans}}</option>
+                                                        <option value="LL"> {{'laureats'|trans}}</option>
+                                                    </select>
+                                                </div>
+                                                <div class="form-group col-sm-12">
+                                                    <label for="annee" class="form-label"> {{'annee_univ'|trans}}</label>
+                                                    <select class="form-control" id="annee" name="importFile[annee]" >
+                                                        {% for annee in annees %}
+                                                            <option value="{{annee['COD_ANU']}}">{{annee['COD_ANU']}}</option>
+                                                        {% endfor %}
+                                                    </select>
+                                                </div>
+                                                <div class="form-group col-sm-12">
+                                                    <label class="form-label">{{'Formation'|trans}}</label>
+                                                    <select class="form-control" id="typeDocument" name="importFile[typeDocument]" >
+                                                        <option value="FI"> {{'FI'|trans}}</option>
+                                                        <option value="FC"> {{'FC'|trans}}</option>
+                                                    </select>
+                                                </div>
+                                            </div><br>
+                                            <button type="submit" class="btn  btn-success pull-right col-12"> {{'exporter'|trans}}</button>           
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12 col-lg-6">              
+                                <div class="card shadow-none bg-light border">
+                                    <div class="card-body">
+                                        <div class="py-2 bg-transparent">
+                                            <h6 class="mb-0"> {{'get_emploi_pl'|trans}}  :</h6>
+                                        </div>
+                                        <form name="emploi" method="post" action="{{ path('get_date_emploi') }}" enctype="multipart/form-data">
+                                            <div class="row g-3">
+                                                <div class="form-group col-sm-12">
+                                                    <label for="dateDebut" class="form-label"> {{'date_debut'|trans}}</label>
+                                                    <div>
+                                                        <input type="text" id="datedebut" name="emploi[datedebut]" required="required" class=" js-dateDebut form-control">
+                                                    </div>
+                                                </div>
+                                                <div class="form-group col-sm-12">
+                                                    <label for="dateFin" class="form-label"> {{'date_fin'|trans}}</label>
+                                                    <div>
+                                                        <input type="text" id="datefin" name="emploi[datefin]" required="required" class=" js-dateFin form-control">
+                                                    </div>
+                                                </div>
+                                            </div><br>
+                                            <button type="submit" class="btn  btn-danger pull-right col-12">{{'envoyer'|trans}}  </button>           
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                       </div><!--end row-->
+                     </div>
+                    </div>
+                 </div>
+              </div><!--end row-->
+              
+
+     
+
+
+  
+{% endblock %}
+{% block javascripts %}
+       
+      {{parent()}}
+  
+      <script src="{{ asset('uploads/js/jquery-3.6.0.min.js') }}"></script>	    	
+      <script src="{{ asset('uploads/js/moment-with-locales.min.js')}}"></script>
+      <script src="{{ asset('uploads/js/bootstrap-material-datetimepicker.min.js')}}"></script>
+      <script>
+        $(document).ready(function() {
+          $('.js-dateDebut').bootstrapMaterialDatePicker({ time: false, lang: 'fr-FR',format: 'YYYY-MM-DD',switchOnClick:true});
+          $('.js-dateFin').bootstrapMaterialDatePicker({ time: false, lang: 'fr-FR',format: 'YYYY-MM-DD',switchOnClick:true});
+        });
+        
+      </script>
+      
+  
+{% endblock %} 
+
+     
+     
+     
+     
+     
+     
+     
+     
+     
+     
+     

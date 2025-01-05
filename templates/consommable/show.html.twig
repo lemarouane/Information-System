@@ -1,0 +1,193 @@
+{% extends "template.html.twig" %}
+
+{% block title %}{{'consommable'|trans}}{% endblock %}
+
+{% block body %}
+ <!--breadcrumb-->
+        <div class="page-breadcrumb d-none d-sm-flex align-items-center mb-3">
+          <div class="breadcrumb-title pe-3">{{'consommable'|trans}}</div>
+          <div class="ps-3">
+            <nav aria-label="breadcrumb">
+              <ol class="breadcrumb mb-0 p-0">
+                <li class="breadcrumb-item"><a href="javascript:;"><i class="bi bi-box-seam"></i></a>
+                </li>
+                <li class="breadcrumb-item active" aria-current="page"> {{'details_consommable_n'|trans}}  {{article.id}}  </li>
+              </ol>
+            </nav>
+          </div>
+        
+        </div>
+        <hr/>
+
+        <div class="card">
+          <div class="card-body">
+            <div class="table-responsive">
+              
+
+					<table class="table table-striped table-bordered" >
+							
+								<tbody>
+					
+										<tr>
+											<td>{{'code'|trans}}</td> <td>{{article.code}}</td>
+										</tr>
+					
+										<tr>
+											<td> {{'fournisseur'|trans}}</td> <td>{{article.fournisseur.raisonSociale}}</td>
+										</tr>
+										<tr>
+											<td> {{'categorie'|trans}}</td> <td>{{article.categorie.designation}}</td>
+										</tr>
+										<tr>
+											<td> {{'s_categorie'|trans}}</td> <td>{{article.sousCategorie.designation}}</td>
+										</tr>
+										
+					
+				                       	<tr>
+											<td> {{'designation'|trans}}</td> <td>{{article.designation}}</td>
+										</tr>
+
+										<tr>
+											<td> {{'ref'|trans}}</td> <td>{{article.reference}}</td>
+										</tr>
+
+										<tr>
+											<td> {{'qte_en_stock'|trans}}</td> <td>
+
+                                         <span
+                                            {% if article.qte < article.seuil  %}
+                                                style="color:red;font-weight:bold;font-size:15px;"
+                                            {% endif %}
+
+                                              {% if article.qte >= article.seuil  %}
+                                                style="color:green;font-weight:bold;font-size:15px;"
+                                            {% endif %}
+                                            >
+                                            {% if article.qte is empty %}
+                                                0 
+                                            {% else %}
+                                            {{article.qte}}
+                                            {% endif %}
+
+                                            </span>
+                                       
+											
+											</td>
+                      	<tr>
+											<td> {{'seuil'|trans}}</td> <td>{{article.seuil}}</td>
+										</tr>
+
+
+										</tr>
+
+
+										
+		
+								</tbody>
+							
+							</table>
+
+
+							{% if article.affectations is not empty %}
+				<div class="card">
+					<div class="card-body">
+				<div class="card-header py-2 bg-transparent">
+                  <h6 class="mb-0">{{'histo_affectation_article'|trans}}</h6> 
+                </div>
+						<div class="table-responsive">
+							<table id="example" class="table table-striped table-bordered" style="text-align:center !important ; " >
+								<thead>
+									<tr>
+										<th style="text-align:center !important ; ">{{'nom_prenom'|trans}}</th>
+										<th style="text-align:center !important ; ">{{'date_affectation'|trans}}</th>
+                    <th style="text-align:center !important ; ">{{'qte_affecte'|trans}}</th>
+                    <th style="text-align:center !important ; ">{{'imprimer_bon_sortie'|trans}}</th>
+									</tr>
+								</thead>
+								<tbody>
+								    {% for affectation in article.affectations %}
+                                        <tr>
+                                            <td>{{affectation.personnel.nom}} {{affectation.personnel.prenom}}</td>
+                                            <td>{{affectation.datedebut|date('Y-m-d')}}</td>
+                                            <td>{{affectation.qte}}</td>	
+                                          <td><a class="btn btn btn-primary px-4" href="{{ path('etatDechargeC', { 'id': affectation.decharge.id}) }}" class="text-info" data-bs-toggle="tooltip" data-bs-placement="bottom" aria-label="Edit"><i class="bi bi-file-earmark-arrow-down"></i> </a></td>
+                                        </tr>
+                                    {% endfor %}
+								</tbody>
+							
+							</table>
+						</div>
+					</div>
+				</div>
+                {% else %}
+                    <div class="alert alert-success">
+                        <strong>{{'no_hist_affectation'|trans}} </strong>  
+                    </div>
+                {% endif %}
+
+
+            </div>
+
+
+          </div>
+        </div>
+
+
+
+
+
+	<div class="card">
+			<div class="card-body">
+				<div class="card-header py-2 bg-transparent">
+            <h6 class="mb-0">{{'histo_affectation_article'|trans}}</h6> 
+        </div>
+						<div class="table-responsive">
+
+	<table id="example7" class="table table-striped table-bordered" style="text-align:center !important ; " >
+								<thead>
+									<tr>
+										<th style="text-align:center !important ; ">{{'n_reception'|trans}}</th>
+										<th style="text-align:center !important ; ">{{'qte'|trans}}</th>
+										<th style="text-align:center !important ; ">{{'reception'|trans}}</th>
+									</tr>
+								</thead>
+								<tbody>
+								    {% for line in article.receptionLignes %}
+                                        <tr>
+											<td>{{line.reception.numreception}}</td>
+                      <td>{{line.qte}}</td>
+											<td><a class="btn btn btn-primary px-4" href="{{ path('showReception', { 'id': line.reception.id}) }}" class="text-primary" data-bs-toggle="tooltip" data-bs-placement="bottom" aria-label="Views"><i class="bi bi-eye-fill"></i></a></td>	
+										</tr>
+                                    {% endfor %}
+								</tbody>
+							
+		</table>
+
+
+
+            </div>
+      </div>
+  </div>
+
+
+
+
+
+
+
+
+
+
+
+
+		<div>
+        	<a class="btn btn btn-primary px-4 col-2" style="float:left" href="{{ path('consommable') }}"> {{'back'|trans}} </a>                     
+        </div>
+							                    
+
+{% endblock %}
+{% block javascripts %}
+	{{ parent() }}
+{% endblock %}
+
+              						

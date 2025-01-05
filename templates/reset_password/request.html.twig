@@ -1,0 +1,76 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{'password_reset.m0'|trans}}{% endblock %}
+
+{% block stylesheets %}
+    {{ encore_entry_link_tags('app') }}
+{% endblock %}
+
+
+
+{% block body %}
+    {% for flash_error in app.flashes('reset_password_error') %}
+        <div class="alert alert-danger" role="alert">{{ flash_error }}</div>
+    {% endfor %}
+
+
+
+  <!--start wrapper-->
+  <div class="wrapper">
+    
+       <!--start content-->
+       <main class="authentication-content">
+        <div class="container-fluid">
+          <div class="authentication-card">
+            <div class="card shadow rounded-0 overflow-hidden">
+              <div class="row g-0">
+                <div class="col-lg-6 d-flex align-items-center justify-content-center border-end">
+                  <img src="{{asset('build/images/error/forgot-password-frent-img.jpg')}}" class="img-fluid" alt="">
+                </div>
+                <div class="col-lg-6">
+                  <div class="card-body p-4 p-sm-5">
+                    <h5 class="card-title">{{'password_reset.m1'|trans}}</h5>
+                    <p class="card-text mb-5">{{'password_reset.m2'|trans}}</p>
+                    {{ form_start(requestForm,{'attr': {'class': 'form-body'}}) }}
+                        <div class="row g-3">
+                          <div class="col-12">
+                          
+
+
+   
+        {{ form_row(requestForm.email,{'attr': {'class': 'form-control form-control-lg radius-30'}}) }}
+
+    
+                          </div>
+                          <div class="col-12">
+                            <div class="d-grid gap-3">
+                              <button type="submit" class="btn btn-lg btn-primary radius-30">{{'Send'|trans}}</button>
+							                <a href="{{path('app_login')}}" class="btn btn-lg btn-light radius-30">{{'Back'|trans}}</a>
+                            </div>
+                          </div>
+                        </div>
+                    {{ form_end(requestForm) }}
+                 </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+       </main>
+        
+       <!--end page main-->
+
+  </div>
+  <!--end wrapper-->
+
+
+
+
+
+
+
+ 
+{% endblock %}
+ {% block javascripts %}
+            {{ encore_entry_script_tags('app') }} 
+    {% endblock %}

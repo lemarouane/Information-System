@@ -1,0 +1,235 @@
+{% extends 'template.html.twig' %}
+
+{% block title %}{{'stats_scolarite'|trans}}{% endblock %}
+{% block stylesheets %}
+        {{ parent() }}
+        <style type="text/css">
+          
+        </style>
+{% endblock %}
+{% block body %}
+
+
+                    <div class="page-breadcrumb d-none d-sm-flex align-items-center mb-3">
+                        <div class="breadcrumb-title pe-3">{{'scolarite'|trans}}</div>
+                        <div class="ps-3">
+                            <nav aria-label="breadcrumb">
+                            <ol class="breadcrumb mb-0 p-0">
+                                <li class="breadcrumb-item"><a href="javascript:;"><i class="bi bi-bar-chart-line"></i></a>
+                                </li>
+                                <li class="breadcrumb-item active" aria-current="page">{{'stats'|trans}}</li>
+                            </ol>
+                            </nav>
+                        </div>
+                        <div class="ms-auto" >
+                            
+                        </div>
+                </div>
+                <hr>
+ <div class="card">
+    <div class="card-header py-3"> 
+      <div class="row g-3 align-items-center">
+        <form action="{{ path('exporterStatSco')}}" method="post" class="row g-3 align-items-center">
+          <div class="col-12 col-lg-4 col-md-6 me-auto">
+            <h5 class="mb-1">{{'exporter'|trans}}</h5>
+            <p class="mb-0">{{'stats'|trans}}  </p>
+          </div>
+        
+          <div class="col-12 col-lg-3 col-6 col-md-3">
+            <select id="anneeSelect" class="form-select" name="searchParam[annee]" >
+              {% for annee in anneeUniversitaire %}
+                <option value={{annee.COD_ANU}}>{{annee.COD_ANU}}</option>
+              {% endfor %}
+            </select>
+          </div>
+          <div class="col-12 col-lg-3 col-6 col-md-3">
+            
+            <input type="submit" value="{{'exporter'|trans}}" class="btn btn-primary" style="float:right"></input>
+            
+          </div>
+        
+        </div>
+      </form>
+    </div>
+  <div class="card-body">
+      <div class="row">
+        <div id="path-to-statScolarite" data-href="{{ path('getstatScolarite', {annee:'1111'})}}" class="row row-cols-1 row-cols-sm-2 row-cols-md-4 row-cols-xl-4 row-cols-xxl-4 align-items-center">
+               <div class="col">
+                <div class="card radius-10 bg-success">
+                  <div class="card-body">
+                    <div class="d-flex align-items-center">
+                      <div class="">
+                        <p class="mb-1 text-white">{{'nv_inscrits'|trans}}</p>
+                        <h4 id="etudiant_totale_nv"  class="mb-0 text-white"></h4>
+                      </div>
+                      <div class="ms-auto widget-icon bg-white-1 text-white">
+                        <i class="bi bi-person-check"></i>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+               </div>
+                <div class="col">
+                <div class="card radius-10 bg-orange">
+                  <div class="card-body">
+                    <div class="d-flex align-items-center">
+                      <div class="">
+                        <p class="mb-1 text-white">{{'totale'|trans}}</p>
+                        <h4 id="etudiant_totale"  class="mb-0 text-white"></h4>
+                      </div>
+                      <div class="ms-auto widget-icon bg-white-1 text-white">
+                        <i class="fa fa-users"></i>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+               </div>
+               <div class="col">
+                <div class="card radius-10 bg-info">
+                  <div class="card-body">
+                    <div class="d-flex align-items-center">
+                      <div class="">
+                        <p class="mb-1 text-white">{{'garcons'|trans}}</p>
+                        <h4 id="etudiant_garçon"  class="mb-0 text-white"></h4>
+                      </div>
+                      <div class="ms-auto widget-icon bg-white-1 text-white">
+                      <i class="bi bi-gender-male"></i>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+               </div>
+
+                <div class="col">
+                <div class="card radius-10 bg-pink">
+                  <div class="card-body">
+                    <div class="d-flex align-items-center">
+                      <div class="">
+                        <p class="mb-1 text-white">{{'filles'|trans}}</p>
+                        <h4 id="etudiant_fille"  class="mb-0 text-white"></h4>
+                      </div>
+                      <div class="ms-auto widget-icon bg-white-1 text-white">
+                        <i class="bi bi-gender-female"></i>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+               </div>     
+        </div>
+      </div>
+    </div>
+  </div>
+      <div class="row">
+            <div class="col-12 col-lg-6 col-xl-12 col-xxl-6 d-flex">
+                <div class="card radius-10 w-100">
+                  <div class="card-body">
+                     <div class="row row-cols-1 row-cols-lg-1 g-3 align-items-center pb-3">
+                        <div class="col" id="path-to-nbAsDiplome" data-href="{{ path('getCapaciteAsDiplome', {annee:'1111'})}}">
+                          <h5 class="mb-0"> {{'nb_etu_par_diplome'|trans}} </h5>
+                        </div>
+                       
+                     </div>
+                     <div id="chart6"></div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-12 col-lg-6 col-xl-12 col-xxl-6 d-flex">
+                <div class="card radius-10 w-100">
+                  <div class="card-body">
+                     <div class="row row-cols-1 row-cols-lg-1 g-3 align-items-center pb-3">
+                        <div class="col" id="path-to-nbAsEtape" data-href="{{ path('getCapaciteAsEtape', {annee:'1111'})}}">
+                          <h5 class="mb-0">  {{'nb_etu_par_etape'|trans}}  </h5>
+                        </div>
+                       
+                     </div>
+                     <div id="chart7"></div>
+                  </div>
+                </div>
+              </div>
+              
+          
+        </div><!--end row-->
+      
+
+        <div class="row">
+        <div class="col-12 col-lg-6 col-xl-6 d-flex">
+                <div class="card radius-10 w-100">
+                  <div class="card-body chartJs">
+                     <div class="row row-cols-1 row-cols-lg-1 g-3 align-items-center pb-3">
+                        <div class="col" id="path-to-nbAsEtapeNV" data-href="{{ path('getCapaciteAsEtapeNV', {annee:'1111'})}}">
+                          <h5 class="mb-0"> {{'nb_nv_etu_par_diplome'|trans}}  </h5>
+                        </div>
+                       
+                     </div>
+                     <div id="chart5"></div>
+                  </div>
+                </div>
+              </div>
+
+            <div class="col-12 col-lg-6 col-xl-6 d-flex">
+                <div class="card radius-10 w-100">
+                  <div class="card-body">
+                     <div class="row row-cols-1 row-cols-lg-1 g-3 align-items-center pb-3">
+                        <div class="col" id="path-to-evolutifEffect" data-href="{{ path('getevolutionEffectif', {annee:'1111'})}}">
+                          <h5 class="mb-0"></h5>
+                        </div>
+                        
+                     </div>
+                     <div id="chart1"></div>
+                  </div>
+                </div>
+              </div>
+
+               
+              
+    </div><!--end row-->
+
+
+     <div class="row">
+        <div class="col-12 col-lg-12 col-xl-12 d-flex">
+                <div class="card radius-10 w-100">
+                  <div class="card-body chartJs">
+                     <div class="row row-cols-1 row-cols-lg-1 g-3 align-items-center pb-3">
+                     <div class="col" id="path-to-StatbyPays" data-href="{{ path('statByPays', {annee:'1111'})}}">
+                          <h5 class="mb-0"> {{'nb_nv_etu_par_pays'|trans}}  </h5>
+                        </div>
+                       
+
+                       <div>
+                        <span><h4 style="display: inline;margin-left:0%;" id="stat_totale" class="mt-4"> </h4> {{'etudiant_etranger'|trans}}   |   </span>  
+                        <span><h4 style="display: inline;margin-left:0%;" id="stat_pays_totale" class="mt-4"></h4> {{'de_pays'|trans}}</span>  
+                        </div>
+      
+                        <ul style="  max-width: 400px;
+  margin-right: auto;
+  margin-left: auto;"  id="list_country" class="list-group list-group-flush mt-3" >
+                         </ul>
+                     </div>
+                  </div>
+                </div>
+              </div>
+              
+                   
+              
+    </div><!--end row-->
+
+<!--end row-->
+ 
+</div>
+
+
+
+{% endblock %}
+
+
+{% block javascripts %}
+    {{parent()}}
+    <script src="{{ asset('uploads/js/apexcharts-bundle/js/apexcharts.js') }}"></script>	
+    {{ encore_entry_script_tags('scolarite_stat') }} 
+{% endblock %}
+
+
+
+
+

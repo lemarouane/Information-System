@@ -1,0 +1,108 @@
+﻿{% extends "template.html.twig" %}
+{% block title %}
+{{'dashboard'|trans}}  {{ parent() }}
+{% endblock %}
+{% block stylesheets %}
+{{ parent() }}
+
+{% endblock %}
+{% block body %}
+
+      <!-- NEW COL START -->
+      {% for message in app.flashes('success') %}
+        <div class="flash-notice">
+            {{ message }}
+         </div>
+      {% endfor %}
+    <div class="box-footer">
+      <section class="content">
+            <!-- /.row -->
+          <div class="row">
+            <div class="col-md-12">
+              <div class="box box-primary">
+                <div class="box-header with-border" style="border:1px solid #C4C4C4;">
+                  <h3 class="box-title"> {{'liste_dem_convention'|trans}} ({{'totale'|trans}}:  {{ conventions|length }})</h3>
+                  <div class="box-body">
+                    {% if conventions is not empty %}
+                      <div class="col-md-12">
+                        <div class="row">
+                          <div class="col-md-12" style="padding-left:30px;padding-right:30px;">
+                            <div id="example2_wrapper" class="dataTables_wrapper form-inline dt-bootstrap">
+                              <div class="row">
+                                <div class="col-sm-6"></div>
+                                <div class="col-sm-6"></div>
+                              </div>
+                              <div class="row">
+                                <div class="col-sm-12">
+                                  <div class="row table-responsive" style="margin-left:5px; margin-right: 5px;border: 1px solid #EDEBEB;padding: 0px 18px;">  
+                                    <table id="example1" class="table table-bordered table-hover dataTable" role="grid" aria-describedby="example1_info">
+                                      <thead>
+                                        <tr  style="background-color: #f39c12;color: white;">
+                                          <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-sort="ascending" aria-label="datedemande: activate to sort column descending">{{'date_envoie'|trans}}</th>
+                                          <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="Code Apogee: activate to sort column ascending">{{'num_apogee'|trans}}</th>
+                                          <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="Nom: activate to sort column ascending">{{'nom'|trans}}</th>
+                                          <th class="sorting" tabindex="0" aria-controls="example4" rowspan="1" colspan="1" aria-label="Prenom: activate to sort column ascending">{{'prenom'|trans}}</th>
+                                          <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="Email: activate to sort column ascending">{{'email'|trans}}</th>
+                                          <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="N° Téléphone: activate to sort column ascending">{{'tel'|trans}}</th>
+                                          <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="Filière: activate to sort column ascending">{{'filiere'|trans}}</th>
+                                          <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="Sujet: activate to sort column ascending">{{'entreprise'|trans}}</th>
+                                          <th class="sorting" tabindex="0" aria-controls="example4" rowspan="1" colspan="1" aria-label="Entreprise: activate to sort column ascending">{{'sujet'|trans}}</th>
+                                          <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="Date de debut: activate to sort column ascending"> {{'date_debut'|trans}}</th>
+                                          <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="Date de Fin: activate to sort column ascending"> {{'date_fin'|trans}}</th>
+                                          <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="Statut: activate to sort column ascending">{{'statut'|trans}}</th>
+                                          <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="Niveau: activate to sort column ascending">{{'niveau'|trans}}</th>
+                                        </tr>
+                                      </thead>
+                                      <tbody>
+                                        {% for convention in conventions %}
+                                          <tr role="row" class="odd">
+                                            <td class="sorting_1"><label>{{convention.dateenvoie ? convention.dateenvoie|date('d-m-Y H:i:s') : '' }}</label></td>
+                                            <td><label>{{ convention.idUser.codeEtudiant }}</label></td>
+                                            <td><label>{{ convention.idUser.nom }}</label></td>
+                                            <td><label>{{ convention.idUser.prenom }}</label></td>
+                                            <td><label>{{ convention.idUser.email }}</label></td>
+                                            <td><label>{{ convention.phone }}</label></td>
+                                            <td><label>{{ convention.filiere}}</label></td>
+                                            <td><label>{{ convention.entreprise}}</label></td>
+                                            <td><label>{{ convention.sujet}}</label></td>
+                                            <td><label>{{ convention.dateDebut|date('d-m-Y')}}</label></td>
+                                            <td><label>{{ convention.dateFin|date('d-m-Y')}}</label></td>
+                                            <td><label>{{ convention.statut}}</label></td>
+                                            <td><label>{{ convention.niveau}}</label></td>
+                                          </tr>
+                                        {% endfor %}
+                                      </tbody>
+                                    </table>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                          <!-- /.col -->
+                        </div>
+                        <!-- /.row -->
+                      </div>
+                    {% else %}
+                      <div class="alert alert-success fade in">
+                          <button type="button" class="close" data-dismiss="alert">×</button>
+                          <strong>{{'MOD_EMPTY_DEM'|trans}} !</strong>   
+                      </div>
+                    {% endif %}
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+
+        
+{% endblock body %}
+
+ {% block javascripts %}
+
+{{ parent() }}
+    
+
+{% endblock %}

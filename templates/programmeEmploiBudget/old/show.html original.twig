@@ -1,0 +1,146 @@
+{% extends "template.html.twig" %}
+{% block title %}
+Programme d'emploi | {{ parent() }}
+{% endblock %}
+
+{% block body %}
+
+	<div class="page-breadcrumb d-none d-sm-flex align-items-center mb-3">
+					<div class="breadcrumb-title pe-3">{{'finance'|trans}} </div>
+					<div class="ps-3">
+						<nav aria-label="breadcrumb">
+							<ol class="breadcrumb mb-0 p-0">
+								<li class="breadcrumb-item"><a href="javascript:;"><i class="bi bi-arrow-bar-down"></i></a>
+								</li>
+								<li class="breadcrumb-item active" aria-current="page">{{'ajouter_programme_emploi_detail'|trans}}</li>
+							</ol>
+						</nav>
+					</div>
+				</div>
+		<hr/>
+
+
+
+
+
+
+
+
+    <section class="invoice">
+
+        <!-- title row -->
+        <div class="row">
+          <div class="col-xs-12">
+            <h2 class="page-header">
+              <i class="fa fa-globe"></i> 
+              <small class="pull-right"></small>
+            </h2>
+          </div>
+          <!-- /.col -->
+        </div>
+
+        <!-- info row -->
+        <div class="row invoice-info" style="border-bottom: 1px solid #eee;margin-bottom: 10px;">
+          <div class="col-sm-2 invoice-col">
+            <address>
+              <strong>Référence</strong>
+              <br>
+              <br>
+              {{ programmeEmploi.reference}} <br>
+              
+            </address>
+          </div>
+          <!-- /.col -->
+          <div class="col-sm-2 invoice-col">
+            <address>
+              <strong>Intitule</strong>
+              <br><br>
+              {{ programmeEmploi.intitule}}<br>
+              
+            </address>
+          </div>
+          <!-- /.col -->
+          <div class="col-sm-2 invoice-col" >
+             <address>
+              <strong>Année</strong>
+              <br><br>
+              {{ programmeEmploi.annee }} <br>
+ 
+            </address>
+          </div>
+          <div class="col-sm-2 invoice-col" >
+             <address>
+              <strong>Montant</strong>
+              <br><br>
+              {{ programmeEmploi.montant}}<br>
+ 
+            </address>
+          </div>
+          <div class="col-sm-2 invoice-col" >
+             <address>
+              <strong>Type</strong>
+              <br><br>
+              {{ programmeEmploi.type}}<br>
+ 
+            </address>
+          </div>
+          <div class="col-sm-2 invoice-col" >
+             <address>
+              <strong>personne</strong>
+              <br><br>
+              {{ programmeEmploi.personne.nom}} {{ programmeEmploi.personne.prenom }}<br>
+            </address>
+          </div>
+          <!-- /.col -->
+        </div>
+        <div class="row">
+          <div class="col-md-12" style="padding-left:30px;padding-right:30px;">
+            <div id="example2_wrapper" class="dataTables_wrapper form-inline dt-bootstrap">
+                          <div class="row">
+                            <div class="col-sm-6"></div>
+                            <div class="col-sm-6"></div>
+                          </div>
+                          <div class="row">
+                            <div class="col-sm-12">
+                              <table id="example2" class="table table-bordered table-hover dataTable" role="grid" aria-describedby="example2_info">
+                                <thead>
+                                  <tr role="row">
+                                    <th class="sorting" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-sort="ascending" aria-label="article: activate to sort column descending">Rubrique</th>
+                                    <th class="sorting" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-label="quantité: activate to sort column ascending">Montant</th>
+                                    
+                                  </tr>
+                                </thead>
+                                <tbody>
+                                {% for programmeElement in programmeEmploi.element %}
+                                  <tr role="row" class="odd">
+                                    <td class="sorting_1">{{ programmeElement.rubrique.libelle }}</td>
+                                    <td>{{ programmeElement.montant}}</td>
+                                  </tr>
+                                {% endfor %}
+                              </tbody>
+                            </table>
+                          </div>
+                        </div>
+                      </div>
+                      <div>
+                              <form action="#" >
+                                <a class="btn btn-primary btn-block col-sm-4" style=" position:relative " href="#">Vers la liste</a>
+                              
+                                <hr>
+                              </form>
+                          </div> 
+          </div>
+          <!-- /.col -->
+        </div>
+        <!-- /.row -->
+    </section>
+{% endblock body %}
+
+ {% block javascripts %}
+{{ parent() }}
+<script> 
+    (function($) {
+    })(jQuery);
+</script>
+
+{% endblock %}

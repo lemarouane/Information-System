@@ -1,0 +1,36 @@
+<div class="card shadow-none bg-light border">
+      <div class="card-body">
+            <div class="card-header py-2 bg-transparent"><h6 class="mb-0"></h6>{{'ajouter_programme_emploi'|trans}}</div>
+                <div class="row g-3">
+                   <p style="font-family: 'Times New Roman', Arial, Verdana, Sans-serif; margin-top: 20px;">Si vous avez des P.E merci de les ajouter en cliquant sur le botton + </p>
+                <div class="box-body"  id="article_list" data-prototype="{{ form_widget(form.element.vars.prototype)|e('html_attr')}}">
+                    {% for row in form.element %}
+                      <div class="form-group panel">
+                        <div class="row panalArticle" style="margin-bottom: 15px;">
+
+                          <div class="form-group col-sm-6">
+                            <label for="rubrique" class="control-label">Rubrique</label>
+
+                            <div>
+                              {{ form_widget(row.rubrique,{'attr': {'placeholder': 'Rubrique','class':'form-control'}}) }}
+                            </div>
+                          </div>
+                          
+                          <div class="form-group col-sm-6">
+                            <label for="montant" class="control-label">Montant:</label>
+
+                            <div>
+                              {{ form_widget(row.montant,{'attr': {'placeholder': 'Montant','class':'form-control'}}) }}
+                            </div>
+                          </div>
+                          
+                        </div>
+
+                      </div>
+                    {% endfor %}
+                  </div>
+
+
+                  </div>
+            </div>
+      </div>

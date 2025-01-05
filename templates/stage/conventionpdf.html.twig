@@ -1,0 +1,112 @@
+﻿
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Convention</title>
+		<meta charset="utf-8">
+		<link rel="stylesheet" type="text/css" href="{{base_dir ~  asset('/public/uploads/css/convention.css')}}">
+	</head>
+	<body>
+	{% for entity in stage %}
+	{% if loop.last == false %}
+		<div style="page-break-after:always">
+	{% else %}
+		<div>
+	{% endif %}
+	
+        <div class="label_fichier" >
+			
+			<span style="float: left;text-align: center;font-size:18px; width: 400px;padding-top: 20px;font-weight: bold;">ROYAUME  DU  MAROC<br>
+						UNIVERSITE  ABDELMALEK  ESSAADI<br>
+					ECOLE NATIONAL DES  SCIENCES APPLIQUEES<br>
+					TANGER
+			</span>
+			<span style="float: left; width: 150px; height: 50px;margin-left: 20px;">
+				<img src="{{base_dir ~  asset('/public/uploads/img/ensatanger.png')}}" height="100px" style="padding-left: 10px;">
+			</span>
+			<span style="float: right;text-align: center;font-size:20px; width: 250px;padding-top: 20px;font-weight: bold;">
+				المملكة المغربية
+			<br>جـــامـعـــة عـبـد الـمالـك الـسـعـــدي
+				المــدرسة الوطنية للعلوم التطبيقية
+				<br>طنجة
+
+			</span>
+	    </div>
+	    <div style="padding-top: 20%">
+	        <h1> CONVENTION CADRE <br> ENTREPRISE / ENSA de Tanger </h1>
+	    </div>
+        <div class="contenu_fichier" id="page" style="padding-top: 2%">
+			<p> Entre : <strong> &nbsp;&nbsp;{% if entity.entreprise.id == 702 %} {{entity.intitule |upper}} {% else %} {{entity.entreprise.intitule |upper}} {% endif %} &nbsp;&nbsp;</strong><br><br>
+         		représenté(e) par : ……………………………………………….<br><br>
+         		d’une part, </p>
+
+				<p style="font-weight:bold;">Et : l'Ecole Nationale des Sciences Appliquées de Tanger (ENSA de Tanger)</p><p> représentée par son Directeur :<strong> M. Ahmed MOUSSA</strong>
+				d’autre part,</p>
+
+				<p>Il a été convenu ce qui suit :</p>
+
+
+
+<div style="font-weight:bold;">ARTICLE 1 :</div>
+<p>La présente convention régit les rapports entre les deux parties, dans le cadre de l’organisation de stages d’entreprises qui s’inscrivent dans le programme de formation de l’établissement de formation cité ci-dessus.</p>
+
+<div style="font-weight:bold;">ARTICLE 2 :</div>
+<p>
+Le stage de formation a pour but essentiel d’assurer l’application pratique de l’enseignement donné par l’établissement, et d’élaborer un projet sur un thème proposé par l’entreprise.</p>
+
+<div style="font-weight:bold;">ARTICLE 3 :</div>
+<p>
+Le programme du stage est élaboré par le personnel chargé de l’encadrement du stagiaire, en tenant compte du programme et de la spécialité des études de l’élève, ainsi que de la disponibilité des moyens humain et matériel de l’entreprise. Cette dernière se réserve le droit de réorienter l’apprentissage en fonction des qualifications du stagiaire et du rythme de ses activités professionnelles.</p>
+
+
+<div style="font-weight:bold;">ARTICLE 4 :</div>
+<p>                                                                                                                                                               
+Pendant le stage, l’élève est soumis aux usages et règlements de l’entreprise, notamment en matière de discipline, des horaires et des congés. En cas de manquement à ces règles, le chef d’entreprise se réserve le droit de mettre fin au stage, après avoir prévenu le Directeur de l'Ecole.</p>
+
+<div style="font-weight:bold;">ARTICLE 5 :</div>
+<p>
+Au terme de son stage, le stagiaire est dans l’obligation de remettre une copie de son rapport de stage à l’entreprise. </p>
+
+<br><br><br><br><br><br><br><br><br> 
+<div style="font-weight:bold; ">ARTICLE 6 :</div>
+<p>
+L’étudiant s’engage à garder confidentielle toute information recueillie dans l’entreprise, et à n’utiliser en aucun cas ces informations pour faire l’objet d’une publication, communication à des tiers, conférences, …, sans l’accord de l’entreprise.</p>
+
+<div style="font-weight:bold;">ARTICLE 7 : </div>
+<p>
+L’élève stagiaire en période de stage au sein de l’entreprise doit être couvert, par ses propres moyens, pour les accidents de travail survenus par le fait ou à l’occasion de son séjour.</p>
+
+<div style="font-weight:bold;">ARTICLE 8 :</div>
+<p>
+L’entreprise s’engage à fournir à l’établissement de formation, s’il le demande, son évaluation sur le travail du stagiaire, même sur certains points particuliers qu’il jugera nécessaires.</p>
+
+<div style="font-weight:bold;">ARTICLE 9 :</div>
+<p>
+En cas de non-respect de l’une des clauses de cette convention, aussi bien par l’élève stagiaire que son établissement d’origine, l’entreprise se réserve le droit de mettre fin à ce stage.
+</p>
+<div style="font-weight:bold;">ARTICLE 10 :</div>
+<p>
+
+ Dans le cadre de la présente convention :<strong> &nbsp;&nbsp;{% if entity.entreprise.id == 702 %} {{entity.intitule |upper}} {% else %} {{entity.entreprise.intitule |upper}} {% endif %} &nbsp;&nbsp; </strong><br><br> accepte de recevoir l’élève – stagiaire : <strong>&nbsp;&nbsp;{{entity.user.nom |upper}} &nbsp;&nbsp; {{entity.user.prenom |upper}} &nbsp;&nbsp;</strong><br><br>
+ inscrit(e) à l'ENSA de Tanger en <strong> {{formeEtudiant[entity.id]}}</strong>.<br><br>
+ durant la période allant du <strong>{{entity.dateDebut|date('d/m/Y')}} </strong> au <strong>{{entity.dateFin|date('d/m/Y')}}</strong>.<br><br><br><br><br><br>
+ <strong>Fait à Tanger, {{"now"|date('d-m-Y')}} </strong><br><br></p>
+
+
+<p style="margin-left: 20%;">
+                <strong>  Lu et approuvé  </strong></p>                                                
+
+<p style="margin-left: 15%;"><strong>Le Directeur de la Société      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  Le Directeur de l'ENSA Tanger</strong></p><br><br>
+   
+
+
+<p style="text-align: center; padding-top: 70px;">
+<strong>
+Le stagiaire 
+ </strong>
+</p>
+		</div>
+	</div>
+		{% endfor %}
+	</body>
+</html>

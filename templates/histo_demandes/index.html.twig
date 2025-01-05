@@ -1,0 +1,45 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}HistoDemandes index{% endblock %}
+
+{% block body %}
+    <h1>HistoDemandes index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Type_demande</th>
+                <th>Id_demande</th>
+                <th>DateEnvoie</th>
+                <th>DateValidation</th>
+                <th>Statut</th>
+                <th>Niveau</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for histo_demande in histo_demandes %}
+            <tr>
+                <td>{{ histo_demande.id }}</td>
+                <td>{{ histo_demande.typeDemande }}</td>
+                <td>{{ histo_demande.idDemande }}</td>
+                <td>{{ histo_demande.dateEnvoie ? histo_demande.dateEnvoie|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ histo_demande.dateValidation ? histo_demande.dateValidation|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ histo_demande.statut }}</td>
+                <td>{{ histo_demande.niveau }}</td>
+                <td>
+                    <a href="{{ path('app_histo_demandes_show', {'id': histo_demande.id}) }}">show</a>
+                    <a href="{{ path('app_histo_demandes_edit', {'id': histo_demande.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="8">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_histo_demandes_new') }}">Create new</a>
+{% endblock %}

@@ -1,0 +1,175 @@
+{% extends "template.html.twig" %}
+
+{% block title %}{{'reg_inventaire'|trans}}{% endblock %}
+
+{% block body %}
+ <!--breadcrumb-->
+        <div class="page-breadcrumb d-none d-sm-flex align-items-center mb-3">
+          <div class="breadcrumb-title pe-3">{{'reg_inventaire'|trans}}</div>
+          <div class="ps-3">
+            <nav aria-label="breadcrumb">
+              <ol class="breadcrumb mb-0 p-0">
+                <li class="breadcrumb-item"><a href="javascript:;"><i class="bi bi-box-seam"></i></a>
+                </li>
+                <li class="breadcrumb-item active" aria-current="page"> {{'details_inventaire_n'|trans}}  {{inventaire.numinventaire}}  </li>
+              </ol>
+            </nav>
+          </div>
+        
+        </div>
+        <hr/>
+
+        <div class="card">
+          <div class="card-body">
+            <div class="table-responsive">
+              
+
+					<table class="table table-striped table-bordered" >
+							
+								<tbody>
+					
+										<tr>
+											<td> {{'n_inventaire'|trans}}</td> <td>{{inventaire.numinventaire}}</td>
+										</tr>
+										<tr>
+											<td> {{'n_reception'|trans}}</td> <td>{{inventaire.receptionligne.reception.numreception}}</td>
+										</tr>
+										<tr>
+											<td>{{'code_article'|trans}}</td> <td>{{inventaire.article.code}}</td>
+										</tr>
+										<tr>
+											<td>{{'ref'|trans}}</td> <td>{{inventaire.article.reference}}</td>
+										</tr>
+					
+				                       	<tr>
+											<td> {{'date_reception'|trans}}</td> <td>{{inventaire.datereception|date('Y-m-d')}}</td>
+										</tr>
+
+										<tr>
+											<td> {{'categorie'|trans}}</td> <td>{{inventaire.categorie.designation}}</td>
+										</tr>
+										<tr>
+											<td>{{'n_bc_ao'|trans}}</td> <td>{{inventaire.numbcao}}</td>
+										</tr>
+										<tr>
+											<td> {{'n_livraison'|trans}}</td> <td>{{inventaire.numlivraison}}</td>
+										</tr>
+										<tr>
+											<td>{{'fournisseur'|trans}}</td> <td>{{inventaire.raisonsocialefournisseur}}</td>
+										</tr>
+										<tr>
+											<td>{{'etat'|trans}}</td> <td>
+											
+										  {% if inventaire.etatconservation!='seconde main' %}
+                                            {{'neuf'|trans}}
+                                         {% else  %}
+                                           {{'seconde_main'|trans}}
+                                          {% endif  %}
+											
+											
+											</td>
+										</tr>
+					
+				                       	<tr>
+											<td> {{'affecter_a'|trans}}</td>     <td>
+                                            
+                                          {% if inventaire.affectera!='-' %} 
+                                             {{inventaire.affectera}}
+                                         {% else  %}
+                                     <span style="color:green;font-weight:bold;"> {{'en_stock'|trans}} </span>
+                                          {% endif  %}
+                                        
+                                            </td>
+										</tr>
+
+										<tr>
+											<td> {{'locale'|trans}}</td> 
+											 <td>
+                    {% if inventaire.local!='-' %} 
+                            {{inventaire.local}}
+                    {% else  %}
+                            {% if inventaire.affectera!='-' %} 
+                              {{inventaire.personnel.serviceAffectationId.nomservice}}
+                            {% else  %}
+                                <span style="color:green;font-weight:bold;"> {{'en_stock'|trans}} </span>
+                            {% endif  %}
+                    {% endif  %}
+                                           
+                                            </td>
+										</tr>
+
+
+										
+		
+								</tbody>
+							
+							</table>
+
+
+							{% if inventaire.affectations is not empty %}
+				<div class="card">
+					<div class="card-body">
+					<div class="card-header py-2 bg-transparent">
+                  <h6 class="mb-0">{{'histo_affectation_article'|trans}}</h6> 
+                </div>
+						<div class="table-responsive">
+							<table id="example" class="table table-striped table-bordered" style="text-align:center !important ; ">
+								<thead>
+									<tr>
+										<th style="text-align:center !important ; "> {{'nom_prenom'|trans}}</th>
+										<th style="text-align:center !important ; "> {{'locale'|trans}}</th>
+                                        <th style="text-align:center !important ; "> {{'affecte_depuis'|trans}}</th>
+									</tr>
+								</thead>
+								<tbody>
+								    {% for affectation in inventaire.affectations %}
+                                        <tr>
+
+                                            <td>{{affectation.personnel.nom}} {{affectation.personnel.prenom}}</td>
+                                            <td>
+											{% if affectation.local != '-' and affectation.local!=''  %}
+											{{affectation.local}}
+											{% else %}
+													{{affectation.personnel.serviceAffectationId.nomservice}}
+											{% endif %}
+											</td>
+
+                                            <td>{{affectation.datedebut|date('Y-m-d')}} - 
+											{% if affectation.datefin is not empty %}
+											{{affectation.datefin|date('Y-m-d')}}
+											{% else %}
+											{{'ajourdhui'|trans}}
+											{% endif %}
+											
+											</td>	
+                                        </tr>
+                                    {% endfor %}
+								</tbody>
+							
+							</table>
+						</div>
+					</div>
+				</div>
+                {% else %}
+                    <div class="alert alert-success">
+                        <strong> {{'no_hist_affectation'|trans}} </strong>  
+                    </div>
+                {% endif %}
+
+
+            </div>
+
+
+          </div>
+        </div>
+		<div>
+        	<a class="btn btn btn-primary px-4 col-2" style="float:left" href="{{ path('registreinventaires') }}"> {{'back'|trans}} </a>                     
+        </div>
+							                    
+
+{% endblock %}
+{% block javascripts %}
+	{{ parent() }}
+{% endblock %}
+
+              						

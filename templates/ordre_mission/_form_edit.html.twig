@@ -1,0 +1,336 @@
+<div class="row">
+ <div class="page-breadcrumb d-none d-sm-flex align-items-center mb-3">
+              <div class="breadcrumb-title pe-3">{{'dms'|trans}}</div>
+              <div class="ps-3">
+                <nav aria-label="breadcrumb">
+                  <ol class="breadcrumb mb-0 p-0">
+                    <li class="breadcrumb-item"><a href="javascript:;"><i class="bi bi-arrow-bar-up"></i></a>
+                    </li>
+                    <li class="breadcrumb-item active" aria-current="page">{{'oms'|trans}}</li>
+                  </ol>
+                </nav>
+              </div>
+         
+            </div>
+
+<div class="col-lg-12 mx-auto">
+   <div class="card">
+     <div class="card-body">
+ {% include "flaches.html.twig" %}
+<div class="card shadow-none bg-light border">
+      <div class="card-body">
+            <div class="card-header py-2 bg-transparent"><h6 class="mb-0">{{'titles.edit_dem_om'|trans}} {{'n'|trans}} {{id}}</h6></div>
+                            <div class="row g-3">
+                       {{ form_start(form ,{ 'attr' : { 'class' : 'row g-3' }}) }}
+                        <div class="col-4">
+                               {{ form_row(form.typeMission ,{ 'attr' : { 'class' : 'form-select' }}) }}
+                             </div>
+
+                              <div class="col-4">
+                               {{ form_row(form.objetMission ,{ 'attr' : { 'class' : 'form-control' }}) }}
+                             </div>
+                               <div class="col-4">
+                               {{ form_row(form.cadreMission ,{ 'attr' : { 'class' : 'form-control' }}) }}
+                             </div>
+                               <div class="col-4">
+                               {{ form_row(form.structureAcceuil ,{ 'attr' : { 'class' : 'form-control' }}) }}
+                             </div>
+                             <div class="col-4">
+                               {{ form_row(form.dateDebut) }}
+                             </div>
+                            <div class="col-4">
+                              {{ form_row(form.dateFin) }} 
+                            </div>
+                                 <div class="col-4">
+                               {{ form_row(form.typedest ,{ 'attr' : { 'class' : 'form-select' }}) }}
+                             </div>
+
+                             <div class="col-4">
+                               {{ form_row(form.moyenTransport ,{ 'attr' : { 'class' : 'form-select' }}) }}
+                             </div>
+                             <div class="col-2">
+                               {{ form_row(form.marqueauto,{ 'attr' : { 'class' : 'form-control'  }}) }}
+                            </div>
+
+                                <div class="col-2">
+                               {{ form_row(form.matriculeauto,{ 'attr' : { 'class' : 'form-control'  }}) }}
+                            </div>
+
+                            <div class="col-4">
+                               {{ form_row(form.destination,{ 'attr' : { 'class' : 'form-control'  }}) }}
+                            </div>
+
+                                            <div class="col-4">
+            <label for="formFile" class="form-label">{{'invit'|trans}}</label>
+              {{ form_widget(form.invitFile,{'attr': {'class':'form-control','type':'file','id':'formFile','style':'visibility: visible;'}}) }}
+            </div>
+
+
+
+                             <div class="col-12 ">
+                           <label class="form-label" for="ordre_mission_financementMission">{{'financement'|trans}}</label><br>
+                             {% for child in form.financementMission %}
+                              <label class="form-label" for="{{ child.vars.id }}" >{{ child.vars.label }}</label> 
+                               {{ form_widget(child ,{ 'attr' : { 'class' : 'form-check-inline preventUncheck1' }}) }}
+                               {% endfor %}
+                             </div>
+
+                             <div class="col-4">
+                               {{ form_row(form.valeurProjet,{ 'attr' : { 'class' : 'form-control'  }}) }}
+                            </div>
+                              <div class="col-4">
+                               {{ form_row(form.valeurfc,{ 'attr' : { 'class' : 'form-control'  }}) }}
+                            </div>
+                            <div class="col-4">
+                               {{ form_row(form.valeurAutre,{ 'attr' : { 'class' : 'form-control'  }}) }}
+                            </div>
+
+
+                             <div class="col-12 ">
+                           <label class="form-label" for="ordre_mission_financementvoyage">{{'financement_voyage'|trans}}</label><br>
+                             {% for child in form.financementvoyage %}
+                              <label class="form-label" for="{{ child.vars.id }}" >{{ child.vars.label }}</label> 
+                               {{ form_widget(child ,{ 'attr' : { 'class' : 'form-check-inline preventUncheck2' }}) }}
+                               {% endfor %}
+                             </div>
+
+                             <div class="col-4">
+                               {{ form_row(form.valeurprojetvg,{ 'attr' : { 'class' : 'form-control'  }}) }}
+                            </div>
+                               <div class="col-4">
+                               {{ form_row(form.valeurfcvg,{ 'attr' : { 'class' : 'form-control'  }}) }}
+                            </div>
+                            <div class="col-4">
+                               {{ form_row(form.valeurautrevg,{ 'attr' : { 'class' : 'form-control'  }}) }}
+                            </div>
+
+                           
+
+                           {{ form_row(form._token) }}
+
+                              </div>
+                             
+                            </div>  
+                        </div>
+
+
+
+                        
+
+
+{% if (app.user.personnel.typePersonnelId.Id !=2) %}
+<div class="card shadow-none bg-light border">
+      <div class="card-body">
+            <div class="card-header py-2 bg-transparent"><h6 class="mb-0">{{'engagements'|trans}}</h6></div>
+<p style="font-family: 'Times New Roman', Arial, Verdana, Sans-serif; margin-top: 20px;">{{'titles.engs'|trans}}</p>
+  <div class="card-body"  id="engagement_list" data-prototype="{{ form_widget(form.engagements.vars.prototype)|e('html_attr')}}" >
+ {% for row in form.engagements %}
+                      <div class="form-group panel">
+                        <div class="row panalEngagement" style="margin-bottom: 15px;">
+
+                            
+                               {{ form_row(row.typeEngagement,{'attr': {'placeholder': 'Type Engagement','class':'form-control'}}) }}
+                             
+                              {{ form_row(row.matiere,{'attr': {'placeholder': 'Matière','class':'form-control'}}) }}
+                             
+                                {{ form_row(row.dateFait,{'attr': {'placeholder': 'Date de Rattrapage','class':' form-control'}}) }}
+                             
+                               {{ form_row(row.personnel,{'attr': {'class':'form-control'}}) }}
+                            
+                   
+                           
+                        </div>
+
+                      </div>
+                    {% endfor %}
+        </div>
+
+      </div>
+</div>
+
+{% endif %}
+
+<div class="card shadow-none align-items-center">
+<div class="col-4">    
+  <button type='submit' class="btn btn btn-success px-4 col-12"> {{'save'|trans}} </button> 
+</div>
+</div>
+
+
+
+ {{ form_end(form , {'render_rest': false}) }}
+
+
+<div class="card shadow-none bg-light border">
+      <div class="card-body">
+            <div class="card-header py-2 bg-transparent"><h6 class="mb-0"></h6>{{'titles.hist_dem_om'|trans}}</div>
+                      <div class="row g-3">
+                                    <div class="table-responsive">
+                            <table id="example" class="table table-striped table-bordered" style="text-align:center !important ; " >
+                              <thead>
+                                <tr>
+                        
+                                  <th style="text-align:center !important ; ">{{'n'|trans}}</th>
+                 {#                  <th style="text-align:center !important ; ">{{'type'|trans}}</th>  #}
+                                  <th style="text-align:center !important ; ">{{'objet'|trans}}</th>  
+                                  <th style="text-align:center !important ; ">{{'date_debut'|trans}}</th>
+                                  <th style="text-align:center !important ; ">{{'date_fin'|trans}}</th>  
+              {#                     <th style="text-align:center !important ; ">{{'invit'|trans}}</th>	 #} 
+                                  <th style="text-align:center !important ; ">{{'destination'|trans}}</th>         
+                                  <th style="text-align:center !important ; ">{{'statut'|trans}}</th>    
+                                  <th style="text-align:center !important ; ">{{'niveau_act'|trans}}</th>       
+                                  <th style="text-align:center !important ; ">{{'motif_refus'|trans}}</th>   
+                                  <th style="text-align:center !important ; ">{{'op'|trans}}</th>  
+                            
+                                
+                                </tr>
+                              </thead>
+                              <tbody>
+                                {% for ordre_mission in ordre_missions %}
+                                    <tr  {{  ordre_mission.id  == id ? 'style="background-color:#ADD8E6;"' }} >
+                                        <td>{{ ordre_mission.id }}</td>
+                    {#                      <td>
+                                            {% if ordre_mission.typeMission == "E" %}
+												{{'ens'|trans}}
+													{% endif %}
+													{% if ordre_mission.typeMission == "R" %}
+												{{'rech'|trans}}
+													{% endif %}
+													{% if ordre_mission.typeMission == "D" %}
+												{{'deplac'|trans}}
+													{% endif %}
+                                         </td> #}
+                                        <td>{{ ordre_mission.objetMission }}</td>
+                                        <td>{{ ordre_mission.dateDebut|date('Y-m-d') }} </td>
+                                        <td>{{ ordre_mission.dateFin|date('Y-m-d') }} </td>
+                                  {#       <td>
+                                         <div class="text-center">
+													        {% if ordre_mission.invitation is not empty %}
+												              		<a href="{{ asset('webroot/docs/' ~ ordre_mission.personnel.nom ~ '_' ~ ordre_mission.personnel.prenom ~ '/Ordre_mission/' ~ ordre_mission.invitation) }}"><i class="bi bi-file-earmark-fill"></i></a>
+												        	{% endif %}	
+												              </div> 
+                                        </td>#}
+                                        <td>{{ ordre_mission.destination}} </td>
+                                        {% if ordre_mission.statut  == '-1' %}
+                                        <td style="color:black;font-weight:bold;">{{'encours'|trans}}</td>
+                                         
+                                           
+                                        {% elseif ordre_mission.statut  == '0' %}
+                                        <td style="color:blue;font-weight:bold;"> {{'confirme'|trans}}</td>
+                                         
+                                           
+                                        {% elseif ordre_mission.statut  == '1' %}
+                                        <td style="color:green;font-weight:bold;"> {{'valide'|trans}}</td>
+                                         
+  
+                                        {% elseif ordre_mission.statut  == '2' %}
+                                        <td style="color:red;font-weight:bold;"> {{'refuse'|trans}}</td>
+                                        {% else %}
+                                        <td></td>
+                                         {% endif %}
+
+
+                                       {% if ordre_mission.niveau  == 'ROLE_RH' %}
+                                        <td style="color:black;font-weight:bold;"> {{'service_rh'|trans}}</td>
+                                         
+                                        {% elseif ordre_mission.niveau  == 'ROLE_CHEF_SERV' %}
+                                        <td style="color:black;font-weight:bold;"> {{'chef_service'|trans}}</td>
+                                          
+                                        {% elseif ordre_mission.niveau  == 'ROLE_DIR_ADJ' %}
+                                        <td style="color:black;font-weight:bold;"> {{'dir_adj'|trans}}</td>
+                                         
+                                        {% elseif ordre_mission.niveau  == 'ROLE_SG' %}
+                                        <td style="color:black;font-weight:bold;"> {{'sg'|trans}}</td> 
+
+                                          {% elseif ordre_mission.niveau  == 'ROLE_CHEF_DEP' %}
+                                        <td style="color:black;font-weight:bold;"> {{'chef_dep'|trans}}</td> 
+
+                                          {% elseif ordre_mission.niveau  == 'ROLE_CHEF_FIL' %}
+                                        <td style="color:black;font-weight:bold;"> {{'chef_filiere'|trans}}</td> 
+
+                                        {% elseif ordre_mission.niveau  == 'ROLE_CHEF_STRUCT' %}
+                                        <td style="color:black;font-weight:bold;"> {{'chef_structure'|trans}}</td> 
+
+                                        {% elseif ordre_mission.niveau  == 'ROLE_DIR' %}
+                                        <td style="color:black;font-weight:bold;"> {{'directeur'|trans}}</td>
+
+                                        {% else %}
+                                          <td> - </td>
+                                        {% endif %}
+
+                                        <td> {{ ordre_mission.motif }} </td>
+
+
+                                        <td>
+                                          <div class="table-actions fs-6">
+                                           {% if ordre_mission.statut == "-1"  and ordre_mission.bloque != 1 %}
+                                            <a href="{{ path('app_ordre_mission_edit', {'id': ordre_mission.id}) }}" class="text-tiffany" data-bs-toggle="tooltip" data-bs-placement="bottom" aria-label="Edit"><i class="bi bi-pencil-fill"></i></a> &nbsp;  &nbsp;
+
+ <a href="{{ path('app_ordre_mission_delete', {'id': ordre_mission.id ,'_token':csrf_token('delete' ~ ordre_mission.id) }) }}" class="text-danger" data-bs-toggle="tooltip" data-bs-placement="bottom" aria-label="Delete" onclick=" function delete_msg_trans()
+{
+    langue = document.getElementById('langue').value  ;
+    
+    msg = 'Are yous sure to delete this item ?';
+if(langue=='fr-FR'){
+  msg = 'Êtes-vous sûr de vouloir supprimer cet enregistrement ?'
+    }
+if(langue=='en-GB'){
+  msg = 'Are yous sure to delete this item ?'
+          }
+  if(langue=='ar-AR'){
+  msg = '? هل أنت متأكد أنك تريد حذف هذا السجل '
+              }
+if(langue=='es-ES'){
+   msg = '¿Está seguro de que desea eliminar este registro?'
+                  }
+   return msg ;
+}
+ a = delete_msg_trans() ; return confirm(a)"><i class="bi bi-trash-fill"></i></a>  
+
+ {% endif %}                                        </div>
+                                              
+                                        </td>
+
+                                    </tr>
+                            
+                                {% endfor %}
+                              </tbody>
+                            
+                            </table>
+                          </div>
+                                </div>
+      </div>
+</div>
+
+
+</div>
+
+</div>
+
+</div>
+
+
+
+
+</div>
+
+{% block javascripts %}
+           
+
+  {{ encore_entry_script_tags('ordre_m_calc_edit') }}
+
+  {{ encore_entry_script_tags('engagement') }}
+        
+      <script src="{{ asset('uploads/js/jquery-3.6.0.min.js') }}"></script>	    	
+      <script src="{{ asset('uploads/js/moment-with-locales.min.js')}}"></script>
+      <script src="{{ asset('uploads/js/bootstrap-material-datetimepicker.min.js')}}"></script>
+      <script>
+        $(document).ready(function() {
+          $('.js-dateDebutOrderMission').bootstrapMaterialDatePicker({ time: false, lang: 'fr-FR'});
+          $('.js-dateFinOrderMission').bootstrapMaterialDatePicker({ time: false, lang: 'fr-FR'});
+        });
+        
+      </script>
+      
+  
+{% endblock %} 

@@ -1,0 +1,88 @@
+<!--breadcrumb-->
+				
+				<div class="" >
+					<div class="">
+						<div class="container py-2">
+							<h2 class="font-weight-light text-center text-muted py-3">
+							
+	{% if histo_demandes[0].typeDemande == 'autorisation' %}
+        {{'auto'|trans}}
+	   	 {% endif %}
+		  {% if histo_demandes[0].typeDemande == 'conge' %}
+        {{'cong'|trans}}
+	   	 {% endif %}
+		  {% if histo_demandes[0].typeDemande == 'ordre de mission' %}
+        {{'om'|trans}}
+	   	 {% endif %}
+		  {% if histo_demandes[0].typeDemande == 'attestation' %}
+        {{'att'|trans}}
+	   	 {% endif %}
+		  {% if histo_demandes[0].typeDemande == 'fiche heure' %}
+        {{'fh'|trans}}
+	   	 {% endif %}
+							
+							 N° {{histo_demandes[0].idDemande}} </h2>
+						{% for histo_demande in histo_demandes %}
+							<!-- timeline item 2 -->
+							<div class="row ">
+								<div class="col-auto text-center flex-column d-none d-sm-flex">
+									<div class="row h-50">
+										<div class="col border-end">&nbsp;</div>
+										<div class="col">&nbsp;</div>
+									</div>
+									<h5 class="m-2">
+									<span class="badge rounded-pill {% if loop.last == true  %}bg-info {% else %} bg-light border{% endif %}">&nbsp;</span>
+								</h5>
+									<div class="row h-50">
+										<div class="col border-end">&nbsp;</div>
+										<div class="col">&nbsp;</div>
+									</div>
+								</div>
+								<div class="col py-2">
+									<div class="card border-primary shadow radius-15">
+										<div class="card-body">
+
+										{% if histo_demande.statut == "-1"  %}
+											<div class="float-end text-primary ">
+                                   {% if histo_demande.dateValidation is null %} 
+											<strong>{{'demandele'|trans}} {{histo_demande.dateEnvoie|date('Y-m-d - H:i')}}</strong>
+											 {% else %}
+											<strong> {{'confirmele'|trans}} {{histo_demande.dateValidation|date('Y-m-d - H:i')}}</strong>
+                                   {% endif %}
+											</div>
+											<h4 class="card-title text-muted">{{'encours'|trans}}</h4>
+											<p class="card-text text-uppercase"> <strong>
+											
+											{% if histo_demande.dateValidation is null %}
+											  {{'demandepar'|trans}}: {{histo_demande.demandeur.nom}} {{histo_demande.demandeur.prenom}} </strong>  </p>
+											 {% else %}
+                                              {{'confirmepar'|trans}}: {{histo_demande.validateur.nom}} {{histo_demande.validateur.prenom}}  - {{ "ROLE_RH" in histo_demande.validateur.idUser.roles ? "(SERVICE RH)" }} {{ "ROLE_CHEF_SERV" in histo_demande.validateur.idUser.roles ? "(CHEF DE SERVICE)" }} {{ histo_demande.validateur.idUser.roles[0]  == "ROLE_DIR" ? "(DIRECTEUR)" }} {{ histo_demande.validateur.idUser.roles[0]  == "ROLE_DIR_ADJ" ? "(DIRECTEUR ADJOINT)" }} {{ histo_demande.validateur.idUser.roles[0]  == "ROLE_SG" ? "(SECRAITAIRE GENERALE)" }} {{ histo_demande.validateur.idUser.roles[0]  == "ROLE_CHEF_STRUCT" ? "(CHEF DE STRUCTURE DE RECHERCHE)" }} {{ histo_demande.validateur.idUser.roles[0]  == "ROLE_CHEF_DEP" ? "(CHEF DE DEPARTEMENT)" }} </strong>  </p>
+                                            {% endif %}
+
+							         	{% endif  %}
+
+
+										{% if histo_demande.statut == "1"  %}
+											<div class="float-end text-primary"><strong>{{'validele'|trans}} {{histo_demande.dateValidation|date('Y-m-d - H:i')}}</strong></div>
+											<h4 class="card-title text-success">{{'valide'|trans}}</h4>
+											<p class="card-text text-uppercase "><strong>{{'validepar'|trans}}: {{histo_demande.validateur.nom}} {{histo_demande.validateur.prenom}} - {{  "ROLE_RH" in histo_demande.validateur.idUser.roles ? "(SERVICE RH)" }} {{ "ROLE_CHEF_SERV" in histo_demande.validateur.idUser.roles ? "(CHEF DE SERVICE)" }} {{ histo_demande.validateur.idUser.roles[0]  == "ROLE_DIR" ? "(DIRECTEUR)" }} {{ histo_demande.validateur.idUser.roles[0]  == "ROLE_DIR_ADJ" ? "(DIRECTEUR ADJOINT)" }} {{ histo_demande.validateur.idUser.roles[0]  == "ROLE_SG" ? "(SECRAITAIRE GENERALE)" }} {{ histo_demande.validateur.idUser.roles[0]  == "ROLE_CHEF_STRUCT" ? "(CHEF DE STRUCTURE DE RECHERCHE)" }} {{ histo_demande.validateur.idUser.roles[0]  == "ROLE_CHEF_DEP" ? "(CHEF DE DEPARTEMENT)" }}</p>
+										</strong>
+							         	{% endif  %}
+
+											{% if histo_demande.statut == "2"  %}
+											<div class="float-end text-primary"><strong>{{'refusele'|trans}} {{histo_demande.dateValidation|date('Y-m-d - H:i')}}</strong></div>
+											<h4 class="card-title text-danger">{{'refuse'|trans}}</h4>
+											<p class="card-text text-uppercase "><strong>{{'refusepar'|trans}}: {{histo_demande.validateur.nom}} {{histo_demande.validateur.prenom}} - {{ "ROLE_RH" in histo_demande.validateur.idUser.roles ? "(SERVICE RH)" }} {{ "ROLE_CHEF_SERV" in histo_demande.validateur.idUser.roles ? "(CHEF DE SERVICE)" }} {{ histo_demande.validateur.idUser.roles[0]  == "ROLE_DIR" ? "(DIRECTEUR)" }} {{ histo_demande.validateur.idUser.roles[0]  == "ROLE_DIR_ADJ" ? "(DIRECTEUR ADJOINT)" }} {{ histo_demande.validateur.idUser.roles[0]  == "ROLE_SG" ? "(SECRAITAIRE GENERALE)" }} {{ histo_demande.validateur.idUser.roles[0]  == "ROLE_CHEF_STRUCT" ? "(CHEF DE STRUCTURE DE RECHERCHE)" }} {{ histo_demande.validateur.idUser.roles[0]  == "ROLE_CHEF_DEP" ? "(CHEF DE DEPARTEMENT)" }}</p>
+										</strong>
+							         	{% endif  %}
+
+										</div>
+									</div>
+								</div>
+							</div>
+							<!--/row-->
+						{% endfor %}
+							
+						</div>
+                    </div>
+                </div>

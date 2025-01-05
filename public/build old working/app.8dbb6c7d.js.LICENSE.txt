@@ -1,0 +1,24 @@
+/*!
+  * Bootstrap v5.2.0 (https://getbootstrap.com/)
+  * Copyright 2011-2022 The Bootstrap Authors (https://github.com/twbs/bootstrap/graphs/contributors)
+  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)
+  */
+
+/*!
+ DataTables Bootstrap 5 integration
+ 2020 SpryMedia Ltd - datatables.net/license
+*/
+
+/*!
+* metismenu https://github.com/onokumus/metismenu#readme
+* A jQuery menu plugin
+* @version 3.0.6
+* @author Osman Nuri Okumus <onokumus@gmail.com> (https://github.com/onokumus)
+* @license: MIT 
+*/
+
+/*! DataTables 1.13.4
+ * ©2008-2023 SpryMedia Ltd - datatables.net/license
+ */
+
+/*! Select2 4.0.6-rc.0 | https://github.com/select2/select2/blob/master/LICENSE.md */

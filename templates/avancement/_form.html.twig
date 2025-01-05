@@ -1,0 +1,210 @@
+   <!--breadcrumb-->
+            <div class="page-breadcrumb d-none d-sm-flex align-items-center mb-3">
+              <div class="breadcrumb-title pe-3">{{'titles.gest_personnel'|trans}}</div>
+              <div class="ps-3">
+                <nav aria-label="breadcrumb">
+                  <ol class="breadcrumb mb-0 p-0">
+                    <li class="breadcrumb-item"><a href="javascript:;"><i class="bx bx-home-alt"></i></a>
+                    </li>
+                    <li class="breadcrumb-item active" aria-current="page">{{'titles.new_avanc'|trans}}</li>
+                  </ol>
+                </nav>
+              </div>
+         
+            </div>
+            <!--end breadcrumb-->
+  {{ form_start(form) }}
+              <div class="row">
+                 <div class="col-lg-12 mx-auto">
+                  <div class="card">
+                   
+                    <div class="card-body">
+                       <div class="row g-3">
+
+                         <div class="col-12 col-lg-8 ">
+                            <div class="card shadow-none bg-light border ">
+                              <div class="card-body ">
+                                  <div class="row g-3 ">
+                              
+                       <div class="col-6">
+                           {{ form_row(form.numDeci ,{ 'attr' : { 'class' : 'form-control' }}) }}
+                       </div>
+                        <div class="col-6">
+                           {{ form_row(form.corps ,{ 'attr' : { 'class' : 'form-control' }}) }}
+                       </div>
+                       <div class="col-6">
+                           {{ form_row(form.grade ,{ 'attr' : {'class' : 'form-control' }}) }}
+                       </div>
+                       <div class="col-6">
+                           {{ form_row(form.echelon ,{ 'attr' : { 'class' : 'form-control' }}) }}
+                       </div>
+                       <div class="col-6">
+                           {{ form_row(form.dateGrade ,{ 'attr' : { 'class' : 'form-control' }}) }}
+                       </div>
+                         <div class="col-6">
+                           {{ form_row(form.dateDeci ,{ 'attr' : { 'class' : 'form-control' }}) }}
+                       </div>
+
+                       
+                        <div class="col-6">
+            <label for="formFile" class="form-label"> {{'arrete'|trans}}</label>
+              {{ form_widget(form.arreteFile,{'attr': {'class':'form-control','type':'file','id':'formFile','style':'visibility: visible;'}}) }}
+            </div>
+
+                       <div class="col-6">
+                           {{ form_row(form.derniere_situation ,{ 'attr' : { 'class' : 'form-checkbox form-check-input' }}) }}
+                       </div>
+               
+                                 <div class="text-start">
+                       <a class="btn btn btn-primary px-4" href="{{ app.request.headers.get('referer') }}">  {{'back'|trans}} </a>
+                  <button type='submit' class="btn btn-success px-4">{{'save'|trans}}</button>
+               
+
+                </div>
+
+                                  </div><!--end row-->
+                     
+                              </div>
+                            </div>  
+                        </div>
+
+
+
+
+                         <div class="col-12 col-lg-4">
+                            <div class="card shadow-none bg-light border">
+                              <div class="card-body">
+                                <div class="row g-3">
+                                   <div class="profile-avatar text-center image-upload" style='.image-upload>input {display: none;}'>
+                <label >
+                  <img  src="{{asset('uploads/images/') ~ avancement.personnel.imagename}}" class="rounded-circle shadow" width="120" height="120" alt="">
+                </label><br>
+                </div>
+                  
+                <div class="text-center mt-4">
+
+                  <p class="mb-0 text-secondary"> <strong> {{ avancement.personnel.nom}}  {{ avancement.personnel.prenom}} </strong> </p>
+
+                </div>
+                <hr>
+                  <div class="text-start text-center">
+                  <p class="mb-0"> {{'ne'|trans}}{{ avancement.personnel.dateNaissance|date("Y-m-d")}} {{'a'|trans}} {{ avancement.personnel.provinceNaissance.nomProvince}}</p>
+                  <p class="mb-0">  {{ avancement.personnel.gradeId.designationFR}} , {{'echelon'|trans}} : {{ avancement.personnel.echelonId.designation}} </p>
+{% if avancement.personnel.dateRecrutement is not empty %}
+                  <p class="mb-0">{{'date_rec'|trans}} : {{ avancement.personnel.dateRecrutement|date("Y-m-d")}}</p>
+{% endif %}
+
+{% if avancement.personnel.dateAffectationENSAT is not empty %}
+   <p class="mb-0">{{'exerc_ensa_depuis'|trans}} {{ avancement.personnel.dateAffectationENSAT|date("Y-m-d")}}</p>
+{% endif %}
+                </div>
+                                </div>
+                              </div>
+                            </div>
+                         </div>
+
+                        
+                       </div><!--end row-->
+
+  {{ form_row(form._token) }}
+{{ form_end(form , {'render_rest': false}) }}
+
+                        <div class="row g-3">
+
+                         <div class="col-12 col-lg-12">
+                            <div class="card shadow-none bg-light border">
+                              <div class="card-body">
+                                             <div class="card-header py-2 bg-transparent">
+                  <h6 class="mb-0"> {{'titles.hist_avanc'|trans}} </h6> 
+                </div>
+                                <div class="row g-3">
+                                  <div class="table-responsive">
+            <table id="example" class="table table-striped table-bordered" style="text-align:center !important ; ">
+                <thead>
+                  <tr>
+                    <th style="text-align:center !important ; ">{{'num_deci'|trans}}</th>
+                    <th style="text-align:center !important ; ">{{'grade'|trans}}</th>  
+                    <th style="text-align:center !important ; ">{{'date_grade'|trans}}</th>
+                    <th style="text-align:center !important ; ">{{'echelon'|trans}}</th>  
+                    <th style="text-align:center !important ; ">{{'date_deci'|trans}}</th>
+                    <th style="text-align:center !important ; ">{{'arrete'|trans}}</th> 
+                    <th style="text-align:center !important ; ">{{'op'|trans}}</th> 
+                
+
+                  </tr>
+                </thead>
+                <tbody>
+      {% for avancement in avancements %}
+                                  <tr  >
+                                    <td>{{ avancement.numDeci }}</td>
+                                    <td>{{ avancement.grade.designationFR }}</td>
+                                    {% if avancement.dateGrade is not null %}
+                                    <td>{{ avancement.dateGrade|date('Y-m-d') }}</td>
+                                    {% else %}
+                                    <td></td>
+                                    {% endif %}
+                                    <td>{{ avancement.echelon.designation }}</td>
+                                    <td>{{ avancement.dateDeci|date('Y-m-d') }}</td>
+                                    <td>
+                                      {% if avancement.arrete is not null %}
+                                      <a href="{{ asset('webroot/docs/' ~ avancement.personnel.nom ~ '_' ~ avancement.personnel.prenom ~ '/Arrete/' ~ avancement.arrete) }}" onclick="window.open(this.href); return false;"><i class="bi bi-file-earmark-bar-graph-fill"></i> </a>
+                                      {% endif %}
+                                     
+                                    </td>   
+    
+                <td> 
+
+                    <div class="table-actions fs-6">
+                   
+                              <a href="{{ path('app_avancement_edit', {'id': avancement.id}) }}" class="text-warning" data-bs-toggle="tooltip" data-bs-placement="bottom" aria-label="Edit"><i class="bi bi-pencil-fill"></i></a> 
+&nbsp;  &nbsp;
+
+                              <a href="{{ path('app_avancement_delete', {'id': avancement.id ,'_token':csrf_token('delete' ~ avancement.id) }) }}" class="text-danger" data-bs-toggle="tooltip" data-bs-placement="bottom" aria-label="Delete" onclick=" function delete_msg_trans()
+{
+    langue = document.getElementById('langue').value  ;
+    
+    msg = 'Are yous sure to delete this item ?';
+if(langue=='fr-FR'){
+  msg = 'Êtes-vous sûr de vouloir supprimer cet enregistrement ?'
+    }
+if(langue=='en-GB'){
+  msg = 'Are yous sure to delete this item ?'
+          }
+  if(langue=='ar-AR'){
+  msg = '? هل أنت متأكد أنك تريد حذف هذا السجل '
+              }
+if(langue=='es-ES'){
+   msg = '¿Está seguro de que desea eliminar este registro?'
+                  }
+   return msg ;
+}
+ a = delete_msg_trans() ; return confirm(a)"><i class="bi bi-trash-fill"></i></a>
+                            </div>
+          
+                </td>
+
+
+        
+            
+               
+            </tr>
+        {% endfor %}
+                </tbody>
+              
+              </table>
+            </div>
+                                </div>
+                              </div>
+                            </div>
+                         </div>
+
+                        
+                       </div><!--end row-->
+                     </div>
+                    </div>
+                 </div>
+              </div><!--end row-->
+
+       {% block javascripts %}
+   {{ encore_entry_script_tags('dependent_selects') }} 
+{% endblock %}

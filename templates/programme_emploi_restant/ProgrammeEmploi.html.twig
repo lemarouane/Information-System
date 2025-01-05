@@ -1,0 +1,158 @@
+{% extends "template.html.twig" %}
+{% block title %} {{'finance'|trans}}{% endblock %}
+
+{% block body %}
+
+<div id="programe-to-validation"  data-href="{{ path('rubriques_of_article', {id:'1111'})}}" ></div>  
+
+	<div class="page-breadcrumb d-none d-sm-flex align-items-center mb-3">
+					<div class="breadcrumb-title pe-3">{{'finance'|trans}} </div>
+					<div class="ps-3">
+						<nav aria-label="breadcrumb">
+							<ol class="breadcrumb mb-0 p-0">
+								<li class="breadcrumb-item"><a href="javascript:;"><i class="bi bi-cash-coin"></i></a>
+								</li>
+								<li class="breadcrumb-item active" aria-current="page">{{'ajouter_programme_emploi_restant'|trans}}</li>
+							</ol>
+						</nav>
+					</div>
+				</div>
+		<hr/>
+
+
+
+
+
+ 
+
+
+
+
+      <!-- NEW COL START 
+      {% for message in app.flashes('success') %}
+        <div class="flash-notice">
+            {{ message }}
+         </div>
+      {% endfor %}-->
+
+       {% include "flaches.html.twig" %}
+
+      <div class="box-footer">
+      <section class="content">
+
+        <div class="row">
+          
+
+            {% if page == 'new' %}
+              {{ form_start(form, {'action': path('addProgrammeEmploiRestant'), 'method': 'POST'}) }}
+            {% else %}
+              {{ form_start(form, {'action': path('updateProgrammeEmploiRestant',{id: entity.id}), 'method': 'POST' ,'attr' : {'enctype' : 'multipart/form-data'}}) }}         
+            {% endif %}
+
+            <div class="col-md-12">
+              <div class="box box-primary">
+                <div class="box-header with-border">
+                  <div class="box-body">
+                    <div class="form-group">
+                      <div class="row panalArticle">
+                      
+                        
+                        {% include "programme_emploi_restant/form.html.twig" %}
+                          
+                      </div>
+ 
+                    </div>
+                  </div><br>
+
+<div class="card shadow-none bg-light border">
+      <div class="card-body">
+            <div class="card-header py-2 bg-transparent"><h6 class="mb-0"></h6>{{'ajouter_rubrique_programme_emploi'|trans}}</div>
+                <div class="row g-3">
+                   <p style="font-family: 'Times New Roman', Arial, Verdana, Sans-serif; margin-top: 20px;"> Merci d'ajouter les rubriques du programme et leur montants en cliquant sur le boutton + </p>
+                <div class="box-body"  id="article_list" data-prototype="{{ form_widget(form.programmeElementRestants.vars.prototype)|e('html_attr')}}">
+                    {% for row in form.programmeElementRestants %}
+                      <div class="form-group panel">
+                        <div class="row panalArticle" style="margin-bottom: 15px;">
+
+                          <div class="form-group col-sm-6">
+                            <label for="rubrique" class="control-label">Rubrique</label>
+
+                            <div>
+                              {{ form_widget(row.rubrique,{'attr': {'placeholder': 'Rubrique','class':'form-control'}}) }}
+                            </div>
+                          </div>
+                          
+                          <div class="form-group col-sm-6">
+                            <label for="montant" class="control-label">Montant:</label>
+
+                            <div>
+                              {{ form_widget(row.montant,{'attr': {'placeholder': 'Montant','class':'form-control'}}) }}
+                            </div>
+                          </div>
+                          
+                        </div>
+
+                      </div>
+                    {% endfor %}
+                  </div>
+
+
+                  </div>
+            </div>
+      </div>
+</div>
+
+               
+                  <div>
+        
+           
+            
+
+                  </div>
+                </div>
+              </div>
+                      
+              
+            </div>
+
+              
+                     <button type="submit" class="btn btn btn-success px-4 col-12 ">Valider</button>
+            
+
+            {{ form_end(form , {'render_rest': false}) }}
+        
+
+          </div>
+        </section> 
+      </div>
+ 
+{% endblock body %}
+
+ {% block javascripts %}
+ 
+
+  {{ parent() }}
+
+  {{ encore_entry_script_tags('programme_emploi_restant_ajouter') }}
+
+
+<script> 
+    
+    (function($) {
+
+
+      $(".js-dateDebut").datepicker({
+        minDate: 0,
+        maxDate: "+50Y",
+        numberOfMonths: 1,
+        language:'fr',
+        dateFormat : 'yy-mm-dd',
+        prevText : '<i class="fa fa-chevron-left"></i>',
+        nextText : '<i class="fa fa-chevron-right"></i>',
+    });
+
+    })(jQuery);
+</script>
+
+
+{% endblock %}

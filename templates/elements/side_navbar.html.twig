@@ -1,0 +1,800 @@
+{% set ordre_mission_dm = ['app_ordre_mission_edit','app_ordre_mission_new'] %} 
+{% set ordre_mission_tr = ['ordre_missionVAL','app_ordre_mission_index'] %} 
+
+{% set attestation_dm = ['app_attestation_edit','app_attestation_new'] %} 
+{% set attestation_tr = ['attestationVAL','app_attestation_index'] %} 
+
+{% set autorisation_dm = ['app_autorisation_edit','app_autorisation_new'] %} 
+{% set autorisation_tr = ['autorisationVAL','app_autorisation_index'] %} 
+
+{% set conge_dm = ['app_conge_edit','app_conge_new'] %} 
+{% set conge_tr = ['congeVAL','app_conge_index'] %} 
+
+{% set ficheheure_dm = ['app_ficheheure_edit','app_ficheheure_new'] %} 
+{% set ficheheure_tr = ['ficheheureVAL','app_ficheheure_index'] %} 
+
+{% set histo_demandes = ['app_histo_demandes_index'] %} 
+{% set reprises_tr = ['app_reprises_index'] %} 
+
+{% set orientation = ['statistiquesOrientation','choixOrientation','etatOrientation','importOrientation','Orientation'] %} 
+{% set scolarite = ['listUsersScolarite','detailUser','documents','statScolarite','decisionDoc','app_resultat'] %} 
+{% set scolariteFC = ['listUsersScolariteFC','detailUserFC','documentsFC','statScolariteFC','decisionDocFC','app_resultatFC'] %} 
+{% set scolarite_trait = ['listUsersScolarite','detailUser','app_resultat'] %} 
+{% set scolarite_traitFC = ['listUsersScolariteFC','detailUserFC','app_resultatFC'] %} 
+{% set absence_trait = ['showEtudiantAbsence','absence_gestion'] %} 
+{% set absence = ['showEtudiantAbsence','absence_gestion','addAbsence','absenceImportExport'] %} 
+{% set finance = ['list_etu_paiement','paiement','addPaiement','showPaiement'] %} 
+{% set finance1 = ['addPaiement','addPaiementNonExist'] %} 
+{% set finance2 = ['showPaiement','editPaiement'] %} 
+{% set finance22 = ['export_paiment'] %} 
+
+{% set finance_progemploi = ['ProgrammeEmploi' , 'editProgrammeEmploi', 'showProgrammeEmploi']  %} 
+{% set finance_progemploi_projet = ['ProgrammeEmploiProjet' , 'editProgrammeEmploiProjet', 'showProgrammeEmploiProjet']  %} 
+{% set finance_progemploi_budget = ['ProgrammeEmploiBudget' , 'editProgrammeEmploiBudget', 'showProgrammeEmploiBudget']  %} 
+{% set budget = ['app_budget_index' , 'addBudget', 'addSortieBudget']  %} 
+{% set fc_etu_liste = ['list_etu_paiement_by_filiere' , 'showPaiement'] %} 
+{% set fc_prog_prof = ['ProgrammeEmploi_prof','showProgrammeEmploi','editProgrammeEmploi','addExec'] %} 
+{% set pr_prog_prof = ['ProgrammeEmploiProjet_prof','showProgrammeEmploiProjet','editProgrammeEmploiProjet'] %} 
+{% set prog_restant = [ 'ProgrammeEmploiRestant' , 'addProgrammeEmploiRestant' , 'showProgrammeEmploiRestant' , 'editProgrammeEmploiRestant'] %} 
+
+{% set sortie_budget = [ 'budget_sortie' , 'app_budget_sortie_edit' , 'budget_sortie_new'] %} 
+{% set entree_budget = [ 'budget_entree' , 'app_budget_entree_edit'] %} 
+
+
+
+{% set finance4 = ['addPaiementprojet'] %} 
+{% set finance_divers = ['paiementdivers_new' , 'paiementdivers' , 'paiementdivers_edit'] %} 
+{% set finance_projet = [ 'paiementprojet' , 'editPaiementprojet' , 'showPaiementprojet'] %} 
+{% set gest_personel = [ 'stats_dem_personnel' , 'app_personnel_show' , 'app_personnel_edit' , 'app_note_fonctionnaire_new'] %} 
+{% set histo_dem_gen = [ 'app_histo_demandes_show_attestation_g' ,'app_histo_demandes_show_conge_g' ,'app_histo_demandes_show_auto_g', 'app_histo_demandes_show_ordremission_g' ,'app_histo_demandes_show_ficheheure_g'] %} 
+{% set pfe = [ 'conventions_loop'] %} 
+{% set imp = [ 'get_maquette_module'] %} 
+{% set t_trait = [ 'app_dashboard_dir' , 'app_histo_demandes_gen_var' , 'documents' ,'conventions' , 'diplomes' , 'get_etudiant_non_ins'] %} 
+{% set finance_tab_fc = [ 'liste_fc_dashboard'] %} 
+{% set budget_str = [ 'showProgrammeEmploiBudget' , 'editProgrammeEmploiBudget' , 'addExecProgBudget'] %} 
+
+{% set dem_stock = [ 'demandes' , 'showDemande' , 'editDemande'] %} 
+
+{% set dem_stock = [ 'demandes' , 'showDemande' , 'editDemande'] %} 
+{% set article_stock = [ 'articles' , 'showArticle' , 'editArticle' ,'addArticle'] %} 
+{% set fournisseur_stock = [ 'app_fournisseurs' , 'app_ajouter_fournisseur' , 'app_modifier_fournisseur'] %} 
+{% set cat_stock = [ 'app_categories' , 'app_ajouter_categorie' , 'app_modifier_categorie'] %} 
+{% set scat_stock = [ 'souscategories' , 'showSousCategorie' , 'editSousCategorie' , 'addSousCategorie'] %} 
+{% set rec_stock = [ 'receptions' , 'showReception' , 'editReception' , 'addReception' , 'etatReception'] %} 
+{% set reg_stock = [ 'registreinventaires' , 'showInventaire' , 'editInventaire' , 'updateInventaire' , 'addInventaire'  , 'add_list_decharge' , 'newDecharge','invQR','invQRALL'] %} 
+{% set conso_stock = [ 'consommable' , 'showConsommable' ] %} 
+{% set dech_stock = [ 'Decharges' , 'editDecharge','showDecharge' ] %} 
+{% set cooper = [  'listlaureat' ] %} 
+
+
+
+
+
+
+{% set recherche = ['add_doctorant', 'list_doctorants', 'statRecherche'] %}
+{% set doctorant_list = ['list_doctorants'] %}
+
+
+
+
+
+
+
+       
+        <aside class="sidebar-wrapper" data-simplebar="true">
+          <div class="sidebar-header">
+            <div>
+              <img src="{{asset('build/images/logo-icon.png')}}" class="logo-icon" alt="logo icon" >
+            </div>
+            <div>
+              <h4 class="logo-text">E-ENSAT</h4>
+            </div>
+            <div class="toggle-icon ms-auto"><i class="bi bi-chevron-double-left"></i>
+            </div>
+          </div>
+          <!--navigation-->
+          <ul class="metismenu" id="menu">
+
+{% if ("ROLE_ADMIN" not in app.user.roles) %}
+          <li>
+              <a href="{{path('app_dashboard')}}" >
+                <div class="parent-icon"><i class="bi bi-house-door"></i>
+                </div>
+                <div class="menu-title">{{'titles.dashboard'|trans}}</div>
+              </a>
+          </li>
+{% endif %}
+
+{% if ("ROLE_ADMIN" in app.user.roles or "ROLE_DIR" in app.user.roles) %}
+          <li class="{% if route  in t_trait %} mm-active {% endif %}">
+              <a href="{{path('app_dashboard_dir')}}" >
+                <div class="parent-icon"><i class="bi bi-percent"></i>
+                </div>
+                <div class="menu-title">{{'t_trait'|trans}}</div>
+              </a>
+          </li>
+{% endif %}
+
+{% if ("ROLE_ADMIN" in app.user.roles) or ("ROLE_RH" in app.user.roles)  %}
+
+             <li>
+              <a href="javascript:;" class="has-arrow">
+                <div class="parent-icon"><i class="bi bi-file-earmark-person-fill"></i>
+                </div>
+                <div class="menu-title">{{'titles.rh'|trans}}</div>
+              </a>
+              <ul>
+                <li class="{% if route  in gest_personel %} mm-active {% endif %}" > <a href="{{path('app_personnel_index')}}"><i class="bi bi-arrow-right-short"></i> {{'titles.gest_personnel'|trans}}</a></li>
+                <li> <a href="{{path('app_stats_personnel_index')}}"><i class="bi bi-arrow-right-short"></i> {{'titles.stats_personnel'|trans}}</a></li>
+                <li class="{% if route  in histo_dem_gen %} mm-active {% endif %}"> <a href="{{path('app_histo_demandes_gen')}}"><i class="bi bi-arrow-right-short"></i>{{'titles.dem_personnel'|trans}} </a></li>
+                <li> <a href="{{path('app_import_export_rh_index')}}"><i class="bi bi-arrow-right-short"></i> {{'titles.imp_exp'|trans}}</a></li>
+                <li> <a id ="reprises_rh" href="{{path('app_reprises_index_rh')}}"><i class="bi bi-arrow-right-short"></i> {{'titles.rep_rh'|trans}}</a></li>
+                <li> <a id ="" href="{{path('proposition_avanc')}}"><i class="bi bi-arrow-right-short"></i> {{'liste_prop_echelon_grade'|trans}}</a></li>
+                <li> <a href="{{path('histo_dem_valide')}}"><i class="bi bi-arrow-right-short"></i>{{'hist_dem_valide'|trans}}</a></li>
+             
+
+              </ul>
+            </li>
+{% endif %}
+
+
+
+
+{% if ("ROLE_ADMIN" not in app.user.roles)%}
+
+{% if (is_granted("ROLE_PROF") == true) or (is_granted("ROLE_FONC") == true)   %}
+            <li class="{% if route  in ordre_mission_dm or route in conge_dm  or route  in autorisation_dm or route  in attestation_dm %} mm-active {% endif %}">
+              <a href="javascript:;" class="has-arrow">
+                <div class="parent-icon"><i class="bi bi-arrow-bar-up"></i>
+                </div>
+                <div class="menu-title">{{'dms'|trans}}</div>
+              </a>
+              <ul>
+                <li class="{% if route  in attestation_dm %} mm-active {% endif %}"> <a href="{{path('app_attestation_new')}}"><i class="bi bi-arrow-right-short"></i>{{'atts'|trans}}</a></li>
+                <li class="{% if route  in ordre_mission_dm %} mm-active {% endif %}"> <a href="{{path('app_ordre_mission_new')}}"><i class="bi bi-arrow-right-short "></i> {{'oms'|trans}}</a></li>
+                {% if  (is_granted("ROLE_FONC") == true)   %}
+                  <li class="{% if route  in conge_dm %} mm-active {% endif %}"> <a href="{{path('app_conge_new')}}"><i class="bi bi-arrow-right-short"></i>{{'congs'|trans}}</a></li>
+                  <li class="{% if route  in autorisation_dm %} mm-active {% endif %}"> <a href="{{path('app_autorisation_new')}}"><i class="bi bi-arrow-right-short"></i>{{'autos'|trans}}</a></li>
+                {% endif %}
+                {% if  (is_granted("ROLE_PROF") == true) and (is_granted("ROLE_DIR") == false)    %}
+                  <li class="{% if route  in ficheheure_dm %} mm-active {% endif %}"> <a href="{{path('app_ficheheure_new')}}"><i class="bi bi-arrow-right-short"></i> {{'fh'|trans}}</a></li>
+                {% endif %}
+                
+        
+              </ul>
+            </li>
+{% endif %}
+
+{% endif %}
+
+{% if ("ROLE_ADMIN" not in app.user.roles)%}
+{% if ("ROLE_DIR" in app.user.roles) or ("ROLE_CHEF_SERV" in app.user.roles) or ("ROLE_CHEF_DEP" in app.user.roles) or ("ROLE_CHEF_STRUCT" in app.user.roles) 
+or ("ROLE_DIR_ADJ" in app.user.roles) or ("ROLE_RH" in app.user.roles) or ("ROLE_ADMIN" in app.user.roles) or ("ROLE_SG" in app.user.roles)  or ("ROLE_CHEF_FIL" in app.user.roles)   %}
+             <li class="{% if (route  in ordre_mission_tr) or (route in conge_tr)  or (route  in autorisation_tr) or (route  in attestation_tr) %} mm-active {% endif %}">
+              <a  id="sn_traitement" href="javascript:;" class="has-arrow">
+                <div  class="parent-icon"><i class="bi bi-arrow-bar-down"></i>
+                </div>
+                <div class="menu-title">{{'trs'|trans}}</div>
+              </a>
+              <ul>
+                {% if  ("ROLE_RH" in app.user.roles) or  ("ROLE_ADMIN" in app.user.roles) %}
+                  <li class="{% if route  in attestation_tr %} mm-active {% endif %}"> <a id="sn_att"  href="{{path('app_attestation_index')}}"><i  class="bi bi-arrow-right-short"></i>{{'atts'|trans}}</a></li> {# app_document_index  #}
+                {% endif %}
+                {% if  ("ROLE_DIR_ADJ" in app.user.roles) or  ("ROLE_ADMIN" in app.user.roles) or  ("ROLE_CHEF_SERV" in app.user.roles) or  ("ROLE_SG" in app.user.roles) %}
+                  <li class="{% if route  in reprises_tr %} mm-active {% endif %}"> <a id ="sn_rep" href="{{path('app_reprises_index')}}"><i class="bi bi-arrow-right-short"></i>{{'reps'|trans}}</a></li>
+
+                  <li class="{% if route  in conge_tr %} mm-active {% endif %}"> <a id ="sn_conge" href="{{path('app_conge_index')}}"><i  class="bi bi-arrow-right-short"></i>{{'congs'|trans}}</a></li>
+                  <li class="{% if route  in autorisation_tr %} mm-active {% endif %}"> <a id ="sn_autorisation"  href="{{path('app_autorisation_index')}}"><i class="bi bi-arrow-right-short"></i>{{'autos'|trans}}</a></li>
+
+                {% endif %}
+
+               {% if  ("ROLE_DIR" in app.user.roles) %}
+                  <li class="{% if route  in conge_tr %} mm-active {% endif %}"> <a id ="sn_conge" href="{{path('app_conge_index')}}"><i  class="bi bi-arrow-right-short"></i>{{'congs'|trans}}</a></li>
+                  <li class="{% if route  in autorisation_tr %} mm-active {% endif %}"> <a id ="sn_autorisation"  href="{{path('app_autorisation_index')}}"><i class="bi bi-arrow-right-short"></i>{{'autos'|trans}}</a></li>
+                  <li class="{% if route  in ordre_mission_tr %} mm-active {% endif %}"> <a id="sn_ordremiss" href="{{path('app_ordre_mission_index')}}"><i  class="bi bi-arrow-right-short"></i> {{'oms'|trans}}</a></li>
+                {% endif %}
+
+                {% if ("ROLE_RH" in app.user.roles)  or  ("ROLE_DIR_ADJ" in app.user.roles) or ("ROLE_ADMIN" in app.user.roles) or  ("ROLE_SG" in app.user.roles) or  ("ROLE_CHEF_SERV"  in app.user.roles) or ("ROLE_CHEF_DEP" in app.user.roles) or ("ROLE_CHEF_STRUCT" in app.user.roles) %}
+                  <li class="{% if route  in ordre_mission_tr %} mm-active {% endif %}"> <a id="sn_ordremiss" href="{{path('app_ordre_mission_index')}}"><i  class="bi bi-arrow-right-short"></i> {{'oms'|trans}}</a></li>
+                {% endif %}
+                {% if  ("ROLE_CHEF_DEP" in app.user.roles) or ("ROLE_RH" in app.user.roles)  or  ("ROLE_DIR_ADJ" in app.user.roles) or ("ROLE_ADMIN" in app.user.roles) %}
+                  <li class="{% if route  in ficheheure_tr %} mm-active {% endif %}"> <a id ="sn_fh" href="{{path('app_ficheheure_index')}}"><i class="bi bi-arrow-right-short"></i> {{'fhs'|trans}}</a></li>
+                {% endif %}
+            
+          
+              </ul>
+            
+{% endif %}
+{% endif %}
+
+
+
+{% if (is_granted("ROLE_STOCK") == true)  %}
+            <li class="">
+              <a href="javascript:;" class="has-arrow">
+                <div class="parent-icon"><i class="bi bi-box-seam-fill"></i>
+                </div>
+                <div class="menu-title">{{'stock'|trans}}</div>
+              </a>
+              <ul>
+               <li class="{% if route  in reg_stock  %} mm-active {% endif %}"> <a href="{{path('registreinventaires')}}"><i class="bi bi-arrow-right-short"></i>{{'reg_inventaire'|trans}}</a></li>
+                <li class="{% if route  in rec_stock  %} mm-active {% endif %}"> <a href="{{path('receptions')}}"><i class="bi bi-arrow-right-short"></i>{{'reception'|trans}}</a></li>
+                <li class="{% if route  in article_stock  %} mm-active {% endif %}"> <a href="{{path('articles')}}"><i class="bi bi-arrow-right-short"></i>{{'articles'|trans}}</a></li>
+                <li class="{% if route  in dem_stock  %} mm-active {% endif %}"> <a href="{{path('demandes')}}"><i class="bi bi-arrow-right-short"></i>{{'trs_materiel'|trans}}</a></li>
+                <li class="{% if route  in dech_stock   %} mm-active {% endif %}"> <a href="{{path('Decharges')}}"><i class="bi bi-arrow-right-short"></i>{{'decharges'|trans}}</a></li>
+                <li class="{% if route  in conso_stock  %} mm-active {% endif %}"> <a href="{{path('consommable')}}"><i class="bi bi-arrow-right-short"></i>{{'consommables'|trans}}</a></li>
+                <li class="{% if route  in fournisseur_stock  %} mm-active {% endif %}"> <a href="{{path('app_fournisseurs')}}"><i class="bi bi-arrow-right-short "></i> {{'fournisseur'|trans}}</a></li>
+                <li class="{% if route  in cat_stock  %} mm-active {% endif %}"> <a href="{{path('app_categories')}}"><i class="bi bi-arrow-right-short"></i>{{'categorie'|trans}}</a></li>
+                <li class="{% if route  in scat_stock  %} mm-active {% endif %}"> <a href="{{path('souscategories')}}"><i class="bi bi-arrow-right-short"></i>{{'s_categorie'|trans}}</a></li>
+
+
+              </ul>
+            </li>
+{% endif %}
+
+
+
+
+{% if ("ROLE_ADMIN" not in app.user.roles)%}
+{% if ("ROLE_USER" in app.user.roles)  %}
+          <li class="{% if route in histo_demandes %} mm-active {% endif %}">
+              <a href="javascript:;" class="has-arrow">
+                <div class="parent-icon"><i class="bi bi-clock-history"></i>
+                </div>
+                <div class="menu-title">{{'titles.histo'|trans}}</div>
+              </a>
+              <ul>
+                <li class="{% if route in histo_dem_gen %} mm-active {% endif %}"> <a href="{{path('app_histo_demandes_index')}}"><i class="bi bi-arrow-right-short"></i>{{'histo_dems'|trans}}</a></li>
+                {% if ("ROLE_CHEF_FIL" in app.user.roles)  or ("ROLE_SCOLARITE" in app.user.roles) or ("ROLE_SERVICEEXT" in app.user.roles)%}
+
+                <li> <a href="{{path('historiques_validation')}}"><i class="bi bi-arrow-right-short"></i>{{'histo_validation'|trans}}</a></li>
+                {% elseif  ("ROLE_CHEF_SERV" in app.user.roles) or ("ROLE_CHEF_DEP" in app.user.roles)  or ("ROLE_SG" in app.user.roles) or ("ROLE_RH" in app.user.roles) or ("ROLE_CHEF_STRUCT" in app.user.roles)%}
+                <li> <a href="{{path('app_histo_demandes_vals')}}"><i class="bi bi-arrow-right-short"></i>{{'titles.hist_act'|trans}}</a></li>
+                {% endif %}
+
+                {% if  ("ROLE_RH" in app.user.roles) %}
+                <li> <a href="{{path('histo_om')}}"><i class="bi bi-arrow-right-short"></i>{{'hist_om'|trans}}</a></li>
+                {% endif %}
+
+                  {% if  ("ROLE_FINANCE_HISTODEM" in app.user.roles) %}
+                <li> <a href="{{path('histo_dem_valide')}}"><i class="bi bi-arrow-right-short"></i>{{'hist_dem_valide'|trans}}</a></li>
+                {% endif %}
+
+              </ul>
+            </li>
+{% endif %}
+{% endif %}
+
+{% if ("ROLE_ADMIN" in app.user.roles) %}
+
+             <li class="{% if route  in orientation %} mm-active {% endif %}">
+              <a href="javascript:;" class="has-arrow">
+                <div class="parent-icon"><i class="bi bi-arrows-move"></i>
+                </div>
+                <div class="menu-title">{{'orientation'|trans}}</div>
+              </a>
+              <ul>
+                <li> <a href="{{path('Orientation')}}"><i class="bi bi-arrow-right-short"></i>{{'parametres'|trans}}</a></li>
+                <li> <a href="{{path('importOrientation')}}"><i class="bi bi-arrow-right-short"></i>{{'imp_exp'|trans}}</a></li>
+                <li> <a href="{{path('etatOrientation')}}"><i class="bi bi-arrow-right-short"></i> {{'etat_etud'|trans}}</a></li>
+                <li> <a href="{{path('choixOrientation')}}"><i class="bi bi-arrow-right-short"></i> {{'choix_etud'|trans}}</a></li>
+                <li> <a href="{{path('statistiquesOrientation')}}"><i class="bi bi-arrow-right-short"></i>{{'stats'|trans}}</a></li>
+          
+              </ul>
+            </li>
+{% endif %}
+{% if ("ROLE_ADMIN" in app.user.roles) or ("ROLE_SCOLARITE" in app.user.roles) %}
+
+             <li class="{% if route  in scolarite %} mm-active {% endif %}">
+              <a id="sco_totale" href="javascript:;" class="has-arrow"> 
+                <div class="parent-icon"><i  class="bi bi-mortarboard-fill"></i>
+                </div>
+                <div class="menu-title">{{'scolarite'|trans}}</div>
+              </a>
+              <ul>
+                <li> <a id="sco_attestation" href="{{path('documents', { 'type': 'attestation'})}}"><i class="bi bi-arrow-right-short"></i>{{'attestation_sco'|trans}}</a></li>
+                <li> <a id="sco_releve"  href="{{path('documents', { 'type': 'releve'})}}"><i class="bi bi-arrow-right-short"></i>{{'rel_att_reu'|trans}}</a></li>
+                <li> <a id="sco_carte"  href="{{path('documents', { 'type': 'carte'})}}"><i class="bi bi-arrow-right-short"></i>{{'cartes'|trans}}</a></li>
+                <li> <a id="sco_reinscription" href="{{path('documents', { 'type': 'reinscription'})}}"><i   class="bi bi-arrow-right-short"></i>{{'reinsc'|trans}}</a></li>
+                <li class="{% if route  in scolarite_trait %} mm-active {% endif %}"><a href="{{path('listUsersScolarite')}}"><i class="bi bi-arrow-right-short"></i>{{'liste_etudiants'|trans}}</a></li>
+{% if ("ROLE_ADMIN" in app.user.roles) %}
+                <li> <a href="{{path('addEtudiantScolarite')}}"><i class="bi bi-arrow-right-short"></i>{{'ajouter_etudiant'|trans}}</a></li>
+{% endif %}
+                <li> <a href="{{path('statScolarite')}}"><i class="bi bi-arrow-right-short"></i>{{'stats'|trans}}</a></li>
+    
+              </ul>
+            </li>
+{% endif %}
+ 
+
+{% if ("ROLE_FINANCE" in app.user.roles) or ("ROLE_ADMIN" in app.user.roles) %}
+
+             <li class="{% if route  in finance %} mm-active {% endif %}">
+              <a id="finance_totale" href="javascript:;" class="has-arrow">
+                <div class="parent-icon"><i  class="bi bi-cash-coin"></i>
+                </div>
+                <div class="menu-title">{{'finance'|trans}}</div>
+              </a>
+              <ul>
+                <li class="{% if route  in finance1 %} mm-active {% endif %}"> <a id="finance_list_etu2" href="{{path('list_etu_paiement')}}"><i class="bi bi-arrow-right-short"></i>{{'liste_etudiants_fc'|trans}}</a></li>
+                <li class="{% if route  in finance2 %} mm-active {% endif %}"> <a id="finance_paiement2"  href="{{path('paiement')}}"><i class="bi bi-arrow-right-short"></i>{{'hist_paiements_fc'|trans}}</a></li>
+                <li class="{% if route  in finance22 %} mm-active {% endif %}"> <a id="export_paiment"  href="{{path('export_paiment')}}"><i class="bi bi-arrow-right-short"></i>{{'exporter_paiements'|trans}}</a></li>
+
+                <li class="{% if route  in finance_tab_fc %} mm-active {% endif %}"> <a id=""  href="{{path('liste_fc_dashboard')}}"><i class="bi bi-arrow-right-short"></i>{{'tableau_montants_fc'|trans}}</a></li>
+                <li class="{% if route  in finance_progemploi %} mm-active {% endif %}"> <a id=""  href="{{path('ProgrammeEmploi')}}"><i class="bi bi-arrow-right-short"></i>{{'programe_emploi_fc'|trans}}</a></li>
+                <li class="{% if route  in finance4 %} mm-active {% endif %}"> <a id="" href="{{path('list_prof_projet')}}"><i class="bi bi-arrow-right-short"></i>{{'paiement_projet_liste_prof'|trans}}</a></li>
+                <li class="{% if route  in finance_projet %} mm-active {% endif %}"> <a id=""  href="{{path('paiementprojet')}}"><i class="bi bi-arrow-right-short"></i>{{'hist_paiement_projet'|trans}}</a></li>
+                <li class="{% if route  in finance_progemploi_projet %} mm-active {% endif %}"> <a id=""  href="{{path('ProgrammeEmploiProjet')}}"><i class="bi bi-arrow-right-short"></i>{{'programme_emploi_projet'|trans}}</a></li>
+                <li class="{% if route  in prog_restant %} mm-active {% endif %}"> <a id=""  href="{{path('ProgrammeEmploiRestant')}}"><i class="bi bi-arrow-right-short"></i>{{'programme_emploi_restant'|trans}}</a></li>
+                <li class="{% if route  in finance_divers %} mm-active {% endif %}"> <a id=""  href="{{path('paiementdivers')}}"><i class="bi bi-arrow-right-short"></i>{{'paiement_divers'|trans}}</a></li>
+        
+
+                <li class="{% if route  in finance_progemploi_budget %} mm-active {% endif %}"> <a id=""  href="{{path('ProgrammeEmploiBudget')}}"><i class="bi bi-arrow-right-short"></i>{{'ventilation'|trans}}</a></li>
+                <li class="{% if route  in budget %} mm-active {% endif %}"> <a id=""  href="{{path('app_budget_index')}}"><i class="bi bi-arrow-right-short"></i>{{'budget'|trans}}</a></li>
+                <li class="{% if route  in entree_budget %} mm-active {% endif %}"> <a id=""  href="{{path('app_budget_entree_index')}}"><i class="bi bi-arrow-right-short"></i>{{'budget_entree'|trans}}</a></li>
+                <li class="{% if route  in sortie_budget %} mm-active {% endif %}"> <a id=""  href="{{path('app_budget_sortie_index')}}"><i class="bi bi-arrow-right-short"></i>{{'budget_sortie'|trans}}</a></li>
+
+           
+              </ul>
+            </li>
+{% endif %}
+
+
+
+
+
+{% if ("ROLE_FINANCE_BUDGET" in app.user.roles)  %}
+
+             <li class="{% if route  in finance %} mm-active {% endif %}">
+              <a id="finance_totale" href="javascript:;" class="has-arrow">
+                <div class="parent-icon"><i  class="bi bi-cash-coin"></i>
+                </div>
+                <div class="menu-title">{{'finance'|trans}}</div>
+              </a>
+              <ul>
+                    
+                <li class="{% if route  in prog_restant %} mm-active {% endif %}"> <a id=""  href="{{path('ProgrammeEmploiRestant')}}"><i class="bi bi-arrow-right-short"></i>{{'programme_emploi_restant'|trans}}</a></li>
+                <li class="{% if route  in finance_progemploi_budget %} mm-active {% endif %}"> <a id=""  href="{{path('ProgrammeEmploiBudget')}}"><i class="bi bi-arrow-right-short"></i>{{'ventilation'|trans}}</a></li>
+             
+              </ul>
+            </li>
+{% endif %}
+
+
+{% if  ("ROLE_FC_PAI" in app.user.roles) %}
+
+             <li class="{% if route  in finance %} mm-active {% endif %}">
+              <a id="finance_totale" href="javascript:;" class="has-arrow">
+                <div class="parent-icon"><i  class="bi bi-cash-coin"></i>
+                </div>
+                <div class="menu-title">{{'finance'|trans}}</div>
+              </a>
+              <ul>
+                <li class="{% if route  in finance1 %} mm-active {% endif %}"> <a id="finance_list_etu2" href="{{path('list_etu_paiement')}}"><i class="bi bi-arrow-right-short"></i>{{'liste_etudiants_fc'|trans}}</a></li>
+                <li class="{% if route  in finance2 %} mm-active {% endif %}"> <a id="finance_paiement2"  href="{{path('paiement')}}"><i class="bi bi-arrow-right-short"></i>{{'hist_paiements_fc'|trans}}</a></li>
+                <li class="{% if route  in finance22 %} mm-active {% endif %}"> <a id="export_paiment"  href="{{path('export_paiment')}}"><i class="bi bi-arrow-right-short"></i>{{'exporter_paiements'|trans}}</a></li>
+                <li class="{% if route  in finance4 %} mm-active {% endif %}"> <a id="" href="{{path('list_prof_projet')}}"><i class="bi bi-arrow-right-short"></i>{{'paiement_projet_liste_prof'|trans}}</a></li>
+                <li class="{% if route  in finance_projet %} mm-active {% endif %}"> <a id=""  href="{{path('paiementprojet')}}"><i class="bi bi-arrow-right-short"></i>{{'hist_paiement_projet'|trans}}</a></li>
+                <li class="{% if route  in finance_divers %} mm-active {% endif %}"> <a id=""  href="{{path('paiementdivers')}}"><i class="bi bi-arrow-right-short"></i>{{'paiement_divers'|trans}}</a></li>
+                <li class="{% if route  in finance_tab_fc %} mm-active {% endif %}"> <a id=""  href="{{path('liste_fc_dashboard')}}"><i class="bi bi-arrow-right-short"></i>{{'tableau_montants_fc'|trans}}</a></li>
+                <li class="{% if route  in finance_progemploi %} mm-active {% endif %}"> <a id=""  href="{{path('ProgrammeEmploi')}}"><i class="bi bi-arrow-right-short"></i>{{'programe_emploi_fc'|trans}}</a></li>
+
+
+               
+              </ul>
+            </li>
+{% endif %}
+
+
+
+{% if  app.user.id == 4 %} {#  {% if ("ROLE_ADMIN" in app.user.roles) or ("ROLE_CHEF_DEP" in app.user.roles or "ROLE_CHEF_STR" in app.user.roles) %} #}
+
+             <li class="{% if route  in budget_str %} mm-active {% endif %}">
+              <a id="budget_str" href="javascript:;" class="has-arrow">
+                <div class="parent-icon"><i  class="bi bi-cash-coin"></i>
+                </div>
+                <div class="menu-title">{{'programme_emploi_budget'|trans}}</div>
+              </a>
+              <ul>
+
+                <li class="{% if route  in budget_str %} mm-active {% endif %}"> <a id="budget_str_prof" href="{{path('ProgrammeEmploiBudget_prof')}}"><i class="bi bi-arrow-right-short"></i>{{'programme_emploi_budget'|trans}}</a></li>
+         
+              </ul>
+            </li>
+{% endif %}
+
+
+
+{% if ("ROLE_ADMIN" in app.user.roles) or ("ROLE_SCOLARITEFC" in app.user.roles) %}
+
+             <li class="{% if route  in scolariteFC %} mm-active {% endif %}">
+              <a id="sco_totaleFC" href="javascript:;" class="has-arrow">
+                <div class="parent-icon"><i  class="bi bi-mortarboard-fill"></i>
+                </div>
+                <div class="menu-title">{{'scolariteFC'|trans}}</div>
+              </a>
+              <ul>
+                <li> <a id="sco_attestationFC" href="{{path('documentsFC', { 'type': 'attestation'})}}"><i class="bi bi-arrow-right-short"></i>{{'attestation_sco'|trans}}</a></li>
+                <li> <a id="sco_releveFC" href="{{path('documentsFC', { 'type': 'releve'})}}"><i class="bi bi-arrow-right-short"></i>{{'rel_att_reu'|trans}}</a></li>
+                <li> <a id="sco_carteFC"href="{{path('documentsFC', { 'type': 'carte'})}}"><i class="bi bi-arrow-right-short"></i>{{'cartes'|trans}}</a></li>
+                <li> <a id="sco_reinscriptionFC"  href="{{path('documentsFC', { 'type': 'reinscription'})}}"><i  class="bi bi-arrow-right-short"></i>{{'reinsc'|trans}}</a></li>
+                <li class="{% if route  in scolarite_traitFC %} mm-active {% endif %}"><a href="{{path('listUsersScolariteFC')}}"><i class="bi bi-arrow-right-short"></i>{{'liste_etudiants'|trans}}</a></li>
+                <li> <a href="{{path('statScolariteFC')}}"><i class="bi bi-arrow-right-short"></i>{{'stats'|trans}}</a></li>
+          
+              </ul>
+            </li>
+{% endif %}
+{% if ("ROLE_ADMIN" in app.user.roles) or ("ROLE_SERVICEEXT" in app.user.roles) %}
+
+             <li>
+              <a id="coop_totale" href="javascript:;" class="has-arrow">
+                <div  class="parent-icon"><i  class="bi bi-mortarboard"></i>
+                </div>
+                <div class="menu-title">{{'cooperation'|trans}}</div>
+              </a>
+              <ul>
+                <li> <a id="coop_convention" href="{{path('conventions')}}"><i class="bi bi-arrow-right-short"></i>{{'convs'|trans}}</a></li>
+                <li> <a href="{{path('conventionsTraitement')}}"><i class="bi bi-arrow-right-short"></i> {{'gest_conv'|trans}}</a></li>
+                
+                <li> <a id="coop_diplome" href="{{path('diplomes')}}"><i class="bi bi-arrow-right-short"></i>{{'diplomes'|trans}}</a></li>
+                <li> <a href="{{path('listdiplomes')}}"><i  class="bi bi-arrow-right-short"></i> {{'gest_diplomes'|trans}}</a></li>
+                <li  class="{% if route  in cooper %} mm-active {% endif %}"> <a href="{{path('listlaureat')}}"><i  class="bi bi-arrow-right-short"></i> {{'liste_laureats'|trans}}</a></li>
+
+                <li> <a href="{{path('stageImportExport')}}"><i class="bi bi-arrow-right-short"></i>{{'imp_exp'|trans}}</a></li>
+                <li> <a href="{{path('statStage')}}"><i class="bi bi-arrow-right-short"></i>{{'stats'|trans}}</a></li>
+          
+              </ul>
+            </li>
+{% endif %}
+
+
+
+{% if ("ROLE_PROF" in app.user.roles) or ("ROLE_ADMIN" in app.user.roles)   %}
+
+             <li>
+              <a id="formation_cont_totale" href="javascript:;" class="has-arrow">
+                <div  class="parent-icon"><i  class="bi bi-award-fill"></i>
+                </div>
+                <div class="menu-title">{{'formation_continue'|trans}}</div>
+              </a>
+              <ul>
+              {% if ("ROLE_DIR_ADJ" in app.user.roles) and ("DIR_1" in app.user.codes)  %}
+                <li> <a href="{{path('paiement')}}"><i class="bi bi-arrow-right-short"></i>{{'hist_paiements_fc'|trans}}</a></li>
+              {% endif %}
+
+                <li class="{% if route  in fc_etu_liste %} mm-active {% endif %}"> <a href="{{path('list_etu_paiement_by_filiere')}}"><i class="bi bi-arrow-right-short"></i>{{'liste_etudiants_filiere_fc'|trans}}</a></li>
+                <li class="{% if route  in fc_prog_prof %} mm-active {% endif %}"> <a  href="{{path('ProgrammeEmploi_prof')}}"><i class="bi bi-arrow-right-short"></i>{{'programmeEmploi_FC_prof'|trans}}</a></li>   
+
+              </ul>
+            </li>
+
+            <li>
+              <a href="javascript:;" class="has-arrow">
+                <div  class="parent-icon"><i  class="bi bi-symmetry-vertical"></i>
+                </div>
+                <div class="menu-title">{{'recherche_sci'|trans}}</div>
+              </a>
+              <ul>  
+                <li class="{% if route  in pr_prog_prof %} mm-active {% endif %}"> <a  href="{{path('ProgrammeEmploiProjet_prof')}}"><i class="bi bi-arrow-right-short"></i>{{'programmeEmploi_projet_prof'|trans}}</a></li>      
+
+              </ul>
+            </li>
+{% endif %}
+
+
+
+{% if ("ROLE_ADMIN" in app.user.roles) or ("ROLE_SERVICEEXT" in app.user.roles) or ("ROLE_CHEF_FIL" in app.user.roles) %}
+
+             <li>
+              <a id="conv_totale" href="javascript:;" class="has-arrow">
+                <div class="parent-icon"><i class="bi bi-layers-fill"></i>
+                </div>
+                <div class="menu-title">{{'conv_dd'|trans}}</div>
+              </a>
+              <ul>
+              {% if ("ROLE_ADMIN" in app.user.roles) or ("ROLE_CHEF_FIL" in app.user.roles) or ("ROLE_SERVICEEXT" in app.user.roles)  %}
+
+
+{% if ("ROLE_SERVICEEXT" in app.user.roles) or ("ROLE_ADMIN" in app.user.roles)  %}
+                <li> <a href="{{path('addConventionDD')}}"><i class="bi bi-arrow-right-short"></i>  {{'convention_dd'|trans}}</a></li>
+{% endif %} 
+
+
+{% if ("ROLE_CHEF_FIL" in app.user.roles) or ("ROLE_ADMIN" in app.user.roles)  %}
+                <li> <a href="{{path('app_inscritDD_index')}}"><i  class="bi bi-arrow-right-short"></i>{{'etudiants_dd'|trans}} </a></li>
+{% endif %} 
+
+
+              {% endif %}  
+              {% if ("ROLE_ADMIN" in app.user.roles) or ("ROLE_SERVICEEXT" in app.user.roles)  %}
+                <li> <a id="coop_non_ins"  href="{{path('get_etudiant_non_ins')}}"><i  class="bi bi-arrow-right-short"></i>{{'inscription'|trans}}</a></li>    
+                <li> <a  href="{{path('liste_inscrits_dd')}}"><i  class="bi bi-arrow-right-short"></i>{{'liste_etudiant_inscrits'|trans}}</a></li>       
+              {% endif %}  
+              </ul>
+            </li>
+{% endif %}
+
+
+{% if ("ROLE_DIR" in app.user.roles) or ("ROLE_DIR_ADJ" in app.user.roles) or ("ROLE_SG" in app.user.roles)  %}
+
+             <li>
+              <a href="javascript:;" class="has-arrow">
+                <div class="parent-icon"><i class="bi bi-bar-chart-line-fill"></i>
+                </div>
+                <div class="menu-title">{{'stats'|trans}}</div>
+              </a>
+              <ul>
+                  <li> <a href="{{path('statistiquesOrientation')}}"><i class="bi bi-arrow-right-short"></i>{{'stats_orientation'|trans}}</a></li>
+                  <li> <a href="{{path('statScolarite')}}"><i class="bi bi-arrow-right-short"></i>{{'stats_scolarite'|trans}}</a></li>
+                  <li> <a href="{{path('statScolariteFC')}}"><i class="bi bi-arrow-right-short"></i>{{'stats_FC'|trans}}</a></li>
+                  <li> <a href="{{path('statStage')}}"><i class="bi bi-arrow-right-short"></i>{{'stats_stage'|trans}}</a></li>
+                   
+{% if ("ROLE_DIR" in app.user.roles) %}
+
+                  <li> <a href="{{path('app_stats_personnel_index')}}"><i class="bi bi-arrow-right-short"></i> {{'titles.stats_personnel'|trans}}</a></li>
+  {% endif %}
+
+        
+              </ul>
+            </li>
+{% endif %}
+
+
+{% if (is_granted("ROLE_CHEF_FIL") == true) and ("ROLE_ADMIN" not in app.user.roles)  %}
+
+             <li>
+              <a id="coop_convention" href="{{path('conventions')}}">
+                <div class="parent-icon"><i  class="bi bi-file-earmark-post"></i>
+                </div>
+                <div class="menu-title">{{'convs'|trans}}</div>
+              </a>
+            </li>
+{% endif %}
+
+
+
+{% if ("ROLE_ADMIN" in app.user.roles) or ("ROLE_PROF" in app.user.roles) or ("ROLE_SERVICEEXT" in app.user.roles) %}
+
+             <li class="{% if route  in pfe %} mm-active {% endif %}" >
+              <a id="" href="javascript:;" class="has-arrow">
+                <div  class="parent-icon"><i  class="bi bi-card-checklist"></i>
+                </div>
+                <div class="menu-title">{{'pfe'|trans}}</div>
+              </a>
+              <ul>
+
+{% if (is_granted("ROLE_CHEF_FIL") == true or is_granted("ROLE_ADMIN") == true or is_granted("ROLE_DIR") == true or is_granted("ROLE_DIR_ADJ") == true or is_granted("ROLE_SERVICEEXT") == true) %}
+              <li> <a id="" href="{{path('pfe')}}"><i class="bi bi-arrow-right-short"></i>{{'affecter_encadrant_pfe'|trans}}</a></li>
+{% endif %}
+
+{% if (is_granted("ROLE_PROF") == true or is_granted("ROLE_ADMIN") == true ) %}
+              <li> <a href="{{path('stageencad_by_prof')}}"><i class="bi bi-arrow-right-short"></i> {{'list_pfe_encadre'|trans}}</a></li>
+{% endif %}
+
+          
+              </ul>
+            </li>
+{% endif %}
+
+
+
+
+
+{% if ( is_granted("ROLE_MANAGER") == true or  is_granted("ROLE_DIR_ADJ") == true or is_granted("ROLE_ADMIN") == true  or is_granted("ROLE_SCOLARITE") == true or is_granted("ROLE_SERVICEEXT") == true   ) %}
+
+             <li>
+              <a href="{{path('liste_etudiant')}}">
+                <div class="parent-icon"><i  class="bi bi-download"></i>
+                </div>
+                <div class="menu-title">{{'exporter_liste'|trans}}</div>
+              </a>
+            </li>
+{% endif %}
+
+{% if ( (is_granted("ROLE_MANAGER") == true) or ("SER_15" in app.user.codes)) %}
+
+             <li>
+              <a href="{{path('statScolarite')}}">
+                <div class="parent-icon"><i  class="bi bi-bar-chart-line"></i>
+                </div>
+                <div class="menu-title">{{'stats_scolarite'|trans}}</div>
+              </a>
+            </li>
+{% endif %}
+
+
+{% if  "SER_15" in app.user.codes %}
+
+            <li>
+              <a href="{{path('app_stats_personnel_index')}}">
+                <div class="parent-icon"><i  class="bi bi-person-lines-fill"></i>
+                </div>
+                <div class="menu-title">{{'titles.stats_personnel'|trans}}</div>
+              </a>
+            </li>
+
+             <li>
+              <a href="{{path('liste_etudiant')}}">
+                <div class="parent-icon"><i  class="bi bi-download"></i>
+                </div>
+                <div class="menu-title">{{'exporter_liste'|trans}}</div>
+              </a>
+            </li>
+
+              <li>
+              <a href="{{path('listlaureat')}}">
+                <div class="parent-icon"><i  class="bi bi-distribute-horizontal"></i>
+                </div>
+                <div class="menu-title">{{'liste_laureats'|trans}}</div>
+              </a>
+            </li>
+{% endif %}
+
+{% if (is_granted("ROLE_CHEF_FIL") == true or is_granted("ROLE_ADMIN") == true or is_granted("ROLE_DIR") == true or is_granted("ROLE_DIR_ADJ") == true ) %}
+
+             <li class="{% if route in imp %} mm-active {% endif %}">
+              <a href="{{path('get_maquette_module')}}">
+                <div class="parent-icon"><i  class="bi bi-check-square-fill"></i>
+                </div>
+                <div class="menu-title ">{{'import_module'|trans}}</div>
+              </a>
+            </li>
+{% endif %}
+
+{% if ( is_granted("ROLE_PROF") == true or (is_granted("ROLE_MANAGER") == true) ) %}
+
+             <li>
+              <a href="{{path('emploisearch')}}">
+                <div class="parent-icon"><i  class="lni lni-support"></i>
+                </div>
+                <div class="menu-title">{{'emp_temps'|trans}}</div>
+              </a>
+            </li>
+{% endif %}
+
+{% if (is_granted("ROLE_ADMIN") == true) %}
+
+             <li>
+              <a href="{{path('emploi')}}">
+                <div class="parent-icon"><i  class="bi bi-align-center"></i>
+                </div>
+                <div class="menu-title">{{'etaler_emp_temps'|trans}}</div>
+              </a>
+            </li>
+{% endif %}
+
+{% if (is_granted("ROLE_ADMIN") == true) %}
+
+             <li>
+              <a href="{{path('addEtudiantScolarite')}}">
+                <div class="parent-icon"><i  class="bi bi-people-fill"></i>
+                </div>
+                <div class="menu-title">{{'ajouter_etudiant'|trans}}</div>
+              </a>
+            </li>
+{% endif %}
+
+{% if (is_granted("ROLE_PROF") == true) or (is_granted("ROLE_MANAGER") == true) %}
+
+             <li class=" {% if route in scolarite_trait %} mm-active {% endif %}" >
+              <a href="{{path('listUsersScolarite')}}">
+                <div class="parent-icon"><i  class="bi bi-person-fill"></i></div>
+                <div class="menu-title">{{'liste_etudiants'|trans}}</div>
+              </a>
+            </li>
+
+{% endif %}
+
+{% if (is_granted("ROLE_PROF") == true) or (is_granted("ROLE_MANAGER") == true)   %}
+            <li class="{% if route  in absence %} mm-active {% endif %}">
+              <a href="javascript:;" class="has-arrow">
+                <div class="parent-icon"><i class="bi bi-bookmark-x"></i>
+                </div>
+                <div class="menu-title">{{'abs'|trans}}</div>
+              </a>
+              <ul>
+
+              {% if (is_granted("ROLE_PROF") == true)  %}
+                  <li> <a href="{{path('addAbsence')}}"><i class="bi bi-arrow-right-short"></i>{{'nv_abs'|trans}} </a></li>
+                  <li  class="{% if route  in absence_trait %} mm-active {% endif %}"> <a href="{{path('absence_gestion')}}"><i class="bi bi-arrow-right-short"></i>{{'liste_abs'|trans}}</a></li>
+             {% endif  %}
+{% if (is_granted("ROLE_PROF") == true) or (is_granted("ROLE_MANAGER") == true)   %}
+                  <li> <a href="{{path('absenceImportExport')}}"><i class="bi bi-arrow-right-short"></i>{{'imp_exp'|trans}}</a></li>
+{% endif  %}
+              </ul>
+            </li>
+{% endif %}
+
+
+
+
+{% if ("ROLE_FONC" in app.user.roles or "ROLE_PROF" in app.user.roles  ) %}
+            <li>
+              <a href="https://events-ensat.uae.ac.ma/"  target="_blank" class="">
+                <div class="parent-icon"><i class="bi bi-calendar-week"></i>
+                </div>
+                <div class="menu-title">{{'ENSAT Events'|trans}}</div>
+              </a>
+  
+      </li>
+{% endif %}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+{% if ("ROLE_ADMIN" in app.user.roles) or ("ROLE_SCOLARITE" in app.user.roles) %}
+
+    <li class="{% if route  in recherche %} mm-active {% endif %}">
+        <a id="recherche_totale" href="javascript:;" class="has-arrow">
+            <div class="parent-icon"><i class="bi bi-search"></i></div>
+            <div class="menu-title">{{ 'recherche'|trans }}</div>
+        </a>
+        <ul>
+
+            <li>
+                <a id="add_doctorant" href="{{ path('add_doctorant') }}">
+                    <i class="bi bi-arrow-right-short"></i>{{ 'Ajouter Doctorant'|trans }}
+                </a>
+            </li>
+
+              <li>
+                <a id="import_doctorants" href="{{ path('import_doctorants') }}">
+                    <i class="bi bi-arrow-right-short"></i>{{ 'Importer Doctorant'|trans }}
+                </a>
+            </li>
+            <li class="{% if route  in doctorant_list %} mm-active {% endif %}">
+                <a id="list_doctorants" href="{{ path('list_doctorants') }}">
+                    <i class="bi bi-arrow-right-short"></i>{{ 'Liste des Doctorants'|trans }}
+                </a>
+            </li>
+            <li>
+
+            </li>
+        </ul>
+    </li>
+
+{% endif %}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+          </ul>
+          <!--end navigation-->
+       </aside>

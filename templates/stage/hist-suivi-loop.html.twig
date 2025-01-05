@@ -1,0 +1,441 @@
+
+{% extends 'template.html.twig' %}
+
+{% block title %}{{'cooperation'|trans}}{% endblock %}
+
+{% block body %}
+
+        <!--breadcrumb-->
+        <div class="page-breadcrumb d-none d-sm-flex align-items-center mb-3">
+          <div class="breadcrumb-title pe-3">{{'cooperation'|trans}}</div>
+          <div class="ps-3">
+            <nav aria-label="breadcrumb">
+              <ol class="breadcrumb mb-0 p-0">
+                <li class="breadcrumb-item"><a href="javascript:;"><i class="bx bx-home-alt"></i></a>
+                </li>
+                <li class="breadcrumb-item active" aria-current="page"> {{'suivi'|trans}} {{'n'|trans}} {{suivi.id}} </li>
+              </ol>
+            </nav>
+          </div>
+        
+        </div>
+        <hr/>
+
+        <div class="card">
+          <div class="card-body">
+            <div class="table-responsive">
+              
+
+<table class="table table-striped table-bordered" >
+							
+								<tbody> 
+					
+				  <tr>
+					<td>{{'n'|trans}}</td> 
+                    <td> {{suivi.id}} </td>
+				  </tr>
+
+                    <tr>
+                    <td>{{'nom_prenom'|trans}}</td>
+         {#            <td>  {{suivi.idUser.nom}}  {{suivi.idUser.prenom}}</td> #}
+                    </tr>
+
+                    <tr>
+                    <td>{{'tel'|trans}}</td>
+                    <td>{{suivi.mobile}}</td>
+                    </tr>
+
+
+ 	               <tr>
+				    <td>{{'email_pro'|trans}}</td> 
+                    <td>{{suivi.emailPro}}</td>
+			     	</tr>
+
+                  <tr>
+                  <td>{{'email_perso'|trans}}</td>
+                  <td>{{suivi.emailPerso}}</td>
+                  </tr>
+
+
+				
+
+                  
+                    <tr>
+                    <td>{{'adresse_postale'|trans}}</td>
+                    <td>{{suivi.adressePostale}}</td>
+                    </tr>
+
+                    <tr>
+                    <td>{{'linkedin'|trans}}</td>
+                    <td>{{suivi.linkedin}}</td>
+                    </tr>
+
+
+                   <tr>
+                    <td>{{'situation'|trans}}</td>
+                    <td>
+{% if suivi.situation == 0 %}
+                  {{'autre'|trans}}
+{% endif  %}
+
+{% if suivi.situation == 1 %}
+                  {{'rech_emploi'|trans}}
+{% endif  %}
+{% if suivi.situation == 2 %}
+                  {{'formation_doc'|trans}}
+{% endif  %}
+{% if suivi.situation == 3 %}
+                  {{'activite_pro'|trans}}
+{% endif  %}
+                    </td>
+                   </tr>
+
+ {% if suivi.disciplineDoc is not empty %}
+                    <tr>
+                    <td>{{'discipline_doc'|trans}}</td>
+                    <td>{{suivi.disciplineDoc}}</td>
+                    </tr>
+{% endif %}            
+
+ {% if suivi.cedDoc is not empty %}
+                    <tr>
+                    <td>{{'cedoc'|trans}}</td>
+                    <td>{{suivi.cedDoc}}</td>
+                    </tr>
+{% endif %} 
+
+{% if suivi.specialiteDoc is not empty %}
+                   <tr>
+                    <td>{{'spec_doc'|trans}}</td>
+                    <td>{{suivi.specialiteDoc}}</td>
+                    </tr>
+{% endif %} 
+
+ {% if suivi.universiteDoc is not empty %}
+                   <tr>
+                    <td>{{'univ_doc'|trans}}</td>
+                    <td>{{suivi.universiteDoc}}</td>
+                   </tr>
+{% endif %}
+
+ {% if suivi.autreSituation is not empty %}
+                   <tr>
+                    <td>{{'autre_situation'|trans}}</td>
+                    <td>{{suivi.autreSituation}}</td>
+                    </tr>
+{% endif %}
+
+
+
+                <tr>
+
+                    <td>{{'delai'|trans}}</td>
+
+                    {% if suivi.delai == 0 %}
+                    <td> {{'delai_0'|trans}}</td>
+                    {% endif %}
+                     {% if suivi.delai == 1 %}
+                    <td> {{'delai_1'|trans}}</td>
+                    {% endif %}
+
+                    {% if suivi.delai == 2 %}
+                    <td> {{'delai_2'|trans}}</td>
+                    {% endif %}
+
+
+                </tr>
+
+
+
+                 {#    <tr>
+                    <td>{{'date_debut'|trans}}</td>
+                    <td>
+                  {% if suivi.dateDebut is not empty %}
+                    {{suivi.dateDebut|date('Y-m-d')}}
+                       {% endif  %}
+                     
+                    </td>
+                    </tr>
+
+                    <tr>
+                    <td>{{'date_fin'|trans}}</td>
+                    <td>
+                   {% if suivi.dateFin is not empty %}
+                    {{suivi.dateFin|date('Y-m-d')}}
+                    {% endif  %}
+                       
+                    </td>
+                    </tr> #}
+
+                    <tr>
+                    <td>{{'pays_ville'|trans}}</td>
+                    <td> {{suivi.paysVille}}</td>
+                    </tr>
+
+                    <tr>
+                    <td>{{'organisme'|trans}}</td>
+                    <td>{{suivi.organisme}}</td>
+                    </tr>
+
+                    <tr>
+                    <td>{{'departement'|trans}}</td>
+                    <td>{{suivi.departement}}</td>
+                    </tr>
+
+                    <tr>
+                    <td>{{'rh_phone'|trans}}</td>
+                    <td>{{suivi.rhPhone}}</td>
+                    </tr>
+
+                    <tr>
+                    <td>{{'rh_email'|trans}}</td>
+                    <td>{{suivi.rhEmail}}</td>
+                    </tr>
+
+                    <tr>
+                    <td>{{'rh_contact'|trans}}</td>
+                    <td>{{suivi.rhContact}}     
+
+                    </td>
+                    </tr>
+
+                    <tr>
+                    <td>{{'poste'|trans}}</td>
+                    <td>
+                    {{suivi.poste}}     
+                    </td>
+                    </tr>
+																									
+					</tbody>	
+				</table>
+            </div>
+          </div>
+        </div>
+
+
+
+
+
+
+
+ {% if suivi.formations is not empty %}
+        {% for exp in suivi.formations %}
+
+ <div class="card">
+    <div class="card-body">
+       <div class="table-responsive">
+		<table class="table table-striped table-bordered">
+          <tbody>	
+
+<th colspan="2"  style="text-align:center;">  {{'formations'|trans}} {{'n'|trans}} {{loop.index}}    </th>
+                 
+
+                     <tr>
+                    <td>{{'annee'|trans}}</td>
+                    <td>
+                   {{exp.annee}}  
+                    </td>
+                    </tr>
+
+                     <tr>
+                    <td>{{'specialite'|trans}}</td>
+                    <td>
+                    {{exp.specialite}}     
+                    </td>
+                    </tr>
+
+                    <tr>
+                    <td>{{'diplome'|trans}}</td>
+                    <td>
+                    {{exp.diplome}}     
+                    </td>
+                    </tr>
+
+                     <tr>
+                    <td>{{'filiere'|trans}}</td>
+                    <td>
+                    {{exp.filiere}}     
+                    </td>
+                    </tr>
+
+                   
+
+
+
+
+		  </tbody>	
+		</table>
+        </div>
+    </div>
+</div>
+
+
+
+        {% endfor %}
+{% endif %}
+
+
+
+
+
+
+
+
+      
+ {% if suivi.experiences is not empty %}
+        {% for exp in suivi.experiences %}
+
+ <div class="card">
+    <div class="card-body">
+       <div class="table-responsive">
+		<table class="table table-striped table-bordered" >
+          <tbody>	
+
+<th colspan="2"  style="text-align:center;" >  {{'experience'|trans}} {{'n'|trans}} {{loop.index}}    </th>
+                 
+
+                     <tr>
+                    <td>{{'date_debut'|trans}}</td>
+                    <td>
+                   {{exp.dateDebut|date('Y-m-d')}}  
+                    </td>
+                    </tr>
+
+                     <tr>
+                    <td>{{'date_fin'|trans}}</td>
+                    <td>
+                    {{exp.dateFin|date('Y-m-d')}}     
+                    </td>
+                    </tr>
+
+                    <tr>
+                    <td>{{'intituleposte'|trans}}</td>
+                    <td>
+                    {{exp.intituleposte}}     
+                    </td>
+                    </tr>
+
+                     <tr>
+                    <td>{{'entreprise'|trans}}</td>
+                    <td>
+                    {{exp.entreprise}}     
+                    </td>
+                    </tr>
+
+                     <tr>
+                    <td>{{'lieu'|trans}}</td>
+                    <td>
+                    {{exp.lieu}}     
+                    </td>
+                    </tr>
+
+                    <tr>
+                    <td>{{'descriptionmission'|trans}}</td>
+                    <td>
+                    {{exp.descriptionmission}}     
+                    </td>
+                    </tr>
+
+                    <tr>
+                    <td>{{'lienportfolio'|trans}}</td>
+                    <td>
+                    {{exp.lienportfolio}}     
+                    </td>
+                    </tr>
+
+                 
+
+
+
+
+		  </tbody>	
+		</table>
+        </div>
+    </div>
+</div>
+
+
+
+        {% endfor %}
+{% endif %}
+
+
+
+
+
+
+
+
+
+ {% if suivi.clubs is not empty %}
+        {% for exp in suivi.clubs %}
+
+ <div class="card">
+    <div class="card-body">
+       <div class="table-responsive">
+		<table class="table table-striped table-bordered">
+          <tbody>	
+
+<th colspan="2"  style="text-align:center;">  {{'clubs_cvtheque'|trans}} {{'n'|trans}} {{loop.index}}    </th>
+                 
+
+                     <tr>
+                    <td>{{'date_debut'|trans}}</td>
+                    <td>
+                   {{exp.dateDebut|date('Y-m-d')}}  
+                    </td>
+                    </tr>
+
+                     <tr>
+                    <td>{{'date_fin'|trans}}</td>
+                    <td>
+                    {{exp.dateFin|date('Y-m-d')}}     
+                    </td>
+                    </tr>
+
+                    <tr>
+                    <td>{{'nomassoc'|trans}}</td>
+                    <td>
+                    {{exp.nomassoc}}     
+                    </td>
+                    </tr>
+
+                     <tr>
+                    <td>{{'posteoccupe'|trans}}</td>
+                    <td>
+                    {{exp.posteoccupe}}     
+                    </td>
+                    </tr>
+
+                     <tr>
+                    <td>{{'description'|trans}}</td>
+                    <td>
+                    {{exp.description}}     
+                    </td>
+                    </tr>
+
+                 
+
+                 
+
+
+
+
+		  </tbody>	
+		</table>
+        </div>
+    </div>
+</div>
+
+
+
+        {% endfor %}
+{% endif %}
+
+
+
+  
+{% endblock %}
+
+
+

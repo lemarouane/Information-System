@@ -1,0 +1,67 @@
+Etudiants: Students
+Filieres: Sectors
+Users: Users
+Etudiant: Student
+Filiere: Sector
+User: User
+Dashboard: Dashboard
+Username :  Username
+Email :  E-Mail
+Roles : Roles
+Locale : Language
+Id : ID
+New_User : New User
+Operations : Operations
+Users_Table :  Users Liste
+Profile : Profile
+Logout : Logout
+Language : Language
+Code : Code
+Save : Save
+Send : Send
+Back : Back
+Nom :  Last Name
+Prenom : First Name
+Change_Pass : Change Password
+User_Edit : Edit User
+Old_Pass : Old Password   
+New_Pass : New Password
+Confirm_Pass :  Confirm New Password
+MOD_SUCCESS : Your modification has been saved succefully !
+MOD_DANGER : Error ! Please try again !
+
+security:
+  reset-password: Reset Password
+  sing-in: Sign in 
+  forgetten-password: I forget my password 
+  enter-email: Enter your email
+  send-email:  Send link to reset the password
+  email: Email
+  password: Password
+  username: Username
+  remember-me: Remember me
+  login: Login
+  dont-have-account: I don't have account
+  register: Register me
+  accept: I accept all
+  terms: the terms
+
+email_reset :
+  link_expire : This link will expire in 
+  greetings : Hello 
+  cheers : Thank You !
+  core : To reset your password, please visit the following link
+  
+password_reset :
+  m0 : Password Reset Request
+  m1 : Forgot Password ?
+  m2 : Enter your registered E-mail to reset the password
+  m3 : Reset your new password
+  m4 : We received your reset password request. Please enter your new password!
+
+password_check :
+  m0 : Password Reset Email Sent
+  m1 : If an account matching your email exists , then an email was just sent that contains a link that you can use to reset your password.     
+  m2 : This link will expire in 
+  m3 : If you don't receive an email please check your spam folder or
+  m4 : Try again

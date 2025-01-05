@@ -1,0 +1,116 @@
+<html>
+<meta charset="UTF-8" />
+<body dir=LTR bgcolor="#ffffff">
+<table border=0 cellspacing=0 cellpadding=0 width=786>
+<tr><td width=14><td width=2><td width=1><td width=1><td width=14><td width=10><td width=3><td width=80><td width=1><td width=138><td width=8><td width=76><td width=6><td width=152><td width=172><td width=47><td width=5><td width=1><td width=3><td width=30><td width=1><td width=21>
+<tr><td colspan=22 height=9>
+<tr valign=top>
+  <td height=9 colspan=3>
+  <td width=747 colspan=17 rowspan=2 align=center ><font face="Arial"  size="4"><b>UNIVERSITÉ ABDELMALEK ESSAÂDI</b></font>
+  <td colspan=2>
+<tr valign=top>
+  <td height=9 colspan=3>
+  <td colspan=2>
+<tr><td colspan=22 height=19>
+<tr valign=top>
+  <td height=9 colspan=4>
+  <td width=747 colspan=17 rowspan=2 align=center><font face="Arial" size="5"><b>جامعة عبد المالك السعدي</b></font>
+  <td>
+<tr valign=top>
+  <td height=9 colspan=4>
+  <td>
+<tr><td colspan=22 height=9>
+<tr valign=top>
+  <td height=9 colspan=9>
+  <td width=700 colspan=6 rowspan=2 align=center style=" border:1.5px solid black; padding:5px;"><font face="Arial" size="4"><b>ATTESTATION DE REUSSITE</b></font>
+  <td colspan=7>
+<tr valign=top>
+  <td height=9 colspan=2>
+  <td colspan=2>
+<tr><td colspan=22 height=57>
+<tr valign=top>
+  <td height=9 colspan=6>
+  <td width=688 colspan=11 rowspan=2 align=center> <font face="Arial">Le Directeur de l'{{etudiant["INT_1_EDI_DIP_CMP"]}} atteste que </font><br>
+  <td colspan=5>
+<tr valign=top>
+  <td height=9 colspan=6>
+  <td colspan=5>
+<tr><td colspan=22 height=9>
+<tr valign=top>
+  <td height=9 colspan=7>
+  <td width=680 colspan=9 rowspan=2 align=center><font face="Arial"><b>{% if etudiant["COD_SEX_ETU"]== 'F' %} Mademoiselle {% else %} Monsieur {% endif %} {{etudiant["LIB_NOM_PAT_IND"]}} {{etudiant["LIB_PR1_IND"]}}</b></font>
+  <td colspan=6>
+<tr valign=top>
+  <td height=9 colspan=7>
+  <td colspan=6>
+<tr valign=top>
+  <td height=9 colspan=7>
+  <td width=680 colspan=9 rowspan=2 align=center><font face="Arial">née le {{etudiant["DATE_NAI_IND"]|format_datetime('long', 'none', locale='fr') }} à {{etudiant["LIB_VIL_NAI_ETU"]}} </font>
+  <td colspan=6>
+<tr valign=top>
+  <td height=9 colspan=7>
+  <td colspan=6>
+<tr valign=top>
+  <td height=9 colspan=7>
+  <td width=680 colspan=9 rowspan=2 align=center><font face="Arial">{% if etudiant["COD_SEX_ETU"]== 'F' %} a été déclarée admise {% else %} a été déclaré admis {% endif %} au niveau</font>
+  <td colspan=6>
+<tr valign=top>
+  <td height=9 colspan=7>
+  <td colspan=6>
+<tr><td colspan=22 height=9>
+<tr valign=top>
+  <td height=9 colspan=7>
+  <td width=680 colspan=9 rowspan=2 align=center><font face="Arial"><b>{{etudiant["LIB_ETP"]}}</b></font>
+  <td colspan=6>
+<tr valign=top>
+  <td height=9 colspan=7>
+  <td colspan=6>
+<tr><td colspan=22 height=9>
+<tr valign=top>
+  <td height=9 colspan=7>
+  <td width=680 colspan=9 rowspan=2 align=center><font face="Arial">au titre de l'année universitaire {{etudiant["COD_ANU"]}}/{{(etudiant["COD_ANU"]+1)}} avec la mention  {{mention}}</font>
+  <td colspan=6>
+<tr valign=top>
+  <td height=9 colspan=7>
+  <td colspan=6>
+<tr valign=top>
+  <td height=9 colspan=11>
+  <td colspan=3><hr size=2 noshade>
+  <td colspan=8>
+<tr><td colspan=22 height=585><div style="border-bottom: 1px solid black;-webkit-transform: translateY(20px) translateX(5px) rotate(-50deg);"></div>
+<tr valign=top>
+  <td height=170 colspan=13>
+  <td width=377 colspan=5 rowspan=2 align=center> <font face="Arial">Fait à TANGER, le </font><font face="Arial">{{"now"|format_datetime(locale='fr' , pattern="dd MMMM YYYY")}}</font><font face="Arial"> </font><br>
+  <td colspan=4>
+<tr valign=top>
+  <td height=9 colspan=13>
+  <td colspan=4>
+<tr><td colspan=22 height=67>
+<tr valign=top>
+  <td height=9 colspan=12>
+  <td width=386 colspan=7 rowspan=2 align=center><font face="Arial">Le Directeur</font>
+  <td colspan=3>
+
+<tr valign=top>
+  <td height=9 colspan=12>
+  <td colspan=3>
+<tr valign=top>
+  <td height=9 colspan=5>
+  <td width=93 colspan=3 rowspan=2><font face="Arial">N° étudiant :</font>
+  <td>
+  <td width=138 rowspan=2><font face="Arial"> {{etudiant["COD_ETU"]}}</font>
+  <td colspan=12>
+<tr valign=top>
+  <td height=30 colspan=5>
+  <td>
+  <td colspan=12>
+<tr><td colspan=22 height=28>
+<tr valign=top>
+  <td height=9>
+  <td width=664 colspan=14 rowspan=2><font size=2 face="Arial">Avis important: Il ne peut être délivré qu'un seul exemplaire de cette attestation. Aucun duplicata ne sera fourni.</font>
+  <td colspan=7>
+<tr valign=top>
+  <td height=9>
+  <td colspan=7>
+</table>
+</body></html>

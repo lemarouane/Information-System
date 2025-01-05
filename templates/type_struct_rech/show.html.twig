@@ -1,0 +1,26 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}StructureRechType{% endblock %}
+
+{% block body %}
+    <h1>StructureRechType</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ structure_rech_type.id }}</td>
+            </tr>
+            <tr>
+                <th>NomStructure</th>
+                <td>{{ structure_rech_type.nomStructure }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_structure_rech_type_index') }}">back to list</a>
+
+    <a href="{{ path('app_structure_rech_type_edit', {'id': structure_rech_type.id}) }}">edit</a>
+
+    {{ include('structure_rech_type/_delete_form.html.twig') }}
+{% endblock %}

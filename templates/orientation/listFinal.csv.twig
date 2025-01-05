@@ -1,0 +1,4 @@
+CodeApogee; Nom; prenom; E-mail;choix 1;choix 2; choix 3; choix 4;choix 5;choix 6; Filiere Affecter;M_CP1; RACH_CP1; AJR_CP1; DER_CP1;M_CP2; RACH_CP2; AJR_CP2; DER_CP2; M_CAL
+{% for entity in ChoixAffecter %}
+{{ entity.user.code }};  {{ entity.user.nom }};{{ entity.user.prenom }};{{ entity.user.email }};{{ entity.user.choix.choix1 }};{{ entity.user.choix.choix2 }};{{ entity.user.choix.choix3 }};{{ entity.user.choix.choix4 }};{{ entity.user.choix.choix5 }};{{ entity.user.choix.choix6 }};{{ entity.choixaffecter.affectation }};{{ entity.mCP1|number_format(3) }};{{ entity.rACHCP1 }};{{ entity.aJRCP1 }};{{ entity.dERCP1 }};{{ entity.mCP2|number_format(3) }};{{ entity.rACHCP2 }};{{ entity.aJRCP2 }};{{ entity.dERCP2 }};{{ entity.mcal|number_format(3) }};
+ {% endfor %} 

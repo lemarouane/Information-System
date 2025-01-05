@@ -1,0 +1,1066 @@
+security:
+  reset-password: Récupérer le mot de passe
+  sing-in: S'authentifier 
+  forgetten-password: Mot de passe oublié
+  enter-email: Tapez votre e-mail
+  send-email:  Envoyez le lien pour récupérer le mot de passe
+  email: E-mail
+  password: Mot de passe
+  username: Nom et prénom de l'utilisateur
+  remember-me: Se souvenir de moi
+  login: Se connecter
+  dont-have-account: Je n'ai pas de compte
+  register: S'inscrire
+  accept: J'accepte toutes 
+  terms: les conditions d'utilisation
+
+
+ 
+
+titles : 
+ new_dem_att : Nouvelle demande d'attestation
+ hist_dem_att : Historique des demandes d'attestations
+ edit_dem_att : Modifier la demande d'attestation
+
+ new_dem_om: Nouvelle demande d'ordre de mission
+ hist_dem_om : Historique des demandes d'ordre de missions
+ edit_dem_om : Modifier la demande d'ordre de mission
+ details_dem_om : Détails d'ordre de mission
+
+ new_dem_cong : Nouvelle demande de congé
+ hist_dem_cong : Historique des demandes de congé
+ edit_dem_cong: Modifier la demande de congé
+
+ new_dem_auto : Nouvelle demande d'autorisation
+ hist_dem_auto : Historique des demandes d'autorisation
+ edit_dem_auto : Modifier la demande d'autorisation
+
+ new_dem_fh : Nouvelle demande d'autorisation HS
+ hist_dem_fh : Historique des demandes des autorisations HS
+ edit_dem_fh : Modifier la demande d'autorisation HS
+
+ hist_dem : Historique des demandes
+ hist_dem_rh : Historique des demandes du personnel
+ hist_act : Historique d'activité
+ show_hist : Details d'historique
+
+ hist_avanc : Historique des avancements
+ edit_avanc : Modifier un avancement
+ new_avanc : Ajouter un nouvel avancement
+
+ hist_note : Historique des notes
+ edit_note: Modifier une note
+ new_note : Ajouter une note
+
+ engs : Si vous avez des engagements, merci de les ajouter en cliquant sur le boutton +.
+
+ info_perso : Informations personnelles
+ info_admin : Informations administratives
+ info_acad : Informations académiques
+ upload_photo : Charger une photo ↑
+ upload_photo_edit : Changer la photo ↑
+ new_personnel : Ajouter un nouveau membre du personnel
+ edit_personnel : Modifier un membre du personnel 
+ show_personnel : Informations du personnel 
+
+ dashboard: Tableau de bord
+ rh : Ressources Humaines
+ gest_personnel : Gestion du personnel
+ stats_personnel : Stats R.H.
+ dem_personnel : Demandes du personnel
+ imp_exp : Import / Export
+ rep_rh : Reprises R.H.
+ histo : Historique
+ demandes : Demandes
+ activity : Activité
+ stats_de_annee : Statistiques des demandes pour l'année 
+
+
+
+
+
+email_reset :
+  link_expire : Pour réinitialiser votre mot de passe, veuillez visiter le lien suivant
+  greetings : Bonjour  
+  cheers : Merci !
+  core : Pour réinitialiser votre mot de passe, veuillez visiter le lien suivant dans
+
+password_reset :
+  m0 : Demande réinitialisation du mot de passe
+  m1 : Mot de passe oublié ?
+  m2 : Entrez votre e-mail enregistré pour réinitialiser le mot de passe
+  m3 : Réinitialiser votre nouveau mot de passe
+  m4 : Nous avons bien reçu votre demande de réinitialisation de mot de passe. Veuillez saisir votre nouveau mot de passe !
+
+password_check :
+  m0 : E-mail de réinitialisation de mot de passe envoyé
+  m1 : Si un compte correspondant à votre adresse e-mail existe, un e-mail contenant un lien que vous pouvez utiliser pour réinitialiser votre mot de passe vient de vous être envoyé.    
+  m2 : Ce lien va expirer dans
+  m3 : Si vous ne recevez pas d'e-mail, veuillez vérifier votre dossier spam ou
+  m4 : Veuillez réessayer !
+
+
+
+
+Username :  Nom d'utilisateur
+Roles : Rôles
+Locale : Langue
+
+New_User : Nouvel utlisateur
+Operations : Opérations
+Users_Table :  Liste d'utilisateurs
+
+Language : Langue
+Code : Code
+
+save : Enregistrer
+send : Envoyer
+back : Retour
+new : Ajouter +
+
+Change_Pass : Changer le mot de passe
+User_Edit : Modifier un utilisateur
+Old_Pass : Ancien mot de passe   
+New_Pass : Nouveau mot de passe
+Confirm_Pass :  Confirmer le mot de passe
+
+profile : Profil
+logout : Fermer la session
+edit_pass : Modifier le mot de passe
+
+Etudiant_DD_Table : Liste d'étudiants en DD
+convention_dd : Conventions DD
+inscription : Inscription
+carte_etudiant : Carte d'étudiant
+carte_etudiants : Cartes d'étudiants
+scolarite : Scolarité
+detail : Détails
+nb_nv_etu_par_diplome : Nombre de nouveaux étudiants par diplôme
+nb_etu_par_etape :  Nombre d'étudiants par étape
+nb_etu_par_diplome :  Nombre d'étudiants par diplôme
+totale: Total
+nv_inscrits: Nouveaux inscrits
+stats : Statistiques
+liste_etudiants : Liste des étudiants
+demande_dip_accorde : Demandes des diplômes accordés
+liste_dem_stage : Liste des demandes de stages
+liste_etu_retire_dip : Exporter la liste des étudiants ayant retiré leur diplôme
+liste_etu_dd_annee_encours: Exporter les étudiants en DD pour l'année universitaire en cours 
+stats_de_annee : Statistiques des demandes pour l'année
+stats_insc_dd_pour_annee : Statistiques des inscrits en DD pour l'année
+stats_etud_non_inscrit : Etudiants non inscrits
+totale_etud_en_dd : Total des étudiants en DD
+etu_insc_pour_annee : Etudiants inscrits pour l'année 
+nb_etu_par_dip : Nombre d'étudiants par diplôme
+type_stage_percentage : Types de stages en %
+nb_conv_par_filiere : Nombre de conventions par filière 
+diplome_retire : Diplômes retirés
+conventions : Conventions
+num_apogee : N°APOGEE
+annee_univ : Année universitaire 
+type_stage : Type de stage
+type_document : Type de document
+exporter_fichier : Exporter fichier
+exporter_stats : Exporter statistiques
+tous : Tous
+stag_observation : Stage d'Observation
+stage_pfa : Stage PFA
+stage_pfe : Stage PFE
+document_signe : Documents signés
+entreprise : Entreprise
+date_demande : Date de la demande
+niveau : Niveau 
+service_coop : Service Coop.
+accorde : Accordé
+chef_filiere : Chef de Filiére
+rendezvous : Rendez-vous
+promotion : Promotion
+accepter : Accepter
+stages : Stages
+attestations : Attestations
+etape : Etape
+reinsc : Réinscription
+apogee : N° APOGEE
+attestation : Attestation
+etat : Etat
+motif_refus : Motif de refus
+groupe : Groupe
+pedagogique : Pédagogique
+administrative : Administrative
+info_inscription : Informations d'inscription
+info_perso : Informations personnelles
+nom_prenom_arabe : Nom et Prénom en arabe
+lieu_naiss : Lieu de naissance
+code_massar : Code Massar
+date_naiss : Date de naissance
+releve_note :  Relevés de notes
+validation : Validation
+histo_validation : Hist. des validations
+cheque : Chèque
+virement : Virement
+
+orientation : Orientation
+etat_etud : Etat des étudiants
+choix_etud : Choix des étudiants
+convs : Stages
+gest_conv : Hist. des stages
+gest_diplomes : Hist. des diplômes
+nv_abs :  Nouvelle absence
+abs : Absences
+nb_abs : Nombre d'absences
+conv_dd : Conventions DD
+rel_att_reu : Relévés et Att. de reussite
+cartes : Cartes d'étudiants
+emp_temps : Emploi du temps
+insc : Inscription
+annee_soutenance : Année de soutenance
+
+module : Module
+seance : Séance
+
+
+date_absence : Date d'absence
+justif : Justificatif
+certif : Certificat médical
+
+montant : Montant (en DH)
+date_pai : Date de paiement
+date_op : Date d'opération
+num_op : Num. d'opération
+num_cheque : Num. de chèque
+responsable : Responsable
+
+
+
+atts : Attestations
+reps : Reprises
+reps_g : Reprises globales 
+congs : Congés
+autos : Autorisations
+oms : Ordres de missions
+fhs : Autorisations HS
+
+
+att : Attestation
+rep : Reprise
+cong : Congé
+auto : Autorisation
+om : Ordre de mission
+fh : Autorisation HS
+att_travail : Att. de Travail
+att_salaire : Att. de Salaire
+av_echelons : Avancements d'échelons
+av_grades : Avancements des grades
+nom_fil : Nom de filiére
+filieres : Filiéres
+filiere : Filiére
+trs : Traitements
+dms : Demandes
+personnel : Personnel
+
+c_normale : Congé normal
+c_exp : Congé exceptionnel
+
+j_rest : Jours restants
+financement : Financement de la mission
+departement : Département
+departements : Départements
+projet : Projet
+autre : Autre
+laboratoire : Laboratoire
+code_diplome : Code de diplôme
+details : Détails
+
+ens : Enseignement
+rech : Recherche
+deplac : Déplacement
+
+
+nom : Nom
+prenom : Prénom
+nom_prenom : Nom et Prénom
+email :  E-mail
+nom_prenom_ar : Nom et Prénom en arabe
+nom_ar : Nom en arabe
+prenom_ar : Prénom en arabe
+date_n : Date de naissance
+genre : Genre
+tel : N° de Téléphone
+adresse : Adresse
+sit_famil : Situation familiale
+dep : Département
+service : Service
+corps : Corps
+grade : Grade
+echelon : Echelon
+sit_admin : Situation administrative
+date_rec : Date de recrutement
+date_affect_minsup : Date d'affectation au M. de l'Ens. Sup.
+date_affect_ENSAT : Date d'affectation à l'ENSAT
+date_affect_ens: Date d'affectation à l'enseignement
+date_sout: Date de Soutenance d'Habilitation
+diplome : Diplôme 
+spec : Spécialité
+specs : Spécialités
+etab_diplome : Etab. délivrant le diplôme
+post_budget : Poste budgétaire
+nb_enfant : N. d'enfants
+emploi_PDF : Emploi PDF
+etablissement : Etablissement
+engagements : Engagements
+engagement : Engagement
+ville : Ville
+matiere : Matière
+contact_ensa : Contact ENSA
+contact_etab : Contact d'établissement
+session : Session
+
+calib : Célibataire
+marie: Marié(e)
+divorce: Divorcé(e)
+veuf :  Veuf(ve)
+
+n : N°
+Id : Id
+op : Opérations
+demandeur : Demandeur
+date_envoie : Date d'envoi
+date_validation : Date de validation
+date_debut : Date de début
+date_fin : Date de fin
+date_reprise : Date de reprise
+date_grade : Date de grade
+date_deci : Date de décision
+date_fait : Date fait
+arrete : Arrêté
+moy_transp : Moyen de transport
+transp_pub : Transport public
+voit_perso : Voiture personnelle
+val_projet : Intitulé projet
+val_autre :  Autre
+rep_faite : Reprise faite
+rep_nonfaite : Reprise non-faite
+concerne : Personne concernée
+type : Type
+type_sortie : Type de sortie
+type_dem : Type de la demande
+type_demande : Type de la demande
+motif : Motif
+nb_Jours : Nb. de jours
+nb_Annee : Nb. d'années
+nb_Heures : Nb. d'heures
+jours : Jours
+h_debut : Heure de début
+h_fin : Heure de fin
+objet : Objet
+nom_remp : Nom du remplaçant
+destination : Destination
+cadre_mission : Cadre de mission
+str_acceuil : Structure d'acceuil
+invit : Invitation
+annee : Année
+annee_enc : Année en cours
+annee_prec : Année précédente
+enc_etape : Ancienne étape
+nv_etape : Nouvelle étape
+resultat : Résultat
+photo : Photo
+decision : Décision
+statut : Statut
+design_fr : Désignation Fr.
+
+etudiants_dd : Etudiants en DD
+n_doc : N° de document
+pays : Pays
+afficher : Afficher
+valeur : Valeur
+edit_convention : Modifier une convention
+add_convention : Ajouter une convention
+
+design: Désignation
+design_ar : Désignation Ar.
+intitule : Intitulé
+rapide : Rapide
+excep : Exceptionnel
+normale : Normal
+etat_act : Etat actuel
+etat_prop : Etat proposé
+numPPR : N° PPR
+E-mail : E-mail
+cin : CIN
+liste_dem_rel : Liste des demandes de relevés de notes
+releve : Relevés de notes
+att_reussite : Att. de reussite
+avion : Avion
+avancs : Avancements
+num_deci : N° de décision
+fonct_exercee : Fonction excercée
+service_affct : Service d'affectation
+str_rech : Structure de recherche
+str_rechs : Structures de recherche
+type_str_rechs : Type de structures de recherche
+provinces : Provinces
+province : Province
+type_perso : Type de personnel
+activite : Activité
+grades : Grades
+echelons : Echelons
+fonctions : Fonctions
+diplomes : Diplômes
+services : Services
+gr_avanc : Avancements de grades
+notes : Notes
+ech_avanc : Avancements d'échelon
+utlisateurs : Utilisateurs
+upload_arrete : Charger l'arrété
+ancien_arrete : Afficher l'ancien arrété 
+note_anuelle : Note annuelle
+note_sur_20 : Note / 20
+pts_jury : Points du jury
+note1: Accomp. des taches 
+note2: Productivité
+note3: Cap. d'organisation
+note4: Att. professionnelle
+note5: Recherche et innovation
+remarque : Remarque
+fiche_note : Fiche de note
+m_debut : Mois de début
+m_fin : Mois de fin
+
+encours : En cours de traitement
+encours_sign : En cours de signature
+confirme : Confirmé
+valide : Accordé
+refuse : Refusé
+valider : Valider
+refuser : Refuser
+envoyer : Envoyer
+
+mt_refus : Motif de refus
+fermer : Fermer
+validepar : Validé par
+refusepar : Refusé par
+confirmepar : Confirmé par
+confirmele : Confirmé le
+validele : Validé le
+refusele : Refusé le
+demandepar : Demandé par
+demandele : Demandé le
+nom_cycle : Nom du cycle
+abrevDep : Abréviation de département
+abrevStr : Abréviation de structure
+codeDiplome : Code de diplôme
+libelleDep : Libellé de département
+codeApo : Code APOGEE
+codeEtab : Code établissement
+libelle : Libellé
+cycles : Cycles
+cooperation : Coopération
+
+reinscription : Réinscription
+code_apogee : Code APOGEE
+action: Action
+
+ne : Né(e) le 
+a : au
+exerc_ensa_depuis : Excerce à l'ENSAT depuis
+apropos : A propos
+
+im_exp_rh : Import / Export RH
+exp_fiche_ind : Exporter une fiche individuelle
+solde_aj : Ajouter le solde de congé annuel
+import_fichier : Importer des fichiers scannés
+num_doc : N° de document
+exp_stats_listes : Exporter statisiques et listes
+ch_fichier : Choisissez votre fichier
+exp_stat_p : Exporter statisiques du personnel
+exp_liste_p : Exporter la liste du personnel
+importer : Importer
+documents : Documents
+imp_exp : Import / Export  
+
+liste_releve : Liste des relevés
+statistiques : Statistiques
+exporter : Exporter
+stats_par_annee : Statistiques par année
+
+garcons : Garçons
+filles : Filles
+nb_etud_par_diplome : Nombre d'étudiants par diplôme
+nb_etud_par_etape : Nombre d'étudiants par étape
+nb_nv_inscrits : Nombre des nouveaux inscrits
+moy_annuelle : Moyenne annuelle
+
+adms : Administratifs
+prfs: Professeurs
+hommes : Hommes
+femmes : Femmes
+evo_effectif : Evolution d'éffectif
+evo_rec : Evolution du recrutement
+eff_dep : Effectif par département
+eff_service : Effectif par service
+rep_ens_grade : Répartition du Corps Enseignant par grade
+nombre : Nombre
+rep_adm_grade : Répartition du Corps Adminitratif par grade
+stats_act_personnel : Statistiques activité du personnel
+act_normale : Acitivté normale
+act_ret : Retraite
+act_mutation : Mutation
+act_abondon : Abondon
+
+edit_corps : Modifier un corps
+add_corps : Ajouter un corps
+edit_grade : Modifier un grade
+add_grade : Ajouter un grade
+edit_echelon : Modifier un échelon
+add_echelon : Ajouter un échelon
+edit_diplome : Modifier un diplôme
+add_diplome : Ajouter un diplôme
+edit_filiere: Modifier une filière
+add_filiere : Ajouter une filière
+edit_dep : Modifier un département
+add_dep : Ajouter un département
+edit_str_rech: Modifier un Structure de Recherche
+add_str_rech: Ajouter un Structure de Recherche
+edit_type_str_rech: Modifier un type de Structure de Recherche
+add_type_str_rech : Ajouter un type de Structure de Recherche
+edit_type_perso : Modifier un type de personnel
+add_type_perso : Ajouter un type de personnel
+edit_service : Modifier un Service
+add_service : Ajouter un Service
+edit_fonction : Modifier un fonction
+add_fonctionn : Ajouter un fonction
+edit_spec : Modifier une spécialité
+add_spec: Ajouter une spécialité
+edit_province : Modifier une province
+add_province : Ajouter une province
+edit_grade_av : Modifier un avancement de grade
+add_grade_av: Ajouter un avancement de grade
+edit_echelon_av : Modifier un avancement d'échelon
+add_echelon_av: Ajouter un avancement d'échelon
+edit_av_cycle : Modifier un avancement de cycle
+add_av_cycle: Ajouter un avancement de cycle
+paiments : Paiements
+paiements : Paiements
+nv_paiement: Nouveau paiement
+ediit_paiement : Modifier un paiement
+liste_paiements : Liste des paiements
+paragraphes : Paragraphes
+edit_paragraphe : Modifier un paragraphe
+article : Article
+libelle_paragraphe : Libellé paragraphe
+nv_paragraphe : Nouveau paragaraphe
+intitule_articlePE : Intitulé d'article PE
+n_paragraphe : N° du paragraphe
+articlesPE : Articles PE
+details_paragraphe_n : Détails du paragraphe N°
+details_ligne_n : Détails de la ligne N° 
+details_article_n : Détails article N° 
+libelle_article : Libellé article 
+intitule_article : Intitulé article 
+nv_article : Nouvel article
+lignes : Lignes
+imp_ceritif_med : Importer un certificat médical
+code_etape : Code d'étape
+exp_liste_etud_par_module : Exporter liste des étudiants par module
+exporter_liste_abs : Exporter liste des absences 
+edit_entreprise : Modifier entreprise
+fichier : Fichier
+per_contact : Personne à contacter
+secteur : Secteur
+nv_entrprise : Nouvelle entreprise
+entreprises : Entreprises
+nv_recette : Nouvelle recette
+recettes : Recettes
+recette : Recettte
+edit_recette : Modifier une 
+nature : Nature
+details_recette_n : Détails de recette N°
+details_rub_recette_n : Détails de rubrique recette N°
+rub_recettes : Rubrique de recettes
+nv_rubrique : Nouvelle rubrique
+nv_rub_recette : Nouvelle rubrique de recette
+edit_rub_recettes : Modifier rubrique de recette
+edit_rubrique : Modifier une rubrique
+rubriques : Rubriques
+rubrique : Rubrique
+n_rubrique : N° de rubrique
+emp_exp : Import / Export
+attestation_sco : Att. de scolarité
+debut_n_apogee : Début des N° APOGEE
+fin_n_apogee : Fin des N° APOGEE
+liste_abs : Liste d'absences
+annee_prevu_soutenance : Année Prévu de Soutenance
+scolariteFC : Scolarité FC
+edit_paiements : Modifier un Paiement
+cne : CNE 
+finance : Finance
+histo_dems : Hist. des demandes
+originale : Originale
+duplicata : Duplicata
+num : N°
+date_paiement :  Date de paiement 
+mode_paiement :  Mode de paiement
+details_stage : Détails de stage
+fichier_joint : Fichier joint
+conv_signe : Convention
+stats_stage : Stats. Coopération
+stats_FC : Stats. F.C.
+stats_scolarite : Stats. Scolarité
+stats_orientation : Stats Orientation
+
+enregistre : Enregistrés
+choix_validee : Choix validés 
+dist_1er_choix : Distribution du 1er choix
+capac_fil : Capacité de filière
+ajouter_etudiant : Ajouter un etudiant
+nv_etudiant : Nouvel Etudiant
+liste_etudiants_inscrits_dd : Liste des étudiants inscrits en DD
+liste_etudiant_inscrits : Liste étudiants inscrits 
+etaler_emp_temps : Etaler l'emploi du temps
+nb_semaines_a_etaler : Nb. de semaines à etaler
+numero_semaine : Numéro de semaine
+mp: Mot de passe
+email_pro : E-mail professionnel
+email_perso : E-mail personnel
+domicile : Domicile
+adresse_postale : Adresse Postale
+linkedin : LinkedIn
+situation : Situation
+delai : Délai
+pays_ville : Pays/Ville
+organisme : Organisme
+rh_phone :  Téléphone RH
+rh_email :  E-mail RH
+rh_contact : Contact RH
+poste : Poste
+experience : Expérience
+suivi : Fiche de suivi des lauréats
+delai_0 : Aucun délai (organisme où j'ai effectué mon PFE)
+delai_1 : Plus de 3 mois après l'obtention du diplôme
+delai_2 : Pas d'emploi en rapport avec ma formation
+activite_pro : Activité Professionnel
+formation_doc : Formation Doctorale
+rech_emploi : Recherche d'Emploi
+jour : Jour
+FI : Formation Initiale
+FC : Formation Continue
+fh_crenau : Merci d'ajouter les crénaux des heures sup. 
+cr_horaire : Crénaux horaires
+fiche_ind : Fiche Individuel
+liste_prop_echelon_grade : Liste des propositions d'avancement
+liste_prop_echelon : Liste des proposition d'avancement en echelon
+liste_prop_grade : Liste des proposition d'avancement en grade
+
+
+service_rh : Service R.H.
+chef_service : Chef de Service
+chef_structure : Chef de la Structure de Recherche
+chef_struct : Chef de Struct.
+dir_adj : Dir. Adjoint
+sg : Secrétariat Générale
+directeur : Directeur
+chef_dep : Chef de Département
+niveau_act : Niveau actuel
+conges : Congés
+conge : Congés
+avanc_grade : Av. de Grade
+avanc_echelon : Av. d'Echelon
+date_ordre : Date de l'ordre de mission
+hist_om : Historique des ordre de missions
+discipline_doc : Discipline (Doctorat)
+cedoc : CEDOC
+spec_doc : Spécialité (Doctorat)
+univ_doc : Univerisité (Doctorat)
+type_str_rech : Types de Str. de Recherche
+perso_type : Type Personnel
+autre_situation : Autre Situation
+
+code : Code
+fournisseur : Fournisseur
+categorie : Catégorie
+s_categorie : Sous-catégorie
+s_categories : Sous-catégories
+designation : Désignation
+ref : Réf.
+articles : Articles
+stock : Gestion de stock
+consommable : Consommable
+consommables : Consommables
+Inventorie : Article Inventorié 
+
+no_article : La liste d'articles est vide.
+no_fournisseurs : La liste des fournisseurs est vide.
+no_categorie: La liste des categories est vide.
+no_s_categories :  La liste des sous-categories est vide.
+no_ligne_reception : La liste des lignes de reception est vide.
+no_consommable : La liste des consommables est vide.
+no_hist_affectation : L'historique des affactations est vide.
+no_reg_inventaire : Le registre d'inventaire est vide.
+no_dem_materiel : La liste des dmandes de materiel est vide.
+no_programe_emploi : La liste des programmes d'emploi est vide.
+no_reception : La liste des réceptions est vide .
+no_decharge : La liste des décharges et vide.
+no_inventaire : La liste des N° d'inventaire est vide.
+
+ajouter_article : Ajouter un article
+edit_article : Modifier un article
+ajouter_fournisseur: Ajouter un fournisseur
+edit_fournisseur : Modifier un fournisseur
+ajouter_categorie : Ajouter une catégorie
+edit_categorie : Modifier une catégorie
+
+ajouter_s_categorie : Modifier une sous-catégorie
+edit_s_categorie : Modifier une sous-catégorie
+ajouter_reception : Ajouter une réception
+edit_reception : Modifier une réception
+edit_demande : Modifier une demande
+details_souscategorie_n : Détails de la sous-catégorie N°
+details_consommable_n : Détails du consommable N° 
+edit_reg_inventaire : Modifier un inventaire
+details_reception_n  : Détails de la réception N°
+details_inventaire_n : Détails d'inventaire N°
+qte_en_stock : Quantité en stock
+gen_qrcode_tous : Générer tous les QR-Codes  
+imprimer_reg_inventaire : Imprimer le registre d'inventaire
+imprimer_decharge : Imprimer la décharge
+dem_materiel :  Matériel 
+trs_materiel :   Demandes de Matériel 
+liste_materiel_demande : Liste de matériel demandé
+ajouter_materiel_demande : Ajouter le matériel demandé et sa quantité
+ajouter_materiel_affecter : Ajouter le matériel à affecter et sa quantité
+n_demande : N° de la demande
+liste_inventaire_reception : Liste des inventaires
+ajouter_programme_emploi : Ajouter un programme d'emploi
+intitule_entreprise : Intitulé d'entreprise
+sujet : Sujet
+
+
+raison_sociale : Raison Sociale
+banque : Banque
+fournisseurs : Fournisseurs
+rib : R.I.B.
+categories : Catégories
+n_reception : N° de réception
+date_reception : Date de réception
+n_livraison : N° de livraison
+bon_commande : Bon de commande
+appel_d_offre : Appel d'offre
+autres_sources : Autres sources
+n_bon_commande : N° de bon de commande
+seconde_main : Seconde main
+neuf : Neuf
+reception_lignes : Lignes de la réception
+code_fournisseur : Code fournisseur
+n_bc_ao : N° BC/AO
+reception : Réception
+code_article : Code d'article
+qte : Quantité
+receptions : Réception
+reception_lignes_text : Ajouter les lignes de la réception
+qte_enstock : Quantité en stock
+affect_en_masse : Afféctation 
+decharge : Décharge
+decharges : Décharges
+reg_inventaire : Registre d'inventaire
+n_inventaire : N° d'Inventaire
+affecter_a : Affectation
+locale : Locale 
+affecte_depuis : Affecté depuis
+ajourdhui : Ajourdhui
+en_stock : En stock
+qte_affecte : Quantité à affecter
+exercice : Excercice
+date_sortie : Date de sortie
+n_decharge : N° de décharge
+details_affectation_conso : Détails d'affectation de consomable
+date_affectation : Date d'affectation
+histo_affectation_article : Historique d'affectation de l'article
+liste_article_reception : Liste d'articles de la réception
+date_decharge : Date de décharge
+liste_article_decharge :  Liste d'articles de la décharge
+details_decharge : Détails de la décharge
+stage : Stage
+derniere_situation : Définir comme derniere situation administrative ? (Cochez la case si oui)     
+programme_emploi : Programmes d'Emploi
+liste_programme_emploi : Liste des programmes d'emploi
+nombre_rubrique : N. de rubriques
+execution_pe : Exécution
+valide_pe : Validation
+programme_emploi_detail : Détails du programme d'emploi N°
+liste_rubriques : Liste des rubriques
+modification : Modification
+recette_propre : Recette Propre
+sub_etat : Subvention d'Etat
+articlePE : Article PE
+ajouter_rubrique_programme_emploi : Ajouter les rubriques du programme d'emploi
+
+budget_entree : Entrées de budget
+liste_budgets_entree : Liste des entrée de budget
+budget : Budget
+rubrique_recette : Rubriques-recettes
+totale_entree : Somme des entrées (en DH)
+totale_sortie : Somme des sorties (en DH)
+ajouter_budget : Ajouter un budget
+ajouter_budget_entree : Ajouter une entrée de budget
+ajouter_budget_sortie: Ajouter une sortie de budget
+ajouter_budget_rubriques_recettes : Merci d'ajouter les rubriques-recettes du budget et leurs montants en cliquant sur le boutton +
+liste_budgets_sortie : Liste des sorties de budget
+budget_sortie : Sorties de budget
+type_structure : Type de la structure déstination
+ajouter_budget_sorties : Ajouter Sorties d'un budget
+
+ne_pas_changer : Ne pas changer
+changer_moy_transp : Changer le Moyen de Transport
+compte_edoc : Compte E-DOC
+active : Activé
+desactive : Désactivé
+ordre_recette : Ordre de recette 
+formation_continue : Formation Continue
+histo_paiements : Historique des paiements
+liste_paiements_etudiants_annee_encours : Liste des paiements actuels
+liste_etudiants_filiere_fc : Liste des étudiants inscrits actuelement
+somme_paiements : Sommes des paiements (en DH)
+filiere_fc : Filiére FC
+add_filiere_fc_responsable : Ajouter une résponsabilité de filiére FC
+filiere_fc_responsable : Résponsablités des filiéres FC
+nom_filiere : Nom de la filiére
+code_version : Code de version
+filieres_fc : Filiéres FC
+code_apo : Code APOGEE
+add_filiere_fc : Ajouter un Filiére FC
+edit_filiere_fc : Modifier une Filiére FC
+edit_filiere_fc_responsable : Modifier la résponsabilité d'une filiére FC
+hist_paiements_fc : Hist. des paiements FC
+liste_etudiants_fc : Liste des etudiants - FC
+hist_paiements_fc2 : Historique des paiements - FC
+insertion_etudiants_mass : Insertion des etudiants en masse
+telecharger_maquette : (Télécharger la maquette) 
+stats_dem_personnel : Statistiques annuels des demandes
+date_rentree : Date de rentrée
+tranche : Tranche
+numRP : RP
+commentaire : Commentaire
+tiers : Paiement par un tiers
+
+paiement_projet_liste_prof : Liste des Profs - P.Rech.
+hist_paiement_projet : Hist. des P.Rech.
+paiements_projet : paiement de P.Rech.
+edit_paiements_projets : Modifier un paiement de projet
+liste_prof_projet : Liste des Profs - P.Rech.
+nv_paiement_projet : Nouveau paiement de projet
+paiement_projet : Paiements de projet
+hist_paiement_divers : Liste des paiements divers
+paiement_divers : Recettes divers
+nv_paiement_divers : Nouveau paiement divers
+edit_paiement_divers : Modifier un paiement divers
+interet_crediteur : Intérets créditeurs
+emetteur : Emetteur
+nv_paiement_nonexist : Ajouter un ancien etudiant
+nb_nv_etu_par_pays : Nombre des etudiants étrangers par nationalité
+etudiant_etranger : Etudiant étranger
+de_pays : Pays
+
+liste_profs :  Liste des Professeurs
+encadrant : Encadrant
+pfe : PFE
+pfe_list : Liste des PFE
+etudiant : Nom de l'etudiant
+affect_encadrant_pfe : Affecter un encadrant de PFE
+export_pfe_list : Exporter la liste
+
+code_module : Code du module
+intitule_module : Intitule du module
+semestre : Semestre
+statut_importation : Importé sur APOGEE
+oui : OUI 
+non : NON
+import_module : Importation des modules
+annule : Annulé
+exporter_pdf : Exporter PDF
+affecter_encadrant_pfe : Affectation des encadrants
+list_pfe_encadre : Liste des PFE encadrés
+pfe_list_encadre : Liste des PFE encadrés
+
+telecharger_pdf : Télécharger PDF
+liste_conge_valide : Liste des congés validés
+liste_om_valide : Liste des ordres de mission validés
+liste_auto_valide :  Liste des autorisations validés
+liste_fh_valide : Liste des A. heures Sup. validés
+hist_dem_valide : Historique des demandes du personnel validés
+annee_exerc : Année d'exercice
+de : Du
+somme_paiements_sdh : Sommes des paiements 
+dh : DH
+exporter_liste : Export des listes
+get_liste_is_la : Liste des étudiants
+get_emploi_pl : Planning emploi du temps
+inscrits : Inscrits
+laureats : Laureats
+periode : Période
+activation : Activation
+montant_globale : Montant Globale
+montant_par_annee : Montant par année
+tableau_montants_fc : Tableau des montants FC
+n_rubriques : Num. Rubrique
+programmeEmploi_FC_prof : Programmes d'emploi FC
+programe_emploi_fc : Programmes d'emploi FC
+montant_sdh : Montant
+note_presentation : N. de présentation
+acreditation : Acréditation
+ajouter_programme_emploi_projet : Ajouter un programme d'emploi - P.Rech.
+programme_emploi_projet : Programmes d'emploi - P.Rech.
+liste_programme_emploi_projet : Liste des programmes d'emploi - P.Rech.
+fichier_not_up : Fichier pas encore téléchargé .
+fichier_up_can_change : Fichier déja téléchargé , Vous pouvez ignorer ou remplacer par un nouveau fichier .
+programmeEmploi_projet_prof : Programmes d'emploi - P.Rech.
+liste_budgets : Liste des budgets
+ventilation_budget : Ventilation du budget
+ventilation : Ventilation du budget
+recherche_sci : R.Scientifique
+ajouter_programme_emploi_restant : Ajouter un programme d'emploi des montants restants
+liste_programme_emploi_restant : Liste des programmes d'emploi des montants restants
+programme_emploi_restant : Programmes d'emploi - montants restants
+edit_budget_entree : Modifier une entrée de budget
+edit_budget_sortie :  Modifier une sortie de budget
+t_trait : Taux de Traitement
+entite : Entité
+chef_entite : Chef de l'entité
+dem_service : Demandes Traitées
+non_trait : en cours de traitement
+date_deces : Date de Décès
+imprimer_reception  : Imprimer la réception
+
+exporter_liste_paiements_par_mois : Exporter la liste des paiements FC par mois
+exporter_paiements : Exporter la liste des paiements FC
+mois : Mois
+janvier : Janvier
+fevrier : Février
+mars : Mars
+avril : Avril
+mai : Mai
+juin : Juin
+juillet : Juillet
+aout : Aout
+septembre : Septembre
+octobre : Octobre
+novembre : Novembre
+decembre : Décembre
+
+liste_convention : Liste conventions
+ajouter_execution : Ajouter une exécution de PE 
+execution : Exécution PE
+programme_emploi_budget : P.E. Budget de structure
+liste_programme_emploi_budget : Liste des programmes d'emplois - Budget de structure
+exec : Liste d'elements d'execution
+exec_msg : Merci d'ajouter les elements d'execution du programme en cliquant sur le boutton +
+liste_execution : Liste d'exécution du programme
+num_exec : N° d'exécution
+ref_prog : Réf. du PE
+liste_programme_emploi_fc : Liste des programmes d'emplois FC
+tel_liste_execution : Télécharger la liste des éxecutions
+parametres : Paramétres
+choix1 : 1er Choix
+choix2 : 2éme Choix
+choix3 : 3éme Choix
+choix4 : 4éme Choix
+choix5 : 5éme Choix
+choix6 : 6éme Choix
+liste_decharges : Liste des décharges
+seuil : Seuil du stock
+Souscategorie : Sous-catégorie
+Inv : Inventorié / Cosommable
+num_livraison : N° du bon de livraison
+num_reception : N° de réception
+num_bon_commande : N° du bon de commande
+modifier_decharges : Modifier une décharge
+imprimer_bon_sortie : Imprimer le bon de sortie
+pe_global : PE Global
+
+cv_personnel : CV Personnel
+experiences_cvtheque : Expériences Professionelles et Stages *
+intituleposte : Intitulé du poste
+Entreprise : Entreprise
+lieu : Lieu
+descriptionmission : Description de la mission
+lienportfolio : Lien Portfolio
+clubs_cvtheque : Activités Extra-Professionelles
+nomassoc : Nom de l'association / club
+posteoccupe: Poste Occupé
+description : Description
+formations_cvtheque : Formations Académiques *
+specialite : Spécialité
+cvtheque : CV Personnel
+permis : Permis de conduire
+langues : Langues
+certifications : Certifications 
+distinctions : Distinctions
+softskills : Soft skills
+comp_technique : Compétences téchniques
+hobbies : Autres activities / Hobbies
+info_sup : Informations supplémentaires
+formations : Formation
+
+sections : Séctions
+cycle : Cycles
+users : Utilisateurs
+params : Paramétres
+
+liste_laureats : Liste des laureats
+
+val_fc_vg : Intitulé de la formation continue
+val_fc : Intitulé de la formation continue
+val_autre_vg : Autre
+val_projet_vg : Intitulé projet
+typedest : Type de Destination
+nationale : Nationale
+etrangere : Etrangére
+marqueauto : Marque de la voiture
+matriculeauto : Matricule de la voiture 
+financement_voyage : Financement du voyage
+tableau_calendrier_perso : Tableau calendrier du personnel
+
+MOD_EMPTY_LISTE : La liste est vide .
+MOD_SUCCESS : Votre modification à été enregistrée avec succés !
+MOD_DANGER : Une erreur s'est produite. Veuillez réessayer !
+MOD_CONGRATS : Félicitations ! Toutes les demandes ont été traitées.
+MOD_BAC_RET:  Aucun Baccalaureat retiré.
+MOD_BAC_REND : Aucun Baccalaureat rendu.
+MOD_EMPTY_NOTES : Pas de notes à afficher pour cette année.
+MOD_EMPTY_ETU : Aucun étudiant.
+MOD_EMPTY_DEM: Aucune demande.
+MOD_EMPTY_PAIEMENT : Aucun paiement.
+MOD_EMPTY_PARAGRAPHE : Aucun paragraphe.
+MOD_EMPTY_REC : Aucune recette.
+MOD_EMPTY_RUB_RECETTE : Aucune rubrique de recette.
+MOD_EMPTY_LIGNE : Aucune ligne.
+MOD_EMPTY_CONV : Aucune Convention.
+MOD_CODE_APOGEE_INCORECTE : Merci de saisir un code APOGEE valide .
+MOD_DOCUMENT_VALIDE : Le document à été ajouté avec succès .
+MOD_DOCUMENT_INVALIDE : Le document joigné est invalide .
+MOD_PPR_INVALIDE : Le N°PPR saisie est invalide .
+MOD_ID_INVALIDE : L'ID saisie est invalide .
+MOD_APOGEE_INVALIDE : Le N° APOGEE saisie est invalide .
+MOD_TOUTE_INFO : Merci de saisir tous informations nécessaires.
+MOD_NO_ACCESS : Vous n'avez pas les droits nécessaire pour accéder à cette page . 
+MOD_ABS_DELETE : L'absence a été supprimée avec succès .
+MOD_NON_ATACHEE_DEP : Vous n'etes pas attaché à un département .
+MOD_NON_ATACHEE_STR : Vous n'etes pas attaché à une structure de recherche . 
+MOD_PLATEFORME_OUVERTE : La plateforme est ouverte .
+MOD_FICHIER_DEPLOYE : Le fichier à été bien déployer .
+MOD_FICHIER_NON_DEPLOYE : Le fichier ne peux pas être déployer .
+MOD_FICHIER_NON_EXIST : Le fichier n'existe pas .
+MOD_ACTIVATE_ACCOUNT : Pour activé votre compte vous devez signer , légaliser et remettre à l'adminisration le formulaire ci-joint consernant la collecte et l'utilisation de vos données personnels.
+MOD_DANGER_INCOMPLETE : Le formulaire envoyé est incomplet , Veuillez remplir tous les champs .
+MOD_EMPTY_FORMATION : Vous n'avez aucune formation continue sous votre responsabilté.
+MOD_EMPTY_ETU_FORMATION : Aucun étudiant inscrit pour cette année univérsitaire
+MOD_EMPTY_FORMATION_HISTO : L'historique des paiements de la filiére est vide.
+MOD_EMPTY_FORMATION_ACTUEL : La liste des paiements actuels de la filiére est vide.
+MOD_EMPTY_PAIEMENTS : La liste des paiements est vide.
+MOD_EMPTY_MALADIE: La liste des congés de maladie est vide.
+MOD_ETAB_20 : Il faut au moins 20% pour l'etablissement UAE + ENSAT !
+MOD_ETAB_30 : Vous ne devez pas dépasser 30% du montant restant aprés déduction de la ligne 911-10 ! 
+MOD_LIGNE_40 : Vous avez dépasser la limite 40% de la ligne 911-10 !
+MOD_PE_DESAC : L'élaboré du PE est désactivé par l'administrateur .
+MOD_NO_FILES : Vous devez charger les fichiers (Note de présentation) et (Acréditation) !
+MOD_MT_DEPASSE : Vous avez dépassé le montant alloué .

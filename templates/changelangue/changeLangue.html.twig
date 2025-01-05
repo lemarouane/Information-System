@@ -1,0 +1,160 @@
+<style>
+    .lstIconesLanguage{
+        width:100%;
+        text-align:center;
+        padding-left:0px;
+    }
+    .iconeLanguage{
+        display:inline-block;
+        padding-top:6px;}
+    .flag
+    {
+        border-radius:50%;
+        width:30px;
+        height:30px;
+        padding:3px;
+        opacity: .8;
+        background-color:white;
+        border: solid 1px gray;
+    }
+    .flag:hover{
+        opacity: .9;
+        border: solid 2px #3e4582;
+
+    }
+</style>
+
+{% if app.user is not empty %}
+
+
+
+
+<ul class="lstIconesLanguage">
+{% if app.user.locale == 'fr-FR' %}  
+<li title="Français"  class="iconeLanguage" id='frLang'>
+        <a >
+            <img style='box-shadow: 0px 0px 3px 4px #4169E1;' class="flag" value="fr-FR" src="{{ asset('build/images/fr.jpg') }}" alt="Version Française">
+        </a>
+    </li>
+<li title="English" class="iconeLanguage" id='enLang'>
+        <a>
+            <img class="flag" value="fr-FR" src="{{ asset('build/images/en.jpg') }}" alt="English Version">
+        </a>
+    </li>
+    <li title="عربي" class="iconeLanguage" id='arLang'>
+        <a>
+            <img class="flag" value="ar-AR" src="{{ asset('build/images/ar.jpg') }}" alt="النسخة العربية">
+        </a>
+    </li>
+    <li title="Español"class="iconeLanguage" id='esLang'>
+        <a>
+            <img class="flag" value="fr-FR" src="{{ asset('build/images/es.jpg') }}" alt="Versión española">
+        </a>
+    </li>
+{% endif %}
+{% if app.user.locale == 'en-GB' %}  
+<li  title="Français" class="iconeLanguage" id='frLang'>
+        <a >
+            <img  class="flag" value="fr-FR" src="{{ asset('build/images/fr.jpg') }}" alt="Version Française">
+        </a>
+    </li>
+<li title="English" class="iconeLanguage" id='enLang'>
+        <a>
+            <img class="flag" style='box-shadow: 0px 0px 3px 4px #4169E1;'  value="fr-FR" src="{{ asset('build/images/en.jpg') }}" alt="English Version">
+        </a>
+    </li>
+    <li title="عربي" class="iconeLanguage" id='arLang'>
+        <a>
+            <img class="flag" value="ar-AR" src="{{ asset('build/images/ar.jpg') }}" alt="النسخة العربية">
+        </a>
+    </li>
+    <li title="Español" class="iconeLanguage" id='esLang'>
+        <a>
+            <img class="flag" value="fr-FR" src="{{ asset('build/images/es.jpg') }}" alt="Versión española">
+        </a>
+    </li>
+{% endif %}
+    {% if app.user.locale == 'es-ES' %}  
+<li  title="Français" class="iconeLanguage" id='frLang'>
+        <a >
+            <img  class="flag" value="fr-FR" src="{{ asset('build/images/fr.jpg') }}" alt="Version Française">
+        </a>
+    </li>
+<li title="English" class="iconeLanguage" id='enLang'>
+        <a>
+            <img class="flag"  value="fr-FR" src="{{ asset('build/images/en.jpg') }}" alt="English Version">
+        </a>
+    </li>
+    <li title="عربي" class="iconeLanguage" id='arLang'>
+        <a>
+            <img class="flag" value="ar-AR" src="{{ asset('build/images/ar.jpg') }}" alt="النسخة العربية">
+        </a>
+    </li>
+    <li title="Español" class="iconeLanguage" id='esLang'>
+        <a>
+            <img class="flag" style='box-shadow: 0px 0px 3px 4px #4169E1;'  value="fr-FR" src="{{ asset('build/images/es.jpg') }}" alt="Versión española">
+        </a>
+    </li>
+{% endif %}
+      {% if app.user.locale == 'ar-AR' %}  
+<li title="Français" class="iconeLanguage" id='frLang'>
+        <a >
+            <img  class="flag" value="fr-FR" src="{{ asset('build/images/fr.jpg') }}" alt="Version Française">
+        </a>
+    </li>
+<li title="English" class="iconeLanguage" id='enLang'>
+        <a>
+            <img class="flag"  value="fr-FR" src="{{ asset('build/images/en.jpg') }}" alt="English Version">
+        </a>
+    </li>
+    <li title="عربي" class="iconeLanguage" id='arLang'>
+        <a>
+            <img class="flag" style='box-shadow: 0px 0px 3px 4px #4169E1;'  value="ar-AR" src="{{ asset('build/images/ar.jpg') }}" alt="النسخة العربية">
+        </a>
+    </li>
+    <li title="Español" class="iconeLanguage" id='esLang'>
+        <a>
+            <img class="flag"  value="fr-FR" src="{{ asset('build/images/es.jpg') }}" alt="Versión española">
+        </a>
+    </li>
+{% endif %}
+
+
+</ul>
+{% else %}
+
+<ul class="lstIconesLanguage">
+<li title="Français" class="iconeLanguage" id='frLang'>
+        <a >
+            <img  class="flag" value="fr-FR" src="{{ asset('build/images/fr.jpg') }}" alt="Version Française">
+        </a>
+    </li>
+<li title="English" class="iconeLanguage" id='enLang'>
+        <a>
+            <img class="flag"  value="fr-FR" src="{{ asset('build/images/en.jpg') }}" alt="English Version">
+        </a>
+    </li>
+    <li title="عربي" class="iconeLanguage" id='arLang'>
+        <a>
+            <img class="flag" value="ar-AR" src="{{ asset('build/images/ar.jpg') }}" alt="النسخة العربية">
+        </a>
+    </li>
+    <li title="Español" class="iconeLanguage" id='esLang'>
+        <a>
+            <img class="flag"  value="fr-FR" src="{{ asset('build/images/es.jpg') }}" alt="Versión española">
+        </a>
+    </li>
+</ul>
+{% endif %}
+<div id="path-to-langue" data-href="{{ path('changeLocale')}}"> </div>
+
+
+
+
+
+
+
+
+{% block javascripts %}
+     {{ encore_entry_script_tags('langues') }}
+{% endblock %}

@@ -1,0 +1,20 @@
+<section class="flashbag">
+{% for type, flashMessages in app.session.flashbag.all() %}
+	{% for flashMessage in flashMessages %}
+    
+           
+
+            {% if type == "activate_account" %}
+            <div class="alert alert-danger  in">
+                <strong>  {{ flashMessage|trans }}  </strong> 
+                <button style="width:50px" onclick="location.href='http://www.google.com'">⇩</button>
+            </div>
+            {% else %}
+            <div class="alert alert-{{ type }}  in">
+                <strong>  {{ flashMessage|trans }}  </strong> 
+            </div>
+            {% endif %}
+
+	{% endfor %}
+{% endfor %}
+</section>

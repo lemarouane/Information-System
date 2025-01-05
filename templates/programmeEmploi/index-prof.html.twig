@@ -1,0 +1,289 @@
+
+{% extends 'template.html.twig' %}
+
+{% block title %}{{'programme_emploi'|trans}}{% endblock %}
+{% block stylesheets %}
+    {{ parent() }}
+    <link href="{{ asset('uploads/css/orientation.css')}}" rel="stylesheet">
+{% endblock %}
+
+{% block body %}
+    <div id="path-to-pe_active" data-href="{{ path('modPEIsActive', {id:'val' , checked:'ac'} )}}"> </div>
+    <div id="path-to-pe_valide" data-href="{{ path('peIsValide', {id:'val' , checked:'ac'} )}}"> </div>
+    <div id="path-to-pe_periode" data-href="{{ path('getperiodes', {id:'val' , checked:'ac'} )}}"> </div>
+
+				<!--breadcrumb-->
+				<div class="page-breadcrumb d-none d-sm-flex align-items-center mb-3">
+					<div class="breadcrumb-title pe-3">{{'programmeEmploi_FC_prof'|trans}}</div>
+					<div class="ps-3">
+						<nav aria-label="breadcrumb">
+							<ol class="breadcrumb mb-0 p-0">
+								<li class="breadcrumb-item"><a href="javascript:;"><i class="bi bi-cash-coin"></i></a>
+								</li>
+								<li class="breadcrumb-item active" aria-current="page">{{'liste_programme_emploi_fc'|trans}}</li>
+							</ol>
+						</nav>
+					</div>
+				
+				</div>
+				<hr/>
+                
+                 {% include "flaches.html.twig" %}
+
+                {% if ProgrammeEmploi is not empty %}
+				<div class="card">
+					<div class="card-body">
+
+
+						<div class="table-responsive">
+							<table id="example" class="table table-striped table-bordered"  style="text-align:center !important ; " >
+								<thead>
+                                    <tr>
+                                      <th  style="text-align:center !important ; ">  {{'ref'|trans}}</th>
+                                      <th  style="text-align:center !important ; ">  {{'intitule'|trans}}</th>
+                                      <th  style="text-align:center !important ; ">  {{'annee'|trans}}</th>
+                                      <th  style="text-align:center !important ; ">  {{'montant'|trans}}</th>
+                                      <th  style="text-align:center !important ; ">  {{'type'|trans}}</th>
+                                      <th  style="text-align:center !important ; ">  {{'personnel'|trans}}</th>
+                                      <th  style="text-align:center !important ; ">  {{'nombre_rubrique'|trans}}</th>
+                                      <th  style="text-align:center !important ; ">  {{'note_presentation'|trans}}</th>
+                                      <th  style="text-align:center !important ; ">  {{'acreditation'|trans}}</th>
+                                        <th  style="text-align:center !important ; ">  {{'execution'|trans}}</th>
+
+                                      <th  style="text-align:center !important ; ">  {{'op'|trans}}</th>
+                                      
+                                    </tr>
+								</thead>
+								<tbody>
+                                    {% for pe in ProgrammeEmploi %}
+                                    
+                                   
+                                            <tr>
+                                
+                                        <td class="sorting_1">{{pe.reference}}</td>
+                                        <td>{{pe.intitule}}</td>
+                                        <td>{{pe.anneeuniv}}</td>
+                                        <td style="color:green;font-weight:bold;">{{pe.montant|number_format(2, ',', '.')}} </td>
+                                        <td>
+                                    {% if pe.type == '1' %}
+                                        {{'recette_propre'|trans}}
+                                    {% elseif pe.type == '2' %}
+                                        {{'sub_etat'|trans}}
+                                    {% endif %}
+                                        </td>
+                                        <td>{{pe.personne.nom }} {{pe.personne.prenom }}</td>
+
+                                        {% if pe.element|length > 0 %}
+                                            <td style="background-color: #A5DD9B;color: white;font-weight:bolder;">{{pe.element|length}}</td>
+                                        {% else %}
+                                            <td style="background-color: #EF9595;color: white;font-weight:bolder;">{{pe.element|length}}</td>
+                                        {% endif %}
+
+
+                                             <td> 
+                                                {% if pe.lien1 %} 		
+                                                	<a href="{{ asset('webroot/docs/' ~ pe.personne.nom ~ '_' ~ pe.personne.prenom ~ '/Programme_Emploi/' ~ pe.reference  ~ '/' ~ pe.lien1  ) }}"><i class="bi bi-file-earmark-fill"></i></a>
+                                                {% endif %} 
+                                           </td>       
+                                           <td> 
+                                                {% if pe.lien2 %} 
+                                                	<a href="{{ asset('webroot/docs/' ~ pe.personne.nom ~ '_' ~ pe.personne.prenom ~ '/Programme_Emploi/' ~ pe.reference  ~ '/' ~ pe.lien2  ) }}"><i class="bi bi-file-earmark-fill"></i></a>
+                                                {% endif %}  
+                                            </td>             
+
+
+
+
+  <td>  
+	{% if "ROLE_TEST" in app.user.roles %}
+
+
+         {% if pe.element|length > 0 %}
+
+{% if pe.executionPEs|length == 0 %}
+        <a href="{{ path('addExec', {'id': pe.id}) }}" class="text-success" data-bs-toggle="tooltip" data-bs-placement="bottom" aria-label="Views"><i class="bi bi-plus-square-fill"></i></a>
+
+{% endif  %}
+
+{% if pe.executionPEs|length > 0 %}
+
+        <a href="{{ path('addExec', {'id': pe.id}) }}" class="text-success" data-bs-toggle="tooltip" data-bs-placement="bottom" aria-label="Views"><i class="bi bi-plus-square-fill"></i></a>&nbsp;
+
+      <a id="{{pe.id}}" class="click_prog" data-user="" href="#" class="text-primary icons1" data-bs-toggle="modal" data-bs-target="#modalForm"  data-bs-toggle="tooltip" data-bs-placement="bottom" aria-label="afficher"><i class="bi bi-search"></i></a>&nbsp;
+
+
+{% endif %}
+
+{% endif %}
+
+
+
+
+ {% endif  %}
+                                         </td>
+
+
+
+
+
+
+
+
+                                        <td>
+                                            <div class="text-center">
+                                                
+                                                <a href="{{ path('showProgrammeEmploi', {'id': pe.id}) }}" class="text-primary" data-bs-toggle="tooltip" data-bs-placement="bottom" aria-label="Views"><i class="bi bi-eye-fill"></i></a>&nbsp;
+                                            
+                                                <a href="{{ path('editProgrammeEmploi', {'id': pe.id}) }}" class="text-warning" data-bs-toggle="tooltip" data-bs-placement="bottom" aria-label="Edit"><i class="bi bi-pencil-fill"></i></a>&nbsp;
+                                                    
+                                            </div>
+                                        </td>
+
+
+                                      </tr>
+                                    {% endfor %}
+                                            
+						        </tbody>
+							
+							</table>
+						</div>
+					</div>
+				</div>
+                {% else %}
+                    <div class="alert alert-success">
+                        <strong> {{'no_programe_emploi'|trans}} </strong>  
+                    </div>
+                {% endif %}
+
+
+
+
+
+
+                   <div id="modalForm"  class="modal fade col-lg-12 col-md-12 col-sm-12 col-xs-12" tabindex="-1" aria-hidden="true">  
+                    <div class=" modal-dialog modal-lg col-lg-12 col-md-12 col-sm-12 col-xs-12">  
+                        <div class="modal-content col-lg-12 col-md-12 col-sm-12 col-xs-12" >  
+                            <div class="modal-header">  
+                                <h4 class="modal-title">  {{'liste_execution'|trans}}</h4>  
+                            </div> 
+                            <div class="modal-body" >
+                            <div id="" data-href=""> </div>
+
+
+<div class="card">
+					<div class="card-body">
+						<div class="table-responsive">
+							<table id="example" class="table table-striped table-bordered"  style="text-align:center !important ; " >
+								<thead>
+                                    <tr>
+                                      <th  style="text-align:center !important ; ">  {{'ref_prog'|trans}}</th>
+                                      <th  style="text-align:center !important ; ">  {{'num_exec'|trans}}</th>
+                                      <th  style="text-align:center !important ; ">  {{'statut'|trans}}</th>
+                                      <th  style="text-align:center !important ; ">  {{'op'|trans}}</th>
+                                      
+                                    </tr>
+								</thead>
+								<tbody>
+
+                             
+
+                                {% for key , e in  liste_execs_pe %}                                  
+                                   
+     
+                                
+                         
+{% if e is defined  %}
+
+{% if liste_execs_pe[key] is defined  %}
+
+
+
+{% for key_i , i in liste_execs_pe[key] %}
+
+{% if liste_execs_pe[key][key_i] is defined  %}
+
+   <tr class="exec_of_prog_{{liste_execs_pe[key][key_i].programme.id}} exec_of_prog">
+                                <td>
+                                {{liste_execs_pe[key][key_i].programme.reference}}
+                                </td>
+
+                              
+                                 <td>
+                                {{liste_execs_pe[key][key_i].id}}
+                                 </td>
+                                <td>
+                                {{liste_execs_pe[key][key_i].statut}}
+                                 </td>
+                                 <td>
+										<div class="table-actions fs-6">
+											{% if "ROLE_PROF" in app.user.roles %}
+
+							<a href="{{ path('editExec', {'id': liste_execs_pe[key][key_i].id}) }}" class="text-primary" aria-label="Loop"><i class="bi bi-pencil-fill" ></i></a>&nbsp; 
+
+
+													{% endif %}
+
+														
+												</div> 
+									
+								</td>
+
+
+
+  </tr>
+
+{% endif %}
+
+                                
+    
+{% endfor %}
+
+                               
+
+
+
+{% endif %}
+
+                             
+
+                                 
+{% endif %}
+                                      
+                                      
+
+        
+                                    {% endfor %}
+                                            
+						        </tbody>
+							
+							</table>
+						</div>
+					</div>
+				</div>
+
+
+
+
+                            </div>  
+
+                            <div class="modal-footer">  
+                                <button type="button" class="btn btn-danger"  data-bs-dismiss="modal">{{'fermer'|trans}}</button>  
+                            </div> 
+                        </div>  
+                    </div>  
+                </div>
+
+
+
+
+
+
+{% endblock %}
+
+ {% block javascripts %}
+
+{{ parent() }}
+  {{ encore_entry_script_tags('programme_emploi_ajax') }}
+  
+
+{% endblock %}

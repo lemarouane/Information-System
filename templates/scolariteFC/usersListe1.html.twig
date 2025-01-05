@@ -1,0 +1,79 @@
+
+{% extends 'template.html.twig' %}
+
+{% block title %}{{'liste_etudiants'|trans}} {% endblock %}
+
+{% block body %}
+
+				<!--breadcrumb-->
+
+                <div class="page-breadcrumb d-none d-sm-flex align-items-center mb-3">
+                        <div class="breadcrumb-title pe-3">{{'scolariteFC'|trans}}</div>
+                        <div class="ps-3">
+                            <nav aria-label="breadcrumb">
+                            <ol class="breadcrumb mb-0 p-0">
+                                <li class="breadcrumb-item"><a href="javascript:;"><i class="bi bi-person-fill"></i></a>
+                                </li>
+                                <li class="breadcrumb-item active" aria-current="page"> {{'liste_etudiants'|trans}}</li>
+                            </ol>
+                            </nav>
+                        </div>
+         
+                </div>
+                <hr>
+
+                <div class="card border-top border-success border-0 border-3">
+                  <div class="card-body">
+                    <div class="table-responsive">
+                      <table id="exe1" class="table table-striped table-bordered dataTable" style="text-align:center !important ;" >
+                        <thead>
+                          <tr>
+                                <th style="text-align:center !important ;">{{'num'|trans}}</th>
+                                <th style="text-align:center !important ;">{{'nom'|trans}}</th>
+                                <th style="text-align:center !important ;">{{'prenom'|trans}}</th>
+                                <th style="text-align:center !important ;">{{'date_naiss'|trans}}</th>
+                                <th style="text-align:center !important ;">{{'cin'|trans}}</th>
+                                <th style="text-align:center !important ;">{{'cne'|trans}}</th>
+                                <th style="text-align:center !important ;">{{'diplome'|trans}}</th>
+                                <th style="text-align:center !important ;">{{'op'|trans}}</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for user in users %}
+                                <tr>
+                                    <td >{{user['COD_ETU']}}</td>
+                                    <td>{{user['nom']}}</td>
+                                    <td>{{user['prenom']}}</td>
+                                    <td>{{user['dateNaissance']}}</td>
+                                    <td>{{user['cin']}}</td>
+                                    <td>{{user['cne']}}</td>
+                                    <td>{{user['dip']}}</td>
+                                    <td>
+                                        <div class="text-center">
+                                            <a class="text-success icons" data-toggle="tooltip" data-placement="top" title="détail" href="{{ path('detailUserFC', { 'id': user['COD_ETU'] }) }}"><span class="bi bi-eye-fill">  </span></a>&nbsp;&nbsp;
+                                            <a class="text-info icons" data-toggle="tooltip" data-placement="top" title="afficher" href="{{ path('showPaiement', { 'id': user['COD_ETU']  }) }}"><span class="fa fa-search"></span></a>&nbsp;&nbsp;
+                                            <a class="text-primary icons" data-toggle="tooltip" data-placement="top" title="ajouter" href="{{ path('addPaiement', { 'id': user['COD_ETU']  }) }}"><span class="bi bi-credit-card-fill"></span></a>&nbsp;&nbsp;
+
+                                        </div>
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+
+							
+					</table>
+					</div>
+                    
+					</div>
+				</div>
+  
+{% endblock %}
+{% block javascripts %}
+    {{parent()}}
+	
+    {{ encore_entry_script_tags('scolarite') }}
+        
+
+
+{% endblock %}
+

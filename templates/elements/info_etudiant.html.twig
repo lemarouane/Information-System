@@ -1,0 +1,145 @@
+                    <div class="row row-cols-1 row-cols-xl-2 row-cols-xxl-3">
+                        <div class="col">
+                         <div class="card border shadow-none radius-10">
+                           <div class="card-body">
+                            <div class="d-flex align-items-center gap-3">
+                              
+                              <div class="info col-4">
+                                 <div class="col">
+                                    <div class="">
+                                        <img id='file' src="{{'../../../e-doc/public/uploads/img/' ~ image }}" class="rounded-circle shadow" width="120" height="120" alt="">        
+                                    </div>
+                                </div>
+                              </div>
+                              <div class="info col-8">
+                                <address class="m-t-5 m-b-5">
+                                        <strong>
+                                        <p class="mb-1">{{ etudiant.LIB_NOM_PAT_IND }} {{ etudiant.LIB_PR1_IND}}</p></strong>
+                                        <p class="mb-1">{{'cin'|trans}} : {{ etudiant.CIN_IND}}</p>
+                                        <p class="mb-1">{{'tel'|trans}} : {{ etudiant.NUM_TEL}}</p>
+                                        <p class="mb-1">{{'adresse'|trans}} : {{ etudiant.LIB_AD3}}</p>
+                                      
+                                        <p class="mb-1">&nbsp;&nbsp;</p> 
+                                    </address>
+                              </div>
+                           </div>
+                           </div>
+                         </div>
+                       </div>
+                       <div class="col">
+                        <div class="card border shadow-none radius-10">
+                          <div class="card-body">
+                            <div class="d-flex align-items-center gap-3">
+                              <div class="icon-box bg-light-success border-0">
+                                <i class="bi bi-person-fill text-success"></i>
+                              </div>
+                              <div class="info col-10">
+                                 <div class="col">
+                                        <strong> {{'info_perso'|trans}}</strong><br>
+                                        <div class="d-flex align-items-center mb-0">
+                                          <div>
+                                            <p class="mb-0"> {{'nom_prenom'|trans}}</p>
+                                          </div>
+                                          <div class="ms-auto info">
+                                            <p class="mb-0">{{ etudiant.LIB_NOM_PAT_IND }} {{ etudiant.LIB_PR1_IND}}</p>
+                                          </div>
+                                          </div>
+                                          <div class="d-flex align-items-center mb-0">
+                                            <div>
+                                              <p class="mb-0">  {{'nom_prenom_arabe'|trans}} </p>
+                                            </div>
+                                            <div class="ms-auto">
+                                              <p class="mb-0">{{ etudiant.LIB_NOM_IND_ARB }} &nbsp; {{ etudiant.LIB_PRN_IND_ARB}}</p>
+                                            </div>
+                                          </div>
+                                          <div class="d-flex align-items-center mb-0">
+                                            <div>
+                                              <p class="mb-0">  {{'lieu_naiss'|trans}} </p>
+                                            </div>
+                                            <div class="ms-auto">
+                                              <P class="mb-0">{{ etudiant.LIB_VIL_NAI_ETU }} &nbsp;&nbsp; {{ etudiant.LIB_VIL_NAI_ETU_ARB }}</P>
+                                            </div>
+                                          </div>
+                                          <div class="d-flex align-items-center mb-0">
+                                              <div>
+                                                <p class="mb-0">  {{'code_massar'|trans}}  </p>
+                                              </div>
+                                              <div class="ms-auto">
+                                                <p class="mb-0"> {{ etudiant.COD_NNE_IND }}</p>
+                                            </div>
+                                          </div>
+                                          <div class="d-flex align-items-center mb-0">
+                                              <div>
+                                                <p class="mb-0">   {{'date_naiss'|trans}}  </p>
+                                              </div>
+                                              <div class="ms-auto">
+                                                <p class="mb-0"> {{etudiant.DATE_NAI_IND}}</p>
+                                            </div>
+                                          </div>
+                                 </div>
+                              </div>
+                           </div>
+                           </div>
+                          </div>
+                       </div>
+                      <div class="col">
+                        <div class="card border shadow-none radius-10">
+                          <div class="card-body">
+                            <div class="d-flex align-items-center gap-3">
+                              <div class="icon-box bg-light-danger border-0">
+                                <i class="bi bi-mortarboard-fill text-danger"></i>
+                              </div>
+                              <div class="info col-10">
+                                <div class="col">
+
+                              <div class=""><b>  {{'info_inscription'|trans}}</b></div>
+                              <div class="invoice-detail">
+                              </div>
+                              <div class="d-flex align-items-center mb-0">
+                                <div>
+                                  <p class="mb-0"> {{'administrative'|trans}}</p>
+                                </div>
+                                <div class="ms-auto info">
+                                  <p class="mb-0">{{ ins_Adm_E[0].LIB_ANU}}</p>
+                                </div>
+                              </div>
+                              <div class="d-flex align-items-center mb-0">
+                                <div>
+                                  <p class="mb-0"> {{'pedagogique'|trans}}</p>
+                                </div>
+                                <div class="ms-auto">
+                                  <p class="mb-0">{% if ins_Peda_E is not empty %}{{ ins_Peda_E[0].LIB_ANU}}{% endif %}</p>
+                                </div>
+                              </div>
+                              <div class="d-flex align-items-center mb-0">
+                                <div>
+                                  <p class="mb-0"> {{'etape'|trans}}</p>
+                                </div>
+                                <div class="ms-auto">
+                                  <P class="mb-0">{% if ins_Peda_E is not empty %}{{ ins_Peda_E[0].COD_ETP}} {% endif %}</P>
+                                </div>
+                              </div>
+                              <div class="d-flex align-items-center mb-0">
+                                  <div>
+                                    <p class="mb-0">  {{'num_apogee'|trans}} </p>
+                                  </div>
+                                  <div class="ms-auto">
+                                    <p class="mb-0">  {{ etudiant.COD_ETU }}</p>
+                                </div>
+                              </div>
+                              <div class="d-flex align-items-center mb-0">
+                                  <div>
+                                    <p class="mb-0"> {{'groupe'|trans}} </p>
+                                  </div>
+                                  <div class="ms-auto">
+                                    <p class="mb-0"> {{ groupe}}</p>
+                                </div>
+                              </div>
+	           
+                            </div>
+                              </div>
+                            </div>
+                          </div>
+                         </div>
+                    </div>
+                  </div>

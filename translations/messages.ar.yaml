@@ -1,0 +1,618 @@
+
+security:
+  reset-password: استعادة كلمة المرور
+  sing-in : تسجيل الدخول
+  forgetten-password: نسيت كلمة السر 
+  enter-email: أدخل بريدك الإلكتروني
+  send-email:  أرسل الرابط لاسترداد كلمة المرور
+  email: البريد الإلكتروني
+  password: كلمة المرور
+  username: اسم العائلة والاسم الشخصي للمستخدم
+  remember-me: تذكرني
+  login: دخول
+  dont-have-account: ليس لدي حساب
+  register: تسجيل
+  accept: أقبل كل 
+  terms: شروط الاستخدام
+
+
+
+
+titles : 
+ new_dem_att : طلب وثيقة جديد
+ hist_dem_att : تاريخ طلبات الوثائق
+ edit_dem_att : تعديل طلب وثيقة
+
+ new_dem_om: طلب أمر بمهمة
+ hist_dem_om : تاريخ طلبات أمر بمهمة
+ edit_dem_om : تعديل طلب أمر بمهمة
+ details_dem_om : تفاصيل أمر بمهمة
+
+ new_dem_cong : طلب إجازة
+ hist_dem_cong : تاريخ طلبات الإجازة
+ edit_dem_cong: تعديل طلب إجازة
+
+ new_dem_auto : طلب ترخيص
+ hist_dem_auto : تاريخ طلبات الترخيص
+ edit_dem_auto : تعديل طلب ترخيص
+
+
+ new_dem_fh : طلب استمارة ساعة 
+ hist_dem_fh : تاريخ طلبات استمارة ساعة
+ edit_dem_fh :  تعديل طلب استمارة ساعة
+
+ hist_dem : تاريخ الطلبات 
+ hist_dem_rh : تاريخ الطلبات طاقم العمل
+ hist_act : تاريخ النشاط
+ show_hist : تفاصيل تاريخ الطلبات
+
+ hist_avanc : تاريخ الترقية
+ edit_avanc : تعديل الترقية
+ new_avanc : إضافة ترقية
+
+ hist_note : تاريخ النقط
+ edit_note: تعديل نقطة
+ new_note : إضافة نقطة
+
+ engs : إذا كانت لديك التزامات ، فيرجى إضافتها بالنقر فوق الزر +.
+
+ info_perso : معلومات شخصية
+ info_admin : معلومات ادارية
+ info_acad : معلومات اكاديمية
+ upload_photo : تحميل الصورة ↑
+ upload_photo_edit : تغيير الصورة ↑
+ new_personnel : أضف عنصر جديد
+ edit_personnel : تعديل عنصر
+ show_personnel : معلومات طاقم العمل
+
+ dashboard: لوحة القيادة
+ rh : الموارد البشرية
+ gest_personnel : إدارة طاقم العمل
+ stats_personnel : إحصائيات طاقم العمل
+ dem_personnel : طلبات طاقم العمل
+ imp_exp : ادخال / اخراج المعلومات
+ rep_rh : استئنافات طاقم العمل
+ histo : التاريخ
+ demandes : الطلبات
+ activity : النشاط
+ stats_de_annee : إحصائيات الطلبات لسنة
+
+
+
+email_reset :
+  link_expire : ستنتهي صلاحية هذا الرابط في 
+  greetings : مرحبا
+  cheers : شكرا جزيلا
+  core : لإعادة تعيين كلمة المرور الخاصة بك ، يرجى زيارة الرابط التالي
+
+password_reset :
+  m0 : طلب إعادة تعيين كلمة المرور
+  m1 : هل نسيت كلمة السر ؟
+  m2 : أدخل بريدك الإلكتروني المسجل لإعادة تعيين كلمة المرور
+  m3 : أعد تعيين كلمة مرورك الجديدة
+  m4 : لقد تلقينا طلب إعادة تعيين كلمة المرور الخاصة بك. الرجاء إدخال كلمة المرور الجديدة الخاصة بك!
+
+password_check :
+  m0 : تم إرسال بريد إلكتروني لإعادة تعيين كلمة المرور
+  m1 : في حالة وجود حساب يطابق بريدك الإلكتروني ، فقد تم إرسال بريد إلكتروني للتو يحتوي على ارتباط يمكنك استخدامه لإعادة تعيين كلمة المرور الخاصة بك.   
+  m2 : ستنتهي صلاحية هذا الرابط في
+  m3 : إذا لم تستلم بريدًا إلكترونيًا ، فيرجى التحقق من مجلد البريد العشوائي أو
+  m4 : حاول مرةأخرى
+
+MOD_SUCCESS :  تم حفظ التغيير  بنجاح! 
+MOD_DANGER : خطأ ! حاول مرة اخرى !
+MOD_CONGRATS : تهانينا ! تمت معالجة جميع الطلبات.
+MOD_BAC_RET:  لا توجد أي باكلوريا مسحوبة
+MOD_BAC_REND : لا توجد أي باكلوريا تم ردها
+MOD_EMPTY_NOTES : لا توجد أي نقط لهذه السنة
+MOD_EMPTY_ETU : لا يوجد أي طالب 
+MOD_EMPTY_DEM: لا يوجد أي طلب
+MOD_EMPTY_PAIEMENT : لا يوجد أي دفع
+MOD_EMPTY_PARAGRAPHE : لا توجد أي فقرة
+MOD_EMPTY_REC : لا توجد أي واردات
+MOD_EMPTY_RUB_RECETTE : لا توجد أي فقرة واردات
+MOD_EMPTY_LIGNE : لا يوجد أي سطر
+MOD_EMPTY_CONV : لا توجد أي اتفاقية
+MOD_CODE_APOGEE_INCORECTE : الرجاء إدخال رقم أبوجي صحيح
+MOD_DOCUMENT_VALIDE :  تمت إضافة الملف بنجاح.
+MOD_DOCUMENT_INVALIDE : الملف المرفق غير صالح
+MOD_PPR_INVALIDE :  رقم التأجير الذي تم إدخاله غير صحيح
+MOD_ID_INVALIDE : الرقم الذي تم إدخاله غير صحيح
+MOD_APOGEE_INVALIDE : رقم أبوجي الذي تم إدخاله غير صحيح
+MOD_TOUTE_INFO : الرجاء إدخال جميع المعلومات الضرورية 
+MOD_NO_ACCESS : ليس لديك الحقوق اللازمة للوصول إلى هذه الصفحة
+MOD_ABS_DELETE : تم حذف الغياب بنجاح.
+MOD_NON_ATACHEE_DEP : أنت غير مرتبط بأي قسم
+MOD_NON_ATACHEE_STR : أنت غير مرتبط بأي هيئة البحث
+MOD_PLATEFORME_OUVERTE : المنصة مفتوحة
+MOD_FICHIER_DEPLOYE :  تم رفع الملف بنجاح
+MOD_FICHIER_NON_DEPLOYE : لا يمكن رفع الملف
+MOD_FICHIER_NON_EXIST : الملف غير موجود
+
+Etudiant: طالب
+Filiere: شعبة
+Module: المادة
+Semestre: الأسدوس
+User: مستعمل
+
+
+Id : رقم
+
+
+Profile : الملف الشخصي
+Logout : خروج
+Code : الرقم المعرف
+Save : حفظ
+Send : إرسال
+
+Back : رجوع
+Nom :  النسب
+Prenom : الاسم
+
+
+
+Username :  إسم المستخدم
+Roles : الأدوار
+Locale : اللغة
+
+New_User : مستخدم جديد
+Operations : عمليات
+Users_Table : قائمة المستخدمين
+
+Language : اللغة
+
+
+save : تسجيل
+send : إرسال
+back : رجوع
+new : إضافة +
+
+Change_Pass : تغيير كلمة المرور
+User_Edit : تعديل مستخدم
+Old_Pass : كلمة المرور القديمة 
+New_Pass : كلمة مرور جديدة
+Confirm_Pass :  أكد كلمة المرور
+
+profile : معلومات الحساب 
+logout : تسجيل خروج
+edit_pass : تغيير كلمة المرور
+
+Etudiant_DD_Table : لائحة الطلبة بالدبلوم المزدوج
+convention_dd : إتفاقيات الدبلوم المزدوج
+inscription : التسجيل
+carte_etudiant :  بطاقة الطالب
+carte_etudiants :  بطاقة الطالب
+
+scolarite : شؤون الطلبة
+scolariteFC : التكوين المستمر
+detail : تفاصيل
+nb_nv_etu_par_diplome : عدد الطلبة الجدد حسب الدبلوم
+nb_etu_par_etape :  عدد الطلبة حسب المرحلة
+nb_etu_par_diplome :  عدد الطلبة حسب الدبلوم
+totale: المجموع
+nv_inscrits: المسجلون الجدد 
+stats : الإحصائيات
+liste_etudiants : لائحة الطلبة
+demande_dip_accorde : طلبات الدبلوم المصادق عليها
+liste_dem_stage : لائحة طلبات التدريب
+liste_etu_retire_dip : استخراج الطلبة اللذين سحبوا دبلوماتهم
+liste_etu_dd_annee_encours: استخراج الطلبة بالدبلوم المزدوج للسنة الحالية
+stats_de_annee : إحصائيات الطلبات لسنة
+stats_insc_dd_pour_annee : إحصائيات المسجلين بالدبلوم المزدوج لسنة
+stats_etud_non_inscrit : الطلبة الغير المسجلين
+totale_etud_en_dd : مجموع الطلبة بالدبلوم المزدوج
+etu_insc_pour_annee : عدد المسجلين لسنة
+nb_etu_par_dip : عدد الطلبة حسب الدبلوم
+type_stage_percentage : نوع التدريب بالنسبة المائوية
+nb_conv_par_filiere : عدد الإتفاقيات حسب الشعبة
+diplome_retire : الدبلومات المسحوبة
+conventions : الإتفاقيات 
+num_apogee : رقم ابوجي
+annee_univ : السنة الجامعية 
+type_stage :   نوع التدريب
+type_document :  نوع الوثيقة
+exporter_fichier : استخراج الملف
+exporter_stats :  استخراج الإحصائيات
+tous : الكل
+stag_observation : تدريب مراقبة
+stage_pfa : تدريب PFA
+stage_pfe : تدريب PFE
+document_signe : الوثائق الموقعة
+entreprise : المقاولة
+date_demande :  تاريخ الطلب
+niveau : المستوى 
+service_coop :  مصلحة التعاون
+accorde : مصادق عليه
+chef_filiere :  رئيس الشعبة
+rendezvous : موعد
+promotion : الفوج
+accepter : مصادقة
+stages : التداريب
+attestations : الشواهد
+etape : المرحلة
+reinsc : إعادة التسجيل
+apogee :  رقم ابوجي
+attestation : وثيقة
+etat : الحالة
+motif_refus : سبب الرفض 
+groupe :  المجموعة
+pedagogique : البيداغوجي
+administrative : الإداري
+info_inscription :  معلومات التسجيل
+info_perso :  معلومات شخصية
+nom_prenom_arabe : الاسم و النسب بالعربية
+lieu_naiss : مكان الإزدياد
+code_massar :  رقم مسار
+date_naiss :  تاريخ الإزدياد
+moy_annuelle : المعدل السنوي 
+resultat : النتيجة  
+note_sur_20 : النقط على 20
+session : الدورة
+pts_jury : نقط اللجنة
+exporter : إستخراج
+garcons : ذكور
+filles :  إناث
+enc_etape : المرحلة القديمة
+nv_etape : المرحلة الجديدة
+photo : الصورة
+code_apogee : رقم ابوجي
+valeur : القيمة
+afficher : إظهار 
+releve_note : كشوف النقط
+releve  : كشوف النقط
+att_reussite : شهادة النجاح
+stats_par_annee  :  إحصائيات لسنة
+filiere : الشعبة
+cooperation : التعاون
+validation :  المصادقات 
+histo_validation : تاريخ المصادقات 
+histo_dems : تاريخ الطلبات 
+type_demande : نوع الطلب
+avion : طائرة 
+n_doc : رقم الوثيقة
+orientation : التوجيه
+etat_etud : حالة الطلبة
+choix_etud :  إختيارات الطلبة
+convs : التداريب
+gest_conv :  تدبير الإتفاقيات
+gest_diplomes :  تدبير الدبلومات
+nv_abs :   غياب جديد
+abs : الغياب
+conv_dd : إتفاقيات الدبلوم المزدوج  
+rel_att_reu : كشوف النقط و شواهد النجاح
+cartes : بطاقات الطلبة 
+emp_temps :  إستعمال الزمن
+insc : التسجيل
+module : الوحدة
+date_absence : تاريخ الغياب 
+justif : مبرر
+certif : شهادة مرضية
+
+montant : المبلغ
+date_pai :  تاريخ الأداء
+date_op : تاريخ العملية
+num_op : رقم العملية
+num_cheque :  رقم الشيك
+annee_soutenance : سنة التخرج
+imp_exp : ادخال / اخراج المعلومات
+paiements : الأداء
+paiement : الأداء
+date_paiement :  تاريخ الأداء
+mode_paiement : طريقة الأداء
+nv_paiement:  أداء جديد
+edit_paiements : تعديل أداء
+responsable : المسؤول
+rubrique : باب
+cheque : شيك
+virement : تحويل 
+fichier_joint : ملف مرفق
+conv_signe : الإتفاقية
+
+atts : وثائق
+reps : الإستئنافات
+reps_g : إستئنافات طاقم العمل
+congs : الإجازات
+autos : التراخيص
+oms : أوامر المهمة  
+fhs : استمارات الساعة
+
+att : وثيقة
+rep : إستئناف
+cong : إجازة
+auto : ترخيص
+om : أمر مهمة
+fh : استمارة ساعة
+att_travail : شهادة العمل 
+att_salaire : شهادة الأجرة
+av_echelons : ترقيات الرتبة
+av_grades : ترقيات الدرجة
+nom_fil : إسم الشعبة
+filieres : الشعبة
+
+trs : المعالجة
+dms : الطلبات
+personnel : طاقم العمل
+
+c_normale : إجازة عادية
+c_exp : إجازة استتنائية
+
+j_rest : الأيام المتبقية
+financement : التمويل
+departement : القسم
+departements : الأقسام
+projet : مشروع
+autre : آخر
+laboratoire : مختبر
+code_diplome : رقم الدبلوم
+
+ens : التعليم 
+rech : البحث 
+deplac : حركية
+
+telephone : هاتف
+nom : النسب
+prenom :  الإسم
+nom_prenom : الإسم و النسب
+email :  البريد الإلكتروني
+nom_prenom_ar : الإسم و النسب بالعربية
+nom_ar :  النسب بالعربية
+prenom_ar : الإسم  بالعربية
+date_n : تاريخ الإزدياد
+genre : الجنس
+tel : رقم الهاتف
+adresse : العنوان
+sit_famil : الحالة العائلية
+dep : القسم
+service : المصلحة
+corps : الهيئة
+grade : الدرجة
+echelon :  الرتبة
+sit_admin : الحالة الإدارية
+date_rec : تاريخ الإلتحاق
+date_affect_minsup : تاريخ الإلتحاق بوزارة ت.ع
+date_affect_ENSAT : تاريخ الإلتحاق بالمدرسة
+date_affect_ens: تاريخ الإلتحاق بالتعليم
+date_sout: تاريخ التأهيل
+diplome : دبلوم 
+spec : التخصص
+specs : التخصصات
+etab_diplome : المؤسسة المسلمة للدبلوم
+post_budget : المنصب المالي
+nb_enfant : عدد الأطفال
+emploi_PDF : استعمال الزمن PDF
+etablissement : المؤسسة
+engagements : الإلتزامات
+engagement : إلتزام
+ville : المدينة
+matiere : المادة
+
+calib : عازب
+marie: متزوج(ة)
+divorce: مطلق(ة)
+veuf :  أرمل(ة)
+
+n : رقم
+op : عمليات
+demandeur : صاحب الطلب
+date_envoie : تاريخ الطلب
+date_validation : تاريخ الموافقة
+date_debut : تاريخ البداية
+date_fin : تاريخ النهاية
+date_reprise : تاريخ الإستئناف
+date_grade : تاريخ الدرجة
+date_deci : تاريخ القرار
+date_fait : بتاريخ
+arrete : وثيقة القرار
+moy_transp : وسيلة النقل
+transp_pub : نقل عمومي
+voit_perso : السيارة الشخصية
+val_projet : قيمة المشروع
+val_autre : قيمة أخرى
+rep_faite : مستأنف
+rep_nonfaite : غير مستأنف
+concerne : إسم المعني
+type : نوع
+type_sortie : نوع الخروج
+type_dem : نوع الطلب
+motif : السبب
+nb_Jours : عدد الأيام
+nb_Annee : عدد السنوات
+nb_Heures : عدد الساعات
+jours : الأيام
+h_debut : ساعة البداية
+h_fin : ساعة النهاية
+objet : الموضوع
+nom_remp : إسم المعوض
+destination : الوجهة
+cadre_mission : إطار المهمة
+str_acceuil : بنية الاستقبال 
+invit : دعوة
+annee : سنة
+annee_enc : السنة الحالية
+annee_prec : السنة الماضية
+statut : الوضعية
+design_fr : الإسم بالفرنسية
+design: الإسم 
+design_ar : الإسم بالعربية
+intitule : الإسم
+rapide : سريع
+excep : إستتنائي
+normale : عادي
+etat_act : الوضعية الحالية
+etat_prop : الوضعية المقترحة
+numPPR : رقم التأجير 
+E-mail : البريد الإلكتروني
+cin : رقم بطاقة التعريف
+avancs : الترقيات
+num_deci : رقم القرار
+fonct_exercee : المهمة الموكلة
+service_affct : المصلحة الملحق إليها
+str_rech : بنية البحث
+str_rechs : بنيات البحث
+type_str_rechs : نوع بنيات البحث
+provinces : الأقاليم
+province : إقليم
+type_perso : نوع طاقم العمل
+activite : النشاط
+grades : الدرجات
+echelons : الرتب
+fonctions : المهام
+diplomes : الدبلومات
+services : المصالح
+gr_avanc : ترقيات الدرجة
+notes : النقط
+ech_avanc : ترقيات الرتبة
+utlisateurs : المستخدمين
+upload_arrete : تحميل وثيقة القرار
+ancien_arrete : إظهار وثيقة القرار القديم
+note_anuelle : النقطة السنوية
+note1: تنفيذ المهام
+note2: المردودية
+note3: القدرة على التنظيم
+note4: السلوك المهني
+note5: البحث و الإبتكار
+remarque : الملاحظات
+fiche_note : وثيقة التنقيط
+m_debut : شهر البداية
+m_fin : شهر النهاية
+annee_prevu_soutenance : سنة التخرج
+
+seance : Séance
+
+encours : في طور المعالجة
+confirme : تم التأكيد
+valide : تمت الموافقة
+refuse : تم الرفض
+valider : موافقة
+refuser : رفض
+envoyer : إرسال
+action : العملية
+mt_refus : سبب الرفض
+fermer : إقفال
+validepar : تمت الموافقة من طرف
+refusepar : تم الرفض من طرف
+confirmepar : تم التأكيد من طرف
+confirmele : تم التأكيد في
+validele : تمت الموافقة في
+refusele : تم الرفض في
+demandepar : طلب من طرف
+demandele : طلب في
+nom_cycle : إسم المسلك
+abrevDep : إختصار إسم القسم 
+abrevStr : إختصار إسم البنية
+codeDiplome : رقم الدبلوم
+libelleDep : إسم القسم
+codeApo :  APOGEE رقم
+codeEtab : رقم المؤسسة
+libelle : الإسم  
+cycles : المسالك
+
+
+ne : مزداد(ة) في
+a : ب
+exerc_ensa_depuis :  بالمدرسة منذ
+apropos : نبذة
+
+im_exp_rh : ادخال / اخراج المعلومات 
+exp_fiche_ind :  إخراج بطاقة شخصية
+solde_aj : إضافة رصيد الإجازة سنوية 
+import_fichier : تحميل الوثائق المرقمنة
+num_doc : رقم الوثيقة
+exp_stats_listes : إخراج الإحصائيات و اللوائح
+ch_fichier : إختر الوثيقة 
+exp_stat_p : إخراج إحصائيات طاقم العمل
+exp_liste_p : إخراج لوائح طاقم العمل
+importer : إدخال
+
+adms : إداريين
+prfs: أساتذة
+hommes : رجال
+femmes : نساء
+evo_effectif :  تطور العدد
+evo_rec : تطور الإلتحاق
+eff_dep : العدد في كل قسم
+eff_service : في كل مصلحة
+rep_ens_grade : هيئة التدريس حسب الدرجات
+nombre : العدد 
+rep_adm_grade : هيئة الإدارة حسب الدرجات
+stats_act_personnel :  تاريخ النشاط لطاقم العمل
+act_normale : نشاط عادي
+act_ret : متقاعدون 
+act_mutation : منتقلون
+act_abondon : متخلون 
+
+edit_corps : تعديل هيئة
+add_corps :  إضافة هيئة
+edit_grade : تعديل درجة
+add_grade : إضافة درجة
+edit_echelon : تعديل رتبة
+add_echelon : إضافة رتبة
+edit_diplome :  تعديل دبلوم
+add_diplome :  إضافة دبلوم
+edit_filiere: تعديل شعبة
+add_filiere : إضافة شعبة 
+edit_dep :  تعديل قسم
+add_dep : إضافة قسم
+edit_str_rech: تعديل بنيةالبحث
+add_str_rech: إضافة بنيةالبحث
+edit_type_str_rech:  تعديل نوع بنية البحث
+add_type_str_rech : إضافة نوع بنية البحث
+edit_type_perso : تعديل نوع طاقم العمل
+add_type_perso : إضافة نوع طاقم العمل
+edit_service :  تعديل مصلحة
+add_service : إضافة مصلحة
+edit_fonction :  تعديل مهمة
+add_fonction : إضافة مهمة
+edit_spec :  تعديل تخصص
+add_spec: إضافة تخصص
+edit_province :  تعديل إقليم
+add_province : إضافة إقليم
+edit_grade_av : تعديل ترقية درجة
+add_grade_av: إضافة ترقية درجة
+edit_echelon_av : تعديل ترقية رتبة
+add_echelon_av: إضافة ترقية رتبة
+attestation_sco : شهادات التمدرس
+conge : الإجازة
+conges : الإجازات
+originale : أصلية
+duplicata : نسخة
+reinscription : إعادة التسجيل
+nb_etud_par_diplome : عدد الطلبة بالدبلوم
+nb_etud_par_etape : عدد الطلبة بالمرحلة 
+nb_nv_inscrits : عدد الطلبة الجدد
+statistiques : إحصائيات
+cne : CNE رقم 
+num : رقم
+details_stage : تفاصيل التدريب
+finance : الموارد المالية
+liste_abs : لائحة الغياب
+liste_paiements : لائحة الأداء 
+imp_ceritif_med : إدخال شهادة طبية
+code_etape : رمز المرحلة
+exp_liste_etud_par_module : استخراج لائحة الطلبة حسب الوحدات 
+exporter_liste_abs : لائحة الغياب
+emp_exp : استخراج / ادخال المعلومات
+debut_n_apogee : بداية أرقام ابوجي 
+fin_n_apogee : نهاية أرقام ابوجي
+etudiants_dd : لائحة الطلبة
+cvtheque : مكتبة السيرة ذاتية
+permis : رخصة السياقة
+distinctions : جوائز
+LinkedIn : LinkedIn
+langues : اللغات
+certifications : اشهادات
+softskills : المهارات اللينة
+comp_technique : مهارات التواصل
+hobbies : الهوايات
+info_sup : معلومات اضافية
+formations_cvtheque : التكوينات
+specialite : التخصص
+experiences_cvtheque : التجارب المهنية
+lieu : المكان
+descriptionmission : وصف المهمة
+lienportfolio : البورتفوليو
+clubs_cvtheque : المشاركات في النوادي / الجمعيات
+nomassoc : اسم الجمعية
+posteoccupe : المنصب 
+description : وصف
+

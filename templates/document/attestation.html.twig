@@ -1,0 +1,218 @@
+﻿
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Attestation</title>
+		<meta charset="utf-8">
+
+   		<style type="text/css">
+    			.body{
+						color: #222;
+						font-family: "Times New Roman"
+					}
+
+					.label_fichier{
+						font-size: 22px;
+						text-align: right;
+						padding-top: 20%;
+					}
+					.label_date{
+						font-size: 22px;
+						font-weight: bold;
+						text-align: left;
+						padding-top: 20%;
+					}
+					h1{
+						font-size: 28px;
+						font-weight: bold;
+						text-align: center;
+						padding-top: 5%;
+						margin-bottom:10%;
+					}
+					.contenu_fichier p{
+
+						font-size: 24px;
+					}
+
+					p:first-letter /* Je veux que la première lettre de mes paragraphes... */ 
+					{     
+						font-family : "Times New Roman", Arial, Verdana, Sans-serif; /* Soit mise en Arial si possible*/    
+						font-weight : bold; /* Soit écrite en gras (c'est plus voyant) */
+						margin-left:  2px; /* Qu'il y ait une marge de 5px à droite pour que ça colle pas trop au reste du texte */
+					}
+					p{
+						margin-right: 50px;
+						margin-left: 50px;
+						font-size: 22px;
+						font-size: 1;
+						line-height: 35px;
+					}
+					#parag{
+						margin-right: 50px;
+						font-size: 15px;
+					}
+					table{
+						font-family : "Times New Roman", Arial, Verdana, Sans-serif;
+					    width:100%;
+						margin-right: 50px;
+						margin-left: 45px;
+					}
+					table th{
+						font-size: 24px;
+						text-align: left;
+						font-weight : normal;
+					}
+					table td{
+						font-size: 24px;
+						font-weight : bold;
+
+					}
+
+					table tr{
+						height: 50px;
+
+					}
+					#tableOrdre{
+						border-collapse:collapse;
+					    width:100%;
+						margin-right: 50px;
+					}
+					#tableOrdre th{
+						text-transform: lowercase;
+						border:1px solid black;
+						font-size: 18px;
+						text-align: left;
+					}
+					#tableOrdre td{
+						text-transform: lowercase;
+						border:1px solid black;
+						font-size: 15px;
+
+					}
+					#tableOrdre td:first-letter,th:first-letter{
+						text-transform: uppercase;
+
+					}
+					#ordreMissionUL>li{
+						font-size: 15px;
+						font-family : "Times New Roman", Arial, Verdana, Sans-serif; /* Soit mise en Arial si possible*/    
+					    font-weight : bold; /* Soit écrite en gras (c'est plus voyant) */
+					}
+
+					#headerOrdre{
+						min-height: 200px;
+					}
+
+
+    
+
+  </style>
+	</head>
+	<body>
+        <div class="label_fichier">
+			Tanger le, {{ "now"|date("d/m/Y") }}
+	    </div><br><br>
+	       <h1>ATTESTATION DE TRAVAIL</h1>
+        <div class="contenu_fichier"><br>
+			<p> Le Directeur de l'Ecole Nationale des Sciences Appliquées de Tanger Atteste que:</p>
+  
+  			<table>
+              <tr>
+              	<th>
+              		M.
+              	</th>
+              	<td style="text-transform:uppercase;">
+              		:  {{personnel.nom}} {{personnel.prenom}}
+              	</td>
+              </tr>
+	      			<tr>
+                <th>
+                  D.R.P.P 
+                </th>
+                <td>
+                  : {{personnel.numPPR}} 
+                </td>
+              </tr>
+              <tr>
+              	<th>
+              		Grade
+              	</th>
+              	<td>
+				
+				    {% if  personnel.corpsId.id not in [18, 19, 20 , 23 ,10]	%}
+              		: {{personnel.gradeId.designationFR}} 
+					{% else	%}
+					: {{personnel.corpsId.designationFR}} 
+					{% endif %}
+              	</td>
+              </tr>
+           
+
+{% if  ("ROLE_DIR_ADJ" in personnel.idUser.roles) or ("ROLE_PROF" in personnel.idUser.roles) or ("ROLE_CHEF_FIL" in personnel.idUser.roles) or ("ROLE_CHEF_DEP" in personnel.idUser.roles)  or ("ROLE_CHEF_SERV" in personnel.idUser.roles)  or ("ROLE_DIR" in personnel.idUser.roles)  %}
+
+	      			<tr>
+                <th>
+                  Fonction  
+                </th>
+                <td>
+                  :    
+		  			   
+ {% if personnel.serviceAffectationId.id == 1 %}
+Chef du Service des Affaires Financières
+{% endif %}  
+ {% if personnel.serviceAffectationId.id == 2 %}
+Chef du Service Relations Extérieures et Coopération
+{% endif %}  
+ {% if personnel.serviceAffectationId.id == 3 %}
+Chef du Service des Affaires Estudiantines
+{% endif %}  
+ {% if personnel.serviceAffectationId.id == 6 %}
+Chef du Service Informatique
+{% endif %}  
+{% if personnel.serviceAffectationId.id == 14 %}
+Chef du Service des Affaires Administratifs
+{% endif %} 
+{% if personnel.serviceAffectationId.id == 15 %}
+  Chargée de Communication
+{% endif %} 
+ {% if personnel.serviceAffectationId.id == 5 and ("ROLE_CHEF_FIL" not in personnel.idUser.roles 
+ and "ROLE_CHEF_DEP" not in personnel.idUser.roles 
+ and "ROLE_DIR_ADJ" not in personnel.idUser.roles 
+ and "ROLE_DIR" not in personnel.idUser.roles)  %}
+Enseignant Chercheur
+{% endif %} 
+ 
+
+  {% if "ROLE_CHEF_FIL" in personnel.idUser.roles %}
+Chef de Filiére
+{% endif %} 
+ {% if "ROLE_CHEF_DEP" in personnel.idUser.roles %}
+Chef de Département
+{% endif %} 
+ {% if "ROLE_DIR_ADJ" in personnel.idUser.roles %}
+Directeur Adjoint
+{% endif %} 
+ {% if "ROLE_DIR" in personnel.idUser.roles %}
+Le Directeur
+{% endif %} 
+ 
+                </td>
+              </tr>
+{% endif %}  
+ 
+
+
+
+  			</table>
+			
+			
+			<p><strong>Recruté(e) dans </strong><br><br><br>
+        <span>L'Administration à compter du {{ personnel.dateRecrutement|date('d-m-Y') }} </span><span style="float: right; padding-right: 80px;"></span>
+			 <br>
+       <span>Exerce à l'ENSA depuis le {{ personnel.dateAffectationENSAT|date('d-m-Y') }}</span><span style="float: right; padding-right: 80px;"></span>
+			 <br></p><br>
+
+			<p> La présente attestation est délivrée à la demande de l'interessé(e) pour servir et valoir ce que de droit.</p>
+		</div>
+	</body>
+</html>

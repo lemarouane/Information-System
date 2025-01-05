@@ -1,0 +1,228 @@
+﻿{% extends "template.html.twig" %}
+{% block title %}
+ {{'dashboard'|trans}} | {{ parent() }}
+{% endblock %}
+{% block stylesheets %}
+{{ parent() }}
+
+{% endblock %}
+{% block body %}
+
+      <!-- NEW COL START -->
+      {% for message in app.flashes('success') %}
+        <div class="flash-notice">
+            {{ message }}
+         </div>
+      {% endfor %}
+    <div class="box-footer">
+      <section class="content">
+            <!-- /.row -->
+          {% include "menuScolarite.html.twig" %}  
+          <div class="row">
+            <div class="col-md-12">
+              <div class="box box-primary">
+                <div class="box-header with-border" style="border:1px solid #C4C4C4;">
+                  <h3 class="box-title"> {{'liste_dem_rel'|trans}} ({{'totale'|trans}}: {{ releves|length }})</h3>
+                  <div class="box-body">
+                    {% if releves is not empty %}
+                      <div class="col-md-12">
+                        <div class="row">
+                          <div class="col-md-12" style="padding-left:30px;padding-right:30px;">
+                            <div id="example2_wrapper" class="dataTables_wrapper form-inline dt-bootstrap">
+                              <div class="row">
+                                <div class="col-sm-6"></div>
+                                <div class="col-sm-6"></div>
+                              </div>
+                              <div class="row">
+                                <div class="col-sm-12">
+                                  <div class="row table-responsive" style="margin-left:5px; margin-right: 5px;border: 1px solid #EDEBEB;padding: 0px 18px;">  
+                                    <table id="mytable" class="table table-bordered table-hover dataTable" role="grid" aria-describedby="mytable_info">
+                                      <thead>
+                                        <tr  style="background-color: #f39c12;color: white;">
+					  <th></th>
+                                          <th class="sorting" tabindex="0" aria-controls="mytable" rowspan="1" colspan="1" aria-sort="ascending" aria-label="datedemande: activate to sort column descending"> {{'date_envoie'|trans}}</th>
+					  <th class="sorting" tabindex="0" aria-controls="mytable" rowspan="1" colspan="1" aria-label="decision: activate to sort column ascending"> {{'code_apogee'|trans}}</th>
+					  <th class="sorting" tabindex="0" aria-controls="mytable" rowspan="1" colspan="1" aria-label="decision: activate to sort column ascending">{{'nom'|trans}}</th>
+					  <th class="sorting" tabindex="0" aria-controls="mytable" rowspan="1" colspan="1" aria-label="decision: activate to sort column ascending">{{'prenom'|trans}}</th>
+                                          <th class="sorting" tabindex="0" aria-controls="mytable" rowspan="1" colspan="1" aria-label="type: activate to sort column ascending">{{'type'|trans}}</th>
+                                          <th class="sorting" tabindex="0" aria-controls="mytable" rowspan="1" colspan="1" aria-label="etape: activate to sort column ascending">{{'etape'|trans}}</th>
+                                          <th class="sorting" tabindex="0" aria-controls="mytable" rowspan="1" colspan="1" aria-label="année étape: activate to sort column ascending">{{'annee'|trans}} </th>
+                                          <th class="sorting" tabindex="0" aria-controls="mytable" rowspan="1" colspan="1" aria-label="decision: activate to sort column ascending">{{'etat'|trans}}</th>
+                                          <th class="sorting" tabindex="0" aria-controls="mytable" rowspan="1" colspan="1" aria-label="action: activate to sort column ascending">{{'op'|trans}}</th>
+                                        </tr>
+                                      </thead>
+                                      <tbody>
+                                        {% for releve in releves %}
+                                          <tr role="row" class="odd">
+					    <td>{{releve.id}}</td>
+                                            <td class="sorting_1">{{releve.dateDemande ? releve.dateDemande|date('d-m-Y H:i:s') : '' }}</td>
+					    <td>{{releve.idUser.codeEtudiant}}</td>
+					    <td>{{releve.idUser.nom}}</td>
+					    <td>{{releve.idUser.prenom}}</td>
+                                            <td>
+                                        {% if releve.type == 'Attestation' %}
+{{'att_reussite'|trans}}
+{% elseif releve.type == 'Relevé' %}
+{{'releve'|trans}}
+{% endif %}  
+
+                                            </td>
+                                            <td>{{releve.codeEtape}}</td>
+                                            <td>{{releve.anneeEtape}}</td>
+                                            <td>{{releve.decision}}</td>
+                                            <td>
+                                                <div class="text-center">
+                                                   <a class="btn  btn-xs" data-toggle="modal" data-target="#dataModalOrdre" onclick="myfunction('{{releve.id }}')"><span class="fa fa-edit">{{'decision'|trans}} </span></a>
+                                                </div>
+                                            </td>
+                                          </tr>
+                                        {% endfor %}
+                                      </tbody>
+                                    </table>
+                                  </div>
+				  <a class="btn btn-success btn-block pull-left" id="ajouter"  href="#" style="margin-bottom: 5px;">{{'valider'|trans}}</a>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                          <!-- /.col -->
+                        </div>
+                        <!-- /.row -->
+                      </div>
+                    {% else %}
+                      <div class="alert alert-success fade in">
+                          <button type="button" class="close" data-dismiss="alert">×</button>
+                          <strong>{{'MOD_CONGRATS'|trans}} !</strong>   
+                      </div>
+                    {% endif %}
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+    <div id="dataModalOrdre" class="modal fade">  
+      <div class="modal-dialog">  
+           <div class="modal-content">  
+                
+                <form method="post" id="ordre_form">
+                  <div class="modal-body" id="ordret_detail">
+                    <div class="form-group" >
+                      <label>{{'n_doc'|trans}}:</label>
+                       <input  id="iddocument" disabled name="searchParam[iddocument]" class="form-control">
+                    </div>
+                    <div class="form-group">
+                      <label>{{'action'|trans}}</label>
+                      <select id="ordre" name="searchParam[decision]" class="form-control">
+                        <option value="1">{{'accepter'|trans}}</option>
+                        <option value="0">{{'refuser'|trans}}</option>
+                      </select>
+                    </div>
+                    <div class="form-group" id="motifText">
+                      <label>{{'motif'|trans}}:</label>
+                      <textarea class="form-control" name="searchParam[motif]" rows="3" placeholder="..."></textarea>
+                    </div>   
+                  </div>  
+                  <div class="modal-footer">
+                    <input type="submit" name="ordreName" id="ordreId" value="{{'valider'|trans}}" style="float: left" class="btn btn-success" />  
+                      <button type="button" class="btn btn-danger" data-dismiss="modal">{{'fermer'|trans}}</button>  
+                  </div> 
+              </form> 
+            </div>  
+        </div>  
+      </div>
+{% endblock body %}
+
+ {% block javascripts %}
+
+{{ parent() }}
+<script src="{{ asset('webroot/js/dataTables.checkboxes.min.js')}}"></script>
+
+<script> 
+  (function($) {
+
+
+     var table = $('#mytable').DataTable({
+         'columnDefs': [
+            {
+               'targets': 0,
+               'checkboxes': {
+                  'selectRow': true
+               }
+            }
+         ],
+         'select': {
+            'style': 'multi'
+         },
+         'order': [[1, 'asc']]
+      });
+
+
+    $('#ajouter').on('click',function(){
+        var rowsel = table.column(0).checkboxes.selected();
+        $.ajax({
+                  url: "{{ path('add_list_releve') }}",
+                  type: "GET",
+                  dataType: "JSON",
+                  data: {
+
+                      liste: rowsel.join(",")
+                  },
+                  success: function (data) {
+                    location.reload();
+                  },
+                  error: function () {
+                      alert("An error ocurred while loading data ...");
+                  }
+              });
+        
+      });    
+
+
+    $('#motifText').hide();      
+    $('#ordre').on('change', function() {
+               
+      if($('#ordre').val()==1)
+      {
+        $('#motifText').hide();
+      }else{
+        $('#motifText').show();
+      }
+    });
+
+
+    $('#ordre_form').on("submit", function(event){  
+          event.preventDefault();  
+          var url='{{ path('decisionDoc', {'type': 'releve' ,'id': 1111 }) }}',
+          jsFormUrl = url.replace("1111", $('#iddocument').val());
+          form = $('#ordre_form');
+          
+          $.ajax({ 
+              type: "POST", 
+              data: form.serialize(),
+              url: jsFormUrl, 
+              success: function(data){ 
+                $('#dataModalOrdre').modal('hide');
+ 		setTimeout(function(){// wait for 5 secs(2)
+                    location.reload(); // then reload the page.(3)
+                  }, 100);   
+                  
+              },
+              error:function(){
+                  alert('service denied');
+              }
+          });
+
+      });
+  })(jQuery);
+
+  function myfunction($var){
+
+    document.getElementById("iddocument").value = $var;
+        
+  }       
+</script>
+
+{% endblock %}

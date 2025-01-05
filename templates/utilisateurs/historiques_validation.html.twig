@@ -1,0 +1,136 @@
+
+{% extends 'template.html.twig' %}
+
+{% block title %}{{'histo_validation'|trans}}{% endblock %}
+
+{% block body %}
+
+				<!--breadcrumb-->
+
+                <div class="page-breadcrumb d-none d-sm-flex align-items-center mb-3">
+                        <div class="breadcrumb-title pe-3">{{'titles.histo'|trans}}</div>
+                        <div class="ps-3">
+                            <nav aria-label="breadcrumb">
+                            <ol class="breadcrumb mb-0 p-0">
+                                <li class="breadcrumb-item"><a href="javascript:;"><i class="bi bi-clock-history"></i></a>
+                                </li>
+                                <li class="breadcrumb-item active" aria-current="page">{{'histo_validation'|trans}}</li>
+                            </ol>
+                            </nav>
+                        </div>
+         
+                </div> 
+                <hr>
+
+                <div class="card border-top border-orange border-0 border-3">
+                  <div class="card-body">
+                    <div class="table-responsive">
+                      <table id="example" class="table table-striped table-bordered"  style="text-align:center !important ;"  >
+                        <thead>
+                          <tr>
+                           <th  style="text-align:center !important ;">{{'id'|trans}}</th>
+                            <th  style="text-align:center !important ;">{{'nom_prenom'|trans}}</th>
+                            <th  style="text-align:center !important ;">{{'filiere'|trans}}</th>
+                            <th  style="text-align:center !important ;">{{'type_demande'|trans}}</th>
+                            <th  style="text-align:center !important ;">{{'date_validation'|trans}}</th>	
+                            <th  style="text-align:center !important ;">{{'date_debut'|trans}}</th>	
+                            <th  style="text-align:center !important ;">{{'date_fin'|trans}}</th>	
+                            <th  style="text-align:center !important ;">{{'statut'|trans}}</th>
+                            <th  style="text-align:center !important ;">{{'niveau'|trans}}</th>
+                            <th  style="text-align:center !important ;">{{'annee_univ'|trans}}</th>
+                            <th  style="text-align:center !important ;">{{'op'|trans}}</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          {% for val in validation %}
+                            <tr>
+
+                            <td>
+                         {{list_id[loop.index0] }}
+                            </td>
+                              <td>
+                             {{list_nom[loop.index0] }}
+                            </td>
+                       
+                             <td>
+                           {{list_filiere[loop.index0] }}
+                            </td>
+
+                              <td>
+
+
+ {% if val.typeDemande  == 'releve' or val.typeDemande  == 'Relevé'  %}
+ {{'releve'|trans}}
+ {% endif %}
+  {% if val.typeDemande  == 'attestation' or val.typeDemande  == 'Attestation'  %}
+ {{'att'|trans}}
+ {% endif %}
+  {% if val.typeDemande  == 'carte' or val.typeDemande  == 'Carte'  %}
+ {{'carte_etudiant'|trans}}
+ {% endif %}
+  {% if val.typeDemande  == 'reinscription' or val.typeDemande  == 'Reinscription'  %}
+ {{'reinsc'|trans}}
+ {% endif %}
+
+  {% if val.typeDemande  == 'Convention' or val.typeDemande  == 'convention'  %}
+ {{'stage'|trans}}
+ {% endif %}
+
+
+                              </td>
+
+                              <td>{{val.dateValidation|date('Y-m-d')}}</td>
+                              <td> {{list_d_debut[loop.index0]|date('Y-m-d') }} </td>
+                              <td> {{list_d_fin[loop.index0]|date('Y-m-d') }} </td>
+                                   <td>
+
+                                    {% if val.statut == -1 %} 
+                                    <span style="color:black;font-weight:bold;"> {{'encours'|trans}}</span>
+                                       
+                                    {% endif %}
+
+                                     {% if val.statut == -2 %} 
+                                       <span style="color:black;font-weight:bold;">{{'encours_sign'|trans}}</span>
+                                     
+                                    {% endif %}
+
+
+                                    {% if val.statut == 0 %} 
+                                         <span style="color:red;font-weight:bold;">{{'refuse'|trans}}</span>
+            
+                                    {% endif %}
+
+                                      {% if val.statut == 1 %} 
+                                         <span style="color:green;font-weight:bold;">{{'accorde'|trans}}</span>
+      
+                                    {% endif %}
+                                                                               
+                            </td>
+
+                              <td>{{val.niveau}}</td>
+                              <td>{{val.anneeUniv}}</td>
+                              <td> <a href="{{ path('conventions_loop', { 'id': list_id[loop.index0] }) }}"><i class="bi bi-search"></i></a></td>
+                            </tr>
+                          {% endfor %}
+                        </tbody>
+
+							
+							</table>
+						</div>
+
+
+					</div>
+				</div>
+
+
+
+
+
+
+  
+{% endblock %}
+{% block javascripts %}
+{{parent()}}
+  
+{% endblock %}
+

@@ -1,0 +1,106 @@
+{% extends "template.html.twig" %}
+{% block title %}
+Listes PE | {{ parent() }}
+{% endblock %}
+{% block stylesheets %}
+  {{ parent() }}
+{% endblock %}
+{% block body %}
+
+      <!-- NEW COL START -->
+      {% for message in app.flashes('success') %}
+        <div class="flash-notice">
+            {{ message }}
+         </div>
+      {% endfor %}
+    <div class="box-footer">
+      <section class="content">
+        <div class="row">
+          <div class="col-md-12">
+            <div class="box box-primary">
+              <div class="box-header with-border" style="border:1px solid #C4C4C4;">
+                <h3 class="box-title"> Listes des programmes d'emploi:</h3>
+                <div class="box-body">
+                  <div class="col-md-12">
+                    <div class="row">
+                      <div class="col-md-12" style="padding-left:30px;padding-right:30px;">
+                        <div id="example2_wrapper" class="dataTables_wrapper form-inline dt-bootstrap">
+                          <div class="row">
+                            <div class="col-sm-6"></div>
+                            <div class="col-sm-6"></div>
+                          </div>
+                          <div class="row">
+                            <div class="col-sm-12">
+                              <div class="row table-responsive" style="margin-left:5px; margin-right: 5px;"> 
+                                <table id="example2" class="table table-bordered table-hover dataTable" role="grid" aria-describedby="example2_info">
+                                  <thead>
+                                    <tr role="row">
+                                      <tr  style="background-color: #f39c12;color: white;">
+                                      <th class="sorting" tabindex="0" aria-controls="example4" rowspan="1" colspan="1" aria-sort="ascending" aria-label="reference: activate to sort column descending">Référence</th>
+                                      <th class="sorting" tabindex="0" aria-controls="example4" rowspan="1" colspan="1" aria-label="intitule: activate to sort column ascending"> Intitulé</th>
+                                      <th class="sorting" tabindex="0" aria-controls="example4" rowspan="1" colspan="1" aria-label="annee: activate to sort column ascending"> Année</th>
+                                      <th class="sorting" tabindex="0" aria-controls="example4" rowspan="1" colspan="1" aria-label="montant: activate to sort column ascending">Montant</th>
+                                      <th class="sorting" tabindex="0" aria-controls="example4" rowspan="1" colspan="1" aria-label="type: activate to sort column ascending"> Type</th>
+                                      <th class="sorting" tabindex="0" aria-controls="example4" rowspan="1" colspan="1" aria-label="personne: activate to sort column ascending"> Personne</th>
+                                      <th class="sorting" tabindex="0" aria-controls="example4" rowspan="1" colspan="1" aria-label="nbRubrique: activate to sort column ascending"> Nombre Rubrique</th>
+                                      <th class="sorting" tabindex="0" aria-controls="example4" rowspan="1" colspan="1" aria-label="execution: activate to sort column ascending"> Execution PE</th>
+                                      <th class="" style="text-align: center">Action</th>
+                                    </tr>
+                                  </thead>
+                                  <tbody>
+                                    {% for pe in ProgrammeEmploi %}
+                                      <tr role="row" class="odd">
+                                        <td class="sorting_1">{{pe.reference}}</td>
+                                        <td>{{pe.intitule}}</td>
+                                        <td>{{pe.annee}}</td>
+                                        <td>{{pe.montant}}</td>
+                                        <td>{{pe.type}}</td>
+                                        <td>{{pe.personne.nom }} {{pe.personne.prenom }}</td>
+                                        <td>{{pe.element|length}}</td>
+                                        <td>
+                                          <div class="text-center">
+                                            <a class="btn  btn-xs" data-toggle="tooltip" data-placement="top" title="détail" href="{{ path('addExecutionPE', { 'id': pe.id }) }}"><span class="fa fa-edit">éxecution </span></a>
+                                          </div>
+                                        </td>
+                                        <td>
+                                            <div class="text-center">
+                                              <a class="btn btn-success btn-xs" data-toggle="tooltip" data-placement="top" title="afficher" href="{{ path('showProgrammeEmploiProjet', { 'id': pe.id }) }}"><span class="fa fa-search"></span></a>
+                                              <a class="btn btn-danger btn-xs" data-toggle="tooltip" data-placement="top" title="modifier" href="{{ path('editProgrammeEmploiProjet', { 'id': pe.id }) }}"><span class="fa fa-edit"></span></a>
+                                              
+                                            </div>
+                                          </td>
+                                      </tr>
+                                    {% endfor %}
+                                  </tbody>
+                                </table>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <!-- /.col -->
+                    </div>
+                    <!-- /.row -->
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>  
+        </div> 
+      </section>
+    </div>
+ 
+{% endblock body %}
+
+ {% block javascripts %}
+
+{{ parent() }}
+
+<script> 
+    (function($) {
+
+    })(jQuery);
+     
+</script>
+
+{% endblock %}

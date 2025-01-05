@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit SituationAdm{% endblock %}
+
+{% block body %}
+    <h1>Edit SituationAdm</h1>
+
+    {{ include('situation_adm/_form.html.twig', {'button_label': 'Update'}) }}
+
+    <a href="{{ path('app_situation_adm_index') }}">back to list</a>
+
+    {{ include('situation_adm/_delete_form.html.twig') }}
+{% endblock %}

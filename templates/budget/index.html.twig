@@ -1,0 +1,94 @@
+
+{% extends 'template.html.twig' %}
+
+{% block title %}{{'finance'|trans}}{% endblock %}
+
+{% block body %} 
+				<!--breadcrumb-->
+				<div class="page-breadcrumb d-none d-sm-flex align-items-center mb-3">
+					<div class="breadcrumb-title pe-3">{{'budget'|trans}}</div>
+					<div class="ps-3">
+						<nav aria-label="breadcrumb">
+							<ol class="breadcrumb mb-0 p-0">
+								<li class="breadcrumb-item"><a href="javascript:;"><i class="bi bi-box-seam"></i></a>
+								</li>
+								<li class="breadcrumb-item active" aria-current="page">{{'liste_budgets'|trans}}</li>
+							</ol>
+						</nav>
+					</div>
+				
+				</div>
+				<hr/>
+                {% if budgets is not empty %}
+				<div class="card">
+					<div class="card-body">
+						<div class="table-responsive">
+							<table id="example" class="table table-striped table-bordered"  style="text-align:center !important ; " >
+								<thead>
+									<tr>
+										<th style="text-align:center !important ; ">{{"n"|trans}}</th>
+										<th style="text-align:center !important ; ">{{"libelle"|trans}}</th>
+                                        <th style="text-align:center !important ; ">{{"annee"|trans}}</th>
+                                        <th style="text-align:center !important ; ">{{"montant"|trans}}</th>
+                                        <th style="text-align:center !important ; ">{{"totale_entree"|trans}}</th>
+                                        <th style="text-align:center !important ; ">{{"totale_sortie"|trans}}</th>
+                                        <th style="text-align:center !important ; ">{{"op"|trans}}</th>
+									</tr>
+								</thead>
+								<tbody>
+								    {% for budget in budgets %} 
+                                        <tr>
+                                            <td>{{budget.id}}</td>
+                                            <td>{{budget.libelle}}</td>
+                                            <td>{{budget.annee}}</td>
+                                            <td style="font-weight:bold;">{{budget.montant|number_format(2, ',', '.')}} </td>
+                                            <td style="color:green;font-weight:bold;"> {{budget.totaleEntree|number_format(2, ',', '.')}} </td>
+                                            <td style="color:red;font-weight:bold;"> {{budget.totaleSortie|number_format(2, ',', '.')}} </td>
+                        
+                                            <td>
+                                                <div class="text-center">
+                                                <a href="{{ path('addSortieBudget', {'id': budget.id}) }}" class="text-danger" data-bs-toggle="tooltip" data-bs-placement="bottom" aria-label="Edit"><i class="bi bi-arrow-bar-up"></i></a> &nbsp;&nbsp;
+
+                                                    <a href="{{ path('editBudget', {'id': budget.id}) }}" class="text-success" data-bs-toggle="tooltip" data-bs-placement="bottom" aria-label="Edit"><i class="bi bi-arrow-bar-down"></i></a> &nbsp;&nbsp;
+                                                    <a href="{{ path('app_budget_delete', {'id': budget.id ,'_token':csrf_token('delete' ~ budget.id) }) }}" class="text-danger" data-bs-toggle="tooltip" data-bs-placement="bottom" aria-label="Delete" onclick=" function delete_msg_trans()
+                                                                {
+                                                                    langue = document.getElementById('langue').value  ;
+                                                                    
+                                                                    msg = 'Are you sure to delete this item ?';
+                                                                if(langue=='fr-FR'){
+                                                                msg = 'Êtes-vous sûr de vouloir supprimer cet enregistrement ?'
+                                                                    }
+                                                                if(langue=='en-GB'){
+                                                                msg = 'Are you sure to delete this item ?'
+                                                                        }
+                                                                if(langue=='ar-AR'){
+                                                                msg = '? هل أنت متأكد أنك تريد حذف هذا السجل '
+                                                                            }
+                                                                if(langue=='es-ES'){
+                                                                msg = '¿Está seguro de que desea eliminar este registro?'
+                                                                                }
+                                                                return msg ;
+                                                                }
+                                                                a = delete_msg_trans() ; return confirm(a)"><i class="bi bi-trash-fill"></i></a>
+                                                </div>
+                                                
+                                            </td>			
+                                        </tr>
+                                    {% endfor %}
+								</tbody>
+							
+							</table>
+						</div>
+					</div>
+				</div>
+                {% else %}
+                    <div class="alert alert-success">
+                        <strong> {{"MOD_EMPTY_LISTE"|trans}}  </strong>  
+                    </div>
+                {% endif %}
+            	<a class="btn btn btn-primary px-4" href="{{ path('addBudget') }}"> {{'ajouter_budget'|trans}}  </a>
+
+
+
+{% endblock %}
+

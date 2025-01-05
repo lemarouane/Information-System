@@ -1,0 +1,89 @@
+{% extends 'template.html.twig' %}
+
+{% block title %}{{'finance'|trans}}{% endblock %}
+
+{% block body %}
+				<!--breadcrumb-->
+				<div class="page-breadcrumb d-none d-sm-flex align-items-center mb-3">
+					<div class="breadcrumb-title pe-3"> {{'finance'|trans}}</div>
+					<div class="ps-3">
+						<nav aria-label="breadcrumb">
+							<ol class="breadcrumb mb-0 p-0">
+								<li class="breadcrumb-item"><a href="javascript:;"><i class="bi bi-cash-coin"></i></a>
+								</li>
+								<li class="breadcrumb-item active" aria-current="page">{{'hist_paiement_divers'|trans}}</li>
+							</ol>
+						</nav>
+					</div>
+				
+				</div>
+				<hr/>
+                 {% include "flaches.html.twig" %} 
+                {% if paiementdivers is not empty %}
+				<div class="card">
+					<div class="card-body">
+						<div class="table-responsive">
+							<table id="example" class="table table-striped table-bordered" style="text-align:center !important ; " >
+								<thead>
+									<tr>
+										<th style="text-align:center !important ; ">{{'numRP'|trans}}</th>
+                                        <th style="text-align:center !important ; ">{{'annee'|trans}}</th>
+										<th style="text-align:center !important ; ">{{'nature'|trans}}</th>
+										<th style="text-align:center !important ; ">{{'type'|trans}}</th>
+                                        <th style="text-align:center !important ; ">{{'montant'|trans}}</th>
+										<th style="text-align:center !important ; ">{{'ordre_recette'|trans}}</th>
+                                        <th style="text-align:center !important ; ">{{'op'|trans}}</th>
+									</tr>
+								</thead>
+								<tbody>
+                                    {% for pai in paiementdivers %}
+                                      <tr>
+                                        <td>{{pai.rp}}</td>
+                                        <td>{{pai.annee}}</td>
+
+
+        <td>{{pai.rubrique.rubrique.libelle}}</td>
+
+										<td>
+{% if 	pai.type == 'Interets crediteurs' %}
+		{{'interet_crediteur'|trans}}
+{% else %}
+{{pai.type}}
+{% endif %}
+										</td>
+                                        <td style="color:green;font-weight:bold;">{{pai.montant|number_format(2, ',', '.')}}</td>
+				<td> 
+					{% if pai.lien is not empty %}
+														<a target="_blank" href="{{ asset('webroot/docs/Ordre_recette_divers/' ~ pai.annee ~ '/' ~ pai.lien ) }}"><i class="bi bi-file-earmark-fill"></i></a>&nbsp;
+					{% endif %}
+				</td>
+                                        <td>
+                                            <div class="text-center">
+                                                <a class="text-info" onclick="return confirm('Are you sure you want to delete this item?');" data-bs-toggle="tooltip" data-bs-placement="top" title="supprimer" href="{{path('paiementdivers_delete', { 'id': pai.id })}}"><span class="fa fa-remove"></span> &nbsp;  &nbsp; 
+                                              </a>
+
+
+                                              <a class="text-primary" data-bs-toggle="tooltip" data-bs-placement="bottom" title="modifier" href="{{path('paiementdivers_edit', { 'id': pai.id })}}"><span class="fa fa-edit"></span></a> &nbsp;  &nbsp; 
+                                              
+                                            </div>
+                                          </td>
+                                      </tr>
+                                    {% endfor %}
+								    
+								</tbody>
+							
+							</table>
+						</div>
+					</div>
+				</div>
+                {% else %}
+                    <div class="alert alert-success">
+                        <strong>{{'MOD_EMPTY_PAIEMENT'|trans}} </strong>  
+                    </div>
+                {% endif %}
+            	
+
+
+<a class="btn btn btn-primary px-4" href="{{ path('paiementdivers_new') }}"> {{'nv_paiement'|trans}} + </a>
+{% endblock %}
+

@@ -1,0 +1,123 @@
+{% extends 'template.html.twig' %}
+
+{% block title %}{{'profile'|trans}}{% endblock %}
+
+{% block body %}
+<style>
+    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
+    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
+</style>
+     
+     <!--start content-->
+
+{{ form_start(ProfileUser) }}
+      <!--breadcrumb-->
+      <div class="page-breadcrumb d-none d-sm-flex align-items-center">
+        <div class="ps-3">
+          <nav aria-label="breadcrumb">
+            <ol class="breadcrumb mb-0 p-0">
+              <li class="breadcrumb-item"><a href="javascript:;"><i class="bx bx-home-alt text-white"></i></a>
+              </li>
+              <li class="breadcrumb-item active text-white" aria-current="page">{{'profile'|trans}}</li>
+            </ol>
+          </nav>
+        </div>
+        
+      </div>
+      <!--end breadcrumb-->
+    <div class="profile-cover bg-dark"></div>
+
+      <div class="row">
+        <div class="col-12 col-lg-8">
+          <div class="card shadow-sm border-0">
+            <div class="card-body">
+                <h5 class="mb-0">{{'profile'|trans}}</h5>
+                <hr>
+                <div class="card shadow-none border">
+                  
+                  <div class="card-body row g-3" >
+                    <form class="row g-3">
+                       <div class="col-6">
+                          {{ form_row(ProfileUser.nomUtilisateur ,{ 'attr' : { 'class' : 'form-control' }}) }}
+                       </div>
+                       <div class="col-6">
+                         {{ form_row(ProfileUser.email ,{ 'attr' : { 'class' : 'form-control' }}) }}
+                      </div>
+                        <div class="col-6">
+                          {{ form_row(ProfileUser.nom ,{ 'attr' : { 'class' : 'form-control' }}) }}
+                      </div>
+                      <div class="col-6">
+                          {{ form_row(ProfileUser.prenom ,{ 'attr' : { 'class' : 'form-control' }}) }}
+                      </div>
+
+                     
+                  
+                      <div class="col-3">
+                         
+                         {{ form_row(ProfileUser.locale ,{ 'attr' : { 'class' : 'form-select' }}) }}
+                      </div>
+                    </form>
+                  </div>
+                </div>
+               
+                <div class="text-start" >
+                  <button type="submit" class="btn btn-success px-4">{{'save'|trans}}</button> <a class="btn btn-primary px-4 " style="float:right" href="{{ path('app_dashboard') }}">{{'back'|trans}}</a>   
+                </div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="col-12 col-lg-4">
+          <div class="card shadow-sm border-0 overflow-hidden">
+            <div class="card-body">
+               <div class="profile-avatar text-center image-upload" style='.image-upload>input {display: none;}'>
+                <label for="profile_user_imageFile">
+                  <img id='file' style='cursor: pointer' src="{{asset('uploads/images/') ~ img}}" class="rounded-circle shadow" width="120" height="120" alt="">
+                </label><br>
+                {{ form_widget(ProfileUser.imageFile,{'attr': {'style':'visibility: hidden;','accept':'image/*','onchange': 'document.getElementById("file").src = window.URL.createObjectURL(this.files[0])'}}) }}
+                </div>
+                <div class="form-group">
+                                
+                                  
+                              </div>
+             
+           
+           <div class="text-center mt-4">
+
+                  <p class="mb-0 text-secondary"> <strong> {{ app.user.personnel.nom}}  {{ app.user.personnel.prenom}} </strong> </p>
+
+                </div>
+                <hr>
+                  <div class="text-start text-center">
+                  <p class="mb-0"> {{'ne'|trans}} {{ app.user.personnel.dateNaissance|date("Y-m-d")}} {{'a'|trans}} {{ app.user.personnel.provinceNaissance.nomProvince}}</p>
+                  <p class="mb-0">  {{ app.user.personnel.gradeId.designationFR}} , {{'echelon'|trans}} : {{ app.user.personnel.echelonId.designation}} </p>
+{% if app.user.personnel.dateRecrutement is not empty %}
+                  <p class="mb-0">{{'date_rec'|trans}} : {{ app.user.personnel.dateRecrutement|date("Y-m-d")}}</p>
+{% endif %}
+
+{% if app.user.personnel.dateAffectationENSAT is not empty %}
+   <p class="mb-0">{{'exerc_ensa_depuis'|trans}} {{ app.user.personnel.dateAffectationENSAT|date("Y-m-d")}}</p>
+{% endif %}
+                </div>
+            </div>
+       
+          </div>
+        </div>
+    </div><!--end row-->
+
+ <!--end page main-->
+{{ form_row(ProfileUser._token) }}
+{{ form_end(ProfileUser , {'render_rest': false}) }}
+{% endblock %}
+
+     
+     
+     
+     
+     
+     
+     
+     
+     
+     
+     

@@ -1,0 +1,39 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}EchelonAv index{% endblock %}
+
+{% block body %}
+    <h1>EchelonAv index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Rapide</th>
+                <th>Exceptionnel</th>
+                <th>Normale</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for echelon_av in echelon_avs %}
+            <tr>
+                <td>{{ echelon_av.id }}</td>
+                <td>{{ echelon_av.rapide }}</td>
+                <td>{{ echelon_av.exceptionnel }}</td>
+                <td>{{ echelon_av.normale }}</td>
+                <td>
+                    <a href="{{ path('app_echelon_av_show', {'id': echelon_av.id}) }}">show</a>
+                    <a href="{{ path('app_echelon_av_edit', {'id': echelon_av.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="5">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_echelon_av_new') }}">Create new</a>
+{% endblock %}

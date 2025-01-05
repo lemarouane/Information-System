@@ -1,0 +1,91 @@
+
+{% extends 'template.html.twig' %}
+
+{% block title %}{{'services'|trans}}{% endblock %}
+
+{% block body %}
+
+				<!--breadcrumb-->
+				<div class="page-breadcrumb d-none d-sm-flex align-items-center mb-3">
+					<div class="breadcrumb-title pe-3"></div>
+					<div class="ps-3">
+						<nav aria-label="breadcrumb">
+							<ol class="breadcrumb mb-0 p-0">
+								<li class="breadcrumb-item"><a href="javascript:;"><i class="bx bx-home-alt"></i></a>
+								</li>
+								<li class="breadcrumb-item active" aria-current="page">{{'services'|trans}}</li>
+							</ol>
+						</nav>
+					</div>
+				
+				</div>
+				<hr/>
+				<div class="card">
+					<div class="card-body">
+						<div class="table-responsive">
+							<table id="example" class="table table-striped table-bordered" style="text-align:center !important ;" >
+								<thead>
+									<tr>
+										<th style="text-align:center !important ;">{{'n'|trans}}</th>
+										<th style="text-align:center !important ;">{{'service'|trans}}</th>		
+										<th style="text-align:center !important ;">{{'op'|trans}}</th>	
+
+									
+									</tr>
+								</thead>
+								<tbody>
+								  {% for service in services %}
+            <tr>
+            <td>{{ service.id }}</td>
+			<td>{{ service.nomService }}</td>
+
+		
+                <td> 
+
+                    <div class="table-actions fs-6">
+                              <a href="{{ path('app_service_edit', {'id': service.id}) }}" class="text-warning" data-bs-toggle="tooltip" data-bs-placement="bottom" aria-label="Edit"><i class="bi bi-pencil-fill"></i></a>&nbsp;&nbsp;
+                              <a href="{{ path('app_service_delete', {'id': service.id ,'_token':csrf_token('delete' ~ service.id) }) }}" class="text-danger" data-bs-toggle="tooltip" data-bs-placement="bottom" aria-label="Delete" onclick=" function delete_msg_trans()
+{
+    langue = document.getElementById('langue').value  ;
+    
+    msg = 'Are yous sure to delete this item ?';
+if(langue=='fr-FR'){
+  msg = 'Êtes-vous sûr de vouloir supprimer cet enregistrement ?'
+    }
+if(langue=='en-GB'){
+  msg = 'Are yous sure to delete this item ?'
+          }
+  if(langue=='ar-AR'){
+  msg = '? هل أنت متأكد أنك تريد حذف هذا السجل '
+              }
+if(langue=='es-ES'){
+   msg = '¿Está seguro de que desea eliminar este registro?'
+                  }
+   return msg ;
+}
+ a = delete_msg_trans() ; return confirm(a)"><i class="bi bi-trash-fill"></i></a>
+                            </div>
+					
+                </td>
+
+
+				
+            </tr>
+       
+        {% endfor %}
+								</tbody>
+							
+							</table>
+						</div>
+
+
+					</div>
+				</div>
+
+
+ 
+<a class="btn btn btn-primary px-4" href="{{ path('app_service_new') }}"> {{'new'|trans}}  </a>
+
+
+{% endblock %}
+

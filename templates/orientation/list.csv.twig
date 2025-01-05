@@ -1,0 +1,4 @@
+CodeApogee; Nom; prenom; E-mail; Filiere Affecter;
+{% for entity in entities %}
+{{ entity.etat.user.code }}; {{ entity.etat.user.nom }}; {{ entity.etat.user.prenom }}; {{ entity.etat.user.email }}; {{ entity.affectation }};
+ {% endfor %} 

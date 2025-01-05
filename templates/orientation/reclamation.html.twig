@@ -1,0 +1,168 @@
+﻿{% extends "template.html.twig" %}
+{% block title %}
+Orientation  | Réclamation
+{% endblock %}
+{% block stylesheets %}
+  {{ parent() }}
+  <style type="text/css">
+
+  .modal-dialog {
+    position:absolute;
+    top:50% !important;
+    transform: translate(0, -50%) !important;
+    -ms-transform: translate(0, -50%) !important;
+    -webkit-transform: translate(0, -50%) !important;
+    margin:auto 5%;
+    width:90%;
+    height:80%;
+  }
+.modal-content {
+  min-height:100%;
+  position:absolute;
+  top:0;
+  bottom:0;
+  left:0;
+  right:0; 
+}
+.modal-body {
+  position:absolute;
+  top:100px; /** height of header **/
+  bottom:100px;  /** height of footer **/
+  left:0;
+  right:0;
+  overflow-y:auto;
+}
+.modal-footer {
+  position:absolute;
+  bottom:0;
+  left:0;
+  right:0;
+}
+
+  </style>
+{% endblock %}
+{% block body %}
+
+      <!-- NEW COL START -->
+      {% for message in app.flashes('success') %}
+        <div class="flash-notice">
+            {{ message }}
+         </div>
+      {% endfor %}
+    <div class="box-footer">
+      <section class="content">
+        {% include "menuProfile.html.twig" %}
+        <div class="row">
+          <div class="col-md-12">
+            <div class="box box-primary">
+              <div class="box-header with-border" style="border:1px solid #C4C4C4;">
+                <h3 class="box-title"> Réclamations des élèves (Total: {{ Totales }} - Après filtres: {{ nbreclamation}} )</h3>
+                <div class="box-body">
+                  <div class="col-md-12">
+                    <div class="row">
+                      <div class="col-md-12" style="padding-left:30px;padding-right:30px;">
+                        <div id="example2_wrapper" class="dataTables_wrapper form-inline dt-bootstrap">
+                          <div class="row">
+                            <div class="col-sm-6"></div>
+                            <div class="col-sm-6"></div>
+                          </div>
+                          <div class="row">
+                            <div class="col-sm-12">
+                              <div class="row table-responsive" style="margin-left:5px; margin-right: 5px;"> 
+                                <table id="example2" class="table table-bordered table-hover dataTable" role="grid" aria-describedby="example2_info">
+                                  <thead>
+                                    <tr role="row">
+                                      <th class="sorting" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Code Apogée: activate to sort column descending">Code Apogée</th>
+                                      <th class="sorting" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-label="Nom: activate to sort column ascending">Nom</th>
+                                      <th class="sorting" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-label="prenom: activate to sort column ascending">Prénom</th>
+                                      <th class="sorting" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-label="nbReclamation: activate to sort column ascending">Nombre de Réclamations</th>
+                                      <th class="sorting" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-label="reclamation: activate to sort column ascending">Réclamations</th>
+                                    </tr>
+                                  </thead>
+                                  <tbody>
+                                    {% for reclamation in reclamations %}
+                                      <tr role="row" class="odd">
+                                        <td class="sorting_1">{{ reclamation['code_etudiant'] }}</td>
+                                        <td>{{reclamation['nom']}}</td>
+                                        <td>{{reclamation['prenom']}}</td>
+                                        <td>{{reclamation['nb']}}</td>
+                                        <td>
+                                          <div class="text-center">
+                                              {% if reclamation is not empty %}
+                                              <a href="#" onclick="return ajaxPost('{{reclamation["id"]}}');" class="btn btn-default btn-rounded mb-4" data-toggle="modal"  data-target="#modalContactForm">Afficher
+                                              </a>
+                                            {% endif %}
+                                          </div>
+                                        </td>
+                                         
+                                      </tr>
+                                    {% endfor %}
+                                  </tbody>
+                                </table>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <!-- /.col -->
+                    </div>
+                    <!-- /.row -->
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>  
+        </div> 
+      </section>
+    </div>
+    <div class="modal fade col-lg-12 col-md-12 col-sm-12 col-xs-12" id="modalContactForm" tabindex="-1" role="dialog" 
+          aria-labelledby="myModalLabel"
+          aria-hidden="true"
+          style=" position: fixed;">
+      <div class="modal-dialog col-lg-12 col-md-12 col-sm-12 col-xs-12" role="document">
+        <div class="modal-content">
+          <div class="modal-header text-center ElevesPage__ModalContent-hiItpe juWrpq">
+            <h2 class="ElevesPage__ModalTitle-fkiRIu gDHhro">Réclamation</h2>
+          </div>
+          <div class="modal-body mx-3">
+            <p class="ElevesPage__ModalText-hxecJS bhnaPl" id="reclamationList">
+
+            </p>
+
+          </div>
+          <div class="modal-footer d-flex justify-content-center">
+            <button class=" sc-bdVaJa diaJGr" data-dismiss="modal" aria-label="Close">Fermer </button>
+          </div>
+        </div>
+      </div>
+    </div>
+{% endblock body %}
+
+{% block javascripts %}
+  {{ parent() }}
+  <script> 
+    (function($) {
+
+    })(jQuery);
+    
+    function ajaxPost(action){
+
+        var http = new XMLHttpRequest();
+      var url = "{{ path('afficherReclamation')}}";
+      var params = 'orem=ipsum&name=binny';
+      http.open('POST', url, true);
+
+      //Send the proper header information along with the request
+      http.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+
+      http.onreadystatechange = function() {//Call a function when the state changes.
+          if(http.readyState == 4 && http.status == 200) {
+              
+              document.getElementById("reclamationList").innerHTML = http.responseText;
+          }
+      }
+      http.send('codeApogee='+action);
+      }
+  </script>
+
+{% endblock %}

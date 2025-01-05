@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit ProgrammeEmploiProjet{% endblock %}
+
+{% block body %}
+    <h1>Edit ProgrammeEmploiProjet</h1>
+
+    {{ include('programme_emploi_projet/_form.html.twig', {'button_label': 'Update'}) }}
+
+    <a href="{{ path('app_programme_emploi_projet_index') }}">back to list</a>
+
+    {{ include('programme_emploi_projet/_delete_form.html.twig') }}
+{% endblock %}

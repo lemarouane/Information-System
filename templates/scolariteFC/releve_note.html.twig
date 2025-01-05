@@ -1,0 +1,101 @@
+{% extends 'template.html.twig' %}
+{% block body %}
+            
+            <div class="page-breadcrumb d-none d-sm-flex align-items-center mb-3">
+
+            {% include "flaches.html.twig" %}
+            </div>
+            <!--end breadcrumb-->
+            {% set first_etp = details1|first %}
+            {% set i = 0 %}
+                    
+            <div class="row">
+              <div class="col col-lg-12 mx-auto">    
+                <div class="card radius-10">
+                  <div class="card-body">
+
+                    {% include "elements/info_etudiant.html.twig" %}
+
+                    <div class="my-3 border-top"></div>
+                    {% for det1 in details1 %}
+                    {% set i = i +1  %}
+                    <div class="accordion" id="accordionExample{{i}}">
+                      <div class="accordion-item">
+                        <h2 class="accordion-header" id="headingOne{{i}}">
+                          <button class="accordion-button {% if first_etp.COD_ETP != det1.COD_ETP %} collapsed  {% endif %}" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne{{i}}" aria-expanded="{% if first_etp.COD_ETP == det1.COD_ETP %} true {% else %} false {% endif %}" aria-controls="collapseOne{{i}}">
+                           {{det1.COD_ETP}},{{det1.COD_ANU}}
+                          </button>
+                        </h2>
+                        <div id="collapseOne{{i}}" class="accordion-collapse collapse {% if first_etp.COD_ETP == det1.COD_ETP %} show {% endif %} " aria-labelledby="headingOne" data-bs-parent="#accordionExample{{i}}">
+                          <div class="accordion-body col col-lg-12 mx-auto">
+                            <div class="table-responsive">
+                            <table class="table table-bordered mb-0 table-striped" style="text-align:center !important ;">
+									<thead class="bg-light-primary">
+                                        <tr>
+                                            <th style="text-align:center !important ;" scope="col" colspan="2">{{'intitule'|trans}}</th>
+                                            <th style="text-align:center !important ;" scope="col">{{'note_sur_20'|trans}}</th>
+                                            <th style="text-align:center !important ;" scope="col">{{'pts_jury'|trans}}</th>
+                                            <th style="text-align:center !important ;" scope="col">{{'resultat'|trans}}</th>
+                                            <th style="text-align:center !important ;" scope="col">{{'session'|trans}}</th>
+                                            <th style="text-align:center !important ;" scope="col"> {{'annee_univ'|trans}}</th>
+                                        </tr>
+                                   </thead>
+									<tbody>
+
+                                        {% for det in details %}
+                                            {% if det1.COD_ETP == det.COD_ETP  %}
+                                                {% if 'SM' in det.COD_NEL  %}
+                                                    <tr>
+                                                        <td colspan="2">{{det.LIB_ELP}}</td>
+                                                        <td>{{det.NOT_ELP}}</td>
+                                                        <td>{{det.NOT_PNT_JUR_ELP}}</td>
+                                                        <td>{{det.COD_TRE}}</td>
+                                                        <td>{{det.COD_SES}}</td>
+                                                        <td>{{det.COD_ANU}}/{{det.COD_ANU + 1}}</td>
+                                                    </tr>
+                                                {% elseif 'MOD' in det.COD_NEL %}
+                                                    <tr> 
+                                                        <td colspan="2">{{det.LIB_ELP}}</td>
+                                                        <td>{{det.NOT_ELP}}</td>
+                                                        <td>{{det.NOT_PNT_JUR_ELP}}</td>
+                                                        <td>{{det.COD_TRE}}</td>
+                                                        <td>{{det.COD_SES}}</td>
+                                                        <td>{{det.COD_ANU}}/{{det.COD_ANU + 1}}</td>
+                                                        </tr>
+                                                {% else %}
+                                                    <tr>
+                                                        <td width="10%"></td>
+                                                        <td>{{det.LIB_ELP}}</td>
+                                                        <td>{{det.NOT_ELP}}</td>
+                                                        <td>{{det.NOT_PNT_JUR_ELP}}</td>
+                                                        <td>{{det.COD_TRE}}</td>
+                                                        <td>{{det.COD_SES}}</td>
+                                                        <td>{{det.COD_ANU}}/{{det.COD_ANU + 1}}</td>
+                                                    </tr>
+                                                {% endif %}
+                                            {% endif %}
+                                        {% endfor %}
+                                            <tr class="bg-light-success">
+                                                <td colspan="2">{{det1.COD_ETP}}</td>
+                                                <td>{{det1.NOT_VET}}</td>
+                                                <td></td>
+                                                <td>{{det1.COD_TRE}}</td>
+                                                <td>{{det1.COD_SES}}</td>
+                                                <td>{{det1.COD_ANU}}/{{det1.COD_ANU + 1}}</td>
+                                            </tr>
+										
+									</tbody>
+								</table>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    {% endfor %}
+                  </div>
+                </div>
+
+
+              </div>
+          </div><!--end row-->
+    {% endblock %}

@@ -1,0 +1,57 @@
+{{ form_start(form) }}
+   
+<div class="profile-cover bg-dark"></div>
+
+      <div class="row">
+        <div class="col-12 col-lg-8">
+          <div class="card shadow-sm border-0">
+            <div class="card-body">
+                <h5 class="mb-0">{{'New_User'|trans}}</h5>
+                <hr>
+                <div class="card shadow-none border">
+                  <div class="card-header">
+                    <h6 class="mb-0"></h6>
+                  </div>
+                  <div class="card-body row g-3">
+
+                         <div class="col-6">
+                           {{ form_row(form.logo ,{ 'attr' : { 'class' : 'form-control' }}) }}
+                       </div>
+                          <div class="col-6">
+                           {{ form_row(form.slogan ,{ 'attr' : { 'class' : 'form-control' }}) }}
+                       </div>
+                        <div class="col-6">
+                           {{ form_row(form.nomApp ,{ 'attr' : { 'class' : 'form-control' }}) }}
+                       </div>
+                          <div class="col-6">
+                           {{ form_row(form.version ,{ 'attr' : { 'class' : 'form-control' }}) }}
+                       </div>
+                 
+                        <div class="col-6">
+                           {{ form_row(form.adresse ,{ 'attr' : { 'class' : 'form-control' }}) }}
+                       </div>
+                         <div class="col-6">
+                           {{ form_row(form.telephone ,{  'attr' : { 'class' : 'form-control' }}) }}
+                       </div>
+                       
+                        <div class="col-6">
+                           {{ form_row(form.email ,{  'attr' : { 'class' : 'form-control' }}) }}
+                       </div>
+
+                                   
+                     
+                  </div>
+                </div>
+                <div class="text-start">
+                  
+                  <button type='submit' class="btn btn btn-primary px-4">{{'Save'|trans}}</button>
+                  <a class="btn btn btn-primary px-4" href="{{ path('app_params_index') }}">  {{'Back'|trans}} </a>
+
+                </div>
+            </div>
+          </div>
+        </div>
+        
+    </div><!--end row-->
+  {{ form_row(form._token) }}
+{{ form_end(form , {'render_rest': false}) }}

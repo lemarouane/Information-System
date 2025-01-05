@@ -1,0 +1,200 @@
+
+<!DOCTYPE html>
+<html dir="rtl" lang="ar">
+	<head>
+		<title>Congé</title>
+		<meta charset="utf-8">
+	
+	</head>
+  <style type="text/css">
+    body{
+      margin-left:25px;
+      margin-right:25px;
+    }
+    .label_date{
+      font-size: 22px;
+      font-weight: bold;
+      text-align: left;
+      padding-top: 20%;
+    }
+    .label_date1{
+      font-size: 22px;
+      font-weight: bold;
+      text-align: center;
+      padding-top: 5%;
+    }
+    h1{
+      font-size: 24px;
+      font-weight: bold;
+      text-align: center;
+      padding-top: 5%;
+      margin-bottom:5%;
+    }
+    p{
+      text-align: justify;
+      font-size:22px;
+    }
+    
+    .right {
+      text-align: right;
+      margin-right: 1em;
+    }
+
+    .center {
+      text-align: center;
+    }
+    .left {
+      text-align: left;
+      margin-left: 1em;
+    }
+    table {
+
+      font-family : "Times New Roman", Arial, Verdana, Sans-serif;
+      margin-right: 5%;
+      width:90%;
+
+      
+    }
+
+    table, th, td,th {
+      font-size:22px;
+      padding-right: 5px;
+    }
+    
+
+  </style>
+	<body>
+
+    {% if conge.typeConge != 'Conge_Matérnité' and  conge.typeConge != 'Conge Materinté' %}
+ 	    <div class="label_date">
+			 بطنجة  في  ،{{ "now"|date("d/m/Y") }}
+	    </div>
+	        <h1> رخصة إدارية</h1>
+	        <p>
+	        	إن مدير المدرسة الوطنية للعلوم التطبيقية بطنجة بناء على الظهير الشريف رقم 1.58.008 المؤرخ بتاريخ 4 شعبان 1377 (24 فبراير1958) 
+ بشأن النظام الأساسي العام للوظيفة العمومية .
+            </p>
+            <p>
+            	بناء على الظهير الشريف رقم 10.11.1 الصادر في 14  في ربيع الأول 1432 بتنفيذ قانون رقم 50.05 بتغيير و تتميم الظهير الشريف رقم 1.58.008 المؤرخ بتاريخ 4 شعبان 1377 (24 فبراير1958) بشأن النظام الأساسي العام للوظيفة العمومية .
+            </p>
+
+            <h1>
+            	----- يقرر مايلي   ------
+            </h1>
+            <p>
+            <strong>	 الفصل الأول :  </strong> إبتداء من  {{conge.dateDebut|date("d/m/Y")}} تخول رخصة {% if conge.typeConge == 'N' %} إداریة {% else %} إستثنائية {% endif %}عن سنة  {{conge.annee }}.  -{{conge.nbJour}}- ايام  (يوم عمل  ).
+            </p>
+            <table>
+              <tr>
+              	<th class="right">
+              		 السيد              	
+                </th>
+              	<td>
+              		: {{conge.personnel.nomArabe }}  {{conge.personnel.prenomArabe}}
+              	</td>
+              </tr>
+              <tr>
+              	<th class="right">
+              		ر.ت
+              	</th>
+              	<td>
+              		: {{conge.personnel.numPPR}}
+              	</td>
+              </tr>
+              <tr>
+              	<th class="right">
+              		الإطار
+              	</th>
+              	<td>
+              		: {{conge.personnel.gradeId.designationAr}}
+              	</td>
+              </tr>
+              
+  			</table>
+  			<p style="padding-top:20%">
+  			<strong>	الفصل الثاني : </strong>يسمح للمعني بالأمر مغادرة التراب الوطني خلال المدة المذكورة، كما يتعين عليه اشعار الإدارة باستئناف عمله عند إنتهاء الرخصة.
+  			</p>
+    {% else %}
+
+          <h1 style="padding-top:20%"> قـرار رخصة الـولادة</h1>
+          <p>
+            ـ بمقتضـى الظهير الشريف رقم 1.95.2 الصادر في  24 شعبان 1415 ( 26 يناير 1995) بتنفيذ       القانون رقم 50.05 الـمغير والمتمم بموجبه الظهير الشريف رقم 1.58.008 بتاريخ 4 شعبان 1377  
+الـموافق لـ24 فبراير 1958 في شأن النظام الأساسي العام للوظيفة العمومية  ولاسيما الفصل 46 منه.
+
+          </p>
+          <p>
+              ـ بناء على الـمرسوم الـملكي رقـم 65.970 بتاريخ 20 ذو القعدة 1385 موافق 12 مارس 1966 والذي يحدد كيفية تطبيق رخصة الولادة.
+          </p>
+          <p>
+            ـ بناء على طلب المعنية بالأمـر.
+          </p>
+          <p>
+            ـ وبناء على الوثائق المدلى بهـا.
+          </p>
+
+            <h1>
+              ----- يقرر مايلي   ------
+            </h1>
+            <p>
+            <strong>   الفصل الأول :  </strong>
+            </p>
+            <table>
+              <tr>
+                <th class="right">
+                   تخول للسيـدة                  
+                </th>
+                <td>
+                  : {{conge.personnel.nomArabe }}  {{conge.personnel.prenomArabe}}
+                </td>
+              </tr>
+              <tr>
+                <th class="right">
+                  ر.ت
+                </th>
+                <td>
+                  : {{conge.personnel.numPPR}}
+                </td>
+              </tr>
+              <tr>
+                <th class="right">
+                  الإطار
+                </th>
+                <td>
+                  : {{conge.personnel.gradeId.designationAr}}
+                </td>
+              </tr>
+              <tr>
+                <th class="right">
+                  مقـر العمل      
+                </th>
+                <td>
+                  : المدرسة الوطنیة للعلوم التطبیقیة بطنجة
+                </td>
+              </tr>
+              
+        </table>
+        <h1>
+              ----- رخصـة الـولادة لمـدة أربعة عشر أسبـوعـا  ------
+        </h1>
+        <p>
+          <table> 
+            <tr>
+              <td>إبتداء من  :</td>
+              <td>{{conge.dateDebut|date("d/m/Y")}}</td>
+              <td>إلـى غايـة  :</td>
+              <td>{{conge.dateReprise|date("d/m/Y")}}</td>
+            </tr>
+          </table>     
+        </p>
+        <p>
+          <strong>  الفصل الثاني: </strong>: يتعيـن على المعنيـة بالأمـر إشعار المؤسسـة باستئنـاف عملـها بعـد انتـهاء هـذه الرخصة مـع الإدلاء بنسخـة من عقـد ازدياد مولودها الجديـد.        
+        </p>
+        <div class="label_date1">
+       بطنجة  في  ،{{ "now"|date("d/m/Y") }}
+        </div>
+        
+
+
+    {% endif %}
+	</body>
+</html>

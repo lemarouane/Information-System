@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html  lang="fr">
+  <head>
+    <title>Ordre de Recette</title>
+    <meta charset="utf-8">
+    
+  </head>
+  <style type="text/css">
+    h1{
+      font-size: 22px;
+
+    }
+    p{
+      
+      
+    }
+    
+    .right {
+      text-align: right;
+      margin-right: 1em;
+    }
+
+    .center {
+      text-align: center;
+    }
+    .left {
+      text-align: left;
+      margin-left: 1em;
+    }
+    table {
+      font-family : "Times New Roman", Arial, Verdana, Sans-serif;
+      margin: none;
+
+    }
+
+    table, th, td {
+      font-size:14px;
+      padding-right: 5px;
+      padding-left: 5px;
+      border-collapse: separate;
+      border-spacing: 0 15px;
+      
+    }
+
+    .table1 {
+      border-collapse: collapse;
+    }
+    .table1 table , th, td {
+        border : 1px  gray;
+    }
+ .wide-height{
+  height: 300px;
+ }
+
+ 
+
+    .double-border{
+        border-style: double;
+        padding-left: 50px;
+        padding-right: 50px;
+        font-size: 18px;
+    }
+
+    .border-dotted{
+        border-style: dotted;
+        padding-left: 50px;
+        padding-right: 50px;
+    }
+
+    .container {
+      font-family: "Times New Roman", Arial, Verdana, Sans-serif;
+      font-size: 22px;
+      width: 90%;
+      height: 100px;
+      display: flex;
+      text-align: justify;
+      justify-content: center;
+    }
+
+    .child {
+      
+      
+    }
+
+  </style>
+  <body>
+
+  {% for i in 0..paiement|length - 1 %}
+  <div style="page-break-after:always" class="main_container">
+    <div class="left">
+      <h1>UNIVERSITE ABDELMALEK ESSADI</h1>
+      <h1>ECOLE NATIONALE DES SCIENCES APPLIQUEES</h1>
+      <h1>TANGER</h1>
+    </div>
+
+    <table width="100%" height="30px" >
+        <tr>
+            <td>
+            </td>
+            <td style="border: 3px double gray; float: right;"width="13%" height="20px">
+                 EXERCICE/{{paiement[i].annee}}
+            </td>
+        </tr>   
+    </table>
+
+    <div class="container">
+      <div  style="text-align: center;font-weight: bold; ">
+        ORDRE DE RECETTE
+      </div>
+    </div>
+
+    <div class="right" style="margin-top:-50px;">
+        <div style="float: right;" class="double-border" >
+            {{num[i]}}/RP
+        </div>
+    </div>
+
+    <div class="left" style="margin-top:-50px;">
+        <div style="float: left;">
+            c/c : 7020602
+        </div>
+    </div>
+<br><br>
+
+    <div class=" border-dotted" style="margin: 0 18% 0 11% ;">
+        <div>
+
+            <div  style="display:inline; " >CODE CGNC : {{paiement[i].rubrique.code}}</div>
+            <div  style="display: inline;  margin-right: 0%; float: right;" >NATURE RECETTE : {{paiement[i].rubrique.nature}}</div> 
+            <br><br>
+
+     
+            <div class="center">  DROITS PERCUS AU TITRE DE LA FORMATION CONTINUE</div>
+    
+        </div>
+    </div>
+<br>
+    <div class="container">
+        <div  style="text-align: center; font-weight: bold; ">
+            Arrété à la somme de :  {{montant_w[i]|capitalize}} Dirhams {% if montant_f_num[i] !=  0 %} et {{montant_f[i]|capitalize}} {% if montant_f_num[i] == 1 %} Centime {% else %} Centimes {% endif %} {% endif %}
+        </div>
+    </div>
+
+    <div>
+        <table class='table1' height="350px;" style="margin-top:-30px;">
+            <tr>
+                <th class="border-dotted">Débiteur</th>
+                <th class="border-dotted">Nature de créance</th>
+                <th class="border-dotted"></th>
+                <th class="border-dotted">PJ</th>
+            </tr>
+            <tr height="300px">
+                <td class="border-dotted" rowspan="2">ENSAT</td>
+                <td class="border-dotted">
+                   <p style="text-align:center ; padding-top: -10px"><u>RECETTES</u><br><br> <br> FORMATION CONTINUE :<br> {{formation[i]}} <br> Prof: {{ paiement[i].responsable.nom ~ ' ' ~  paiement[i].responsable.prenom}}</p><br>
+                
+{% if paiement[i].tiers is empty %}
+                    <p style="text-align:center ; padding-top: 5px">  {% if paiement[i].modePaiement == 'Virement' %}Virement{% endif %}  {% if paiement[i].modePaiement == 'Versement espece' %}Versement espèces{% endif %}  {% if paiement[i].modePaiement == 'Versement deplace' %}Versement déplacé{% endif %} reçu : {{paiement[i].nom}} {{paiement[i].prenom}}  </p>
+{% else %}
+                     <p style="text-align:center ; padding-top: 5px">  {% if paiement[i].modePaiement == 'Virement' %}Virement{% endif %}  {% if paiement[i].modePaiement == 'Versement espece' %}Versement espèces{% endif %}  {% if paiement[i].modePaiement == 'Versement deplace' %}Versement déplacé{% endif %} reçu : {{paiement[i].tiers}} </p> <p style="text-align:center ; padding-top: 5px"> Au profit de : {{paiement[i].nom}} {{paiement[i].prenom}} </p>
+{% endif %} 
+
+                    <p style="text-align:center ; padding-top: 5px">  T"{{paiement[i].tranche}}"   {% if cod_dip[i]|slice(0, 2)|upper == 'IC' %}   {{paiement[i].anneeuniv }} /  {{paiement[i].anneeuniv +1}}    {% endif %}  {% if cod_dip[i]|slice(0, 2)|upper == 'ID' %} {% if '2' in cod_etp[i] %}{{paiement[i].anneeuniv -1}} / {{paiement[i].anneeuniv +1}} {% else %}{{paiement[i].anneeuniv }} / {{paiement[i].anneeuniv +2}}  {% endif %}  {% endif %}   </p>
+                    <p style="text-align:center ; padding-top: 5px"> {{paiement[i].commentaire}}  </p>
+                </td>
+                <td class="border-dotted"><span> {{montant_num[i]}} </span></td>
+                <td class="border-dotted" style="text-align:center"> Avis d'opération N° {{ paiement[i].numOperation}} du {{ paiement[i].dateOperation | date('d/m/Y')}} </td>
+            </tr>
+            <tr height="50px">
+                <th  class="border-dotted">TOTAL </th>
+                <td class="border-dotted" style="text-align:center" colspan="2">{{montant_num[i]}} </td>
+ 
+            </tr>
+
+        </table>
+    </div>
+    <table width="100%" height="30px" >
+        <tr>
+            <td>
+            </td>
+            <td style="border: 3px double gray; float: right;"width="60%" height="30px">
+
+            </td>
+        </tr>   
+    </table>
+    <table width="100%" height="30px"  style="margin-top:-20px">
+        <tr>
+            <td>
+            </td>
+            <td style="border: 3px double gray; float: right;"width="40%" height="60px">
+                <div style="float: left; padding-top:5px;" >
+                    *Compte à créditer<br>
+                    *Compte à débiter
+                </div> 
+            </td>
+        </tr>   
+    </table>
+    
+   
+
+    
+    <div class="container">
+      <div  style="text-align: center; ">
+  le présent ordre de recette est arrèté à la somme<br>
+  ci-dessus est délivré par nous , Sous Ordonateur de l'ENSAT
+      </div>
+    </div>
+
+   
+     <div class="container">
+      <div  style="text-align: center; ">
+{{montant_w[i]|capitalize}} Dirhams {% if montant_f_num[i] !=  0 %} et {{montant_f[i]|capitalize}} {% if montant_f_num[i] == 1 %} Centime {% else %} Centimes {% endif %} {% endif %}
+      </div>
+    </div>
+
+
+
+
+  
+  
+    <div>
+      <div style="width: 100% ; font-weight:bold;margin-top: 10px;">
+                
+        <div style="width:58%; display:inline-block; text-justify: inter-word;font-size: 22px;">
+          <u>Le Sous-Ordonateur</u>
+        </div>
+        <div style="width:40%; display:inline-block;text-align:right; text-justify: inter-word;font-size: 22px; "><u>{% if num in [834,417,304,745,923,1014,855,942,982] and paiement.annee == '2023' %}Fondé de Pouvoir{% else %}Le Trésorier Payeur{% endif %}</u></div>
+      </div>
+    </div>
+
+
+  <div class="container">
+      <div  style="text-align: center; font-weight: bold;">
+       Emis à Tanger, Le  {{paiement[i].datePaiement|date('d/m/Y')}} 
+        
+      </div>
+    </div>
+    </div>
+{% endfor %}
+
+<br><br>
+  </body>
+  
+</html>

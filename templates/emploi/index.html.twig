@@ -1,0 +1,74 @@
+﻿
+
+
+{% extends 'template.html.twig' %}
+
+{% block title %}{{'etaler_emp_temps'|trans}}{% endblock %}
+
+{% block body %}
+
+<div class="page-breadcrumb d-none d-sm-flex align-items-center mb-3">
+					<div class="breadcrumb-title pe-3">{{'etaler_emp_temps'|trans}}</div>
+					<div class="ps-3">
+						<nav aria-label="breadcrumb">
+							<ol class="breadcrumb mb-0 p-0">
+								<li class="breadcrumb-item"><a href="javascript:;"><i class="bi bi-align-center"></i></a>
+								</li>
+								<li class="breadcrumb-item active" aria-current="page">{{'etaler_emp_temps'|trans}}</li>
+							</ol>
+						</nav>
+					</div>
+				
+				</div>
+				<hr/>
+    <!-- NEW COL START -->
+    {% for message in app.flashes('success') %}
+        <div class="flash-notice">
+            {{ message }}
+         </div>
+    {% endfor %}
+    <div class="card-body row g-3"> 
+                    <form name="emploi" method="post" action="{{ path('etaleremploi') }}" enctype="multipart/form-data">
+                          <div class="row g-3">
+
+                            <div class="form-group col-sm-12">
+                              <label for="groupe" class="control-label">{{'groupe'|trans}}</label>
+                              <select class="form-control" id="groupe" name="emploi[groupe]" >
+                                <option value="" placeholder="Tous">{{'tous'|trans}}</option>
+                                {% for groupe in groupes %}
+                                    <option value="{{groupe.nom}}">{{groupe.nom}}</option>
+                                {% endfor %}
+                              </select>
+                            </div>
+                            <div class="form-group col-sm-12">
+                              <label for="week" class="control-label">{{'numero_semaine'|trans}}</label>
+                              <input type="text" class="form-control" name="emploi[week]" placeholder="">
+                            </div>
+                            <div class="form-group col-sm-12">
+                              <label>{{'nb_semaines_a_etaler'|trans}}</label>
+                              <input type="number" class="form-control" name="emploi[nbr_week]" placeholder="">
+                            </div>
+                            <div class="form-group col-sm-12">
+                              <label>{{'mp'|trans}}</label>
+                              <input type="password" class="form-control" name="emploi[password]" placeholder="">
+                            </div>
+                          </div>
+                          <br>
+                        <button type="submit" class="btn  btn-primary pull-right form-control">{{'valider'|trans}}</button>           
+                    </form>
+</div>
+  
+{% endblock %}
+
+
+
+
+
+ {% block javascripts %}
+{{ parent() }}
+<script> 
+    (function($) {
+    })(jQuery);
+</script>
+    
+{% endblock %}

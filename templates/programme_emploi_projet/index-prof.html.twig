@@ -1,0 +1,116 @@
+
+{% extends 'template.html.twig' %}
+
+{% block title %}{{'recherche_sci'|trans}}{% endblock %}
+{% block stylesheets %}
+    {{ parent() }}
+    <link href="{{ asset('uploads/css/orientation.css')}}" rel="stylesheet">
+{% endblock %}
+
+{% block body %}
+    <div id="path-to-pe_active" data-href="{{ path('modPEIsActiveProjet', {id:'val' , checked:'ac'} )}}"> </div>
+    <div id="path-to-pe_valide" data-href="{{ path('peIsValideProjet', {id:'val' , checked:'ac'} )}}"> </div>
+    <div id="path-to-pe_periode" data-href="{{ path('getperiodesProjet', {id:'val' , checked:'ac'} )}}"> </div>
+
+				<!--breadcrumb-->
+				<div class="page-breadcrumb d-none d-sm-flex align-items-center mb-3">
+					<div class="breadcrumb-title pe-3">{{'recherche_sci'|trans}}</div>
+					<div class="ps-3">
+						<nav aria-label="breadcrumb">
+							<ol class="breadcrumb mb-0 p-0">
+								<li class="breadcrumb-item"><a href="javascript:;"><i class="bi bi-symmetry-vertical"></i></a>
+								</li>
+								<li class="breadcrumb-item active" aria-current="page">{{'liste_programme_emploi_projet'|trans}}</li>
+							</ol>
+						</nav>
+					</div>
+				
+				</div>
+				<hr/>
+                
+            {% include "flaches.html.twig" %}
+
+                {% if ProgrammeEmploi is not empty %}
+				<div class="card">
+					<div class="card-body">
+						<div class="table-responsive">
+							<table id="example" class="table table-striped table-bordered"  style="text-align:center !important ; " >
+								<thead>
+                                    <tr>
+                                      <th  style="text-align:center !important ; ">  {{'ref'|trans}}</th>
+                                      <th  style="text-align:center !important ; ">  {{'intitule'|trans}}</th>
+                                      <th  style="text-align:center !important ; ">  {{'annee'|trans}}</th>
+                                      <th  style="text-align:center !important ; ">  {{'montant'|trans}}</th>
+                                      <th  style="text-align:center !important ; ">  {{'type'|trans}}</th>
+                                      <th  style="text-align:center !important ; ">  {{'personnel'|trans}}</th>
+                                      <th  style="text-align:center !important ; ">  {{'nombre_rubrique'|trans}}</th>
+
+
+                                      <th  style="text-align:center !important ; ">  {{'op'|trans}}</th>
+                                      
+                                    </tr>
+								</thead>
+								<tbody>
+                                    {% for pe in ProgrammeEmploi %}
+                                    
+                                   
+                                            <tr>
+                                
+                                        <td class="sorting_1">{{pe.reference}}</td>
+                                        <td>{{pe.intitule}}</td>
+                                        <td>{{pe.annee}}</td>
+                                        <td style="color:green;font-weight:bold;">{{pe.montant|number_format(2, ',', '.')}} </td>
+                                        <td>
+                                    {% if pe.type == '1' %}
+                                        {{'recette_propre'|trans}}
+                                    {% elseif pe.type == '2' %}
+                                        {{'sub_etat'|trans}}
+                                    {% endif %}
+                                        </td>
+                                        <td>{{pe.personne.nom }} {{pe.personne.prenom }}</td> 
+
+                                        {% if pe.programmeElementProjets|length > 0 %}
+                                            <td style="background-color: #A5DD9B;color: white;font-weight:bolder;">{{pe.programmeElementProjets|length}}</td>
+                                        {% else %}
+                                            <td style="background-color: #EF9595;color: white;font-weight:bolder;">{{pe.programmeElementProjets|length}}</td>
+                                        {% endif %}
+
+                                       
+                                        <td>
+                                            <div class="text-center">
+                                                
+                                                <a href="{{ path('showProgrammeEmploiProjet', {'id': pe.id}) }}" class="text-primary" data-bs-toggle="tooltip" data-bs-placement="bottom" aria-label="Views"><i class="bi bi-eye-fill"></i></a>&nbsp;
+                                            
+                                                <a href="{{ path('editProgrammeEmploiProjet', {'id': pe.id}) }}" class="text-warning" data-bs-toggle="tooltip" data-bs-placement="bottom" aria-label="Edit"><i class="bi bi-pencil-fill"></i></a>&nbsp;
+                                                    
+                                            </div>
+                                        </td>
+
+
+                                      </tr>
+                                    {% endfor %}
+                                            
+						        </tbody>
+							
+							</table>
+						</div>
+					</div>
+				</div>
+                {% else %}
+                    <div class="alert alert-success">
+                        <strong> {{'no_programe_emploi'|trans}} </strong>  
+                    </div>
+                {% endif %}
+
+
+
+
+{% endblock %}
+
+ {% block javascripts %}
+
+{{ parent() }}
+  {{ encore_entry_script_tags('programme_emploi_projet_ajax') }}
+  
+
+{% endblock %}

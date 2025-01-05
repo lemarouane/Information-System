@@ -1,0 +1,151 @@
+
+{% extends 'template.html.twig' %}
+
+{% block title %}{{'tableau_montants_fc'|trans}}{% endblock %}
+
+{% block body %}
+
+        <!--breadcrumb-->
+        <div class="page-breadcrumb d-none d-sm-flex align-items-center mb-3">
+          <div class="breadcrumb-title pe-3">{{'tableau_montants_fc'|trans}}</div>
+          <div class="ps-3">
+            <nav aria-label="breadcrumb">
+              <ol class="breadcrumb mb-0 p-0">
+                <li class="breadcrumb-item"><a href="javascript:;"><i class="bi bi-cash-coin"></i></a>
+                </li>
+                <li class="breadcrumb-item active" aria-current="page"> {{'tableau_montants_fc'|trans}} <span style="font-weight:bold;"> 
+  
+              </ol>
+            </nav>
+          </div>
+        
+        </div>
+        <hr/>
+
+        <div class="card">
+
+
+    
+
+<div class="card-body">
+
+  
+     <div class="col-12" style="display:none;">
+
+   <form action="{{ path('liste_fc_dashboard')}}" method="post" class="row g-3 align-items-center">
+
+     
+
+      <div class="col-4 " >
+    
+            <select id="anneeSelect" class="form-select" name="searchParam[annee]" >
+              {% for annee in anneeUniversitaire %}
+                <option value={{annee.COD_ANU + 1}}  {% if annee_exerc is not empty %}  {% if annee_exerc == annee.COD_ANU  %} selected  {% endif %} {% endif %}  >
+                {{annee.COD_ANU + 1}}
+                </option>
+              {% endfor %}
+            </select>
+     </div>
+ 
+      <div class="col-4 " style="float:right;">
+
+            <select id="periodes" class="form-select" name="searchParam[periode]" >
+              {% for p in periodes %}
+                <option value={{p.periode}}>{{p.libelle}} ---- {{p.periode}}</option>
+              {% endfor %}
+            </select>
+
+     </div>
+ 
+   <div class="col-4">
+        <input type="submit" value="{{'envoyer'|trans}}" class="btn btn-primary" ></input>   
+   </div>
+        </form>  
+
+</div>
+
+
+ <hr/>
+
+  <div class="card border-top border-dark border-0 border-0">
+                  <div class="card-body">
+               <span style="font-weight:bold;"> {{'de'|trans}} :  <span style="color:blue">  {{date1}}  </span>  {{'a'|trans}} :  <span style="color:blue">  {{date2}}  </span> --  {{'montant_globale'|trans}} :  <span style="color:green;">  {{montant_g|number_format(2, ',', '.')}} {{'dh'|trans}}   </span>  
+
+                </span>
+                  </div>
+  </div>
+
+
+            <div class="table-responsive">
+              
+
+{% set colors1 = ['#FCF4FF', '#FFF9F4', '#F5FCFF' ,'#F4FFF3', '#FFF6F9' , '#FCF4FF', '#FFF9F4', '#F5FCFF' ,'#F4FFF3', '#FFF6F9', '#FCF4FF', '#FFF9F4', '#F5FCFF' ,'#F4FFF3', '#FFF6F9' ,'#F4FFF3', '#FFF6F9', '#FCF4FF', '#FFF9F4', '#F5FCFF' ,'#F4FFF3', '#FFF6F9','#FCF4FF', '#FFF9F4', '#F5FCFF' ,'#F4FFF3', '#FFF6F9' , '#FCF4FF', '#FFF9F4', '#F5FCFF' ,'#F4FFF3', '#FFF6F9', '#FCF4FF', '#FFF9F4', '#F5FCFF' ,'#F4FFF3', '#FFF6F9' ,'#F4FFF3', '#FFF6F9', '#FCF4FF', '#FFF9F4', '#F5FCFF' ,'#F4FFF3', '#FFF6F9'] %}
+{% set i = 0 %}
+
+<table class="table table-bordered" style="text-align:center ; font-weight:bold; font-size:12px; border : 1px solid black " >
+							
+						<tbody>
+                <th class="col-1" style="background-color:lightblue!important;">{{'filiere'|trans}}  </th>
+                <th class="col-1" style="background-color:lightblue!important;">{{'responsable'|trans}}  </th>
+                <th class="col-1" style="background-color:lightblue!important;">{{'montant_globale'|trans}}  </th>
+                <th class="col-1" style="background-color:lightblue!important;">{{'annee'|trans}}  </th>
+                <th class="col-1" style="background-color:lightblue!important;">{{'montant_par_annee'|trans}}  </th>
+                <th class="col-1" style="background-color:lightblue!important;">{{'op'|trans}}  </th>
+         
+  
+                    
+{% for p in result %}
+
+
+{% if p[2] is not empty %}
+          {% for p_anneeuniv in p[2]  %}
+ <tr style="vertical-align : middle;text-align:center; font-weight:bold;background-color:{{colors1[i]}};"  > 
+{% set var = p[0]%}
+{% if loop.index0 == 0 %}
+         <td rowspan="{{p[2]|length}}" class="col-1">
+         {{ p[0]}}
+        </td>
+
+        <td rowspan="{{p[2]|length}}" class="col-1">
+        {{ p[3] }} 
+        </td>
+
+         <td style="color:green;" rowspan="{{p[2]|length}}" class="col-1">
+        {{ p[1]|number_format(2, ',', '.') }} {{'dh'|trans}} 
+        </td>
+        
+{% endif  %}
+
+                <td class="col-1">
+                    {% if 'IC' in p[0] %}
+                    {{p_anneeuniv['anneeuniv']}} / {{p_anneeuniv['anneeuniv']+1}} 
+                      {% else %}
+                    {{p_anneeuniv['anneeuniv']}} / {{p_anneeuniv['anneeuniv']+2}} 
+                    {% endif %}
+                </td>
+
+                 <td style="color:green;" class="col-1">
+                  {{ p_anneeuniv['montant_annee_univ']|number_format(2, ',', '.')}} {{'dh'|trans}} 
+                </td>
+
+                 <td  class="col-1">
+                <a class="text-primary icons" data-toggle="tooltip" data-placement="top" title="afficher" href="{{ path('get_liste_paiement_annee', { 'debut': date1,'fin':date2,'res':p[5], 'an': p_anneeuniv['anneeuniv']}) }}"><span class="bi bi-person-vcard-fill"> </span></a>&nbsp;&nbsp;
+                </td>
+                       
+   </tr> 
+            {% endfor %}
+    {% endif %}
+{% set i = i + 1 %} 
+{% endfor %}
+
+
+
+
+  
+{% endblock %}
+
+
+{% block javascripts %}
+    {{parent()}}
+    {{ encore_entry_script_tags('tableau_montant_fc') }} 
+{% endblock %}

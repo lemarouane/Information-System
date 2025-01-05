@@ -1,0 +1,1 @@
+$((function(){"use strict";$(".datepicker").pickadate({selectMonths:!0,selectYears:!0}),$(".timepicker").pickatime(),$("#date-time").bootstrapMaterialDatePicker({format:"YYYY-MM-DD HH:mm"}),$("#date").bootstrapMaterialDatePicker({time:!1}),$("#time").bootstrapMaterialDatePicker({date:!1,format:"HH:mm"})}));

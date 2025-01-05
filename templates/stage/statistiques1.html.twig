@@ -1,0 +1,251 @@
+{% extends 'template.html.twig' %}
+
+{% block title %}{{'stats_stage'|trans}} {% endblock %}
+
+{% block body %}
+
+
+                    <div class="page-breadcrumb d-none d-sm-flex align-items-center mb-3">
+                        <div class="breadcrumb-title pe-3">{{'cooperation'|trans}} </div>
+                        <div class="ps-3">
+                            <nav aria-label="breadcrumb">
+                            <ol class="breadcrumb mb-0 p-0">
+                                <li class="breadcrumb-item"><a href="javascript:;"><i class="bi bi-bar-chart-line"></i></a>
+                                </li>
+                                <li class="breadcrumb-item active" aria-current="page">{{'stats'|trans}}</li>
+                            </ol>
+                            </nav>
+                        </div>
+                        <div class="ms-auto" >
+                            
+                        </div>
+                </div>
+                
+ <div class="card">
+    <div class="card-header py-3"> 
+      <div class="row g-3 align-items-center">
+        <form action="{{ path('exporterStatStage')}}" method="post" class="row g-3 align-items-center">
+          <div class="col-12 col-lg-4 col-md-6 me-auto">
+            <h5 class="mb-1">{{'exporter'|trans}} </h5>
+            <p class="mb-0"> {{'stats_par_annee'|trans}}  : </p>
+          </div>
+        
+          <div class="col-12 col-lg-3 col-6 col-md-3">
+            <select id="anneeSelect" class="form-select" name="searchParam[annee]" >
+              {% for annee in anneeUniversitaire %}
+                <option value={{annee.COD_ANU}}>{{annee.COD_ANU}}</option>
+              {% endfor %}
+            </select>
+          </div>
+          <div class="col-12 col-lg-3 col-6 col-md-3">
+            
+            <input type="submit" value="{{'exporter_stats'|trans}}" class="btn btn-primary" style="float:right"></input>
+            
+          </div>
+        
+        </div>
+      </form>
+    </div>
+    <div class="card-body">
+        <div class="row">
+            <div id="path-to-statStage" data-href="{{ path('getstatStage', {annee:'1111'})}}" class="row row-cols-1 row-cols-sm-2 row-cols-md-5 row-cols-xl-5 row-cols-xxl-5 align-items-center">
+                <div class="col">
+                    <div class="card radius-10 bg-success">
+                        <div class="card-body">
+                            <div class="d-flex align-items-center">
+                                <div class="">
+                                    <p class="mb-1 text-white"> {{'diplome_retire'|trans}} </p>
+                                    <h4 id="diplome_retire"  class="mb-0 text-white"></h4>
+                                </div>
+                                <div class="ms-auto widget-icon bg-white-1 text-white">
+                                    <i class="bi bi-person-check"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="card radius-10 bg-orange">
+                        <div class="card-body">
+                            <div class="d-flex align-items-center">
+                                <div class="">
+                                    <p class="mb-1 text-white">{{'totale'|trans}} </p>
+                                    <h4 id="promotion_totale"  class="mb-0 text-white"></h4>
+                                </div>
+                                <div class="ms-auto widget-icon bg-white-1 text-white">
+                                    <i class="fa fa-users"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="card radius-10 bg-info">
+                        <div class="card-body">
+                            <div class="d-flex align-items-center">
+                                <div class="">
+                                    <p class="mb-1 text-white">{{'garcons'|trans}} </p>
+                                    <h4 id="promotion_garçon"  class="mb-0 text-white"></h4>
+                                </div>
+                                <div class="ms-auto widget-icon bg-white-1 text-white">
+                                    <i class="bi bi-gender-male"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col">
+                    <div class="card radius-10 bg-pink">
+                        <div class="card-body">
+                            <div class="d-flex align-items-center">
+                                <div class="">
+                                    <p class="mb-1 text-white">{{'filles'|trans}} </p>
+                                    <h4 id="promotion_fille"  class="mb-0 text-white"></h4>
+                                </div>
+                                <div class="ms-auto widget-icon bg-white-1 text-white">
+                                    <i class="bi bi-gender-female"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="card radius-10 bg-danger">
+                        <div class="card-body">
+                            <div class="d-flex align-items-center">
+                                <div class="">
+                                    <p class="mb-1 text-white">{{'conventions'|trans}} </p>
+                                    <h4 id="convention_retire"  class="mb-0 text-white"></h4>
+                                </div>
+                                <div class="ms-auto widget-icon bg-white-1 text-white">
+                                    <i class="bi bi-filetype-doc"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>     
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+                    <div class="col col-lg-12 mx-auto">    
+                        <div class="card radius-10">
+                            <div class="card-body">
+                                <div class="card-header py-2 bg-transparent">
+                                <h6 class="mb-0">  {{'stats_insc_dd_pour_annee'|trans}}  {{annee}}/ {{annee + 1}}</h6> 
+                            </div><br>
+                            <div class="row row-cols-1 row-cols-lg-3 row-cols-xl-3 g-3">
+                                <div class="col">
+                                    <div class="card radius-10 mb-0 shadow-none bg-light-purple">
+                                        <div class="card-body p-4">
+                                            <div class="text-center">
+                                                <h5 class="mb-0 text-purple">{{totaleInscritDD}}</h5>
+                                                <p class="mb-0 text-purple">  {{'totale_etud_en_dd'|trans}}</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col">
+                                    <div class="card radius-10 mb-0 shadow-none bg-light-orange">
+                                        <div class="card-body p-4">
+                                            <div class="text-center">
+                                            <h5 class="mb-0 text-orange">{{non_inscrit}}</h5>
+                                            <p class="mb-0 text-orange"> {{'stats_etud_non_inscrit'|trans}}</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col">
+                                    <div class="card radius-10 mb-0 shadow-none bg-light-success">
+                                        <div class="card-body p-4">
+                                            <div class="text-center">
+                                                <h5 class="mb-0 text-success">{{ totaleInscritDD - non_inscrit }}</h5>
+                                                <p class="mb-0 text-success"> {{'etu_insc_pour_annee'|trans}}  {{annee}}/ {{annee + 1}}</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>                      
+                        </div>
+                    </div>
+                </div>
+                </div>
+    <div class="row">
+        <div class="col-12 col-lg-6 col-xl-6 d-flex">
+            <div class="card radius-10 w-100">
+                <div class="card-body">
+                    <div class="row row-cols-1 row-cols-lg-1 g-3 align-items-center pb-3">
+                        <div class="col" id="path-to-nbAsDiplome" data-href="{{ path('getCapaciteAsDiplomeStage', {annee:'1111'})}}">
+                          <h5 class="mb-0"> {{'nb_etu_par_dip'|trans}}  </h5>
+                        </div>
+                       
+                    </div>
+                    <div id="chart5"></div>
+                </div>
+            </div>
+        </div>
+        <div class="col-12 col-lg-6 col-xl-6 d-flex">
+            <div class="card radius-10 w-100">
+                <div class="card-body">
+                    <div class="row row-cols-1 row-cols-lg-1 g-3 align-items-center pb-3">
+                        <div class="col" id="path-to-evolutifEffect" data-href="{{ path('getevolutionEffectifStage', {annee:'1111'})}}">
+                          <h5 class="mb-0"></h5>
+                        </div>
+                        
+                    </div>
+                    <div id="chart1"></div>
+                </div>
+            </div>
+        </div>       
+    </div>
+    <!--end row-->
+    <div class="row">
+        <div class="col-12 col-lg-6 col-xl-12 col-xxl-6 d-flex">
+            <div class="card radius-10 w-100">
+                <div class="card-body "> 
+                    <div class="row row-cols-1 row-cols-lg-1 g-3 align-items-center pb-3">
+                        <div class="col" id="path-to-type_stage" data-href="{{ path('statsPor_ext', {annee:'1111'})}}">
+                          <h5 class="mb-0"> {{'type_stage_percentage'|trans}}  </h5>
+                        </div>   
+                    </div>
+                    <div id="chart7"></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-12 col-lg-6 col-xl-12 col-xxl-6 d-flex">
+            <div class="card radius-10 w-100">
+                <div class="card-body chartJs">
+                    <div class="row row-cols-1 row-cols-lg-1 g-3 align-items-center pb-3">
+                        <div class="col" id="path-to-entrepriseConvention" data-href="{{ path('statsPorConventionFiliere', {annee:'1111'})}}">
+                          <h5 class="mb-0"> {{'nb_conv_par_filiere'|trans}}  </h5>
+                        </div>
+                       
+                    </div>
+                    <div id="chart6"></div>
+                </div>
+            </div>
+        </div>      
+    </div>
+<!--end row-->
+</div>
+
+
+
+{% endblock %}
+
+
+{% block javascripts %}
+    {{parent()}}
+    <script src="{{ asset('uploads/js/apexcharts-bundle/js/apexcharts.js') }}"></script>	
+    {{ encore_entry_script_tags('cooperation_stat') }} 
+{% endblock %}
+
+
+
+
+

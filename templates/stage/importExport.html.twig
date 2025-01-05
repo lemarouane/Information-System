@@ -1,0 +1,124 @@
+﻿{% extends "template.html.twig" %}
+{% block title %}
+{{'dashboard'|trans}} {{ parent() }}
+{% endblock %}
+{% block body %}
+
+    <!-- NEW COL START -->
+    {% for message in app.flashes('success') %}
+        <div class="flash-notice">
+            {{ message }}
+         </div>
+    {% endfor %}
+    <div class="box-footer">
+      <section class="content">
+        <div class="row">
+          <div class="col-md-6">
+            <div class="box box-primary">
+              <div class="box-header with-border" style="height: 313px; border:1px solid #C4C4C4;">
+                <h3 class="box-title"> {{'exporter'|trans}}</h3>
+                <div class="box-body">
+                  <div class="col-md-12">
+                    <form name="importFiche" method="post" action="{{ path('showEtudiantStage') }}" enctype="multipart/form-data">
+                      <div class="row">
+                        <div class="form-group col-sm-12">
+                          <label for="codeApogee" class="control-label"> {{'num_apogee'|trans}}</label>
+                          <div>
+                            <input type="text" id="codeApogee" name="importFiche[codeApogee]" required="required" placeholder="code Apogée" class="form-control">
+                          </div>
+                        </div>
+                      </div>
+                      <button type="submit" class="btn  btn-danger btn-block">{{'valider'|trans}}</button>
+                    </form>
+                    <div style="margin-top: 50px;">
+                      <hr>
+                      <a class="btn btn-warning btn-block" style=" position:relative " href="{{path('exporterStatStage')}}"> {{'exporter'|trans}}</a>
+                      <a class="btn btn-success btn-block" style=" position:relative " href="{{path('telechargerEtudiantDiplome')}}"> {{'liste_etu_retire_dip'|trans}} </a>
+                    </div>
+                  </div>
+                  
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="box box-success">
+              <div class="box-header with-border" style="border:1px solid #C4C4C4;">
+                <h3 class="box-title"> {{'exporter_fichier'|trans}}  </h3> 
+                <div class="box-body">
+                  <div> 
+                    <form name="importFile" method="post" action="{{ path('telechargerFileStage') }}" enctype="multipart/form-data">
+                          <div class="row">
+
+                            <div class="form-group col-sm-12">
+                              <label for="annee" class="control-label"> {{'annee_univ'|trans}} </label>
+                              <select class="form-control" id="annee" name="importFile[annee]" >
+                                <option value="Tous">{{'tous'|trans}} </option>
+                                {% for annee in anneeUniversitaire %}
+                                    <option value="{{annee.COD_ANU}}">{{annee.COD_ANU}}</option>
+                                {% endfor %}
+                              </select>
+                            </div>
+                            <div class="form-group col-sm-12">
+                              <label for="typeStage" class="control-label"> {{'type_stage'|trans}} </label>
+                              <select class="form-control" id="typeStage" name="importFile[typeStage]" >
+                                <option value="Tous">{{'tous'|trans}} </option>
+                                <option value="Stage PFA">{{'stage_ete'|trans}} </option>
+                                <option value="Stage PFE">{{'stag_pfe'|trans}} </option>
+                              </select>
+                            </div>
+                            <div class="form-group col-sm-12">
+                              <label>  {{'type_document'|trans}} </label>
+                              <select class="form-control" id="statut" name="importFile[statut]" >
+                                <option value="Tous">{{'tous'|trans}} </option>
+                                <option value="document signé">{{'document_sgne'|trans}}  </option>
+                                <option value="en cours de signature"> {{'encours_sign'|trans}}  </option>
+                                <option value="en cours de traitement"> {{'encours'|trans}}  </option>
+                                <option value="Refusé">{{'refuse'|trans}}  </option>
+                              </select>
+                            </div>
+                          </div>
+                        <button type="submit" class="btn  btn-primary pull-right">{{'valider'|trans}} </button>           
+                    </form>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-12">
+            <div class="box box-primary">
+              <div class="box-header with-border" style="height: 190px; border:1px solid #C4C4C4;">
+                <h3 class="box-title">  {{'importer_fichier'|trans}}  :</h3>
+                <div class="box-body">
+                  <div>
+                    <form name="importFiche" method="post" action="#" enctype="multipart/form-data">
+                      <div class="row">
+                        <div class="form-group col-sm-12">
+                          <label for="fichier" class="control-label"> {{'uploader_fichier'|trans}} </label>
+                          <div>
+                            <input type="file" id="fichier" name="fichier" placeholder="fichier" class="form-control">
+                          </div>
+                        </div>
+                      </div>
+                      <button type="submit" class="btn  btn-primary pull-right">{{'valider'|trans}} </button>
+                    </form>
+                  </div> 
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+{% endblock body %}
+
+ {% block javascripts %}
+{{ parent() }}
+<script> 
+    (function($) {
+    })(jQuery);
+</script>
+    
+{% endblock %}

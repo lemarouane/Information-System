@@ -1,0 +1,236 @@
+﻿<!DOCTYPE html>
+<html  lang="fr">
+  <head>
+    <title>Fiche Heure</title>
+    <meta charset="utf-8">
+    
+  </head>
+  <style type="text/css">
+    h1{
+      font-size: 22px;
+
+    }
+    p{
+      
+      font-size: 22px;
+    }
+    
+    .right {
+      text-align: right;
+      margin-right: 1em;
+    }
+
+    .center {
+      text-align: center;
+    }
+    .left {
+      text-align: left;
+      margin-left: 1em;
+    }
+    table {
+      font-family : "Times New Roman", Arial, Verdana, Sans-serif;
+      margin: none;
+      width:100%; 
+    }
+
+    table, th, td {
+      font-size:22px;
+      padding-right: 5px;
+      padding-left: 5px;
+      
+    }
+    .table table{
+      border-collapse: collapse;
+    }
+    .table table, th, td {
+      border: 1px solid black; 
+    }
+    th{
+      background-color: #f0f5f5;
+    }
+
+    .container {
+      font-family: "Times New Roman", Arial, Verdana, Sans-serif;
+      font-size: 22px;
+      padding-top: 80px;
+      width: 90%;
+      height: 100px;
+
+      display: flex;
+      text-align: justify;
+      justify-content: center;
+    }
+
+    .child {
+      
+      
+    }
+
+  </style>
+  <body>
+    <div class="right">
+      <h1> جامعة عبد المالك السعدي <br>
+       المدرسة الوطنية للعلوم التطبيقية
+طنجة </h1>
+    </div>
+    <div class="container">
+      <div  style="text-align: center; ">
+        طلب الترخيص بالجمع بين الوظيفة والأنشطة الحرة
+ <br>(مزاولة مهام التدريس )<br>
+رسالة السيد الوزير الأول رقم : 2953 المؤرخة في 30 نونبر 2000
+        
+      </div>
+    </div>
+
+    <div style="width: 100%; margin-top: 20px;">
+      <span class="left">
+        <table>
+          <tr>
+            <th class="right"  style="background-color: #f0f5f5;">
+                  رقم التأجير
+            </th>
+            
+            <th class="right"  style="background-color: #f0f5f5;">
+                الدرجـة
+            </th>
+            <th class="right"  style="background-color: #f0f5f5;">
+                   الإطــار
+            </th> 
+            <th class="right"  style="background-color: #f0f5f5;">
+                  الإسم والنسب 
+            </th>
+          </tr>
+          <tr>
+            <td class="right">
+              {{ficheheure.personnel.numPPR}}
+            </td>
+            
+            <td class="right">
+                   {{ficheheure.personnel.gradeId.designationAr}}
+            </td>
+            <td class="right">
+                   {{ficheheure.personnel.corpsId.designationAr}}
+            </td>
+            <td class="right">
+                   {{ficheheure.personnel.prenomArabe}} {{ficheheure.personnel.nomArabe}}
+            </td>
+          </tr>
+
+        </table>
+      </span>
+      
+    </div>
+    <div class="right">
+      <p> يشرفني أن ألتمس من سيادتكم الترخيص لي بمزاولة مهنة التدريس بالإضافة إلى وظيفتي الأصلية، خلال السنة الجامعية  الحالية  فقط، وذلك بمؤسسة  </p>
+    </div>
+
+    <div style="width: 100%; margin-top: 20px;">
+      <span class="left">
+      <table>
+          <tr>
+            
+            <td class="right" width="50%">
+                   {{ficheheure.etablissement}} {{ficheheure.ville}}
+            </td>
+            <td class="right" width="50%" style="background-color: #f0f5f5;">
+               اسـم المؤسسـة والمدينـة
+            </td>
+            
+          </tr>
+          <tr>
+
+               <td class="right" width="50%">
+            
+ <ul style="list-style-type: none; font-size:19px;">
+
+  {% if mois is not empty %}
+    {% for m in mois %}
+      <li>
+       {{mois[loop.index0]}} -  {{ (minutes[loop.index0]/60)|round(0, 'floor') }} س {% if minutes[loop.index0] % 60 != 0 %} {{ (minutes[loop.index0] % 60)}} د {% endif %}
+      </li>
+     {% endfor %}
+
+  {% endif %}
+       
+</ul>
+            </td>
+            
+            <td class="right"  width="50%" style="background-color: #f0f5f5;">
+                عدد الساعات الشهرية المطلوب الترخيص بها <br> (في حدود 20 ساعة كل شهر)            
+            </td>
+          </tr>
+
+        </table>
+      </span>
+    </div>
+
+    <div class="right">
+      <p> وحسب الجدول الزمني التالي :من  {% if ficheheure.moisDebut %}{{ ficheheure.moisDebut|date('d-m-Y') }}{% endif %}  الى   {% if ficheheure.moisFin %}{{ ficheheure.moisFin|date('d-m-Y') }}{% endif %}</p>
+    </div>
+
+    <div style="width: 100%; margin-top: 20px;">
+      <span class="left">
+        <table>
+          <tr>
+            
+            <th class="center" colspan="2" >
+                   الساعــات
+            </th>
+            <th class="center" rowspan="2"  style="background-color: #f0f5f5;">
+               الأيــام
+            </th>
+            
+          </tr>
+          <tr>
+
+            <td class="center"  style="background-color: #f0f5f5;">
+                   إلــى
+            </td>
+            <td class="center"   style="background-color: #f0f5f5;">
+                مــن          
+            </td>
+          </tr>
+          {% for en in ficheheure.engagements %}
+            <tr>
+
+              <td class="center">
+                {{en.heureFin|date("H:i") }}  
+              </td>
+              <td class="center">
+                {{en.heureDebut|date("H:i") }}       
+              </td>
+              <td class="center">
+                {{en.jours}}     
+              </td>
+          </tr>
+          {% endfor %}
+        </table>
+      </span>
+    </div>
+
+    <div class="container">
+      <div  style="text-align: center; font-weight: bold;">
+        طنجة في  {{ "now"|date("d/m/Y") }}
+        
+      </div>
+    </div>
+
+    <div class="center">
+      <h1> إمضاء صاحب (ة) الطلب </h1>
+    </div>
+    <div>
+      <div style="width: 100% ; font-weight:bold;margin-top: 10px;">
+                
+        <div style="width:58%; display:inline-block; text-justify: inter-word;font-size: 22px;">
+                     رأي مدير المؤسسة
+        </div>
+        <div style="width:40%; display:inline-block;text-align:right; text-justify: inter-word;font-size: 22px;">
+                  رأي رئيس الجامعــة
+
+        </div>
+      </div>
+    </div>
+
+  </body>
+  
+</html>

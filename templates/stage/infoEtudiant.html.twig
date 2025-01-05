@@ -1,0 +1,131 @@
+{% extends "template.html.twig" %}
+{% block title %}
+    {{'dashboard'|trans}}  {{ parent() }}
+{% endblock %}
+{% block stylesheet %}
+    {{ parent() }}
+
+{% endblock %}
+{% block body %}
+	<div class="box-footer">
+		{% include "menuStage.html.twig" %}
+		<section class="invoice">
+
+	      	<!-- title row -->
+	      	<div class="row">
+		        <div class="col-xs-12">
+		          <h2 class="page-header">
+		            <i class="fa fa-globe"></i> {{ etudiant.LIB_NOM_PAT_IND }}, {{ etudiant.LIB_PR1_IND}}
+		            <small class="pull-right"> {{'date_creration'|trans}} : {{etudiant.DAT_CRE_IND}}</small>
+		          </h2>
+		        </div>
+		        <!-- /.col -->
+	      	</div>
+	      	<!-- info row -->
+		<div class="row" style="border-bottom: 1px solid #eee">
+          	   <div class="col-sm-10" >
+            		<label class="col-sm-2" >
+              			<div  style="width:150px; height:150px;float: left" class="col-sm-2">
+                			<img  style="display:block;width:100%;height:100%; background-color:#FFF5EE;" src="../../../e-doc/public/webroot/uploads/img/{{image}}" alt="image"/>
+              			</div>
+            		</label>                         
+          	   </div>
+       	 	</div>
+	      	<div class="row invoice-info">
+		        <div class="col-sm-4 invoice-col">
+		          <address>
+		            <strong>{{'adresse'|trans}} </strong><br>
+		             {{'date_naiss'|trans}}:  {{ etudiant.DATE_NAI_IND}}<br>
+		            {{'tel'|trans}} : {{ etudiant.NUM_TEL}}<br>
+		            {{'email'|trans}} : {{ etudiant.LIB_AD3}}<br>
+		            {{ etudiant.LIB_AD1|lower}}<br>
+		            {{ etudiant.LIB_AD2}}<br>
+		          </address>
+		        </div>
+		        <!-- /.col -->
+		        <div class="col-sm-4 invoice-col">
+		          <address>
+		            <strong> {{'infos_perso'|trans}} </strong><br>
+		            {{ etudiant.LIB_NOM_PAT_IND }}, {{ etudiant.LIB_PR1_IND}}<br>
+		            Code Massar: {{ etudiant.COD_NNE_IND }}<br>
+		            CIN: {{ etudiant.CIN_IND }}<br>
+			    Lieu de Naissance: {{ etudiant.LIB_VIL_NAI_ETU }}
+		          </address>
+		        </div>
+		        <!-- /.col -->
+		        <div class="col-sm-4 invoice-col">
+		           <address>
+		            <strong> {{'infos_inscription'|trans}} </strong><br>
+		             {{'derniere_inscription'|trans}}  : {{ ins_Adm_E[0].LIB_ANU}}<br>
+		            {{'etape'|trans}}  :  {{ ins_Adm_E[0].COD_ETP}}<br>
+		             {{'num_apogee'|trans}} : {{ etudiant.COD_ETU }}<br>
+		          </address>
+		        </div>
+	        	<!-- /.col -->
+	      	</div>
+
+	    </section>
+	    <section class="content">
+    		<div class="row">
+    			<div class="col-md-12" >
+              		<div class="box box-danger" >
+                		<div class="box-header with-border" style="border: 1px solid #C4C4C4;" >
+                  			<h3 class="box-title">{{'resultat'|trans}} </h3>
+                  			<div class="box-body">
+                    			{% if res_etudiant is not empty %}
+                      				<div class="col-md-12">
+                        				<div class="row">
+                          					<div class="col-md-12">
+                          						<form id="myform" method="post">
+                              						<div class="row">
+                                						<div class="col-sm-12">
+                                  							<div class="row table-responsive">  
+                                    							<table id="mytable" class="table table-bordered table-hover">
+                                    								<thead>
+                                        								<tr  style="background-color: #f39c12;color: white;">
+                                        									<th><font style="vertical-align: inherit;"><font style="vertical-align: inherit;"> {{'annee'|trans}} </font></font></th>
+														                  	<th><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">{{'etape'|trans}} </font></font></th>
+														                  	<th><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">
+														                  	{{'note'|trans}} </font></font></th>
+														                  	<th><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">{{'resultat'|trans}} </font></font></th>
+														                </tr>
+											              			</thead>
+                                      								<tbody>
+														                {% for res in res_etudiant %}
+											                                <tr role="row" class="odd">
+											                                    <td class="sorting_1">{{res.COD_ANU}}</td>
+											                                    <td>{{res.COD_ETP}}</td>
+											                                    <td>{{res.NOT_VET}}</td>
+											                                    <td>{{res.COD_TRE}}</td>
+											                                </tr>
+											                            {% endfor %}
+											              			</tbody>
+                                    							</table>
+                                  							</div>	
+                                						</div>
+                            						</div>
+                            					</form>
+                          					</div>
+                          					<!-- /.col -->
+                        				</div>
+                        				<!-- /.row -->
+                      				</div>
+                    			{% else %}
+                      				<div class="alert alert-info fade in">
+                          				<button type="button" class="close" data-dismiss="alert">×</button>
+                          				<strong>{{'MOD_EMPTY_NOTES'|trans}}  </strong>  
+                      				</div>
+                    			{% endif %}
+                  			</div>
+                		</div>
+              		</div>
+            	</div>
+            </div>
+        </section>
+	</div>
+    
+{% endblock body %}
+{% block javascripts %}
+    {{ parent() }}
+
+{% endblock %}

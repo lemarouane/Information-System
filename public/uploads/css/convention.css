@@ -1,0 +1,52 @@
+#page{
+  margin: 1cm 1cm;
+}
+#page :left{
+  margin: 1cm 1cm;
+}
+
+.body{
+	color: #222;
+	font-family: "Times New Roman";
+	margin-left:15px;
+}
+
+.label_fichier{
+	font-size: 18px;
+	font-weight:bold;
+}
+.label_date{
+	font-size: 2em;
+	font-weight: bold;
+	text-align: left;
+	padding-top: 20%;
+}
+
+h1{
+	font-size: 1.5em;
+	font-weight: bold;
+	text-align: center;
+	padding-top: 5%;
+}
+.contenu_fichier{
+
+	font-size: 18px;
+}
+
+p:first-letter /* Je veux que la première lettre de mes paragraphes... */ 
+{     
+	font-family : "Times New Roman", Arial, Verdana, Sans-serif; /* Soit mise en Arial si possible*/    
+	font-weight : bold; /* Soit écrite en gras (c'est plus voyant) */
+	margin-left:  1.5px; /* Qu'il y ait une marge de 5px à droite pour que ça colle pas trop au reste du texte */
+}
+p{
+	margin-right: 50px;
+	font-size: 18px;
+	text-align: justify;
+}
+#parag{
+	margin-right: 50px;
+	font-size: 18px;
+}
+
+

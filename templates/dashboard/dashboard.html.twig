@@ -1,0 +1,476 @@
+{% extends 'template.html.twig' %}
+{% block body %}
+            
+
+            <!--end breadcrumb-->
+
+            {% include "flaches.html.twig" %}
+
+
+
+<div class="row">
+
+
+   <div class="col col-lg-12 mx-auto">    
+                <div class="card radius-10">
+                  <div class="card-body">
+                    <div class="card-header py-2 bg-transparent">
+                  <h6 class="mb-0"> {{'titles.stats_de_annee'|trans}} {{ "now"|date("Y") }}</h6> 
+                </div><br>
+
+
+    
+
+{% if (is_granted("ROLE_FONC") == true) and (is_granted("ROLE_ADMIN") == false) %}
+<div class="row row-cols-1 row-cols-lg-3 row-cols-xl-3 g-3">
+                              <div class="col">
+                                 <div class="card radius-10 mb-0 shadow-none bg-light-purple">
+                                   <div class="card-body p-4">
+                                      <div class="text-center">
+                                        <h5 class="mb-0 text-purple">{{conge}}</h5>
+                                        <p class="mb-0 text-purple">{{'congs'|trans}}</p>
+                                      </div>
+                                   </div>
+                                 </div>
+                              </div>
+
+                              <div class="col">
+                                <div class="card radius-10 mb-0 shadow-none bg-light-orange">
+                                  <div class="card-body p-4">
+                                     <div class="text-center">
+                                       <h5 class="mb-0 text-orange">{{autorisation}}</h5>
+                                       <p class="mb-0 text-orange">{{'autos'|trans}}</p>
+                                     </div>
+                                  </div>
+                                </div>
+                             </div>
+
+                             <div class="col">
+                              <div class="card radius-10 mb-0 shadow-none bg-light-success">
+                                <div class="card-body p-4">
+                                   <div class="text-center">
+                                     <h5 class="mb-0 text-success">{{ordremission}}</h5>
+                                     <p class="mb-0 text-success">{{'oms'|trans}}</p>
+                                   </div>
+                                </div>
+                              </div>
+                           </div>
+      </div>                      
+{% endif %}
+
+
+{% if (is_granted("ROLE_PROF") == true) and (is_granted("ROLE_ADMIN") == false) %}
+<div class="row row-cols-1 row-cols-lg-2 row-cols-xl-2 g-3">
+                          <div class="col">
+                            <div class="card radius-10 mb-0 shadow-none bg-light-primary">
+                              <div class="card-body p-4">
+                                 <div class="text-center">
+                                   <h5 class="mb-0 text-primary">{{ficheheures}}</h5>
+                                   <p class="mb-0 text-primary">{{'fhs'|trans}}</p>
+                                 </div>
+                              </div>
+                            </div>
+                         </div>
+
+
+                            <div class="col">
+                              <div class="card radius-10 mb-0 shadow-none bg-light-success">
+                                <div class="card-body p-4">
+                                   <div class="text-center">
+                                     <h5 class="mb-0 text-success">{{ordremission}}</h5>
+                                     <p class="mb-0 text-success">{{'oms'|trans}}</p>
+                                   </div>
+                                </div>
+                              </div>
+                           </div>
+
+
+ </div>
+{% endif %}
+
+{% if (is_granted("ROLE_ADMIN") == true) %}
+<div class="row row-cols-1 row-cols-lg-4 row-cols-xl-4 g-3">
+                              <div class="col">
+                                 <div class="card radius-10 mb-0 shadow-none bg-light-purple">
+                                   <div class="card-body p-4">
+                                      <div class="text-center">
+                                        <h5 class="mb-0 text-purple">{{conge}}</h5>
+                                        <p class="mb-0 text-purple">{{'congs'|trans}}</p>
+                                      </div>
+                                   </div>
+                                 </div>
+                              </div>
+
+                              <div class="col">
+                                <div class="card radius-10 mb-0 shadow-none bg-light-orange">
+                                  <div class="card-body p-4">
+                                     <div class="text-center">
+                                       <h5 class="mb-0 text-orange">{{autorisation}}</h5>
+                                       <p class="mb-0 text-orange">{{'autos'|trans}}</p>
+                                     </div>
+                                  </div>
+                                </div>
+                             </div>
+
+                             <div class="col">
+                              <div class="card radius-10 mb-0 shadow-none bg-light-success">
+                                <div class="card-body p-4">
+                                   <div class="text-center">
+                                     <h5 class="mb-0 text-success">{{ordremission}}</h5>
+                                     <p class="mb-0 text-success">{{'oms'|trans}}</p>
+                                   </div>
+                                </div>
+                              </div>
+                           </div>
+                           <div class="col">
+                            <div class="card radius-10 mb-0 shadow-none bg-light-primary">
+                              <div class="card-body p-4">
+                                 <div class="text-center">
+                                   <h5 class="mb-0 text-primary">{{ficheheures}}</h5>
+                                   <p class="mb-0 text-primary">{{'fhs'|trans}}</p>
+                                 </div>
+                              </div>
+                            </div>
+                         </div>
+      </div>                      
+{% endif %}
+
+                       
+                   
+                          
+
+
+
+
+
+
+
+
+                </div>
+            </div>
+   </div>
+
+         
+
+ </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+            
+          <div class="card border shadow-none">
+             <div class="card-header py-3">
+
+
+              
+                  <div class="row align-items-center g-3">
+                    <div class="col-12 col-lg-6">
+                      <h5 class="mb-0">  {{ app.user.personnel.nom }}  {{ app.user.personnel.prenom }} </h5>
+                    </div>
+                    <div class="col-12 col-lg-6 text-md-end">
+                      
+                      
+                    </div>
+                  </div>
+             </div>
+        
+             <div class="card-header py-2 bg-light">
+               <div class="row row-cols-1 row-cols-lg-4">
+                 <div class="col">
+                    <div class="">
+
+        <img id='file' src="{{asset('uploads/images/') ~ app.user.personnel.imageName}}" class="rounded-circle shadow" width="180" height="180" alt="">                            
+                    </div>
+                  </div>
+    
+                
+                 <div class="col">
+                  <div class="">
+                    <address class="m-t-5 m-b-5">
+                       <strong class="text-inverse">{{'titles.info_perso'|trans}}  <br><br></strong>
+
+
+                            <div class="d-flex align-items-center mb-0">
+                                  <div>
+                                <strong>  <p class="mb-0">{{'nom_prenom'|trans}}  </p></strong> 
+                                  </div>
+                                  <div class="ms-auto info">
+                                    <p class="mb-0"> {{  app.user.personnel.nom }} {{  app.user.personnel.prenom }}</p>
+                                </div>
+                              </div>
+
+                              <div class="d-flex align-items-center mb-0">
+                                  <div>
+                                 <strong>  <p class="mb-0">{{'nom_prenom_ar'|trans}}  </p></strong> 
+                                  </div>
+                                  <div class="ms-auto info">
+                                    <p class="mb-0"> {{  app.user.personnel.nomArabe }} {{  app.user.personnel.prenomArabe }}</p>
+                                </div>
+                              </div>
+
+                                <div class="d-flex align-items-center mb-0">
+                                  <div>
+                                  <strong> <p class="mb-0">{{'date_n'|trans}}  </p></strong> 
+                                  </div>
+                                  <div class="ms-auto info">
+                                    <p class="mb-0"> {{  app.user.personnel.dateNaissance|date('Y-m-d')  }} </p>
+                                </div>
+                              </div>
+
+                            <div class="d-flex align-items-center mb-0">
+                                  <div>
+                                 <strong>  <p class="mb-0">{{'provinces'|trans}}  </p></strong> 
+                                  </div>
+                                  <div class="ms-auto info">
+                                    <p class="mb-0"> {{  app.user.personnel.provinceNaissance.nomProvince }}</p>
+                                </div>
+                              </div>
+
+                                <div class="d-flex align-items-center mb-0">
+                                  <div>
+                                  <strong> <p class="mb-0">{{'genre'|trans}}  </p></strong> 
+                                  </div>
+                                  <div class="ms-auto info">
+                                    <p class="mb-0"> {{  app.user.personnel.genre }}</p>
+                                </div>
+                              </div>
+
+                               <div class="d-flex align-items-center mb-0">
+                                  <div>
+                                   <strong> <p class="mb-0">{{'tel'|trans}}  </p></strong> 
+                                  </div>
+                                  <div class="ms-auto info">
+                                    <p class="mb-0"> {{  app.user.personnel.tel }}</p>
+                                </div>
+                              </div>
+
+
+                            <div class="d-flex align-items-center mb-0">
+                                  <div>
+                                   <strong> <p class="mb-0">{{'adresse'|trans}}  </p></strong>
+                                  </div>
+                                  <div class="ms-auto info">
+                                    <p class="mb-0"> {{  app.user.personnel.adresse }}</p>
+                                </div>
+                              </div>
+                               
+                            <div class="d-flex align-items-center mb-0">
+                                  <div>
+                                  <strong> <p class="mb-0">{{'sit_famil'|trans}}  </p></strong> 
+                                  </div>
+                                  <div class="ms-auto info">
+                                    <p class="mb-0"> {{  app.user.personnel.situationFamiliale }}</p>
+                                </div>
+                              </div>                    
+                    </address>
+                   </div>
+                 </div>
+                <div class="col">
+                  <div class="col">
+                  <div class="">
+                    <address class="m-t-5 m-b-5">
+                      <strong class="text-inverse">{{'titles.info_admin'|trans}} <br><br></strong>
+
+                             <div class="d-flex align-items-center mb-0">
+                                  <div>
+                                  <strong> <p class="mb-0">{{'dep'|trans}}  </p></strong> 
+                                  </div>
+                                  <div class="ms-auto info">
+                                    <p class="mb-0">   {{  app.user.personnel.departementId.libelleDep }}</p>
+                                </div>
+                              </div>  
+
+                               <div class="d-flex align-items-center mb-0">
+                                  <div>
+                                  <strong> <p class="mb-0">{{'service'|trans}}  </p></strong> 
+                                  </div>
+                                  <div class="ms-auto info">
+                                    <p class="mb-0">   {{  app.user.personnel.serviceAffectationId.nomService }}</p>
+                                </div>
+                              </div>  
+
+                               <div class="d-flex align-items-center mb-0">
+                                  <div>
+                                  <strong> <p class="mb-0">{{'corps'|trans}}  </p></strong> 
+                                  </div>
+                                  <div class="ms-auto info">
+                                    <p class="mb-0">{{  app.user.personnel.corpsId.designationfr }}</p>
+                                </div>
+                              </div>  
+                              
+                               <div class="d-flex align-items-center mb-0">
+                                  <div>
+                                  <strong> <p class="mb-0">{{'grade'|trans}}  </p></strong> 
+                                  </div>
+                                  <div class="ms-auto info">
+                                    <p class="mb-0">{{  app.user.personnel.gradeId.designationfr }}</p>
+                                </div>
+                              </div>  
+
+                                <div class="d-flex align-items-center mb-0">
+                                  <div>
+                                  <strong> <p class="mb-0">{{'echelon'|trans}}  </p></strong> 
+                                  </div>
+                                  <div class="ms-auto info">
+                                    <p class="mb-0">{{  app.user.personnel.echelonId.designation}}</p>
+                                </div>
+                              </div>  
+                                <div class="d-flex align-items-center mb-0">
+                                  <div>
+                                  <strong> <p class="mb-0">{{'sit_admin'|trans}}  </p></strong> 
+                                  </div>
+                                  <div class="ms-auto info">
+                                    <p class="mb-0">{{  app.user.personnel.situationAdm.libelleSituation }}</p>
+                                </div>
+                              </div>  
+
+                               <div class="d-flex align-items-center mb-0">
+                                  <div>
+                                  <strong> <p class="mb-0"> {{'date_rec'|trans}}   </p></strong> 
+                                  </div>
+                                  <div class="ms-auto info">
+                                    <p class="mb-0">{{  app.user.personnel.dateRecrutement|date('Y-m-d')  }}</p>
+                                </div>
+                              </div>  
+
+
+                             <div class="d-flex align-items-center mb-0">
+                                  <div>
+                                  <strong> <p class="mb-0"> {{'date_affect_minsup'|trans}}   </p></strong> 
+                                  </div>
+                                  <div class="ms-auto info">
+                                    <p class="mb-0">{{  app.user.personnel.dateAffectationMESRSFC|date('Y-m-d')  }}</p>
+                                </div>
+                              </div>  
+
+                              
+                             <div class="d-flex align-items-center mb-0">
+                                  <div>
+                                  <strong> <p class="mb-0"> {{'date_affect_ENSAT'|trans}}   </p></strong> 
+                                  </div>
+                                  <div class="ms-auto info">
+                                    <p class="mb-0"> {{  app.user.personnel.dateAffectationENSAT|date('Y-m-d') }} </p>
+                                </div>
+                              </div> 
+                              
+                    </address>
+                   </div>
+                </div>             
+                  </div>
+
+               <div class="col">
+                 <div class="">
+                    <address class="m-t-5 m-b-5">
+                       <strong class="text-inverse">{{'titles.info_acad'|trans}}   <br><br></strong>
+
+
+
+    
+                             <div class="d-flex align-items-center mb-0">
+                                  <div>
+                                  <strong> <p class="mb-0"> {{'diplome'|trans}}   </p></strong> 
+                                  </div>
+                                  <div class="ms-auto info">
+                                    <p class="mb-0"> {{  app.user.personnel.diplomeId.designationfr}} </p>
+                                </div>
+                              </div> 
+
+                                 <div class="d-flex align-items-center mb-0">
+                                  <div>
+                                  <strong> <p class="mb-0">  {{'spec'|trans}}   </p></strong> 
+                                  </div>
+                                  <div class="ms-auto info">
+                                    <p class="mb-0"> {{  app.user.personnel.specialiteId.libelleSpecialite }}</p>
+                                </div>
+                              </div> 
+                    
+                    </address>
+                   </div>
+                </div>
+                </div>
+               </div>
+             </div>
+
+
+
+             <div class="row">
+              <div class="col col-lg-12 mx-auto">    
+                <div class="card radius-10">
+                  <div class="card-body">
+                                    <div class="card-header py-2 bg-transparent">
+                  <h6 class="mb-0"> {{'titles.hist_avanc'|trans}}</h6> 
+                </div>
+                                <div class="row g-3">
+                                  <div class="table-responsive">
+            <table id="example" class="table table-striped table-bordered" style="text-align:center !important ; " >
+                <thead>
+                  <tr>
+                    <th style="text-align:center !important ; ">{{'num_deci'|trans}}</th>
+                    <th style="text-align:center !important ; ">{{'grade'|trans}}</th>  
+                    <th style="text-align:center !important ; ">{{'date_grade'|trans}}</th>
+                    <th style="text-align:center !important ; ">{{'echelon'|trans}}</th>  
+                    <th style="text-align:center !important ; ">{{'date_deci'|trans}}</th>
+                    <th style="text-align:center !important ; ">{{'arrete'|trans}}</th> 
+
+                
+
+                  </tr>
+                </thead>
+                <tbody>
+      {% for avancement in avancements %}
+                                  <tr  >
+                                    <td>{{ avancement.numDeci }}</td>
+                                    <td>{{ avancement.grade.designationFR }}</td>
+                                    {% if avancement.dateGrade is not null %}
+                                    <td>{{ avancement.dateGrade|date('Y-m-d') }}</td>
+                                    {% else %}
+                                    <td></td>
+                                    {% endif %}
+                                    <td>{{ avancement.echelon.designation }}</td>
+                                    <td>{{ avancement.dateDeci|date('Y-m-d') }}</td>
+                                    <td>
+                                    <div class="text-center">
+                                      {% if avancement.arrete is not null %}
+                                      <a href="{{ asset('webroot/docs/' ~ avancement.personnel.nom ~ '_' ~ avancement.personnel.prenom ~ '/Arrete/' ~ avancement.arrete) }}" onclick="window.open(this.href); return false;"><i class="bi bi-file-earmark-bar-graph-fill"></i>  </a>
+                                      {% endif %}
+                                    </div> 
+                                    </td>   
+    
+         
+               
+            </tr>
+        {% endfor %}
+                </tbody>
+              
+              </table>
+            </div>
+                                </div>
+                  </div>
+
+                  <div class="card-footer py-3">
+                      <p class="text-center mb-2">
+                        CONTACT
+                      </p>
+                      <p class="text-center d-flex align-items-center gap-3 justify-content-center mb-0">
+                        <span class=""><i class="bi bi-globe"></i> www.ensat.ac.ma</span>
+                        <span class=""><i class="bi bi-envelope-fill"></i> gcvre@uae.ac.ma</span>
+                      </p>
+                  </div>
+           </div>
+          </div>
+        </div>
+            
+    {% endblock %}
+    
+    
+
+

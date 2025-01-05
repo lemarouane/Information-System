@@ -1,0 +1,38 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}BudgetSortie{% endblock %}
+
+{% block body %}
+    <h1>BudgetSortie</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ budget_sortie.id }}</td>
+            </tr>
+            <tr>
+                <th>Libelle</th>
+                <td>{{ budget_sortie.libelle }}</td>
+            </tr>
+            <tr>
+                <th>Annee</th>
+                <td>{{ budget_sortie.annee }}</td>
+            </tr>
+            <tr>
+                <th>Montant</th>
+                <td>{{ budget_sortie.montant }}</td>
+            </tr>
+            <tr>
+                <th>Type_structure</th>
+                <td>{{ budget_sortie.typeStructure }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_budget_sortie_index') }}">back to list</a>
+
+    <a href="{{ path('app_budget_sortie_edit', {'id': budget_sortie.id}) }}">edit</a>
+
+    {{ include('budget_sortie/_delete_form.html.twig') }}
+{% endblock %}

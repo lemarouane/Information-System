@@ -1,0 +1,119 @@
+   <!--breadcrumb-->
+            <div class="page-breadcrumb d-none d-sm-flex align-items-center mb-3">
+              <div class="breadcrumb-title pe-3">  {{'titles.imp_exp'|trans}}</div>
+              <div class="ps-3">
+                <nav aria-label="breadcrumb">
+                  <ol class="breadcrumb mb-0 p-0">
+                    <li class="breadcrumb-item"><a href="javascript:;"><i class="bi bi-arrows-move"></i></a>
+                    </li>
+                    <li class="breadcrumb-item active" aria-current="page"> {{'titles.imp_exp'|trans}} </li>
+                  </ol>
+                </nav>
+              </div>
+         
+            </div>
+            <!--end breadcrumb-->
+
+              <div class="row">
+                 <div class="col-lg-12 mx-auto">
+                   {% include "flaches.html.twig" %}
+                  <div class="card">
+
+                    <div class="card-body">
+                       <div class="row g-3">
+
+                      <div class="col-12 col-lg-6">
+                            <div class="card shadow-none bg-light border">
+                              <div class="card-body">
+                                                   <div class="card-header py-2 bg-transparent">
+                  <h6 class="mb-0"> {{'exp_fiche_ind'|trans}}</h6> 
+                </div> 
+                <div class="row g-3">
+               <br>
+            <form name="importFiche" method="post" action="{{ path('exporterFiche') }}" enctype="multipart/form-data">
+               <div>
+                 <label for="numpprFiche" class="form-label">{{'numPPR'|trans}}</label>
+                   <input  id="numpprFiche" name="importFiche[numpprFiche]" class="form-control"/>
+                    </div><br>
+
+                    <button  type="submit" class="btn  btn-success btn-block col-12">{{'exp_fiche_ind'|trans}}</button>
+            </form>
+
+                               <div class="card-header py-2 bg-transparent">
+                  <h6 class="mb-0">{{'exp_stats_listes'|trans}}</h6> 
+                </div> 
+<a class="btn btn-primary px-4" href="{{ path('export_stats_rh') }}">{{'exp_stat_p'|trans}}</a>
+
+<a class="btn btn-info px-4"  style=" color:white" href="{{ path('export_personnel_rh') }}">{{'exp_liste_p'|trans}}</a>
+
+        <div class="card-header py-2 bg-transparent">
+                  <h6 class="mb-0"> {{'solde_aj'|trans}}</h6> 
+                </div> 
+<a class="btn btn-danger px-4" style="background-color:#ff6632; color:white" href="{{ path('add_solde_conge') }}">{{'solde_aj'|trans}}</a>
+
+
+
+                           
+                              </div>
+                                  </div>
+                            </div>  
+                        </div>
+
+
+
+
+                         <div class="col-12 col-lg-6">
+                            <div class="card shadow-none bg-light border">
+                              <div class="card-body">
+                                                     <div class="card-header py-2 bg-transparent">
+                  <h6 class="mb-0"> {{'import_fichier'|trans}}</h6>
+                </div>
+                            <form name="importFile" method="post" action="{{ path('importFileDoc') }}" enctype="multipart/form-data">
+                      <div class="row">
+
+                        <div class="form-group col-sm-12">
+                          <label for="numppr" class="form-label">{{'numPPR'|trans}}</label>
+
+                          <div>
+                            <input type="text" id="numppr" name="importFile[numppr]" required="required"  class="form-control">
+                          </div>
+                        </div>
+                        <div class="form-group col-sm-12">
+                          <label for="idObjet" class="form-label"> {{'num_doc'|trans}}</label>
+
+                          <div>
+                            <input id="idObjet" name="importFile[idObjet]" required="required" class="form-control"></input>
+                          </div>
+                        </div>
+                        <div class="form-group col-sm-12">
+                          <label class="form-label">{{'type'|trans}}</label>
+                          <select class="form-control" id="typeDocument" name="importFile[typeDocument]" >
+                            <option value="">-----------------------</option>
+                            <option value="AS">{{'att_salaire'|trans}}</option>
+                            <option value="AT">{{'att_travail'|trans}}</option>
+                            <option value="AU">{{'auto'|trans}}</option>
+                            <option value="CO">{{'cong'|trans}}</option>
+                            <option value="OM">{{'om'|trans}}</option>
+                          </select>
+                        </div>
+                        <div class="form-group col-sm-12">
+                          <label for="lien" class="form-label"> {{'ch_fichier'|trans}}:</label>
+
+                          <div>
+                            <input type="file" id="lien" name="lien" class="form-control">
+                          </div>
+                        </div>
+                      </div><br>
+                    <button type="submit" class="btn  btn-success pull-right col-12"> {{'importer'|trans}}</button>           
+                </form>
+                              </div>
+                            </div>
+                         </div>
+
+                        
+                       </div><!--end row-->
+                     </div>
+                    </div>
+                 </div>
+              </div><!--end row-->
+              

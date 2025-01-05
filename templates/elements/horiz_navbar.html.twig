@@ -1,0 +1,80 @@
+<nav class="navbar navbar-expand">
+  <div class="mobile-toggle-icon d-xl-none">
+      <i class="bi bi-list"></i>
+    </div>
+    <div class="top-navbar d-none d-xl-block">
+
+    </div>
+    <div class="d-xl-none ms-auto">
+      
+    </div>
+    <form class="searchbar d-none d-xl-flex ms-auto">
+        
+    </form>
+    <div class="top-navbar-right ms-3">
+      <ul class="navbar-nav align-items-center">
+      <li class="nav-item dropdown dropdown-large">
+        <a class="nav-link dropdown-toggle dropdown-toggle-nocaret" href="#" data-bs-toggle="dropdown">
+          <div class="user-setting d-flex align-items-center gap-1">
+            {% if app.user and app.user.personnel %}
+              <img src="{{ asset('uploads/images/') ~ app.user.personnel.imageName }}" class="user-img" alt="">
+              <div class="user-name d-none d-sm-block">{{ app.user.personnel.nom }} {{ app.user.personnel.prenom }}</div>
+              <input id="langue" value="{{ app.user.locale }}" hidden>
+            {% else %}
+              <img src="{{ asset('uploads/images/default-user.png') }}" class="user-img" alt="Default User">
+              <div class="user-name d-none d-sm-block">Guest</div>
+            {% endif %}
+          </div>
+        </a>
+        <ul class="dropdown-menu dropdown-menu-end">
+          {% if app.user and app.user.personnel %}
+          <li>
+             <a class="dropdown-item" href="{{ path('app_dashboard') }}">
+               <div class="d-flex align-items-center">
+                  <img src="{{ asset('uploads/images/') ~ app.user.personnel.imageName }}" alt="" class="rounded-circle" width="60" height="60">
+                  <div class="ms-3">
+                    <h6 class="mb-0 dropdown-user-name">{{ app.user.personnel.nom }} {{ app.user.personnel.prenom }}</h6>
+                    <small class="mb-0 dropdown-user-designation text-secondary">{{ app.user.email }}</small>
+                  </div>
+               </div>
+             </a>
+           </li>
+           <li><hr class="dropdown-divider"></li>
+           <li>
+              <a class="dropdown-item" href="{{ path('app_profile_user') }}">
+                 <div class="d-flex align-items-center">
+                   <div class="setting-icon"><i class="bi bi-person-fill"></i></div>
+                   <div class="setting-text ms-3"><span>{{ 'profile'|trans }}</span></div>
+                 </div>
+               </a>
+            </li>
+            <li><hr class="dropdown-divider"></li>
+            <li>
+              <a class="dropdown-item" href="{{ path('app_logout') }}">
+                 <div class="d-flex align-items-center">
+                   <div class="setting-icon"><i class="bi bi-lock-fill"></i></div>
+                   <div class="setting-text ms-3"><span>{{ 'logout'|trans }}</span></div>
+                 </div>
+               </a>
+            </li>
+            <li>
+              <a class="dropdown-item" href="{{ path('app_profile_user_pep') }}">
+                 <div class="d-flex align-items-center">
+                   <div class="setting-icon"><i class="bi bi-pencil-square"></i></div>
+                   <div class="setting-text ms-3"><span>{{ 'Change_Pass'|trans }}</span></div>
+                 </div>
+               </a>
+            </li>
+          {% endif %}
+        </ul>
+      </li>
+
+{% include 'elements/menu_navbar.html.twig' %}
+
+{% include 'changelangue/changeLangue.html.twig' %}
+
+      </ul>
+      
+      </div>
+    
+</nav>

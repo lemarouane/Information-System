@@ -1,0 +1,243 @@
+   <!--breadcrumb-->
+            <div class="page-breadcrumb d-none d-sm-flex align-items-center mb-3">
+              <div class="breadcrumb-title pe-3">{{'personnel'|trans}}</div>
+              <div class="ps-3">
+                <nav aria-label="breadcrumb">
+                  <ol class="breadcrumb mb-0 p-0">
+                    <li class="breadcrumb-item"><a href="javascript:;"><i class="bx bx-home-alt"></i></a>
+                    </li>
+                    <li class="breadcrumb-item active" aria-current="page">{{'titles.edit_personnel'|trans}}</li>
+                  </ol>
+                </nav>
+              </div>
+         
+            </div>
+            <!--end breadcrumb-->
+  {{ form_start(form) }}
+              <div class="row">
+                 <div class="col-lg-12 mx-auto">
+                  <div class="card">
+
+                    <div class="card-body">
+                       <div class="row g-3">
+
+                         <div class="col-12 col-lg-8 ">
+                            <div class="card shadow-none bg-light border ">
+                              <div class="card-body ">
+                                  <div class="row g-3 ">
+                                        <div class="card-header py-2 bg-transparent">
+                  <h6 class="mb-0"> {{'titles.info_perso'|trans}}  </h6> 
+                </div>
+                                    <div class="row g-3 ">
+                   
+
+
+                          <div class="col-4">
+                           {{ form_row(form.nom ,{ 'attr' : { 'class' : 'form-control' }}) }}
+                               </div>
+                       <div class="col-4">
+                           {{ form_row(form.prenom ,{ 'attr' : { 'class' : 'form-control' }}) }}
+                       </div>
+
+                          <div class="col-4">
+                           {{ form_row(form.nomArabe ,{ 'attr' : { 'class' : 'form-control' }}) }}
+                       </div>
+                        <div class="col-4">
+                           {{ form_row(form.prenomArabe ,{ 'attr' : { 'class' : 'form-control' }}) }}
+                       </div>
+
+
+                        <div class="col-4">
+                           {{ form_row(form.email ,{ 'attr' : { 'class' : 'form-control' }}) }}
+                       </div>
+                     
+                    
+                       
+                       <div class="col-4">
+                           {{ form_row(form.dateNaissance ,{ 'attr' : { 'class' : 'form-control' }}) }}
+                       </div>
+                         <div class="col-4">
+                           {{ form_row(form.provinceNaissance ,{ 'attr' : { 'class' : 'form-control' }}) }}
+                       </div>
+                      
+                       <div class="col-4">
+                           {{ form_row(form.genre ,{ 'attr' : { 'class' : 'form-select' }}) }}
+                       </div>
+                        <div class="col-4">
+                           {{ form_row(form.adresse ,{ 'attr' : { 'class' : 'form-control' }}) }}
+                       </div>
+
+                         <div class="col-4">
+                           {{ form_row(form.tel ,{ 'attr' : { 'class' : 'form-control' }}) }}
+                       </div>
+                     
+                        <div class="col-4">
+                           {{ form_row(form.cin ,{ 'attr' : { 'class' : 'form-control' }}) }}
+                       </div>
+
+                         <div class="col-4">
+                           {{ form_row(form.nbEnfant ,{ 'attr' : { 'class' : 'form-control' }}) }}
+                       </div>
+                     <div class="col-4">
+                           {{ form_row(form.situationFamiliale ,{ 'attr' : { 'class' : 'form-select' }}) }}
+                       </div>
+                                    </div>
+                                  <div class="card-header py-2 bg-transparent">
+                  <h6 class="mb-0"> {{'titles.info_admin'|trans}} </h6> 
+                </div>
+                    <div class="row g-3 ">
+                      <div class="col-4">
+                           {{ form_row(form.dateAffectationMESRSFC ,{ 'attr' : { 'class' : 'form-control' }}) }}
+                       </div>
+
+                       <div class="col-4">
+                           {{ form_row(form.dateAffectationEnseignement ,{ 'attr' : { 'class' : 'form-control' }}) }}
+                       </div>
+
+                      <div class="col-4">
+                           {{ form_row(form.dateRecrutement ,{ 'attr' : { 'class' : 'form-control' }}) }}
+                       </div>
+                      <div class="col-4">
+                           {{ form_row(form.numPPR ,{ 'attr' : { 'class' : 'form-control' }}) }}
+                       </div>
+                        <div class="col-4">
+                           {{ form_row(form.dateAffectationENSAT ,{ 'attr' : { 'class' : 'form-control' }}) }}
+                       </div>
+               
+                       
+                         <div class="col-4">
+                           {{ form_row(form.posteBudget ,{ 'attr' : { 'class' : 'form-control' }}) }}
+                       </div>
+                    
+                     <div class="col-4">
+                           {{ form_row(form.activite ,{ 'attr' : { 'class' : 'form-select' }}) }}
+                       </div>
+
+                       <div id="div_deces" class="col-4">
+                           {{ form_row(form.datedeces ,{ 'attr' : { 'class' : 'form-control' }}) }}
+                       </div>
+
+
+    <div class="col-4">
+                           {{ form_row(form.corpsId ,{ 'attr' : { 'class' : 'form-select' }}) }}
+                       </div>
+                        <div class="col-4">
+                           {{ form_row(form.gradeId ,{ 'attr' : { 'class' : 'form-select' }}) }}
+                       </div>
+                          <div class="col-4">
+                           {{ form_row(form.echelonId ,{ 'attr' : { 'class' : 'form-select' }}) }}
+                       </div>
+                 
+                      
+                  <div class="col-4">
+                           {{ form_row(form.fonctionExercee ,{ 'attr' : { 'class' : 'form-select' }}) }}
+                       </div>
+                       <div class="col-4">
+                           {{ form_row(form.serviceAffectationId ,{ 'attr' : { 'class' : 'form-select' }}) }}
+                       </div>
+                        <div class="col-4">
+                           {{ form_row(form.structureRech ,{ 'attr' : { 'class' : 'form-select' }}) }}
+                       </div>
+                       <div class="col-4">
+                           {{ form_row(form.situationAdm ,{ 'attr' : { 'class' : 'form-select' }}) }}
+                       </div>
+                      
+                        <div class="col-4">
+                           {{ form_row(form.departementId ,{ 'attr' : { 'class' : 'form-select' }}) }}
+                       </div>
+                       
+                       <div class="col-4">
+                           {{ form_row(form.typePersonnelId ,{ 'attr' : { 'class' : 'form-select' }}) }}
+                       </div>
+                      
+
+
+                    </div>
+                 <div class="card-header py-2 bg-transparent">
+                  <h6 class="mb-0"> {{'titles.info_acad'|trans}} </h6> 
+                </div>
+
+   <div class="row g-3 ">
+   <div class="col-4">
+          {{ form_row(form.dateSoutenanceH ,{ 'attr' : { 'class' : 'form-control' }}) }}
+    </div>
+  <div class="col-4">
+                           {{ form_row(form.diplomeId ,{ 'attr' : { 'class' : 'form-control' }}) }}
+    </div>
+     <div class="col-4">
+                           {{ form_row(form.specialiteId ,{ 'attr' : { 'class' : 'form-control' }}) }}
+                       </div>
+                         <div class="col-4">
+                           {{ form_row(form.etabDelivreDiplome ,{ 'attr' : { 'class' : 'form-control' }}) }}
+                       </div>
+                       
+                      
+   </div>
+
+                    
+                      <div class="text-start">
+                       <a class="btn btn btn-primary px-4" href="{{ app.request.headers.get('referer') }}">  {{'back'|trans}} </a>
+                  <button type='submit' class="btn btn-success px-4">{{'save'|trans}}</button>
+               
+
+                </div>
+
+                                  </div><!--end row-->
+                     
+                              </div>
+                            </div>  
+                        </div>
+
+
+
+
+              <div class="col-12 col-lg-4">
+          <div class="card shadow-none bg-light border">
+            <div class="card-body">
+               <div class="profile-avatar text-center image-upload" style='.image-upload>input {display: none;}'>
+                <label for="personnel_imageFile"> 
+                  <img id='file' style='cursor: pointer' src="{{asset('uploads/images/') ~ personnel.imageName}}" class="rounded-circle shadow" width="120" height="120" alt="">
+                </label><br>
+                {{ form_widget(form.imageFile,{'attr': {'style':'visibility: hidden;','accept':'image/*','onchange': 'document.getElementById("file").src = window.URL.createObjectURL(this.files[0])'}}) }}
+                </div>
+                  <div class="form-group">
+                                
+                     <div class="text-center mt-4">
+                  <h4 class="mb-1"> </h4>
+                  <p class="mb-0 text-secondary">{{'titles.upload_photo_edit'|trans}} </p>             
+                              </div>
+              
+                
+                <hr>
+                <div class="text-start text-center">
+                  <p class="mb-0"> {{'ne'|trans}}{{ personnel.dateNaissance|date("Y-m-d")}} {{'a'|trans}} {{ personnel.provinceNaissance.nomProvince}}</p>
+                  <p class="mb-0">  {{ personnel.gradeId.designationFR}} , {{'echelon'|trans}} : {{ personnel.echelonId.designation}} </p>
+{% if personnel.dateRecrutement is not empty %}
+                  <p class="mb-0">{{'date_rec'|trans}} : {{ personnel.dateRecrutement|date("Y-m-d")}}</p>
+{% endif %}
+
+{% if personnel.dateAffectationENSAT is not empty %}
+   <p class="mb-0">{{'exerc_ensa_depuis'|trans}} {{ personnel.dateAffectationENSAT|date("Y-m-d")}}</p>
+{% endif %}
+                </div>
+            </div>
+       
+          </div>
+        </div>
+
+                        
+                       </div><!--end row-->
+
+  {{ form_row(form._token) }}
+{{ form_end(form , {'render_rest': false}) }}
+
+                     
+                     </div>
+                    </div>
+                 </div>
+              </div><!--end row-->
+
+          {% block javascripts %}
+   {{ encore_entry_script_tags('dependent_selects') }} 
+     {{ encore_entry_script_tags('datedeces') }} 
+{% endblock %}

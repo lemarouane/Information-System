@@ -1,0 +1,171 @@
+
+{% extends 'template.html.twig' %}
+
+{% block title %}{{'stock'|trans}}{% endblock %}
+
+
+
+{% block body %}
+				<!--breadcrumb-->
+				<div class="page-breadcrumb d-none d-sm-flex align-items-center mb-3">
+					<div class="breadcrumb-title pe-3">{{'stock'|trans}}</div>
+					<div class="ps-3">
+						<nav aria-label="breadcrumb">
+							<ol class="breadcrumb mb-0 p-0">
+								<li class="breadcrumb-item"><a href="javascript:;"><i class="bi bi-box-seam"></i></a>
+								</li>
+								<li class="breadcrumb-item active" aria-current="page">{{'consommables'|trans}}</li>
+							</ol>
+						</nav>
+					</div>
+				
+				</div>
+				<hr/>
+				                {% include "flaches.html.twig" %}
+                {% set ok = app.session.get('ok') %}
+                {% if ok %}
+                {{ app.session.set('ok',0) }}
+				{{ form_start(form, { 'action': path('newDechargeC'), 'attr': { 'class': 'form-horizontal' } }) }}
+                
+
+                    <div class="card shadow-none bg-light border">
+                        <div class="card-body">
+                            <div class="row g-3">
+                      
+								<div class="col-6">
+                                    {{ form_row(form.personnel) }}
+                                </div>
+
+
+
+
+								<div class="card shadow-none bg-light border">
+      <div class="card-body">
+            <div class="card-header py-2 bg-transparent"><h6 class="mb-0">{{'consommables'|trans}}</h6></div>
+<p style="font-family: 'Times New Roman', Arial, Verdana, Sans-serif; margin-top: 20px;">{{'ajouter_materiel_affecter'|trans}}</p>
+  <div class="box-body"  id="affectation_list" data-prototype="{{ form_widget(form.affectations.vars.prototype)|e('html_attr')}}" >
+ {% for row in form.affectations %}
+                      <div class="form-group panel">
+                        <div class="row panalEngagement g-3" >
+
+                            
+                               {{ form_row(row.article,{'attr': {'class':'form-select'},'label_attr':{'class':'label-control'}}) }}
+
+<div class="col-6">
+                               {{ form_row(row.qte,{'attr': {'class':'form-control'} ,'label_attr':{'class':'label-control'} })}}
+                             
+</div>              
+                   
+                           
+                        </div>
+
+                      </div>
+                    {% endfor %}
+        </div>
+
+      </div>
+</div>
+								
+                                <div class="col-12">
+                                    <div>
+                                
+                                        <button type='submit' class="btn btn btn-success px-4 col-2" style="float:right"> {{'decharge'|trans}} </button>                                   
+                                    </div>
+                                </div>
+                                {{ form_row(form._token) }}
+
+                            </div>
+                        </div>     
+                    </div>
+                {{ form_end(form , {'render_rest': false}) }}   
+                {% else %}
+                {% if consommable is not empty %}
+				<div class="card">
+					<div class="card-body">
+						<div class="table-responsive">
+							<table  id="exemple6" class="table table-striped table-bordered" style="text-align:center !important ;" >
+								<thead>
+									<tr>
+									<th id="tbl" style="background-color:#ff6632;text-align:center !important ;"></th>
+                                        <th style="text-align:center !important ;">{{'designation'|trans}}</th>
+                                        <th style="text-align:center !important ;">{{'ref'|trans}}</th>
+                                        <th style="text-align:center !important ;">{{'qte_enstock'|trans}}</th>
+                                        <th style="text-align:center !important ;">{{'op'|trans}}</th>
+									</tr>
+								</thead>
+								<tbody>
+								    {% for article in consommable %}
+                                       <tr>
+                                    {% if article.qte == 0 %}
+                           	<td style="text-align:center !important ;" >
+                                    {% else %}
+                         	<td style="text-align:center !important ;"  >
+                                      {{article.id}}
+                                    {% endif %}
+                                            								                                        
+                                        </td>
+                                    
+                                            <td>{{article.designation}}</td>
+                                            <td>{{article.reference}}</td>
+                                            <td>
+
+                                            <span
+                                            {% if article.qte < article.seuil  %}
+                                                style="color:red;font-weight: bold;font-size:15px;"
+                                            {% endif %}
+
+                                            {% if article.qte >= article.seuil  %}
+                                                style="color:green;font-weight: bold;font-size:15px;"
+                                            {% endif %}
+                                            >
+                                            {% if article.qte is empty %}
+                                                0 
+                                            {% else %}
+                                            {{article.qte}}
+                                            {% endif %}
+
+                                            </span>
+                                       
+
+                                            </td>
+                                            <td>
+                                                <div class="text-center">
+                                                    <a href="{{ path('showConsommable', {'id': article.id}) }}" class="text-primary" data-bs-toggle="tooltip" data-bs-placement="bottom" aria-label="Views"><i class="bi bi-eye-fill"></i></a>&nbsp;&nbsp;
+                                            {% if article.qte is not empty %}
+                                                  <!--   <a href="{{ path('AffectationConsommable', {'id': article.id}) }}" class="text-warning" data-bs-toggle="tooltip" data-bs-placement="bottom" aria-label="Edit"><i class="bi bi-box-seam"></i></a> -->
+                                            {% endif %}
+                                                </div>
+                                            </td>			
+                                        </tr>
+                                    {% endfor %}
+								</tbody>
+							
+							</table>
+							                    <a class="btn btn-success col-12" id="ajouter"  style="margin-bottom: 5px;"> {{'affect_en_masse'|trans}}</a>
+
+				</div>
+                <div id="path-to-controller" data-href="{{ path('AffectationConsommableMasse')}}"> </div>
+                
+            </div>
+						</div>
+					</div>
+				</div>
+                {% else %}
+                    <div class="alert alert-success">
+                        <strong>{{'no_consommable'|trans}} </strong>  
+                    </div>
+                {% endif %}
+				{% endif %}
+
+
+
+{% endblock %}
+
+{% block javascripts %}
+    {{parent()}}
+	
+    {{ encore_entry_script_tags('decharge_consomable') }}
+        
+
+
+{% endblock %}

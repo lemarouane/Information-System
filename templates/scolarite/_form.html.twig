@@ -1,0 +1,146 @@
+{{ form_start(form) }}
+   
+
+<div>
+<div class="row">
+        <div class="col-12 col-lg-8">
+          <div class="card shadow-sm border-0">
+            <div class="card-body">
+                <h5 class="mb-0"> {{'nv_etudiant'|trans}} </h5>
+              
+                <hr>
+                <div class="card shadow-none border">
+                 {% include "flaches.html.twig" %}
+                  <div class="card-header">
+                  
+                    <h6 class="mb-0"></h6> 
+                  </div>
+                  <div class="card-body row g-3"> 
+
+                        
+
+                       <div class="col-6">
+                           {{ form_row(form.nom ,{  'attr' : { 'class' : 'form-control' }}) }}
+                       </div>
+                       <div class="col-6">
+                           {{ form_row(form.prenom ,{  'attr' : { 'class' : 'form-control' }}) }}
+                       </div>
+                         <div class="col-6">
+                           {{ form_row(form.code ,{  'attr' : { 'class' : 'form-control' }}) }}
+                       </div>
+
+
+ 
+                        <div class="col-6">
+                           {{ form_row(form.email ,{ 'attr' : { 'class' : 'form-control' }}) }}
+                       </div>
+
+                   
+                         <div class="col-6">
+                           {{ form_row(form.nomUtilisateur ,{ 'attr' : { 'class' : 'form-control' }}) }}
+                       </div>
+
+                          <div class="col-6">
+                           {{ form_row(form.locale ,{ 'attr' : { 'class' : 'form-select' }}) }}
+                       </div>
+
+                         <div class="col-6">
+                           {{ form_row(form.type ,{ 'attr' : { 'class' : 'form-select' }}) }}
+                       </div>
+                 
+                 
+                  
+                    
+                        
+                     
+                  </div>
+                </div>
+                <div class="text-start">
+                  
+                  <button type='submit' class="btn btn btn-primary px-4">{{'save'|trans}}</button>
+                  <a class="btn btn btn-primary px-4" href="{{ path('addEtudiantScolarite') }}">  {{'back'|trans}} </a>
+
+                </div>
+            </div>
+          </div>
+        </div>
+      
+{{ form_row(form._token) }}
+{{ form_end(form , {'render_rest': false}) }}
+
+  <div class="col-12 col-lg-4">
+          <div class="card shadow-sm border-0 overflow-hidden">
+          
+               
+                  <div class="card-body row g-3"> 
+
+                      <div class="col-12">
+                       
+                       <form name="importFiche" method="post" action="{{ path('addEtudiantScolariteMass') }}" enctype="multipart/form-data">
+                            <div class="row">
+                              <div class="form-group col-sm-12">
+                                <label for="fichier" class="control-label">{{'insertion_etudiants_mass'|trans}} <a href="{{ asset('webroot/maq_add_etu.xlsx')}}">{{'telecharger_maquette'|trans}}</a>  </label><br><br>
+
+                                <div>
+                                  <input type="file" id="fichier" name="fichier" placeholder="fichier" class="form-control">
+                                </div>
+                                    <br> 
+                                <div>
+                                  <select id="type" name="type" class="form-select">
+                                  <option value='FI' selected> {{'FI'|trans}}</option>
+                                  <option value='FC'> {{'FC'|trans}}</option>
+                                  </select>
+                                </div>
+
+                              </div>
+                            </div>
+                            <br>
+                            <button type="submit" class="btn  btn-primary pull-right">{{'save'|trans}}</button>
+                       </form>
+                      </div>
+
+                      
+                  </div>
+
+
+
+
+                    <div class="card-body row g-3"> 
+
+                      <div class="col-12">
+                       
+                       <form name="importFiche2" method="post" action="{{ path('addEtudiantScolariteMassMoodle') }}" enctype="multipart/form-data">
+                            <div class="row">
+                              <div class="form-group col-sm-12">
+                                <label for="fichier" class="control-label">{{'insertion_etudiants_mass'|trans}} <a href="{{ asset('webroot/maq_add_etu.xlsx')}}">{{'telecharger_maquette'|trans}}</a>  </label><br><br>
+
+                                <div>
+                                  <input type="file" id="fichier_moodle" name="fichier_moodle" placeholder="fichier_moodle" class="form-control">
+                                </div>
+                                    <br> 
+                             
+
+                              </div>
+                            </div>
+                            <br>
+                            <button type="submit" class="btn  btn-primary pull-right">{{'save'|trans}}</button>
+                       </form>
+                      </div>
+
+                  </div>
+
+                  
+
+        
+          </div>
+  </div>
+
+
+
+
+
+
+
+
+    </div><!--end row-->
+

@@ -1,0 +1,65 @@
+{% extends 'template.html.twig' %}
+
+{% block title %}{{'liste_etudiants_inscrits_dd'|trans}}{% endblock %}
+
+{% block body %}
+
+				<!--breadcrumb-->
+				<div class="page-breadcrumb d-none d-sm-flex align-items-center mb-3">
+					<div class="breadcrumb-title pe-3">{{'conv_dd'|trans}}</div>
+					<div class="ps-3">
+						<nav aria-label="breadcrumb">
+							<ol class="breadcrumb mb-0 p-0">
+								<li class="breadcrumb-item"><a href="javascript:;"><i class="bi bi-person-fill"></i></a>
+								</li>
+								<li class="breadcrumb-item active" aria-current="page">{{'liste_etudiants_inscrits_dd'|trans}}</li>
+							</ol>
+						</nav>
+					</div>
+				 
+				</div>
+				<hr/>
+				<div class="card">
+					<div class="card-body">
+						<div class="table-responsive">
+							<table id="example" class="table table-striped table-bordered" style="text-align:center !important ;" >
+                                <thead>
+                                    <tr>
+                                        <th style="text-align:center !important ;">{{'n'|trans}}</th>
+                                        <th style="text-align:center !important ;">{{'etablissement'|trans}}</th>
+                                        <th style="text-align:center !important ;">{{'code_apogee'|trans}}</th>
+                                        <th style="text-align:center !important ;">{{'nom'|trans}}</th>
+                                        <th style="text-align:center !important ;">{{'prenom'|trans}}</th>
+                                        <th style="text-align:center !important ;">{{'email'|trans}}</th>
+                                        <th style="text-align:center !important ;">{{'annee_soutenance'|trans}}</th>
+                                        <th style="text-align:center !important ;">{{'filiere'|trans}}</th>
+
+                                    </tr>
+                                </thead>
+								<tbody>
+								   {% for liste_dd in liste_dds %}
+                                        <tr>
+                                            <td>{{ liste_dd.id }}</td>
+                                            <td>{{ liste_dd.inscription.convention.etablissement }}</td>
+                                            <td>{{ liste_dd.inscription.etudiants.code }}</td>
+                                            <td>{{ liste_dd.inscription.etudiants.nom}}</td>
+                                            <td>{{ liste_dd.inscription.etudiants.prenom }}</td>
+                                            <td>{{ liste_dd.inscription.etudiants.email }}</td>
+                                            <td>{{ liste_dd.inscription.anneeSoutenance }}</td>
+                                            <td>{{ liste_dd.inscription.filiere }}</td>
+
+                                        </tr>
+                                    {% endfor %}
+								</tbody>
+							
+							</table>
+						</div>
+					</div>
+				</div>
+                
+
+
+
+
+{% endblock %}
+

@@ -1,0 +1,176 @@
+
+{% extends 'template.html.twig' %}
+
+{% block title %}{{'cooperation'|trans}}{% endblock %}
+
+{% block body %}
+
+        <!--breadcrumb-->
+        <div class="page-breadcrumb d-none d-sm-flex align-items-center mb-3">
+          <div class="breadcrumb-title pe-3">{{'stages'|trans}}</div>
+          <div class="ps-3">
+            <nav aria-label="breadcrumb">
+              <ol class="breadcrumb mb-0 p-0">
+                <li class="breadcrumb-item"><a href="javascript:;"><i class="bx bx-home-alt"></i></a>
+                </li>
+                <li class="breadcrumb-item active" aria-current="page"> {{'details_stage'|trans}} {{'n'|trans}} {{stage.id}}  </li>
+              </ol>
+            </nav>
+          </div>
+        
+        </div>
+        <hr/>
+
+        <div class="card">
+          <div class="card-body">
+            <div class="table-responsive">
+              
+
+<table class="table table-striped table-bordered" >
+							
+								<tbody>
+					
+										<tr>
+										<td>{{'n'|trans}}</td> <td> {{stage.id}} </td>
+										</tr>
+
+                       <tr>
+                       <td>{{'nom_prenom'|trans}}</td>
+                    <td>{{stage.user.nom}} {{stage.user.prenom}}</td>
+                    </tr>
+
+                    <tr>
+                       <td>{{'tel'|trans}}</td>
+                    <td>{{stage.phone}}</td>
+                    </tr>
+
+
+ 	                   <tr>
+										<td> {{'date_envoie'|trans}}</td> <td> 
+                   {% if stage is not empty %}
+                    {{stage.dateEnvoie|date('Y-m-d')}}
+                    {% endif %}
+
+                     </td>
+										</tr>
+
+                 <tr>
+                 <td>{{'entreprise'|trans}}</td>
+                    <td>{{stage.entreprise.intitule}}</td>
+                    </tr>
+
+
+                     <tr>
+                       <td>{{'sujet'|trans}}</td>
+                    <td>{{stage.sujet}}</td>
+                    </tr>
+                    
+
+							    	<tr>
+										<td> {{'date_debut'|trans}}</td> <td> 
+                   {% if stage is not empty %}
+                    {{stage.dateDebut|date('Y-m-d')}}
+                    {% endif %}
+
+                     </td>
+										</tr>
+
+										<tr>
+										<td>{{'date_fin'|trans}}</td> <td>
+                {% if stage is not empty %}
+                    {{stage.dateFin|date('Y-m-d')}}
+                       {% endif  %}
+                    </td>
+										</tr>
+
+                  
+                       <tr>
+                       <td>{{'filiere'|trans}}</td>
+                    <td>{{stage.filiere}}</td>
+                    </tr>
+
+                        <tr>
+                       <td>{{'annee_univ'|trans}}</td>
+                    <td>{{stage.anneeuniv}}</td>
+                    </tr>
+
+
+
+                   <tr>
+                       <td>{{'type_stage'|trans}}</td>
+                    <td>{{stage.typeStage.libelle}}</td>
+                    </tr>
+
+                     <tr>
+                       <td>{{'intitule_entreprise'|trans}}</td>
+                    <td>{{stage.intitule}}</td>
+                    </tr>
+                    
+
+                       <tr>
+                       <td>{{'niveau'|trans}}</td>
+                    <td>
+                       {% if stage.niveau == 0 %} 
+                                         {{'chef_filiere'|trans}}
+                                        {% else %}
+                                         {{'service_coop'|trans}}
+                                         {% endif %}
+                    </td>
+                    </tr>
+
+                   <tr>
+                       <td>{{'statut'|trans}}</td>
+                    <td>
+
+                                  {% if stage.statut == -1 %} 
+                                           <label style="color:black;font-weight:bold;"> {{'encours'|trans}}</label>  
+                                    {% endif %}
+
+                                     {% if stage.statut == -2 %} 
+                                          <label style="color:black;font-weight:bold;"> {{'encours_sign'|trans}}</label>     
+                                    {% endif %}
+
+
+                                    {% if stage.statut == 0 %} 
+                                           <label style="color:red;font-weight:bold;">  {{'refuse'|trans}}</label>   
+                                    {% endif %}
+
+                                      {% if stage.statut == 1 %} 
+                                          <label style="color:green;font-weight:bold;">  {{'accorde'|trans}}</label>    
+                                    {% endif %}
+
+                                     {% if stage.statut == 4 %} 
+                                          <label style="color:grey;font-weight:bold;">  {{'annule'|trans}}</label>    
+                                    {% endif %}
+
+
+                    </td>
+                    </tr>
+{% if stage.motif is not empty %}        
+                     <tr>
+                       <td>{{'motif'|trans}}</td>
+                    <td>{{stage.motif}}</td>
+                    </tr>
+{% endif %}
+
+																										
+								</tbody>
+							
+							</table>
+
+            </div>
+
+
+          </div>
+        </div>
+
+      
+
+
+
+
+  
+{% endblock %}
+
+
+

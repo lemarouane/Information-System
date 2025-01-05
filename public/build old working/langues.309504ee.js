@@ -1,0 +1,1 @@
+(self.webpackChunk=self.webpackChunk||[]).push([[371],{40600:(a,e,t)=>{var n=t(19755);n(".flag").on("click",(function(){var a=n(this).attr("value");n.ajax({type:"POST",url:n("#path-to-langue").data("href"),data:{langue:a},success:function(a){location.reload()}})}))}},a=>{a.O(0,[755],(()=>{return e=40600,a(a.s=e);var e}));a.O()}]);

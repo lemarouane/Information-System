@@ -1,0 +1,180 @@
+
+{% extends 'template.html.twig' %}
+
+{% block title %}{{'rel_att_reu'|trans}}{% endblock %}
+
+{% block body %}
+
+				<!--breadcrumb-->
+
+                <div class="page-breadcrumb d-none d-sm-flex align-items-center mb-3">
+                        <div class="breadcrumb-title pe-3">{{'scolarite'|trans}}</div>
+                        <div class="ps-3">
+                            <nav aria-label="breadcrumb">
+                            <ol class="breadcrumb mb-0 p-0">
+                                <li class="breadcrumb-item"><a href="javascript:;"><i class="bi bi-file-earmark-ruled-fill"></i></a>
+                                </li>
+                                <li class="breadcrumb-item active" aria-current="page">{{'rel_att_reu'|trans}}</li>
+                            </ol>
+                            </nav>
+                        </div>
+         
+                </div>
+                <hr>
+
+                <div class="card border-top border-orange border-0 border-3">
+                  <div class="card-body">
+                    <div class="table-responsive">
+                      <table id="exemple6" class="table table-striped table-bordered dataTable"  style="text-align:center !important ;" >
+                        <thead>
+                          <tr>
+					            <th id="tbl" style="background-color:#ff6632;text-align:center !important ;"></th>
+                                <th style="text-align:center !important ;"> {{'date_envoie'|trans}}</th>
+                                <th style="text-align:center !important ;"> {{'code_apogee'|trans}}</th>
+                                <th style="text-align:center !important ;">{{'nom'|trans}}</th>
+                                <th style="text-align:center !important ;">{{'prenom'|trans}}</th>
+                                <th style="text-align:center !important ;">{{'type'|trans}}</th>
+                                <th style="text-align:center !important ;">{{'etape'|trans}}</th>
+                                <th style="text-align:center !important ;"> {{'annee'|trans}}</th>
+{% if "ROLE_SCOLARITE" in app.user.roles or "ROLE_ADMIN" in app.user.roles %} 
+                                <th style="text-align:center !important ;">{{'exporter_pdf'|trans}}</th>
+                                <th style="text-align:center !important ;">{{'op'|trans}}</th>
+{% endif %} 
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for releve in releves %}
+                                <tr role="row" class="odd">
+					                <td>{{releve.id}}</td>
+                                    <td class="sorting_1">{{releve.dateDemande ? releve.dateDemande|date('Y-m-d H:i:s') : '' }}</td>
+                                    <td>{{releve.codeEtudiant.code}}</td>
+                                    <td>{{releve.codeEtudiant.nom}}</td>
+                                    <td>{{releve.codeEtudiant.prenom}}</td>
+                                    <td>
+{% if releve.type == 'Attestation' %}
+{{'att_reussite'|trans}}
+{% elseif releve.type == 'Relevé' %}
+{{'releve'|trans}}
+{% endif %}             
+                                    </td>
+                                    <td>{{releve.codeEtape}}</td>
+                                    <td>{{releve.anneeEtape}}</td>
+
+{% if "ROLE_SCOLARITE" in app.user.roles or "ROLE_ADMIN" in app.user.roles %} 
+                                    <td>
+                                    {% if releve.type == 'Relevé' %}
+                                      {% if releve.version1 is empty %}
+                                        <a style="cursor:pointer;" data-credit="{{releve.version|join(', ')}}" data-user="{{releve.id}}" class="text-success icons1" data-bs-toggle="modal" data-bs-target="#versionModal"  data-bs-toggle="tooltip" data-bs-placement="bottom" aria-label="Edit"><i class="bi bi-file-earmark-pdf" ></i></a>
+                                      {% else %}
+                                        <a style="float: left;cursor:pointer;" href="{{ path('get_releve_note', {id: releve.id })}}" data-bs-placement="bottom" aria-label="Edit"><i class="bi bi-file-earmark-pdf" ></i></a>
+                                        <a style="float: right;cursor:pointer;" data-credit="{{releve.version|join(', ')}}" data-user="{{releve.id}}" class="text-success icons1" data-bs-toggle="modal" data-bs-target="#versionModal"  data-bs-toggle="tooltip" data-bs-placement="bottom" aria-label="Edit"><i class="bi bi-circle-square" >&nbsp;&nbsp;version</i></a>
+                                      {% endif %}
+                                      
+                                    {% else %}
+                                      <a style="cursor:pointer;" href="{{ path('get_atestation_reussite', {id: releve.id })}}" data-bs-toggle="tooltip" data-bs-placement="bottom" aria-label="Edit"><i class="bi bi-file-earmark-pdf" ></i></a>
+                                    {% endif %}
+                                    </td>
+                                    <td>
+                                        <div class="text-center">
+                                            <a style="cursor:pointer;" data-user="{{releve.id}}" class="text-success icons" data-bs-toggle="modal" data-bs-target="#dataModalOrdre"  data-bs-toggle="tooltip" data-bs-placement="bottom" aria-label="Edit"><i class="bi bi-check2-circle" ></i></a>
+                                        </div>
+                                    </td>
+{% endif %} 
+
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+
+							
+					</table>
+					</div>
+                    
+					</div>
+             {% if "ROLE_SCOLARITE" in app.user.roles or "ROLE_ADMIN" in app.user.roles %}        <a class="btn btn-success col-12" id="ajouter"  style="margin-bottom: 5px;">{{'valider'|trans}}</a> {% endif %} 
+
+				</div>
+                <div id="path-to-controller" data-href="{{ path('add_list_releve')}}"> </div>
+                <div id="dataModalOrdre" class="modal fade">  
+      <div class="modal-dialog">  
+           <div class="modal-content">  
+                <div class="modal-header">  
+              
+                      <h4 class="modal-title"></h4>  
+                </div> 
+                <form method="post" id="ordre_form">
+                  <div class="modal-body row g-3" >
+                    <div id="path-to-validation" data-href="{{ path('decisionDoc', {type: 'releve',id:'1111'})}}"> </div>
+                   <div class="form-group">
+                    <div>
+                        <label class="form-label">{{'n_doc'|trans}}</label>
+                        <input id="iddocument" name="searchParam[iddocument]" class="form-control" disabled/>
+                    </div>   
+ 
+                   </div>  
+                    <div class="form-group">
+                      <label class="form-label">{{'action'|trans}}</label>
+                      <select id="ordre"  name="searchParam[decision]" class="form-select">
+                        <option value="1">{{'accepter'|trans}}</option>
+                        <option value="0">{{'refuser'|trans}}</option>
+                      </select>
+                    </div>
+                    <div class="form-group" id="motifText">
+                      <label class="form-label">{{'motif'|trans}}:</label>
+                      <textarea class="form-control" name="searchParam[motifs]" rows="3" placeholder="..."></textarea>
+                    </div>   
+                   </div>  
+                  <div class="modal-footer">
+                    <input type="submit" name="ordreName" id="ordreId" value="{{'valider'|trans}}" style="float: left" class="btn btn-success" />  
+                    <button  type="button" class="btn btn-danger" data-bs-dismiss="modal">{{'fermer'|trans}}</button> 
+                  </div> 
+              </form> 
+            </div>  
+        </div>  
+    </div>
+<div id="versionModal" class="modal fade">  
+      <div class="modal-dialog">  
+           <div class="modal-content">  
+                <div class="modal-header">  
+              
+                      <h4 class="modal-title"></h4>  
+                </div> 
+                <form method="post" id="version_form">
+                  <div class="modal-body row g-3" >
+                    <div id="path-to-validation1" data-href="{{ path('mod_releve_version', {id:'1111',version: '2222'})}}"> </div>
+                   <div class="form-group">
+                      <div>
+                          <label class="form-label">{{'n_doc'|trans}}</label>
+                          <input id="iddocument1" name="searchParam[iddocument]" class="form-control" disabled/>
+                      </div>   
+                   </div>  
+                    <div class="form-group">
+                      <label class="form-label">{{'Version'|trans}}</label>
+                      <select id="version"  name="searchParam[version]" class="form-select">
+                      </select>
+                    </div>   
+                   </div>  
+                  <div class="modal-footer">
+                    <input type="submit" name="versionName" id="versionId" value="{{'valider'|trans}}" style="float: left" class="btn btn-success" />  
+                    <button  type="button" class="btn btn-danger" data-bs-dismiss="modal">{{'fermer'|trans}}</button> 
+                  </div> 
+              </form> 
+            </div>  
+        </div>  
+    </div>
+
+
+
+
+
+
+  
+{% endblock %}
+{% block javascripts %}
+    {{parent()}}
+	
+    {{ encore_entry_script_tags('scolarite') }}
+        
+
+
+{% endblock %}
+

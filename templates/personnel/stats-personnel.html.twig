@@ -1,0 +1,302 @@
+
+{% extends 'template.html.twig' %}
+
+{% block title %}{{'titles.rh'|trans}}{% endblock %}
+
+{% block body %}
+
+
+				<!--breadcrumb-->
+				  <div class="page-breadcrumb d-none d-sm-flex align-items-center mb-3">
+        <div class="breadcrumb-title pe-3">{{'titles.rh'|trans}}</div>
+              <div class="ps-3">
+                <nav aria-label="breadcrumb">
+                  <ol class="breadcrumb mb-0 p-0"> 
+                    <li class="breadcrumb-item"><a href="javascript:;"><i class="bi bi-file-earmark-person-fill"></i></a></li>
+                        <li class="breadcrumb-item active" aria-current="page">{{'stats_dem_personnel'|trans}}</li>
+                  </ol>
+                </nav>
+              </div>
+         </div>
+				<hr/>  
+	<div class="card">
+		<div class="card-body">
+				{% include "flaches.html.twig" %}
+
+
+   <div class="card border shadow-none">
+             <div class="card-header py-3">
+
+
+              
+                  <div class="row align-items-center g-3">
+                    <div class="col-12 col-lg-6">
+					<input id="personnel_id" type="text" value="{{ personnel.id }}" hidden />
+          <input id="personnel_type" type="text" value="{{ personnel.typePersonnelId.Id}}" hidden />
+                      <h5 class="mb-0">  {{ personnel.nom }}  {{ personnel.prenom }} </h5>
+                    </div>
+                    <div class="col-12 col-lg-6 text-md-end">
+                      
+                      
+                    </div>
+                  </div>
+             </div>
+        
+             <div class="card-header py-2 bg-light">
+               <div class="row row-cols-1 row-cols-lg-4">
+                 <div class="col">
+                    <div class="">
+
+        <img id='file' src="{{asset('uploads/images/') ~ personnel.imageName}}" class="rounded-circle shadow" width="180" height="180" alt="">                            
+                    </div>
+                  </div>
+    
+                
+                 <div class="col">
+                  <div class="">
+                    <address class="m-t-5 m-b-5">
+                       <strong class="text-inverse">{{'titles.info_perso'|trans}}  <br><br></strong>
+
+
+                            <div class="d-flex align-items-center mb-0">
+                                  <div>
+                                <strong>  <p class="mb-0">{{'nom_prenom'|trans}}  </p></strong> 
+                                  </div>
+                                  <div class="ms-auto info">
+                                    <p class="mb-0"> {{  personnel.nom }} {{  personnel.prenom }}</p>
+                                </div>
+                              </div>
+
+                              <div class="d-flex align-items-center mb-0">
+                                  <div>
+                                 <strong>  <p class="mb-0">{{'nom_prenom_ar'|trans}}  </p></strong> 
+                                  </div>
+                                  <div class="ms-auto info">
+                                    <p class="mb-0"> {{  personnel.nomArabe }} {{  personnel.prenomArabe }}</p>
+                                </div>
+                              </div>
+
+                                <div class="d-flex align-items-center mb-0">
+                                  <div>
+                                  <strong> <p class="mb-0">{{'date_n'|trans}}  </p></strong> 
+                                  </div>
+                                  <div class="ms-auto info">
+                                    <p class="mb-0"> {{  personnel.dateNaissance|date('Y-m-d')  }} </p>
+                                </div>
+                              </div>
+
+                            <div class="d-flex align-items-center mb-0">
+                                  <div>
+                                 <strong>  <p class="mb-0">{{'province'|trans}}  </p></strong> 
+                                  </div>
+                                  <div class="ms-auto info">
+                                    <p class="mb-0"> {{  personnel.provinceNaissance.nomProvince }}</p>
+                                </div>
+                              </div>
+
+                                <div class="d-flex align-items-center mb-0">
+                                  <div>
+                                  <strong> <p class="mb-0">{{'genre'|trans}}  </p></strong> 
+                                  </div>
+                                  <div class="ms-auto info">
+                                    <p class="mb-0"> {{  personnel.genre }}</p>
+                                </div>
+                              </div>
+
+                               <div class="d-flex align-items-center mb-0">
+                                  <div>
+                                   <strong> <p class="mb-0">{{'tel'|trans}}  </p></strong> 
+                                  </div>
+                                  <div class="ms-auto info">
+                                    <p class="mb-0"> {{  personnel.tel }}</p>
+                                </div>
+                              </div>
+
+
+                            <div class="d-flex align-items-center mb-0">
+                                  <div>
+                                   <strong> <p class="mb-0">{{'adresse'|trans}}  </p></strong>
+                                  </div>
+                                  <div class="ms-auto info">
+                                    <p class="mb-0"> {{  personnel.adresse }}</p>
+                                </div>
+                              </div>
+                               
+                            <div class="d-flex align-items-center mb-0">
+                                  <div>
+                                  <strong> <p class="mb-0">{{'sit_famil'|trans}}  </p></strong> 
+                                  </div>
+                                  <div class="ms-auto info">
+                                    <p class="mb-0"> {{  personnel.situationFamiliale }}</p>
+                                </div>
+                              </div>                    
+                    </address>
+                   </div>
+                 </div>
+                <div class="col">
+                  <div class="col">
+                  <div class="">
+                    <address class="m-t-5 m-b-5">
+                      <strong class="text-inverse">{{'titles.info_admin'|trans}} <br><br></strong>
+
+                             <div class="d-flex align-items-center mb-0">
+                                  <div>
+                                  <strong> <p class="mb-0">{{'dep'|trans}}  </p></strong> 
+                                  </div>
+                                  <div class="ms-auto info">
+                                    <p class="mb-0">   {{  personnel.departementId.libelleDep }}</p>
+                                </div>
+                              </div>  
+
+                               <div class="d-flex align-items-center mb-0">
+                                  <div>
+                                  <strong> <p class="mb-0">{{'service'|trans}}  </p></strong> 
+                                  </div>
+                                  <div class="ms-auto info">
+                                    <p class="mb-0">   {{  personnel.serviceAffectationId.nomService }}</p>
+                                </div>
+                              </div>  
+
+                               <div class="d-flex align-items-center mb-0">
+                                  <div>
+                                  <strong> <p class="mb-0">{{'corps'|trans}}  </p></strong> 
+                                  </div>
+                                  <div class="ms-auto info">
+                                    <p class="mb-0">{{  personnel.corpsId.designationfr }}</p>
+                                </div>
+                              </div>  
+                              
+                               <div class="d-flex align-items-center mb-0">
+                                  <div>
+                                  <strong> <p class="mb-0">{{'grade'|trans}}  </p></strong> 
+                                  </div>
+                                  <div class="ms-auto info">
+                                    <p class="mb-0">{{  personnel.gradeId.designationfr }}</p>
+                                </div>
+                              </div>  
+
+                                <div class="d-flex align-items-center mb-0">
+                                  <div>
+                                  <strong> <p class="mb-0">{{'echelon'|trans}}  </p></strong> 
+                                  </div>
+                                  <div class="ms-auto info">
+                                    <p class="mb-0">{{  personnel.echelonId.designation}}</p>
+                                </div>
+                              </div>  
+                                <div class="d-flex align-items-center mb-0">
+                                  <div>
+                                  <strong> <p class="mb-0">{{'sit_admin'|trans}}  </p></strong> 
+                                  </div>
+                                  <div class="ms-auto info">
+                                    <p class="mb-0">{{  personnel.situationAdm.libelleSituation }}</p>
+                                </div>
+                              </div>  
+
+                               <div class="d-flex align-items-center mb-0">
+                                  <div>
+                                  <strong> <p class="mb-0"> {{'date_rec'|trans}}   </p></strong> 
+                                  </div>
+                                  <div class="ms-auto info">
+                                    <p class="mb-0">{{  personnel.dateRecrutement|date('Y-m-d')  }}</p>
+                                </div>
+                              </div>  
+
+
+                             <div class="d-flex align-items-center mb-0">
+                                  <div>
+                                  <strong> <p class="mb-0"> {{'date_affect_minsup'|trans}}   </p></strong> 
+                                  </div>
+                                  <div class="ms-auto info">
+                                    <p class="mb-0">{{  personnel.dateAffectationMESRSFC|date('Y-m-d')  }}</p>
+                                </div>
+                              </div>  
+
+                              
+                             <div class="d-flex align-items-center mb-0">
+                                  <div>
+                                  <strong> <p class="mb-0"> {{'date_affect_ENSAT'|trans}}   </p></strong> 
+                                  </div>
+                                  <div class="ms-auto info">
+                                    <p class="mb-0"> {{  personnel.dateAffectationENSAT|date('Y-m-d') }} </p>
+                                </div>
+                              </div> 
+                              
+                    </address>
+                   </div>
+                </div>             
+                  </div>
+
+               <div class="col">
+                 <div class="">
+                    <address class="m-t-5 m-b-5">
+                       <strong class="text-inverse">{{'titles.info_acad'|trans}}   <br><br></strong>
+
+
+
+    
+                             <div class="d-flex align-items-center mb-0">
+                                  <div>
+                                  <strong> <p class="mb-0"> {{'diplome'|trans}}   </p></strong> 
+                                  </div>
+                                  <div class="ms-auto info">
+                                    <p class="mb-0"> {{  personnel.diplomeId.designationfr}} </p>
+                                </div>
+                              </div> 
+
+                                 <div class="d-flex align-items-center mb-0">
+                                  <div>
+                                  <strong> <p class="mb-0">  {{'spec'|trans}}   </p></strong> 
+                                  </div>
+                                  <div class="ms-auto info">
+                                    <p class="mb-0"> {{  personnel.specialiteId.libelleSpecialite }}</p>
+                                </div>
+                              </div> 
+                    
+                    </address>
+                   </div>
+                </div>
+                </div>
+               </div><br>
+			   <div id="spinner_stats_perso" class="spinner-border" role="status" style="margin-left: auto;margin-right: auto;"> <span class="visually-hidden">Loading...</span></div>
+           
+
+    
+                  
+                  
+
+  <div class="card-body">
+
+  
+                    
+                  
+                <div class="card-header py-2 bg-transparent">
+                  <h6 class="mb-0">{{'stats_dem_personnel'|trans}}</h6> 
+                </div> 
+				
+
+<div class="table-responsive">
+
+<div id="chart4"></div>
+
+
+
+</div>
+</div>
+
+					</div>
+					 <a class="btn btn btn-primary px-4 col-2" href="{{ app.request.headers.get('referer') }}">  {{'back'|trans}} </a>
+				</div>
+				
+				  
+  </div>
+
+
+
+
+{% endblock %}
+ {% block javascripts %}
+      {{parent()}}
+      {{ encore_entry_script_tags('stats_perso_dem') }}
+      <script src="{{ asset('uploads/js/apexcharts-bundle/js/apexcharts.js') }}"></script>	 
+    {% endblock %}
+

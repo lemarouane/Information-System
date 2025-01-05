@@ -1,0 +1,304 @@
+	
+	{% if ("ROLE_ADMIN" in app.user.roles  or "ROLE_RH" in app.user.roles  or "ROLE_SERVICEEXT" in app.user.roles) %}
+			<li class="nav-item dropdown dropdown-large">
+	
+				<a class="nav-link dropdown-toggle dropdown-toggle-nocaret" href="#" data-bs-toggle="dropdown">
+				  <div class="projects">
+					<i class="bi bi-grid-3x3-gap-fill"></i>
+				  </div>
+				</a>
+				<div class="dropdown-menu dropdown-menu-end ">
+					
+				   <div class="row row-cols-3 gx-2 anyClass">
+				   {% if ("ROLE_ADMIN" in app.user.roles  or  "ROLE_RH" in app.user.roles) %}
+					  <div class="col">
+						<a href="{{path('app_corps_index')}}">
+						<div class="apps p-2 radius-10 text-center">
+						   <div class="apps-icon-box mb-1 text-white bg-danger bg-gradient">
+							<i class="bi bi-person-gear"></i>
+						   </div>
+						   <p class="mb-0 apps-name"> {{'corps'|trans}} </p>                                                                                                                                                                                                                                                        </p>
+						</div>
+					  </a>
+					 </div>
+					  <div class="col">
+						<a href="{{path('app_grades_index')}}">
+						<div class="apps p-2 radius-10 text-center">
+						   <div class="apps-icon-box mb-1 text-white bg-success bg-gradient">
+							<i class="bi bi-border-width"></i> 
+						   </div>
+						   <p class="mb-0 apps-name"> {{'grades'|trans}}</p>                                                                                                                                                                                                                                                        </p>
+						</div>
+					  </a>
+					 </div>
+					  <div class="col">
+						<a href="{{path('app_echelon_index')}}">
+						<div class="apps p-2 radius-10 text-center">
+						   <div class="apps-icon-box mb-1 text-white bg-orange bg-gradient">
+							<i class="bi bi-border-style"></i> 
+						   </div>
+						   <p class="mb-0 apps-name"> {{'echelons'|trans}}</p>                                                                                                                                                                                                                                                        </p>
+						</div>
+					  </a>
+					 </div>
+
+					  <div class="col">
+						<a href="{{path('app_fonction_index')}}">
+						<div class="apps p-2 radius-10 text-center">
+						   <div class="apps-icon-box mb-1 text-white bg-pink bg-gradient">
+						<i class="bi bi-diagram-3-fill"></i>
+						   </div>
+						   <p class="mb-0 apps-name"> {{'fonctions'|trans}}</p>                                                                                                                                                                                                                                                        </p>
+						</div>
+					  </a>
+					  
+					 </div>
+
+					  <div class="col">
+						<a href="{{path('app_diplome_index')}}">
+						<div class="apps p-2 radius-10 text-center">
+						   <div class="apps-icon-box mb-1 text-white bg-warning bg-gradient">
+							<i class="bi bi-mortarboard-fill"></i>
+						   </div>
+						   <p class="mb-0 apps-name"> {{'diplomes'|trans}}</p>                                                                                                                                                                                                                                                        </p>
+						</div>
+					  </a>
+					 </div>
+					  <div class="col">
+					 <a href="{{path('app_departement_index')}}">
+					  <div class="apps p-2 radius-10 text-center">
+						 <div class="apps-icon-box mb-1 text-white bg-orange bg-gradient">
+						  <i class="bi bi-building-fill-gear"></i>
+						 </div>
+						 <p class="mb-0 apps-name"> {{'departements'|trans}} </p>
+					  </div>
+					  </a>
+					</div>
+					  <div class="col">
+					 <a href="{{path('app_specialite_index')}}">
+					  <div class="apps p-2 radius-10 text-center">
+						 <div class="apps-icon-box mb-1 text-white bg-success bg-gradient">
+						  <i class="bi bi-list-stars"></i>
+						 </div>
+						 <p class="mb-0 apps-name"> {{'spec'|trans}} </p>
+					  </div>
+					  </a>
+					</div>
+					  <div class="col">
+					 <a href="{{path('app_service_index')}}">
+					  <div class="apps p-2 radius-10 text-center">
+						 <div class="apps-icon-box mb-1 text-white bg-primary bg-gradient">
+						  <i class="bi bi-person-workspace"></i>
+						 </div>
+						 <p class="mb-0 apps-name"> {{'services'|trans}} </p>
+					  </div>
+					  </a>
+					</div>
+					  <div class="col">
+					 <a href="{{path('app_province_index')}}">
+					  <div class="apps p-2 radius-10 text-center">
+						 <div class="apps-icon-box mb-1 text-white bg-pink bg-gradient">
+						  <i class="bi bi-geo-alt-fill"></i>
+						 </div>
+						 <p class="mb-0 apps-name"> {{'provinces'|trans}} </p>
+					  </div>
+					  </a>
+					</div>
+					  <div class="col">
+					 <a href="{{path('app_struct_rech_index')}}">
+					  <div class="apps p-2 radius-10 text-center">
+						 <div class="apps-icon-box mb-1 text-white bg-bronze bg-gradient">
+						  <i class="bi bi-bounding-box"></i>
+						 </div>
+						 <p class="mb-0 apps-name">  {{'str_rech'|trans}} </p>
+					  </div>
+					  </a>
+					</div>
+					<div class="col">
+						<a href="{{path('app_grade_av_index')}}">
+						<div class="apps p-2 radius-10 text-center">
+						   <div class="apps-icon-box mb-1 text-white bg-purple bg-gradient">
+							<i class="bi bi-chevron-double-up"></i> 
+						   </div>
+						   <p class="mb-0 apps-name">  {{'avanc_grade'|trans}}</p>                                                                                                                                                                                                                                                        </p>
+						</div>
+					  </a>
+					 </div>
+
+					  <div class="col">
+						<a href="{{path('app_echelon_av_index')}}">
+						<div class="apps p-2 radius-10 text-center">
+						   <div class="apps-icon-box mb-1 text-white bg-info bg-gradient">
+							<i class="bi bi-chevron-up"></i> 
+						   </div>
+						   <p class="mb-0 apps-name">  {{'avanc_echelon'|trans}}</p>                                                                                                                                                                                                                                                        </p>
+						</div>
+					  </a>
+					 </div>
+					 {% endif %}
+					{% if ("ROLE_ADMIN" in app.user.roles)%}
+					 <div class="col">
+					 <a href="{{path('app_params_index')}}">
+					  <div class="apps p-2 radius-10 text-center">
+						 <div class="apps-icon-box mb-1 text-white bg-warning bg-gradient">
+						  <i class="bi bi-gear-fill"></i>
+						 </div>
+						 <p class="mb-0 apps-name">  {{'params'|trans}} </p>
+					  </div>
+					  </a>
+					</div>
+					  <div class="col">
+						<a href="{{path('app_utilisateurs_index')}}">
+						<div class="apps p-2 radius-10 text-center">
+						   <div class="apps-icon-box mb-1 text-white bg-primary bg-gradient">
+							 <i class="bi bi-people-fill"></i>
+						   </div>
+						   <p class="mb-0 apps-name"> {{'users'|trans}}</p>
+						</div>
+					  </a>
+					 </div>
+					 <div class="col">
+						<a href="{{path('app_cycle_index')}}">
+						<div class="apps p-2 radius-10 text-center">
+						   <div class="apps-icon-box mb-1 text-white bg-danger bg-gradient">
+						<i class="bi bi-bar-chart-steps"></i>
+						   </div>
+						   <p class="mb-0 apps-name"> {{'cycle'|trans}}</p>                                                                                                                                                                                                                                                        </p>
+						</div>
+					  </a>
+					  
+					 </div>
+					<div class="col">
+						<a href="{{path('app_filiere_index')}}">
+						<div class="apps p-2 radius-10 text-center">
+						   <div class="apps-icon-box mb-1 text-white bg-bronze bg-gradient">
+							<i class="bi bi-card-list"></i>
+						   </div>
+						   <p class="mb-0 apps-name"> {{'sections'|trans}}</p>                                                                                                                                                                                                                                                        </p>
+						</div>
+					  </a>
+					</div>
+
+					 <div class="col">
+					 <a href="{{path('app_type_personnel_index')}}">
+					  <div class="apps p-2 radius-10 text-center">
+						 <div class="apps-icon-box mb-1 text-white bg-primary bg-gradient">
+						  <i class="bi bi-person-lines-fill"></i>
+						 </div>
+						 <p class="mb-0 apps-name"> {{'perso_type'|trans}} </p>
+					  </div>
+					  </a>
+					</div>
+					<div class="col">
+					 <a href="{{path('filiere_fc')}}">
+					  <div class="apps p-2 radius-10 text-center">
+						 <div class="apps-icon-box mb-1 text-white bg-primary bg-gradient">
+						  <i class="bi bi-bookmarks"></i>
+						 </div>
+						 <p class="mb-0 apps-name"> {{'filiere_fc'|trans}} </p>
+					  </div>
+					  </a>
+					</div>
+					<div class="col">
+					 <a href="{{path('ffc_responsable')}}">
+					  <div class="apps p-2 radius-10 text-center">
+						 <div class="apps-icon-box mb-1 text-white bg-primary bg-gradient">
+						  <i class="bi bi-bookmarks-fill"></i>
+						 </div>
+						 <p class="mb-0 apps-name"> {{'filiere_fc_responsable'|trans}} </p>
+					  </div>
+					  </a>
+					</div>
+
+
+					
+					  <div class="col">
+					 <a href="{{path('app_type_struct_rech_index')}}">
+					  <div class="apps p-2 radius-10 text-center">
+						 <div class="apps-icon-box mb-1 text-white bg-orange bg-gradient">
+						  <i class="bi bi-bounding-box-circles"></i>
+						 </div>
+						 <p class="mb-0 apps-name">  {{'type_str_rech'|trans}} </p>
+					  </div>
+					  </a>
+					</div>
+					{% endif %}  
+
+					{% if ("ROLE_SERVICEEXT" in app.user.roles) or ("ROLE_ADMIN" in app.user.roles) %}
+						<div class="col">
+					 <a href="{{path('app_entreprise_index')}}">
+					  <div class="apps p-2 radius-10 text-center">
+						 <div class="apps-icon-box mb-1 text-white bg-success bg-gradient">
+						  <i class="bi bi-list-stars"></i>
+						 </div>
+						 <p class="mb-0 apps-name"> {{'entreprises'|trans}} </p>
+					  </div>
+					  </a>
+					</div>
+					  <div class="col">
+					 <a href="{{path('app_convention_d_d_index')}}">
+					  <div class="apps p-2 radius-10 text-center">
+						 <div class="apps-icon-box mb-1 text-white bg-pink bg-gradient">
+						  <i class="bi bi-geo-alt-fill"></i>
+						 </div>
+						 <p class="mb-0 apps-name"> {{'conv_dd'|trans}} </p>
+					  </div>
+					  </a>
+					</div>
+
+					{% endif %}
+
+
+						{% if ("ROLE_RH" in app.user.roles)  %}
+
+							<div class="col">
+					 <a href="{{path('rubriques')}}">
+					  <div class="apps p-2 radius-10 text-center">
+						 <div class="apps-icon-box mb-1 text-white bg-success bg-gradient">
+						  <i class="bi bi-align-end"></i>
+						 </div>
+						 <p class="mb-0 apps-name"> {{'rubriques'|trans}} </p>
+					  </div>
+					  </a>
+					</div>
+
+						<div class="col">
+					 <a href="{{path('lignes')}}">
+					  <div class="apps p-2 radius-10 text-center">
+						 <div class="apps-icon-box mb-1 text-white bg-success bg-gradient">
+						  <i class="bi bi-arrow-bar-left"></i>
+						 </div>
+						 <p class="mb-0 apps-name"> {{'lignes'|trans}} </p>
+					  </div>
+					  </a>
+					</div>
+
+					  <div class="col">
+					 <a href="{{path('paragraphes')}}">
+					  <div class="apps p-2 radius-10 text-center">
+						 <div class="apps-icon-box mb-1 text-white bg-pink bg-gradient">
+						  <i class="bi bi-back"></i>
+						 </div>
+						 <p class="mb-0 apps-name"> {{'paragraphes'|trans}}</p>
+					  </div>
+					  </a>
+					</div>
+
+					 <div class="col">
+					 <a href="{{path('articlePE')}}">
+					  <div class="apps p-2 radius-10 text-center">
+						 <div class="apps-icon-box mb-1 text-white bg-pink bg-gradient">
+						  <i class="bi bi-app"></i>
+						 </div>
+						 <p class="mb-0 apps-name"> {{'articles'|trans}}</p>
+					  </div>
+					  </a>
+					</div>
+
+					{% endif %}
+				   
+				   <!--end row-->
+				</div>
+				</div>
+			  </li>
+            {% endif %} 

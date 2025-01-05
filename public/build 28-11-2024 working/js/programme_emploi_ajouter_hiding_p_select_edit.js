@@ -1,0 +1,1 @@
+1==$("#programme_emploi_articlePE").val()?($("label[for='paragraphes']").show(),$("#programme_emploi_paragraphe").show()):($("label[for='paragraphes']").hide(),$("#programme_emploi_paragraphe").hide()),$("#programme_emploi_articlePE").prop("disabled")?$("#article_list").show():$("#article_list").hide();

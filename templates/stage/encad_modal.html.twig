@@ -1,0 +1,63 @@
+<div id="validation_modal" class="modal fade" >  
+  <div class="modal-dialog">  
+      <div class="modal-content">  
+        <div class="modal-header">   
+            <h4 class="modal-title"> {{'affect_encadrant_pfe'|trans}} </h4>  
+        </div> 
+        <form method="post" id="attest_validation_from">
+        <div class="modal-body row g-3" >
+          <div>
+            <label class="form-label">{{'pfe'|trans}} {{'n'|trans}} </label>
+            <input id="n_attest" name="searchParam[code_stage]" class="form-control" readonly/>
+          </div>   
+          <div>
+          <label class="form-label">{{'etudiant'|trans}}</label>
+          <input id="demandeur_attest"  class="form-control" disabled/>
+          </div> 
+
+
+
+          <div>  
+             <label class="form-label">{{'liste_profs'|trans}} </label>
+              <select id="select_action" name="searchParam[encadrant]" class="form-control" onchange="">
+
+{% for p in personel_list %}
+        <option value="{{p.id}}">{{p.nom}} {{p.prenom}}</option>
+{% endfor %}
+
+
+
+              </select>
+          </div>
+
+
+
+
+
+           
+        </div>  
+        <div class="modal-footer">
+            <input type="submit" name="ordreName" id="ordreId" value="{{'envoyer'|trans}} " style="float: left" class="btn btn-success" />  
+            <button onclick="" type="button" class="btn btn-danger" data-bs-dismiss="modal">{{'fermer'|trans}} </button> 
+        </div> 
+      </form> 
+    </div>  
+  </div>  
+</div>
+
+        <script> 
+
+
+function callAjax(jsUrl){
+var xhr = new XMLHttpRequest();
+xhr.onreadystatechange = function() {};
+xhr.open('POST',jsUrl );
+xhr.send()
+}
+
+
+
+
+               </script>
+ 
+

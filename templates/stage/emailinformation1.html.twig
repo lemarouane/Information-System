@@ -1,0 +1,22 @@
+﻿
+<p>Bonjour Mme/Mr {{ etudiant.nom }} {{ etudiant.prenom }}</p>
+
+
+{% if decision  == "1" %}
+<p>Nous vous informons que votre requête a été Validée </p>
+<p>
+vous pouvez récupérer votre document au niveau du service des stages & coopération selon les créneaux horaires suivants :<br>
+du lundi au vendredi de 9h30 à 13h00.
+</p>
+{% elseif decision  == "2" %}
+<p> {{ motif }}  </p>
+{% else %}
+<p>Nous vous informons que votre requête a été refusée </p>
+<p> {{ motif }}  </p>
+{% endif %}
+
+<p>Cordialement</p>
+
+
+
+

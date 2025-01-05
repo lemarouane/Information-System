@@ -1,0 +1,68 @@
+doctrine:
+    dbal:
+        connections:
+            default:
+                url: '%env(resolve:DATABASE_URL)%'
+                driver: 'pdo_mysql'
+                server_version: '5.7'
+                charset: UTF8 
+            apogee:
+                url: '%env(resolve:APOGEE_DATABASE_URL)%'
+                driver: 'pdo_mysql'
+                server_version: '5.7'
+                charset: UTF8
+            etudiant:
+                url: '%env(resolve:ETUDIANT_DATABASE_URL)%'
+                driver: 'pdo_mysql'
+                server_version: '5.7'
+                charset: UTF8
+            edt:
+                url: '%env(resolve:EDT_DATABASE_URL)%'
+                driver: 'pdo_mysql'
+                server_version: '5.7'
+                charset: UTF8
+        default_connection: etudiant
+    orm:
+        default_entity_manager: etudiant
+        entity_managers:
+            default:
+                naming_strategy: doctrine.orm.naming_strategy.underscore_number_aware
+                connection: default
+                mappings:
+                    App:
+                        is_bundle: false
+                        dir: '%kernel.project_dir%/src/Entity'
+                        prefix: 'App\Entity'
+                        alias: App
+            etudiant:
+                naming_strategy: doctrine.orm.naming_strategy.underscore_number_aware
+                connection: etudiant
+                mappings:
+                    Etudiant:
+                        is_bundle: false
+                        dir: '%kernel.project_dir%/src/Entity/Etudiant'
+                        prefix: 'App\Entity\Etudiant'
+                        alias: Etudiant
+                    Doctorants:
+                        is_bundle: false
+                        dir: '%kernel.project_dir%/src/Entity'
+                        prefix: 'App\Entity'
+                        alias: Doctorants
+            apogee:
+                naming_strategy: doctrine.orm.naming_strategy.underscore_number_aware
+                connection: apogee
+                mappings:
+                    Etudiant:
+                        is_bundle: false
+                        dir: '%kernel.project_dir%/src/Entity'
+                        prefix: 'App\Entity'
+                        alias: Apogee
+            edt:
+                naming_strategy: doctrine.orm.naming_strategy.underscore_number_aware
+                connection: edt
+                mappings: 
+                    Etudiant:
+                        is_bundle: false
+                        dir: '%kernel.project_dir%/src/Entity'
+                        prefix: 'App\Entity'
+                        alias: Edt

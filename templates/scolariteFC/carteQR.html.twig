@@ -1,0 +1,83 @@
+﻿<!DOCTYPE html>
+<html>
+  <head>
+    <title>Carte d'Etudiant</title>
+    <meta charset="utf-8">
+    <style type="text/css">
+      .main_container{
+        background: url("http://localhost/e-ensat/public/uploads/img/plan.jpg") 0 0;
+        z-index: 99;
+        background-size: cover;
+        width:540px;
+        height:355px;
+        position:relative;
+        
+     }
+     .main_container1{
+        background: url("http://localhost/e-ensat/public/uploads/img/plan4.jpg") 0 0;
+        z-index: 99;
+        background-size: cover;
+        width:540px;
+        height:355px;
+        position:relative;
+     }
+
+     body{
+        background-color: #F5F5F5;
+     }
+    </style>
+  </head>
+  <body>
+    <div style="" class="main_container">
+      <div>
+        <span style="float: left;margin-top: 5px;">
+               <img src="http://localhost/e-ensat/public/uploads/img/uae4.png" height="90px;" width="100px">
+        </span>
+        <span style="float: right;">
+               <img src="http://localhost/e-ensat/public/uploads/img/ensatanger4.png" height="95px;" width="100px" style="margin-right: -15px;">
+        </span>
+        <span>
+               <p style="text-align: center;padding-top: 10px;margin-left: 15px; font-size: 16px;font-weight: bold; color: #294a70;">Université Abdelmalek Essaâdi<br> Ecole Nationale des Sciences Appliquées <br>Tanger</p>
+        </span>
+      </div>
+      <div style="width: 100% ;padding-top: 5px;">
+        <p style="text-align: center;font-weight: bold;font-size: 22px;color: #294a70;"> CARTE D'ETUDIANT</p>
+      </div>
+      <div class="row" style=" height:105px;padding-top: 8px;">
+            <div class="col-sm-12" >
+              <label class="col-sm-2" style="float: left;">
+                <div  style="width:105px; height:135px;float: left;padding-left: 10px;" class="col-sm-2">
+                  <img id="file" style="display:block;width:100%;height:100%; background-color:#FFF5EE;" src="http://localhost/e-doc/public/uploads/img/{{image}}" alt="your image">
+                </div>
+              </label>
+              <label class="col-sm-8" style="float: left;padding-top: 30px;">
+                <div class="col-sm-8">
+                  <table>
+                    <tr style="font-weight: bold;font-size: 20px;color: #294a70">
+                      <td style="text-align: justify;text-justify: inter-word;padding-left: 15px">{{usere.nom|upper}} </td>
+                    </tr>
+                    <tr style="font-weight: bold;font-size: 20px;color: #294a70;">
+                      <td style="text-align: justify;text-justify: inter-word;padding-left: 15px">{{usere.prenom|upper }}</td>
+                    </tr> 
+                    <tr style="font-weight: bold;font-size: 20px;color: #294a70;">
+                      <td style="text-align: justify;text-justify: inter-word;padding-left: 15px">{{usere.code|upper }}</td>
+                    </tr>
+                  </table>
+                </div>
+              </label>
+              
+              <label class="col-sm-2" style="float: right;">
+                <div  style="width:105px; height:135px;float: left;padding-right: 15;" class="col-sm-2">
+                  <img  src="{{dataUri}}" alt="QR code">
+                </div>
+              </label>                        
+            </div>
+      </div>
+      <div>
+        <p style="text-align: center;padding-top: 28px; font-size: 20px;font-weight: bold; color: #294a70;">Première Inscription : {{ins_Adm_E["LIB_ANU"]}}</p>
+      </div>
+    </div>
+
+  </body>
+  
+</html>

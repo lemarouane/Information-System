@@ -1,0 +1,98 @@
+{% set route = app.request.attributes.get('_route') %} 
+<!DOCTYPE html>
+<html class="semi-dark color-header headercolor8">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %} {{'titles.dashboard'|trans}} {% endblock %}</title>
+    <style>
+        body{ display:none; }
+    </style>
+    <link rel="icon" href="{{asset('build/images/favicon-32x32.png')}}" type="image/png" />
+    {# Run `composer require symfony/webpack-encore-bundle` to start using Symfony UX #}
+    <link href="{{ asset('uploads/css/icons.css') }}" rel="stylesheet" >
+    <link href="{{ asset('uploads/css/simplebar.css') }}" rel="stylesheet" >
+    <link href="{{ asset('uploads/bootstrap-icons/font/bootstrap-icons.css') }}" rel="stylesheet" >
+    <link href="{{ asset('css/arabic_keyboard.css') }}" rel="stylesheet" >
+    <link href="https://fonts.googleapis.com/css2?family=Material+Icons"rel="stylesheet">
+    {% block stylesheets %}
+        {{ encore_entry_link_tags('app') }}
+        {% if app.user.locale == 'ar-AR' %} 
+            {{ encore_entry_link_tags('bootstraprtl') }}
+            {{ encore_entry_link_tags('stylertl') }}
+        {% endif %}
+        <style type="text/css">
+            .anyClass {
+                height:400px;
+                overflow-y: scroll;
+            }
+            .profile-cover {
+                background-image: linear-gradient(to bottom right, rgb(26 30 33 / 50%), rgb(0 0 0 / 50%)), url({{ asset('build/images/gallery/ensat1c.jpg') }});
+                background-size: cover;
+                height: 24rem;
+                background-position: center;
+                margin: -4.0rem -1.5rem -9.5rem -1.5rem;
+                padding: 1.5rem 1.5rem 6.5rem 1.5rem;
+
+            }
+        </style>
+    {% endblock %}
+  
+</head>
+
+<body>
+
+
+  <!--start wrapper-->
+  <div class="wrapper">
+  
+    <!--start top header-->
+      <header class="top-header">        
+
+  {% include 'elements/horiz_navbar.html.twig' %}
+      </header>
+       <!--end top header-->
+
+        <!--start sidebar -->
+{% include 'elements/side_navbar.html.twig' %}
+       <!--end sidebar -->
+
+       <!--start content-->
+          <main class="page-content">
+              <div id="path-to-counter" data-href="{{ path('app_counter')}}"> </div>
+              <div id="path-to-counter-scolarite" data-href="{{ path('app_counter_sco')}}"> </div>
+              <div id="path-to-counter-cooperation" data-href="{{ path('app_counter_cooperation')}}"> </div>
+              <div id="path-to-counter-scolarite" data-href="{{ path('app_counter_scoFC')}}"> </div>
+             {% block body %}{% endblock %}
+            
+          </main>
+       <!--end page main-->
+
+       <!--start overlay-->
+        <div class="overlay nav-toggle-icon"></div>
+       <!--end overlay-->
+
+       <!--Start Back To Top Button-->
+		     <a href="javaScript:;" class="back-to-top"><i class='bx bxs-up-arrow-alt'></i></a>
+       <!--End Back To Top Button-->
+ 
+       
+
+  </div>
+
+    {% block javascripts %}
+        <script src="{{ asset('uploads/js/simplebar.min.js') }}"></script>
+        {{ encore_entry_script_tags('app') }}
+        {{ encore_entry_script_tags('datatable_trans') }}
+        {{ encore_entry_script_tags('app_counter') }}
+        {{ encore_entry_script_tags('app_counter_scolarite') }}
+        {{ encore_entry_script_tags('app_counter_scolariteFC') }}
+        {{ encore_entry_script_tags('app_counter_cooperation') }}
+       
+    {% endblock %}
+
+  
+
+
+</body>
+
+</html>

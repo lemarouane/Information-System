@@ -1,0 +1,113 @@
+
+{% extends 'template.html.twig' %}
+
+{% block title %}{{'cooperation'|trans}}{% endblock %}
+{% block stylesheets %}
+    {{ parent() }}
+    
+{% endblock %}
+
+
+{% block body %}
+
+				<!--breadcrumb-->
+				<div class="example-wrapper">
+                    <div class="page-breadcrumb d-none d-sm-flex align-items-center mb-3">
+                        <div class="breadcrumb-title pe-3">{{'cooperation'|trans}} </div>
+                        <div class="ps-3">
+                            <nav aria-label="breadcrumb">
+                            <ol class="breadcrumb mb-0 p-0">
+                                <li class="breadcrumb-item"><a href="javascript:;"><i class="bi bi-arrows-move"></i></a>
+                                </li>
+                                <li class="breadcrumb-item active" aria-current="page">{{'exporter'|trans}}</li>
+                            </ol>
+                            </nav>
+                        </div>
+         
+                </div>
+                <hr>
+                <div class="row">
+					<div class="col-6">
+						<div class="card border-top border-orange border-0 border-3">
+							<div class="card-body">
+								<form name="importFiche" method="post" action="{{ path('showEtudiantStage') }}" class="row g-3" enctype="multipart/form-data">
+                                    
+                                    <div class="form-group col">
+                                        <label for="codeApogee" class="control-label">{{'num_apogee'|trans}} </label>
+                                        <div>
+                                            <input type="text" id="codeApogee" name="importFiche[codeApogee]" required="required" placeholder="code Apogée" class="form-control">
+                                        </div>
+                                    </div>
+                                    
+                                    <button type="submit" class="btn  btn-primary ">{{'valider'|trans}} </button>
+                                </form>
+                                <form action="{{ path('exporterStatStage') }}" method="post">
+                                    <input type="submit" value="{{'exporter_stats'|trans}}" class="btn btn-danger col-12" style="background: #20c997; margin-top: 30px;">
+                                </form>
+                                <form action="{{ path('telechargerEtudiantDiplome') }}" method="post">
+                                    <input type="submit" value="{{'liste_etu_retire_dip'|trans}}" class="btn btn-success  col-12 " style="background: #32bfff; margin-top: 30px;">
+                                </form>
+                                <form action="{{ path('exporterEtudiantDD') }}" method="post">
+                                    <input type="submit" value="{{'liste_etu_dd_annee_encours'|trans}}" class="btn btn-warning col-12" style="background: #ff6632;color:white; margin-top: 30px;">
+                                </form>
+                                        
+							</div>
+						</div>
+					</div>
+
+                    <div class="col-6">
+                        <div class="card border-top border-success border-0 border-3">
+                            <div class="card-header py-3 bg-transparent"> 
+                                <h5 class="mb-0"> {{'exporter_fichier'|trans}} </h5>
+                            </div>
+                            <div class="card-body ">
+                                <div class="border p-3 rounded">
+                                    <form class="row g-3" name="importFile" method="post" action="{{ path('telechargerFileStage') }}" enctype="multipart/form-data">
+                                        <div class="col-12">
+                                            <label class="form-label"> {{'annee_univ'|trans}} </label>
+                                            <select class="form-select" id="annee" name="importFile[annee]">
+                                                <option value="Tous">{{'tous'|trans}} </option>
+                                                {% for annee in anneeUniversitaire %}
+                                                    <option value="{{annee.COD_ANU}}">{{annee.COD_ANU}}</option>
+                                                {% endfor %}
+                                            </select>
+                                        </div>
+                                        <div class="col-12">
+                                            <label class="form-label"> {{'type_stage'|trans}} </label>
+                                            <select class="form-select" id="typeStage" name="importFile[typeStage]">
+                                                <option value="Tous">{{'tous'|trans}} </option>
+                                                <option value="3">{{'stag_observation'|trans}} </option>
+                                                <option value="2">{{'stage_pfa'|trans}} </option>
+                                                <option value="1">{{'stage_pfe'|trans}} </option>
+                                            </select>
+                                        </div>
+                                        <div class="col-12">
+                                            <label class="form-label"> {{'type_document'|trans}} </label>
+                                            <select class="form-select" id="statut" name="importFile[statut]" >
+                                                <option value="Tous">{{'tous'|trans}} </option>
+                                                <option value="1"> {{'document_signe'|trans}}  </option>
+                                                <option value="-1">  {{'encours_sign'|trans}}  </option>
+                                                <option value="-1"> {{'encours'|trans}}  </option>
+                                                <option value="0"> {{'refuse'|trans}}  </option>
+                                            </select>
+                                        </div>
+                                        
+                                        
+                                        <div class="col-12">
+                                            <button class="btn btn-primary px-4">{{'valider'|trans}} </button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>            
+
+
+
+
+
+
+  
+{% endblock %}
+

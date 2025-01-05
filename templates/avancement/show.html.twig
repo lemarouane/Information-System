@@ -1,0 +1,38 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Avancement{% endblock %}
+
+{% block body %}
+    <h1>Avancement</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ avancement.id }}</td>
+            </tr>
+            <tr>
+                <th>DateDeci</th>
+                <td>{{ avancement.dateDeci ? avancement.dateDeci|date('Y-m-d') : '' }}</td>
+            </tr>
+            <tr>
+                <th>DateGrade</th>
+                <td>{{ avancement.dateGrade ? avancement.dateGrade|date('Y-m-d') : '' }}</td>
+            </tr>
+            <tr>
+                <th>Arrete</th>
+                <td>{{ avancement.arrete }}</td>
+            </tr>
+            <tr>
+                <th>NumDeci</th>
+                <td>{{ avancement.numDeci }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_avancement_index') }}">back to list</a>
+
+    <a href="{{ path('app_avancement_edit', {'id': avancement.id}) }}">edit</a>
+
+    {{ include('avancement/_delete_form.html.twig') }}
+{% endblock %}

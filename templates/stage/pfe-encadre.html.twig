@@ -1,0 +1,104 @@
+
+{% extends 'template.html.twig' %}
+
+{% block title %}{{'pfe_list_encadre'|trans}} {% endblock %} 
+ 
+{% block body %}
+
+				<!--breadcrumb-->
+
+                <div class="page-breadcrumb d-none d-sm-flex align-items-center mb-3">
+                        <div class="breadcrumb-title pe-3">{{'pfe'|trans}}</div>
+                        <div class="ps-3">
+                            <nav aria-label="breadcrumb">
+                            <ol class="breadcrumb mb-0 p-0">
+                                <li class="breadcrumb-item"><a href="javascript:;"><i class="bi bi-card-checklist"></i></a>
+                                </li>
+                                <li class="breadcrumb-item active" aria-current="page">  {{'pfe_list_encadre'|trans}}  </li> 
+                            </ol>
+                            </nav>
+                        </div>
+         
+                </div>
+                <hr>
+                {% if array_stage is not empty %}
+                <div class="card border-top border-success border-0 border-3">
+                    
+                    <div class="card-body">
+                        <div class="table-responsive">
+                        <table id="exe1" class="table table-striped table-bordered dataTable" style="text-align:center !important ;">
+                            <thead>
+                            <tr>
+                            
+                                    <th style="text-align:center !important ;">{{'code_apogee'|trans}}</th>
+                                    <th style="text-align:center !important ;">{{'nom'|trans}}</th>
+                                    <th style="text-align:center !important ;">{{'prenom'|trans}}</th>
+                                    <th style="text-align:center !important ;">{{'filiere'|trans}}</th>
+                                    <th style="text-align:center !important ;">{{'annee_univ'|trans}}</th>
+                                    <th style="text-align:center !important ;">{{'pfe'|trans}}</th>
+                                    	
+
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for e in array_stage %}
+                                    <tr>
+                                        <td><label>{{e.user.code}}</label></td>
+                                        <td><label>{{e.user.nom}}</label></td>
+                                        <td><label>{{e.user.prenom }}</label></td>
+                                        <td><label>{{e.filiere }}</label></td>
+                                        <td><label>{{e.anneeuniv }} / {{e.anneeuniv + 1 }}</label></td>
+
+                                        {% if e.id != 0 %}
+                                            <td>
+                                                <a class ='text-success' href="{{ path('conventions_loop', { 'id': e.id}) }}"><i class="bi bi-search"></i></a>
+                                            </td>
+                                        {% else %}
+                                            <td> </td>
+                                        {% endif %}
+ 
+                                    </tr>
+                                {% endfor %}
+                                
+                            </tbody>
+
+                                
+                        </table>
+                        
+                        </div>
+                        
+                    
+                    
+					</div>
+                  
+                    
+				</div>
+ 
+
+                {% else %}
+                      <div class="alert alert-success" >
+                          <strong>{{'MOD_EMPTY_LISTE'|trans}}</strong>  
+                      </div>
+                {% endif %}
+              
+
+
+
+  
+{% endblock %}
+{% block javascripts %}
+    {{parent()}}
+        {{ encore_entry_script_tags('convention') }}
+
+	<script>
+
+    function get_attest_params($var1,$var2){ 
+    document.getElementById("n_attest").value = $var1;
+    document.getElementById("demandeur_attest").value = $var2;
+  } 
+</script>
+        
+
+
+{% endblock %}
+

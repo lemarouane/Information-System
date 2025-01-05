@@ -1,0 +1,122 @@
+
+{% extends 'template.html.twig' %}
+
+{% block title %}{{'titles.histo'|trans}}{% endblock %}
+
+{% block body %}
+
+
+				<!--breadcrumb-->
+				<div class="page-breadcrumb d-none d-sm-flex align-items-center mb-3">
+					<div class="breadcrumb-title pe-3">{{'titles.histo'|trans}}</div>
+					<div class="ps-3">
+						<nav aria-label="breadcrumb">
+							<ol class="breadcrumb mb-0 p-0">
+								<li class="breadcrumb-item"><a href="javascript:;"><i class="bi bi-clock-history"></i></a>
+								</li>
+								<li class="breadcrumb-item active" aria-current="page">{{'titles.hist_dem'|trans}}</li>
+							</ol>
+						</nav>
+					</div>
+				
+				</div>
+				<hr/>
+				<div class="card">
+					<div class="card-body">
+						<div class="table-responsive">
+							<table id="example" class="table table-striped table-bordered" style="text-align:center !important ; " >
+								<thead>
+									<tr>
+					
+										<th style="text-align:center !important ; ">{{'n'|trans}}</th>
+										<th style="text-align:center !important ; ">{{'type_dem'|trans}}</th>	
+										<th style="text-align:center !important ; ">{{'date_envoie'|trans}}</th>	
+										<th style="text-align:center !important ; ">{{'statut'|trans}}</th>	
+										<th style="text-align:center !important ; ">{{'op'|trans}}</th>	
+        			
+							
+									
+									</tr>
+								</thead>
+								<tbody>
+	{% for histo_demande in histo_demandes %}
+<tr>
+      <td>{{ histo_demande.idDemande }}</td>
+	   <td>
+
+	    {% if histo_demande.typeDemande == 'autorisation' %}
+        {{'auto'|trans}}
+	   	 {% endif %}
+		  {% if histo_demande.typeDemande == 'conge' %}
+        {{'cong'|trans}}
+	   	 {% endif %}
+		  {% if histo_demande.typeDemande == 'ordre de mission' %}
+        {{'om'|trans}}
+	   	 {% endif %}
+		  {% if histo_demande.typeDemande == 'attestation' %}
+        {{'att'|trans}}
+	   	 {% endif %}
+		  {% if histo_demande.typeDemande == 'fiche heure' %}
+        {{'fh'|trans}}
+	   	 {% endif %}
+
+	   </td>
+ 	  <td>{{ histo_demande.dateEnvoie|date('Y-m-d - H:i') }}</td>
+  {% if histo_demande.statut  == '-1' %}
+                                        <td style="color:black;font-weight:bold;"> {{'encours'|trans}}</td>
+                                         
+                                           
+                                        {% elseif histo_demande.statut  == '0' %}
+                                        <td style="color:blue;font-weight:bold;"> {{'confime'|trans}}</td>
+                                         
+                                           
+                                        {% elseif histo_demande.statut  == '1' %}
+                                        <td style="color:green;font-weight:bold;"> {{'valide'|trans}}</td>
+                                         
+  
+                                        {% elseif histo_demande.statut  == '2' %}
+                                        <td style="color:red;font-weight:bold;"> {{'refuse'|trans}}</td>
+                                        {% else %}
+                                        <td></td>
+                                         {% endif %}      <td> 
+										   <div class="table-actions fs-6">
+	  {% if histo_demande.typeDemande == 'autorisation' %}
+	  <a href="{{ path('app_histo_demandes_show_auto_g', {'id': histo_demande.idDemande}) }}" class="text-tiffany" data-bs-toggle="tooltip" data-bs-placement="bottom" aria-label="Edit"><i class="bi bi-eye-fill"></i></a>
+	 {% endif %}
+
+	   {% if histo_demande.typeDemande == 'conge' %}
+	  <a href="{{ path('app_histo_demandes_show_conge_g', {'id': histo_demande.idDemande}) }}" class="text-tiffany" data-bs-toggle="tooltip" data-bs-placement="bottom" aria-label="Edit"><i class="bi bi-eye-fill"></i></a>
+	 {% endif %}
+
+	   {% if histo_demande.typeDemande == 'ordre de mission' %}
+	  <a href="{{ path('app_histo_demandes_show_ordremission_g', {'id': histo_demande.idDemande}) }}" class="text-tiffany" data-bs-toggle="tooltip" data-bs-placement="bottom" aria-label="Edit"><i class="bi bi-eye-fill"></i></a>
+	 {% endif %}
+
+	  {% if histo_demande.typeDemande == 'attestation' %}
+	  <a href="{{ path('app_histo_demandes_show_attestation_g', {'id': histo_demande.idDemande}) }}" class="text-tiffany" data-bs-toggle="tooltip" data-bs-placement="bottom" aria-label="Edit"><i class="bi bi-eye-fill"></i></a>
+	 {% endif %}
+
+	  {% if histo_demande.typeDemande == 'fiche heure' %}
+	  <a href="{{ path('app_histo_demandes_show_ficheheure_g', {'id': histo_demande.idDemande}) }}" class="text-tiffany" data-bs-toggle="tooltip" data-bs-placement="bottom" aria-label="Edit"><i class="bi bi-eye-fill"></i></a>
+	 {% endif %}
+	 </div>
+	  </td>
+
+</tr>
+       
+        {% endfor %}
+								</tbody>
+							
+							</table>
+						</div>
+
+
+					</div>
+				</div>
+
+        {% endblock %}
+
+
+
+
+

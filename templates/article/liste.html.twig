@@ -1,0 +1,103 @@
+
+{% extends 'template.html.twig' %}
+
+{% block title %}{{'stock'|trans}}{% endblock %}
+
+{% block body %}
+				<!--breadcrumb-->
+				<div class="page-breadcrumb d-none d-sm-flex align-items-center mb-3">
+					<div class="breadcrumb-title pe-3">{{'stock'|trans}}</div>
+					<div class="ps-3">
+						<nav aria-label="breadcrumb">
+							<ol class="breadcrumb mb-0 p-0">
+								<li class="breadcrumb-item"><a href="javascript:;"><i class="bi bi-box-seam"></i></a>
+								</li>
+								<li class="breadcrumb-item active" aria-current="page">{{'articles'|trans}}</li>
+							</ol>
+						</nav>
+					</div>
+				
+				</div>
+				<hr/>
+                {% if articles is not empty %}
+				<div class="card">
+					<div class="card-body">
+						<div class="table-responsive">
+							<table id="example" class="table table-striped table-bordered"  style="text-align:center !important ; " >
+								<thead>
+									<tr>
+										<th style="text-align:center !important ; ">{{"code"|trans}}</th>
+										<th style="text-align:center !important ; ">{{"fournisseur"|trans}}</th>
+                                        <th style="text-align:center !important ; ">{{"categorie"|trans}}</th>
+                                        <th style="text-align:center !important ; ">{{"s_categorie"|trans}}</th>
+                                        <th style="text-align:center !important ; ">{{"designation"|trans}}</th>
+                                        <th style="text-align:center !important ; ">{{"ref"|trans}}</th>
+                                        <th style="text-align:center !important ; ">{{"type"|trans}}</th>
+                                        <th style="text-align:center !important ; ">{{"seuil"|trans}}</th>
+                                        <th style="text-align:center !important ; ">{{"op"|trans}}</th>
+									</tr>
+								</thead>
+								<tbody>
+								    {% for article in articles %} 
+                                        <tr>
+                                            <td>{{article.code}}</td>
+                                            <td>{{article.fournisseur.raisonSociale}}</td>
+                                            <td>{{article.categorie.designation}}</td>
+                                            <td>{{article.sousCategorie.designation}}</td>
+                                            <td>{{article.designation}}</td>
+                                            <td>{{article.reference}}</td>
+                                            <td>
+                                             {% if article.inv is not empty %} 
+                                            {{"Inventorie"|trans}}
+                                                {% else %} 
+                                            {{"consommable"|trans}}
+                                                {% endif %} 
+                                            </td>
+                                           <td>{{article.seuil}}</td>
+
+                                            <td>
+                                                <div class="text-center">
+                                                    <a href="{{ path('showArticle', {'id': article.id}) }}" class="text-primary" data-bs-toggle="tooltip" data-bs-placement="bottom" aria-label="Views"><i class="bi bi-eye-fill"></i></a>&nbsp;&nbsp;
+                                            
+                                                    <a href="{{ path('editArticle', {'id': article.id}) }}" class="text-warning" data-bs-toggle="tooltip" data-bs-placement="bottom" aria-label="Edit"><i class="bi bi-pencil-fill"></i></a> &nbsp;&nbsp;
+                                                    <a href="{{ path('remove_Article', {'id': article.id ,'_token':csrf_token('delete' ~ article.id) }) }}" class="text-danger" data-bs-toggle="tooltip" data-bs-placement="bottom" aria-label="Delete" onclick=" function delete_msg_trans()
+                                                                {
+                                                                    langue = document.getElementById('langue').value  ;
+                                                                    
+                                                                    msg = 'Are you sure to delete this item ?';
+                                                                if(langue=='fr-FR'){
+                                                                msg = 'Êtes-vous sûr de vouloir supprimer cet enregistrement ?'
+                                                                    }
+                                                                if(langue=='en-GB'){
+                                                                msg = 'Are you sure to delete this item ?'
+                                                                        }
+                                                                if(langue=='ar-AR'){
+                                                                msg = '? هل أنت متأكد أنك تريد حذف هذا السجل '
+                                                                            }
+                                                                if(langue=='es-ES'){
+                                                                msg = '¿Está seguro de que desea eliminar este registro?'
+                                                                                }
+                                                                return msg ;
+                                                                }
+                                                                a = delete_msg_trans() ; return confirm(a)"><i class="bi bi-trash-fill"></i></a>
+                                                </div>
+                                            </td>			
+                                        </tr>
+                                    {% endfor %}
+								</tbody>
+							
+							</table>
+						</div>
+					</div>
+				</div>
+                {% else %}
+                    <div class="alert alert-success">
+                        <strong> {{"no_article"|trans}} </strong>  
+                    </div>
+                {% endif %}
+            	<a class="btn btn btn-primary px-4" href="{{ path('addArticle') }}"> {{'ajouter_article'|trans}}  </a>
+
+
+
+{% endblock %}
+

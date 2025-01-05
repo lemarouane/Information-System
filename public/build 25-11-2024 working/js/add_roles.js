@@ -1,0 +1,1 @@
+$("#utilisateurs_roles").change((function(){$.ajax({type:"GET",dataType:"json",data:{role:$("#utilisateurs_roles").val().toString()},url:"info_by_role",success:function(o){$("#utilisateurs_codes").find("option").remove(),$.each(o,(function(o,e){$("#utilisateurs_codes").append("<option value='"+e.id+"'>"+e.designation+"</option>")}))},error:function(){}})}));

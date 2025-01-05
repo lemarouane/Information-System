@@ -1,0 +1,8 @@
+<p>Bonjour Mr/Mme {{ conge.personnel.nom }} {{ conge.personnel.prenom }}</p>
+
+<p>Votre demande de congé N° {{ conge.id }} a été {{ conge.statut  == "1" ? 'Validé' : 'Refusé' }}</p>
+<p>Commentaire : {{ conge.motifRefu }}  </p>
+
+<p>Cordialement</p>
+
+<a href="https://app-ensat.uae.ac.ma/e-ensat/public/login">Accéder à la platforme E-ENSAT (Cliquer içi)</a>

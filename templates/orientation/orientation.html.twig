@@ -1,0 +1,166 @@
+{% extends 'template.html.twig' %}
+
+{% block title %}{{'orientation'|trans}}{% endblock %}
+{% block stylesheets %}
+    {{ parent() }}
+    <link href="{{ asset('uploads/css/orientation.css')}}" rel="stylesheet">
+{% endblock %}
+{% block body %}
+
+<div class="example-wrapper">
+        <div class="page-breadcrumb d-none d-sm-flex align-items-center mb-3">
+              <div class="breadcrumb-title pe-3">{{'orientation'|trans}}</div>
+              <div class="ps-3">
+                <nav aria-label="breadcrumb">
+                  <ol class="breadcrumb mb-0 p-0">
+                    <li class="breadcrumb-item"><a href="javascript:;"><i class="bi bi-arrows-move"></i></a>
+                    </li>
+                    <li class="breadcrumb-item active" aria-current="page">{{'parametres'|trans}}</li>
+                  </ol>
+                </nav>
+              </div>
+         
+          </div>
+<div class="row">
+
+        <div class="row">
+
+              <div class="col-12 col-lg-6 col-xl-6 d-flex ">
+                <div class="card radius-10 w-100 border-top border-primary border-0 border-3">
+                  <div class="card-body">
+                    <form action="{{path('capaciteFiliere')}}" id="jsForm1" method="post" name="theForm" >
+                        <div class="row row-cols-1 row-cols-lg-2 g-3 align-items-center pb-3">
+                                    <div class="col-6">
+                                        <label class="form-label" for="ginf">GINF</label>
+                                        <input class="form-control" type="number"  id="ginf" name="searchParam[ginf]" value="{{ app_config('capacite_ginf') }}">
+                                    </div>
+                                    <div class="col-6">
+                                        <label  class="form-label" for="gil">GIL</label>
+                                        <input  class="form-control" type="number"  id="gil" name="searchParam[gil]" value="{{ app_config('capacite_gil') }}">
+                                    </div>
+                                    <div class="col-6">
+                                        <label class="form-label" for="g3ei">G3EI</label>
+                                        <input class="form-control" type="number"  id="g3ei" name="searchParam[g3ei]" value="{{ app_config('capacite_g3ei') }}">
+                                    </div>
+                                    <div class="col-6">
+                                        <label class="form-label" for="gsea">GSEA</label>
+                                        <input class="form-control"  type="number"  id="gsea" name="searchParam[gsea]" value="{{ app_config('capacite_gsea') }}">
+                                    </div>
+                                    <div class="col-12">
+                                        <label class="form-label" for="gstr">GSTR</label>
+                                        <input class="form-control" type="number"  id="gstr" name="searchParam[gstr]" value="{{ app_config('capacite_gstr') }}">
+                                    </div>
+                                    <div class="col-12">
+                                        <label class="form-label" for="gcys">GCYS</label>
+                                        <input class="form-control" type="number"  id="gcys" name="searchParam[gcys]" value="{{ app_config('capacite_gcys') }}">
+                                    </div>
+   
+                                    {% set somme = app_config('capacite_gstr')+app_config('capacite_gil')+app_config('capacite_ginf')+app_config('capacite_g3ei')+app_config('capacite_gsea')+app_config('capacite_gcys') %}
+                                    <div class="col-12">
+                                        <label class="form-label" for="ginf">Total</label>
+                                        <input class="form-control"  id="total" value="{{ somme }}" disabled="" style="border: 0px;">
+                                    </div>
+                                    <div><button class="btn bg-primary" style="color:white; float:right">Enregistrer</button></div>
+
+                        </div>
+                        
+                    </form> 
+                  </div>
+                </div>
+              </div>
+
+               <div class="col-12 col-lg-6 col-xl-6 d-flex">
+                <div class="card radius-10 w-100 border-top border-orange border-0 border-3">
+                  <div class="card-body">
+                     <div class="row row-cols-1 row-cols-lg-2 g-3 align-items-center pb-3">
+                        <div class="col">
+                          <h5 class="mb-0"> Capacité de filière </h5>
+                        </div>
+                       
+                     </div>
+                     <div id="chart1"></div>
+                  </div>
+                </div>
+              </div>
+          
+        </div><!--end row-->
+
+
+
+        <div class="row">
+
+              <div class="col-12 col-lg-6 col-xl-12 col-xxl-6 d-flex">
+                <div class="card radius-10 w-100 border-top border-success border-0 border-3">
+                  <div class="card-body">
+                     <div>
+                        <form action="{{ path('envoyerLeursChoix') }}" id="affecter" method="post">
+                            <input type="submit" value="Informer les étudiants d'envoyer leurs choix" class="btn col-12" id="EnvoyerChoix" style="background-color:#CD5C5C;color:white; margin-top: 30px;">
+                        </form>
+                        <form action="{{ path('rappelEnvoyeChoix') }}" id="rappel" method="post">
+                            <input type="submit" value="Rappeler aux étudiants d'envoyer leurs choix" class="btn  col-12" id="RappelEnvoyerChoix" style="background-color:#C7B446;color:white; margin-top: 30px;">
+                        </form>
+                        <form action="{{ path('envoyerChoix') }}" id="Resultat" method="post">
+                            <input type="submit" value="Envoyer un Email de confirmation de choix " class="btn   col-12" id="ConfirmationChoix" style="background-color:#CD5C5C;color:white;margin-top: 30px;">
+                        </form>
+                       
+                     </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-12 col-lg-6 col-xl-12 col-xxl-6 d-flex">
+                <div class="card radius-10 w-100 border-top border-danger border-0 border-3">
+                  <div class="card-body">
+                     <div>
+                        <form action="{{ path('affectationAutomatique') }}" id="choixaffecter" method="post">
+                                <input type="submit" value="Affectation automatique" class="btn  col-12" id="affectationChoix" style="background-color:#C7B446;color:white;margin-top: 30px;">
+                        </form>
+                        <div class="kNhWCl">
+                            <span class="ilYQjq">Arrêter les choix</span>
+                            
+                            <div class=" smart-form row">
+                                <section class="col col-12">
+                                    <!-- Rounded switch -->
+                                    <label class="switch">
+                                        <input type="checkbox"  id="platformActive" name="platformActive" {% if app_config('plateforme_ouvert') == 'true' %}checked="checked" {% endif %} >
+                                        <span  class="slider round"></span>
+                                    </label>
+                                </section>
+
+                            </div>
+                            <span class="ilYQjq" style="text-align: right;">Autoriser les choix</span>
+                        </div>
+                        <form action="{{ path('envoyerResultat') }}" id="Resultat" method="post">
+                            <input type="submit" value="Envoyer les résultats" class="btn  col-12" id="EnvoyerResultat" style="background-color:#CD5C5C;color:white; margin-top: 30px;">
+                        </form>
+                       
+                     </div>
+                  </div>
+                </div>
+              </div>
+
+              
+
+        
+    </div><!--end row-->
+
+<!--end row-->
+ 
+</div>
+
+
+
+{% endblock %}
+
+
+    {% block javascripts %}
+      {{parent()}}
+      <script src="{{ asset('uploads/js/apexcharts-bundle/js/apexcharts.js') }}"></script>	
+      {{ encore_entry_script_tags('orientation_home') }} 
+
+    {% endblock %}
+
+
+
+
+

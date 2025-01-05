@@ -1,0 +1,430 @@
+﻿
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Ordre de Mission</title>
+		<meta charset="utf-8">
+
+
+    <style type="text/css">
+      body{
+      margin-left:25px;
+      margin-right:25px;
+    }
+    .label_date{
+      font-size: 20px;
+      font-weight: bold;
+      text-align: left;
+      padding-top: 20%;
+    }
+    .label_date1{
+      font-size: 20px;
+      font-weight: bold;
+      text-align: center;
+      padding-top: 5%;
+    }
+    h1{
+      font-size: 24px;
+      font-weight: bold;
+      text-align: center;
+      padding-top: 5%;
+      margin-bottom:5%;
+    }
+    p{
+      text-align: justify;
+      font-size:18px;
+    }
+    
+    .right {
+      text-align: right;
+      margin-right: 1em;
+    }
+
+    .left {
+      text-align: left;
+      margin-right: 1em;
+    }
+
+    .center {
+      text-align: center;
+    }
+    .demande th {
+      text-align: left;
+      margin-left: 1em;
+      background-color: #f0f5f5;
+      width: 30%
+    }
+    .ordre th {
+      text-align: left;
+      margin-left: 1em;
+      width: 30%
+    }
+    table {
+
+      font-family : "Times New Roman", Arial, Verdana, Sans-serif;
+      margin: none;
+      width:100%;
+      border-collapse: collapse;
+      
+    }
+
+    table, th, td {
+      font-size:18px;
+      border: 1px solid black;
+      padding-left: 10px;
+      padding-right: 10px;
+    }
+    
+    </style>
+	</head>
+	         <body>
+              <div style="page-break-after:always" class="demande">               
+                <h1>Demande d'Ordre de Mission </h1> 
+                <table class="table table-striped table-bordered" >
+                  <tr>
+                    <th>
+                      Nom et Prenom
+                    </th>
+                    <td>
+                        {{ordreMission.personnel.nom }}  {{ordreMission.personnel.prenom}}
+                    </td>
+                  </tr>
+                  <tr>
+                    <th>
+                      Structure d'attache:
+                    </th>
+                    <td>
+                        {{ordreMission.personnel.departementId.libelleDep}}
+                    </td>
+                  </tr>
+                  <tr>
+                    <th>
+                      Date de dépot:
+                    </th>
+                    <td>
+                      {{ordreMission.dateEnvoie|date("d/m/Y")}}
+                    </td>
+                  </tr> 
+                </table>
+                <br>
+                <p>Monsieur le Directeur,<br>
+                  J’ai le plaisir de vous demander de bien vouloir m’accorder un ordre de mission pour :
+                </p><br>
+                  <table  class="table table-striped table-bordered">
+                    <tr>
+                      <th width="40%">
+                        Vocation de la mission 
+                      </th>
+                      <td>
+                    
+
+{% if ordreMission.typeMission == "R" %}
+<span>Recherche</span>
+{% endif %}
+{% if ordreMission.typeMission == "D" %}
+<span>Déplacement</span>
+{% endif %}
+{% if ordreMission.typeMission == "E" %}
+<span>Enseignement</span>
+{% endif %}
+
+                      </td>
+                    </tr>
+                    <tr>
+                      <th width="40%">
+                        Cadre de la mission    
+                      </th>
+                      <td>
+                          {{ordreMission.cadreMission}}
+                      </td>
+                    </tr>
+                    <tr>
+                      <th width="40%">
+                        Objet de la mission    
+                      </th>
+                      <td>
+                        {{ordreMission.objetMission}}
+                      </td>
+                    </tr>
+                    <tr>
+                      <th width="40%">
+                        Structure d’accueil    
+                      </th>
+                      <td>
+                        {{ordreMission.structureAcceuil}}
+                      </td>
+                    </tr>
+                    <tr>
+                      <th width="40%">
+                        Période de la mission  
+                      </th>
+                      <td style="padding-left: 20px;">
+                        <ul>              
+                          <li>
+                            du: {{ordreMission.dateDebut|date("d/m/Y")}} à 7h
+                          </li>
+                          <li>
+                            Au: {{ordreMission.dateFin|date("d/m/Y")}} à 23h
+                          </li>
+                        </ul>
+                      </td>
+                    </tr>
+
+                    <tr>
+                      <th width="40%">
+                        Financement de la mission 
+                      </th>
+                      <td style="padding-left: 20px;">
+                        <ul>
+                          {% for fn in ordreMission.financementMission %}
+                            <li>
+                              {% if fn == 'Autre' %}
+                                Autre:  {{ ordreMission.valeurAutre }}
+                              {% elseif fn == 'Projet' %}
+                                Projet:  {{ ordreMission.valeurProjet }}
+                              {% elseif fn == 'FC' %}
+                                 Formation continue:  {{ ordreMission.valeurfc }}
+                              {% elseif fn == 'Laboratoire' %}
+                                Laboratoire:  {{ ordreMission.personnel.structureRech.libelleStructure }}
+                              {% elseif fn == 'Departement' %}
+                                Departement:  {{ ordreMission.personnel.departementId.libelleDep }}
+                              {% else %}
+                                {{ fn }}
+                              {% endif %}
+                            </li>
+                          {% endfor %}
+                        </ul>
+                      </td>
+                    </tr>
+{% if ordreMission.financementvoyage is not empty %}
+                      <tr>
+                      <th width="40%">
+                        Financement du voyage
+                      </th>
+                      <td style="padding-left: 20px;">
+                        <ul>
+                          {% for fn in ordreMission.financementvoyage %}
+                            <li>
+                              {% if fn == 'Autre' %}
+                                Autre:  {{ ordreMission.valeurautrevg }}
+                              {% elseif fn == 'Projet' %}
+                                Projet:  {{ ordreMission.valeurprojetvg }}
+                              {% elseif fn == 'FC' %}
+                                Formation continue:  {{ ordreMission.valeurfc }}
+                              {% elseif fn == 'Laboratoire' %}
+                                Laboratoire:  {{ ordreMission.personnel.structureRech.libelleStructure }}
+                              {% elseif fn == 'Departement' %}
+                                Departement:  {{ ordreMission.personnel.departementId.libelleDep }}
+                              {% else %}
+                                {{ fn }}
+                              {% endif %}
+                            </li>
+                          {% endfor %}
+                        </ul>
+                      </td>
+                    </tr>
+{% endif %}
+                  </table>   
+                  <h2><u>Signature: </u></h2><br>
+                  <table class="table table-striped table-bordered">
+                    <tr>
+                      <td height="150px;" width="40%" style="vertical-align: top;">
+                        <p>
+                          <strong>Signature,précédée de la mention :</strong><br>
+                            Je m’engage à rendre un rapport succinct de la mission.
+                        </p>
+                      </td>
+                      <td rowspan="2" style="vertical-align: top;">
+                        <p>
+                          <strong>Avis et Signature, du Responsable de la Structure qui finance cette mission  :</strong><br>
+                            Joindre obligatoirement le(s) formulaire(s) de demande d’exécution pour chaque requête financière à prendre en charge, dûment signé(s) par vos soins.
+                        </p>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td height="150px;" width="40%" style="vertical-align: top;">
+                        <p>
+                          <strong>Avis et Signature du Chef de la Structure d’attache (Département, ou Service Administratif) :</strong>  <br>  
+                        </p>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td  height="110px;" width="40%" style="vertical-align: top;">
+                        <p>
+                          <strong> Observations du Service Financier et Matériel :</strong> 
+                        </p>  
+                      </td>
+                      <td  height="110px;" style="vertical-align: top;">
+                        <p>
+                          <strong>Avis et Signature du Directeur :</strong>
+                        </p>
+                      </td>
+                    </tr>
+                  </table>
+                </div>
+
+
+                <div style="page-break-after:always" class="demande">   
+                  <h1>Engagement Pour Depart en Mission</h1>
+                  <p>Je m’engage à ce que, lors de mon absence, mes responsabilités pédagogiques seront assurées telles que :</p>
+                  {% for en in ordreMission.engagements %}
+                    <ul id="ordreMissionUL">
+                      <li>{{ en.typeEngagement }}</li>
+                    </ul>
+                    <table>
+                      <tr>
+                        <th width="40%">
+                          Matière 
+                        </th>
+                        <td>
+                          {{en.matiere}}
+                        </td>
+                      </tr>
+                      <tr>
+                        <th width="40%">
+                          A faire le    
+                        </th>
+                        <td>
+                          {{en.dateFait|date("d/m/Y")}}
+                        </td>
+                      </tr>
+                      <tr>
+                        <th width="40%">
+                          Nom de remplaçant    
+                        </th>
+                        <td>
+                          {{en.personnel.nom}}
+                        </td>
+                      </tr>
+                    </table>
+                  {% endfor %}
+                  <h2><u>Signature: </u></h2>
+                    <table  class="table table-striped table-bordered">
+                      <tr>
+                        <td height="150px;" width="40%" style="vertical-align: top;">
+                          <p>
+                            <strong>Date et Signature du concerné par la mission:</strong>
+                          </p>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td height="150px;" width="40%" style="vertical-align: top;">
+                          <p>
+                            <strong>Avis et signature du Chef de Département:</strong> 
+                          </p>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td  height="300px;" width="40%" style="vertical-align: top;">
+                          <p>
+                            <strong> Signature du Directeur des Etudes attestant la prise note des dits engagements, avec éventuellement émission de certaines observations (à citer ici)  :</strong> 
+                          </p>  
+                        </td>
+                      </tr>
+                    </table>   
+                  </div>
+
+
+
+                  <div id="ordre">
+                    <div class="label_date" style="padding-bottom: 10%;padding-top:30%">
+                N°{{nb_om}}/{{ "now"|date("Y") }}
+                    </div>
+                     <p>M. Le Directeur de l'Ecole Nationale des Sciences Appliquées de Tanger ordonne à </p>
+                    <table style="border:none; margin-left:20%; width: 80%">
+                      <tr>
+                        <th class="left" style="height: 40px;border:none;">
+                          {% if ordreMission.personnel.genre == 'M' %}  M. {% else %} Mme. {% endif %}                
+                        </th>
+                        <td style="border:none;">
+                          :&nbsp;&nbsp;&nbsp;{{ordreMission.personnel.nom}} {{ordreMission.personnel.prenom}}
+                        </td>
+                      </tr>
+                      <tr>
+                        <th class="left" style="height: 40px;border:none;">
+                          Grade
+                        </th>
+                        <td style="border:none;">
+                          :&nbsp;&nbsp;&nbsp;{{ordreMission.personnel.gradeId.corpsId.designationFR}}
+                        </td>
+                      </tr>
+                       
+                      
+
+		{% if  ("ROLE_DIR_ADJ" in ordreMission.personnel.idUser.roles) or ("ROLE_PROF" in ordreMission.personnel.idUser.roles) or ("ROLE_CHEF_FIL" in ordreMission.personnel.idUser.roles) or ("ROLE_CHEF_DEP" in ordreMission.personnel.idUser.roles)  or ("ROLE_CHEF_SERV" in ordreMission.personnel.idUser.roles)  or ("ROLE_DIR" in ordreMission.personnel.idUser.roles)  %}
+
+		      {% if ordreMission.personnel.fonctionExercee.fonctionExercee != '     ' %}
+		      <tr>
+                        <th class="left" style="height: 40px;border:none;">
+                          Fonction
+                        </th>
+                        <td style="border:none;">
+                          :&nbsp;&nbsp;&nbsp;{{ ordreMission.personnel.fonctionExercee.fonctionExercee }}
+                        </td>
+                      </tr>
+		      {% endif %}
+{% endif %}  
+
+                      <tr>
+                        <th class="left" style="height: 40px;border:none;">
+                          De se rendre en mission                
+                        </th>
+                        <td style="border:none;">
+                          :&nbsp;&nbsp;&nbsp;{{ordreMission.destination}}
+                        </td>
+                      </tr>
+                      <tr>
+                        <th class="left" style="height: 40px;border:none;">
+                          Objet de la mission
+                        </th>
+                        <td style="border:none;">
+                          :&nbsp;&nbsp;&nbsp;{{ordreMission.objetMission}}
+                        </td>
+                      </tr>
+
+                      <tr>
+                        <th class="left" style="height: 40px;border:none;">
+                          Moyen de transport
+                        </th>
+                        <td style="border:none;">
+                          :&nbsp;&nbsp;&nbsp;{{ordreMission.moyenTransport}}
+                        </td>
+                      </tr>
+                      <tr>
+{% if ordreMission.marqueauto is not null %}
+                       <tr>
+                        <th class="left" style="height: 40px;border:none;">
+                          Marque de la voiture
+                        </th>
+                        <td style="border:none;">
+                          :&nbsp;&nbsp;&nbsp;{{ordreMission.marqueauto}} - <span style="font-weight:bold;">Immatriculée</span> : {{ordreMission.matriculeauto}}
+                        </td>
+                      </tr>
+                     
+{% endif %}
+                       <tr>
+                        <th class="left" style="height: 40px;border:none;">
+                          Date de départ                 
+                        </th>
+                        <td style="border:none;">
+                          :&nbsp;&nbsp;&nbsp;{{ordreMission.dateDebut|date("d/m/Y")}} à 7h
+                        </td>
+                      </tr>
+                      <tr>
+                        <th class="left" style="height: 40px;border:none;">
+                          Date de retour                 
+                        </th>
+                        <td style="border:none;">
+                          :&nbsp;&nbsp;&nbsp;{{ordreMission.dateFin|date("d/m/Y")}} à 23h
+                        </td>
+                      </tr> 
+                    </table>
+                    <p style="color: red; font-size: 24px;padding-top:10%">
+                      Les autorités sont priées porter aide et assistance au porteur du présent ordre de mission.
+                    </p>
+                   <div class="label_date1" style="padding-top:10%">
+                      Tanger , le {% if date_om|default(null) %} {{date_om|date("d/m/Y")}} {% else %} {{"now"|date("d/m/Y")}} {% endif %}
+                    </div>
+                  </div>   
+	</body>
+</html>

@@ -1,0 +1,62 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Conge{% endblock %}
+
+{% block body %}
+    <h1>Conge</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ conge.id }}</td>
+            </tr>
+            <tr>
+                <th>DateDebut</th>
+                <td>{{ conge.dateDebut ? conge.dateDebut|date('Y-m-d') : '' }}</td>
+            </tr>
+            <tr>
+                <th>DateReprise</th>
+                <td>{{ conge.dateReprise ? conge.dateReprise|date('Y-m-d') : '' }}</td>
+            </tr>
+            <tr>
+                <th>TypeConge</th>
+                <td>{{ conge.typeConge }}</td>
+            </tr>
+            <tr>
+                <th>NbJour</th>
+                <td>{{ conge.nbJour }}</td>
+            </tr>
+            <tr>
+                <th>DateEnvoie</th>
+                <td>{{ conge.dateEnvoie ? conge.dateEnvoie|date('Y-m-d') : '' }}</td>
+            </tr>
+            <tr>
+                <th>Motifs</th>
+                <td>{{ conge.motifs }}</td>
+            </tr>
+            <tr>
+                <th>Statut</th>
+                <td>{{ conge.statut }}</td>
+            </tr>
+            <tr>
+                <th>Lien</th>
+                <td>{{ conge.lien }}</td>
+            </tr>
+            <tr>
+                <th>Niveau</th>
+                <td>{{ conge.niveau }}</td>
+            </tr>
+            <tr>
+                <th>Bloque</th>
+                <td>{{ conge.bloque ? 'Yes' : 'No' }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_conge_index') }}">back to list</a>
+
+    <a href="{{ path('app_conge_edit', {'id': conge.id}) }}">edit</a>
+
+    {{ include('conge/_delete_form.html.twig') }}
+{% endblock %}

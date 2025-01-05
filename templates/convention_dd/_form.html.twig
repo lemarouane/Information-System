@@ -1,0 +1,40 @@
+                   <div class="row g-3">
+                        <div class="col-6">
+                            {{ form_row(form.etablissement ,{ 'attr' : { 'class' : 'form-control' }}) }}
+                        </div>
+
+                        <div class="col-6">
+                            {{ form_row(form.contactEtab ,{ 'attr' : { 'class' : 'form-control' }}) }}
+                        </div>
+                        <div class="col-6">
+                            {{ form_row(form.pays ,{ 'attr' : { 'class' : 'form-control' }}) }}
+                        </div>
+                        <div class="col-6">
+                            {{ form_row(form.email ,{ 'attr' : { 'class' : 'form-control' }}) }}
+                        </div>
+                        <div class="col-6">
+                            {{ form_row(form.phone ,{ 'attr' : { 'class' : 'form-control' }}) }}
+                        </div>
+                        <div class="col-6">
+                            {{ form_row(form.ville,{ 'attr' : { 'class' : 'form-control' }}) }} 
+                        </div>
+                        <div class="col-6">
+                            <label for="fichier" class="form-label">{{'invit'|trans}}</label>
+                            {{ form_widget(form.fichier,{'attr': {'class':'form-control','type':'file','id':'formFile','style':'visibility: visible;'}}) }}
+                        </div>
+                        <div class="col-6">
+                           {{ form_row(form.filiere ,{ 'attr' : { 'class' : 'form-select' }}) }}
+                       </div>
+                       <div class="col-6">
+                            {{ form_row(form.datedebut ,{ 'attr' : { 'class' : 'result form-control js-dateDebutConvention' }}) }}
+                        </div>
+                        <div class="col-6">
+                            {{ form_row(form.datefin,{ 'attr' : { 'class' : 'result form-control js-dateFinConvention' }}) }} 
+                        </div>
+                        <div class="col-6">
+                            {{ form_row(form.contactEnsa ,{ 'attr' : { 'class' : 'form-control' }}) }}
+                        </div>
+                        {{ form_row(form._token) }}
+
+                    </div>
+                

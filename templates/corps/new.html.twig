@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New Corps{% endblock %}
+
+{% block body %}
+    <h1>Create new Corps</h1>
+
+    {{ include('corps/_form.html.twig') }}
+
+    <a href="{{ path('app_corps_index') }}">back to list</a>
+{% endblock %}

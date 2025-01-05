@@ -1,0 +1,91 @@
+
+{% extends 'template.html.twig' %}
+
+{% block title %}{{'finance'|trans}}{% endblock %}
+{% block stylesheets %}
+    {{ parent() }}
+    
+{% endblock %}
+
+
+{% block body %}
+
+				<!--breadcrumb-->
+				<div class="example-wrapper">
+                    <div class="page-breadcrumb d-none d-sm-flex align-items-center mb-3">
+                        <div class="breadcrumb-title pe-3">{{'finance'|trans}} </div>
+                        <div class="ps-3">
+                            <nav aria-label="breadcrumb">
+                            <ol class="breadcrumb mb-0 p-0">
+                                <li class="breadcrumb-item"><a href="javascript:;"><i class="bi bi-cash-coin"></i></a>
+                                </li>
+                                <li class="breadcrumb-item active" aria-current="page">{{'exporter_paiements'|trans}}</li>
+                            </ol>
+                            </nav>
+                        </div>
+         
+                </div>
+                <hr>
+                <div class="row">
+
+			
+
+                    <div class="col-6">
+                        <div class="card border-top border-success border-0 border-3">
+                            <div class="card-header py-3 bg-transparent"> 
+                                <h5 class="mb-0"> {{'exporter_liste_paiements_par_mois'|trans}} </h5>
+                            </div>
+                            <div class="card-body ">
+                                <div class="border p-3 rounded">
+                                    <form class="row g-3" name="importFile" method="post" action="{{ path('export_plist_mois') }}" enctype="multipart/form-data">
+                                        <div class="col-12">
+
+                                            <label class="form-label"> {{'annee_exerc'|trans}} </label>
+                                            <select class="form-select" id="annee" name="importFile[annee]">
+                                                {% for annee in annee_exerc %}
+                                                    <option value="{{annee}}">{{annee}}</option>
+                                                {% endfor %}
+                                            </select>
+                                            
+                                        </div>
+                                        <div class="col-12">
+                                        
+                                            <label class="form-label"> {{'mois'|trans}} </label>
+                                            <select class="form-select" id="mois" name="importFile[mois]">
+                                                <option value="TOUS">{{'tous'|trans}} </option>
+                                                <option value="01">{{'janvier'|trans}} </option>
+                                                <option value="02">{{'fevrier'|trans}} </option>
+                                                <option value="03">{{'mars'|trans}} </option>
+                                                <option value="04">{{'avril'|trans}} </option>
+                                                <option value="05">{{'mai'|trans}} </option>
+                                                <option value="06">{{'juin'|trans}} </option>
+                                                <option value="07">{{'juillet'|trans}} </option>
+                                                <option value="08">{{'aout'|trans}} </option>
+                                                <option value="09">{{'septembre'|trans}} </option>
+                                                <option value="10">{{'octobre'|trans}} </option>
+                                                <option value="11">{{'novembre'|trans}} </option>
+                                                <option value="12">{{'decembre'|trans}} </option>
+                                        
+                                            </select>
+                                        </div>
+                                  
+                                        
+                                        
+                                        <div class="col-12">
+                                            <button class="btn btn-primary px-4">{{'valider'|trans}} </button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>            
+
+
+
+
+
+
+  
+{% endblock %}
+

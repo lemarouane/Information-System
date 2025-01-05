@@ -1,0 +1,317 @@
+
+{% extends 'template.html.twig' %}
+
+{% block title %}{{'titles.histo'|trans}}{% endblock %}
+
+{% block body %}
+
+
+
+<div class="page-breadcrumb d-none d-sm-flex align-items-center mb-3">
+    <div class="breadcrumb-title pe-3">{{'titles.histo'|trans}}</div>
+         <div class="ps-3">
+            <nav aria-label="breadcrumb">
+             <ol class="breadcrumb mb-0 p-0">
+                <li class="breadcrumb-item"><a href="javascript:;"><i class="bi bi-clock-history"></i></a></li>
+                <li class="breadcrumb-item active" aria-current="page">{{'hist_dem_valide'|trans}}</li>
+            </ol>
+        </nav>
+    </div>
+</div> 
+
+<hr/>
+
+<div class="card">
+   <div class="card-body">
+   <div class="card-header py-2 bg-transparent">
+                  <h6 class="mb-0">{{'liste_om_valide'|trans}}</h6> 
+                </div>
+       <div class="table-responsive">
+			<table id="example_om_v" class="table table-striped table-bordered" style="text-align:center !important ; " >
+					<thead>
+							<tr>
+				 		            	<th style="text-align:center !important ; ">{{'n'|trans}}</th>
+										<th style="text-align:center !important ; ">{{'demandeur'|trans}}</th>	
+										<th style="text-align:center !important ; ">{{'date_debut'|trans}}</th>	
+										<th style="text-align:center !important ; ">{{'date_fin'|trans}}</th>	
+									    <th style="text-align:center !important ; ">{{'moy_transp'|trans}}</th>		
+										<th style="text-align:center !important ; ">{{'statut'|trans}}</th>	
+										<th style="text-align:center !important ; ">{{'invit'|trans}}</th>	
+										<th style="text-align:center !important ; ">{{'telecharger_pdf'|trans}}</th>				
+							</tr>
+					</thead>
+
+				    <tbody>
+			{% for om in oms %}
+<tr>
+      <td>{{ om.id }}</td>
+	        <td>{{ om.personnel.nom }} {{ om.personnel.prenom }}</td>
+	 
+ 	  
+	   <td>{{ om.dateDebut|date('Y-m-d - H:i') }}</td>
+	    <td>{{ om.dateFin|date('Y-m-d - H:i') }}</td>
+	    <td>{{ om.moyenTransport }}</td>
+		 
+  {% if om.statut  == '-1' %}
+                                        <td style="color:black;font-weight:bold;">{{'encours'|trans}}</td>
+                                         
+                                           
+                                        {% elseif om.statut  == '0' %}
+                                        <td style="color:blue;font-weight:bold;"> {{'confime'|trans}}</td>
+                                         
+                                           
+                                        {% elseif om.statut  == '1' %}
+                                        <td style="color:green;font-weight:bold;"> {{'valide'|trans}}</td>
+                                         
+  
+                                        {% elseif om.statut  == '2' %}
+                                        <td style="color:red;font-weight:bold;"> {{'refuse'|trans}}</td>
+                                        {% else %}
+                                        <td></td>
+                                         {% endif %}   
+
+		 <td> 
+		 <div class="table-actions fs-6">
+													{% if om.invitation is not empty %}
+														<a target="_blank" href="{{ asset('webroot/docs/' ~ om.personnel.nom ~ '_' ~ om.personnel.prenom ~ '/Ordre_mission/' ~ om.invitation) }}"><i class="bi bi-file-earmark"></i></a>&nbsp;
+													{% endif %}	
+		</div>
+		 </td>	
+ 
+<td> 
+					{% if om.lien is not empty %}
+									<a target="_blank" href="{{ asset('webroot/docs/' ~ om.personnel.nom ~ '_' ~ om.personnel.prenom  ~ '/Ordre_mission/' ~ om.lien) }}"><i class="bi bi-file-earmark-pdf"></i></a>&nbsp;
+					{% endif %}
+</td>
+
+</tr>
+        
+        {% endfor %}
+				</tbody>				
+			</table>
+		</div>
+	</div>
+</div>
+
+ 
+
+<div class="card">
+   <div class="card-body">
+   <div class="card-header py-2 bg-transparent">
+                  <h6 class="mb-0">{{'liste_conge_valide'|trans}}</h6> 
+   </div>
+       <div class="table-responsive">
+			<table id="example_conge_v" class="table table-striped table-bordered" style="text-align:center !important ; " >
+					<thead>
+							<tr>
+						         <th style="text-align:center !important ; ">{{'n'|trans}}</th>
+										<th style="text-align:center !important ; ">{{'demandeur'|trans}}</th>	
+										<th style="text-align:center !important ; ">{{'date_debut'|trans}}</th>	
+										<th style="text-align:center !important ; ">{{'date_reprise'|trans}}</th>	
+									    <th style="text-align:center !important ; ">{{'type'|trans}}</th>		
+										<th style="text-align:center !important ; ">{{'nb_Jours'|trans}}</th>	
+										<th style="text-align:center !important ; ">{{'statut'|trans}}</th>	
+										<th style="text-align:center !important ; ">{{'telecharger_pdf'|trans}}</th>	   				
+							</tr>
+					</thead>
+
+				    <tbody>
+				{% for c in conges %}
+<tr>
+      <td>{{ c.id }}</td>
+	        <td>{{ c.personnel.nom }} {{ c.personnel.prenom }}</td>
+	 
+ 	  
+	    <td>{{ c.dateDebut|date('Y-m-d - H:i') }}</td>
+	    <td>{{ c.dateReprise|date('Y-m-d - H:i') }}</td>
+	    <td>
+
+		{% if c.typeConge  == 'N' %}
+		{{'normale'|trans}}
+		{% endif %}
+	    {% if c.typeConge  == 'E' %}
+        {{'excep'|trans}}
+	    {% endif %}
+	
+		</td>
+		<td>{{ c.nbJour }}</td> 
+		 
+  {% if c.statut  == '-1' %}
+                                        <td style="color:black;font-weight:bold;">{{'encours'|trans}}</td>
+                                         
+                                           
+                                        {% elseif c.statut  == '0' %}
+                                        <td style="color:blue;font-weight:bold;"> {{'confime'|trans}}</td>
+                                         
+                                           
+                                        {% elseif c.statut  == '1' %}
+                                        <td style="color:green;font-weight:bold;"> {{'valide'|trans}}</td>
+                                         
+  
+                                        {% elseif c.statut  == '2' %}
+                                        <td style="color:red;font-weight:bold;"> {{'refuse'|trans}}</td>
+                                        {% else %}
+                                        <td></td>
+                                         {% endif %}   
+
+			
+ 
+	<td> 
+					{% if c.lien is not empty %}
+									<a target="_blank" href="{{ asset('webroot/docs/' ~ c.personnel.nom ~ '_' ~ c.personnel.prenom  ~ '/Conge/' ~ c.lien) }}"><i class="bi bi-file-earmark-pdf"></i></a>&nbsp;
+					{% endif %}
+</td>
+
+</tr>
+        
+        {% endfor %}
+				</tbody>				
+			</table>
+		</div>
+	</div>
+</div>
+
+
+
+
+
+
+<div class="card">
+   <div class="card-body">
+   <div class="card-header py-2 bg-transparent">
+                  <h6 class="mb-0">{{'liste_auto_valide'|trans}}</h6> 
+   </div>
+       <div class="table-responsive">
+			<table id="example_auto_v" class="table table-striped table-bordered" style="text-align:center !important ; " >
+					<thead>
+							<tr>
+						         <th style="text-align:center !important ; ">{{'n'|trans}}</th>
+										<th style="text-align:center !important ; ">{{'demandeur'|trans}}</th>	
+										<th style="text-align:center !important ; ">{{'date_sortie'|trans}}</th>	
+										<th style="text-align:center !important ; ">{{'date_rentree'|trans}}</th>	
+									    <th style="text-align:center !important ; ">{{'motif'|trans}}</th>		
+										<th style="text-align:center !important ; ">{{'statut'|trans}}</th>	
+										<th style="text-align:center !important ; ">{{'telecharger_pdf'|trans}}</th>	   				
+							</tr>
+					</thead>
+
+				    <tbody>
+				{% for a in autos %}
+<tr>
+      <td>{{ a.id }}</td>
+	<td>{{ a.personnel.nom }} {{ a.personnel.prenom }}</td>
+	 
+ 	 
+	    <td>{{ a.dateSortie|date('Y-m-d') }}</td>
+	    <td>{{ a.dateRentree|date('Y-m-d') }}</td>
+		<td>{{ a.motifAutorisation }}</td> 
+		 
+  {% if a.statut  == '-1' %}
+                                        <td style="color:black;font-weight:bold;">{{'encours'|trans}}</td>
+                                         
+                                           
+                                        {% elseif a.statut  == '0' %}
+                                        <td style="color:blue;font-weight:bold;"> {{'confime'|trans}}</td>
+                                         
+                                           
+                                        {% elseif a.statut  == '1' %}
+                                        <td style="color:green;font-weight:bold;"> {{'valide'|trans}}</td>
+                                         
+  
+                                        {% elseif a.statut  == '2' %}
+                                        <td style="color:red;font-weight:bold;"> {{'refuse'|trans}}</td>
+                                        {% else %}
+                                        <td></td>
+                                         {% endif %}   
+
+			
+ 
+	<td> 
+					{% if a.lien is not empty %}
+									<a target="_blank" href="{{ asset('webroot/docs/' ~ a.personnel.nom ~ '_' ~ a.personnel.prenom  ~ '/Autorisation/' ~ a.lien) }}"><i class="bi bi-file-earmark-pdf"></i></a>&nbsp;
+					{% endif %}
+</td>
+
+</tr>
+        
+        {% endfor %}
+				</tbody>				
+			</table>
+		</div>
+	</div>
+</div>
+
+
+
+<div class="card">
+   <div class="card-body">
+   <div class="card-header py-2 bg-transparent">
+                  <h6 class="mb-0">{{'liste_fh_valide'|trans}}</h6> 
+   </div>
+       <div class="table-responsive">
+			<table id="example_fh_v" class="table table-striped table-bordered" style="text-align:center !important ; " >
+					<thead>
+							<tr>
+						         <th style="text-align:center !important ; ">{{'n'|trans}}</th>
+										<th style="text-align:center !important ; ">{{'demandeur'|trans}}</th>	
+										<th style="text-align:center !important ; ">{{'date_debut'|trans}}</th>	
+										<th style="text-align:center !important ; ">{{'date_fin'|trans}}</th>	
+									    <th style="text-align:center !important ; ">{{'etablissement'|trans}}</th>		
+										<th style="text-align:center !important ; ">{{'ville'|trans}}</th>	
+										<th style="text-align:center !important ; ">{{'nb_Heures'|trans}}</th>	
+										<th style="text-align:center !important ; ">{{'statut'|trans}}</th>	
+									   				
+							</tr>
+					</thead>
+
+				    <tbody>
+				{% for f in fhs %}
+<tr>
+      <td>{{ f.id }}</td>
+	        <td>{{ f.personnel.nom }} {{ f.personnel.prenom }}</td>
+	 
+ 	  
+	    <td>{{ f.moisDebut|date('Y-m-d') }}</td>
+	    <td>{{ f.moisFin|date('Y-m-d') }}</td>
+	    <td>{{ f.etablissement }}</td>
+		<td>{{ f.ville }}</td>
+		<td>{{ f.nbHeure }}</td> 
+		 
+  {% if f.statut  == '-1' %}
+                                        <td style="color:black;font-weight:bold;">{{'encours'|trans}}</td>
+                                         
+                                           
+                                        {% elseif f.statut  == '0' %}
+                                        <td style="color:blue;font-weight:bold;"> {{'confime'|trans}}</td>
+                                         
+                                           
+                                        {% elseif f.statut  == '1' %}
+                                        <td style="color:green;font-weight:bold;"> {{'valide'|trans}}</td>
+                                         
+  
+                                        {% elseif f.statut  == '2' %}
+                                        <td style="color:red;font-weight:bold;"> {{'refuse'|trans}}</td>
+                                        {% else %}
+                                        <td></td>
+                                         {% endif %}   
+
+			
+ 
+
+</tr>
+        
+        {% endfor %}
+				</tbody>				
+			</table>
+		</div>
+	</div>
+</div>
+
+
+
+        {% endblock %}
+
+
+
+
+

@@ -1,0 +1,166 @@
+
+{% extends 'template.html.twig' %}
+
+{% block title %}{{'oms'|trans}}{% endblock %}
+
+{% block body %}
+
+				<!--breadcrumb-->
+				<div class="page-breadcrumb d-none d-sm-flex align-items-center mb-3">
+					<div class="breadcrumb-title pe-3">{{'trs'|trans}} </div>
+					<div class="ps-3">
+						<nav aria-label="breadcrumb">
+							<ol class="breadcrumb mb-0 p-0">
+								<li class="breadcrumb-item"><a href="javascript:;"><i class="bi bi-arrow-bar-down"></i></a>
+								</li>
+								<li class="breadcrumb-item active" aria-current="page">{{'oms'|trans}}</li>
+							</ol>
+						</nav>
+					</div>
+				
+				</div>
+				<hr/>
+				{% if ordre_missions is not empty %}
+				<div class="card">
+					<div class="card-body">
+						<div class="table-responsive">
+							<table id="example" class="table table-striped table-bordered"  style="text-align:center !important ;" >
+								<thead>
+									<tr>
+					                    <th  style="text-align:center !important ;">{{'n'|trans}}</th>
+										<th  style="text-align:center !important ;">{{'numPPR'|trans}}</th>
+										<th  style="text-align:center !important ;">{{'demandeur'|trans}}</th>
+										<th  style="text-align:center !important ;">{{'date_envoie'|trans}}</th>	
+										<th  style="text-align:center !important ;">{{'type'|trans}}</th>	
+										<th  style="text-align:center !important ;">{{'moy_transp'|trans}}</th>
+										<th  style="text-align:center !important ;">{{'str_acceuil'|trans}}</th>	
+                                        <th  style="text-align:center !important ;">{{'date_debut'|trans}}</th>
+										<th  style="text-align:center !important ;">{{'date_fin'|trans}}</th>			
+										<th  style="text-align:center !important ;">{{'invit'|trans}}</th>	
+										<th  style="text-align:center !important ;">{{'op'|trans}}</th>	
+							
+									
+									</tr>
+								</thead> 
+								<tbody>
+									{% for ordre_mission in ordre_missions %}
+										<tr>
+											<td>{{ ordre_mission.id }}</td>
+											<td>{{ ordre_mission.personnel.numPPR }}</td>
+											<td>{{ ordre_mission.personnel.nom }} {{ ordre_mission.personnel.prenom }}</td>
+											<td>{{ ordre_mission.dateEnvoie|date('Y-m-d - H:i') }}</td>
+												<td> 
+											
+													{% if ordre_mission.typeMission == "E" %}
+												{{'ens'|trans}}
+													{% endif %}
+													{% if ordre_mission.typeMission == "R" %}
+												{{'rech'|trans}}
+													{% endif %}
+													{% if ordre_mission.typeMission == "D" %}
+												{{'deplac'|trans}}
+													{% endif %}
+
+											{% if ordre_mission.typeMission not in ["E","R","D"] %}
+												{{ ordre_mission.typeMission}} 
+											{% endif %}
+												</td>
+											<td>{{ ordre_mission.moyenTransport }} </td>
+											<td>{{ ordre_mission.structureAcceuil }} </td>
+											<td>{{ ordre_mission.dateDebut|date('Y-m-d') }} </td>
+											<td>{{ ordre_mission.dateFin|date('Y-m-d') }} </td>
+											<td>
+												<div class="table-actions fs-6">
+													{% if ordre_mission.invitation is not empty %}
+														<a href="{{ asset('webroot/docs/' ~ ordre_mission.personnel.nom ~ '_' ~ ordre_mission.personnel.prenom ~ '/Ordre_mission/' ~ ordre_mission.invitation) }}"><i class="bi bi-file-earmark-fill"></i></a>&nbsp;
+													{% endif %}	
+												</div>
+											 </td>
+											<td>
+												<div class="table-actions fs-6">
+													{% if "ROLE_RH" in app.user.roles %}
+
+
+													{% if ordre_mission.lien is empty %}
+
+												<a onclick="get_om_date_params('{{ordre_mission.id}}')"  href="" class="text-danger" data-bs-toggle="modal" data-bs-target="#om_date_modal"  data-bs-toggle="tooltip" data-bs-placement="bottom" aria-label="Edit"><i class="bi bi-calendar-check" ></i></a>&nbsp; 
+												{% else %}
+
+												<a style="cursor:pointer;" href="{{ path('ordremissionPdf', {'id' : ordre_mission.id} )}}" id="odo" class="text-tiffany" data-bs-toggle="tooltip" data-bs-placement="bottom" aria-label="Edit"><i class="bi bi-file-earmark-arrow-down"></i></a>&nbsp; 
+
+                                                {% endif %}
+
+													{% endif %}
+												<a href="{{ path('app_ordre_mission_loop', {'id': ordre_mission.id}) }}" class="text-primary" aria-label="Loop"><i class="bi bi-search" ></i></a>&nbsp; 
+												{% if  "ROLE_RH" in app.user.roles %}
+													
+												<a onclick="get_attest_params('{{ordre_mission.id}}' , '{{ordre_mission.personnel.nom ~ " " ~ ordre_mission.personnel.prenom}}') ; "    href="" class="text-success" data-bs-toggle="modal" data-bs-target="#validation_modal"  data-bs-toggle="tooltip" data-bs-placement="bottom" aria-label="Edit"><i class="bi bi-check2-circle" ></i></a>&nbsp; 
+	                                                	
+													 {% else %}	
+								               <a onclick="get_attest_params('{{ordre_mission.id}}' , '{{ordre_mission.personnel.nom ~ " " ~ ordre_mission.personnel.prenom}}') ; "    href="" class="text-success" data-bs-toggle="modal" data-bs-target="#validation_modal"  data-bs-toggle="tooltip" data-bs-placement="bottom" aria-label="Edit"><i class="bi bi-check2-circle" ></i></a>&nbsp; 
+
+	                                            {% endif %}
+														
+												</div> 
+									
+											</td>
+
+										</tr>
+					
+									{% endfor %}
+								</tbody>
+							
+							</table>
+						</div>
+
+
+					</div>
+				</div>
+				<div  id="path-to-ordre_m" data-href="{{ path('ordremissionPdf', {id : '1111'} )}}"> </div>
+
+				{% else %}
+                      <div class="alert alert-success" >
+                		{{'MOD_CONGRATS'|trans}}
+                      </div>
+                {% endif %}
+
+
+
+
+{% include 'ordre_mission/validation_modal.html.twig' %}
+
+{% include 'ordre_mission/om_date_modal.html.twig' %}
+
+  
+{% endblock %}
+{% block javascripts %}
+{{parent()}}
+  {{ encore_entry_script_tags('validation_ordremission') }}
+  <script>  
+
+  function get_attest_params($var1,$var2){ 
+    document.getElementById("n_attest").value = $var1;
+    document.getElementById("demandeur_attest").value = $var2;
+	bloque_modif($var1);
+  } 
+
+
+ function get_om_date_params($var1){
+    document.getElementById("n_om_modal").value = $var1;
+	 today();
+  } 
+  function bloque_modif($var1){
+	 
+    var u='ordremission_bloque_XXXX',
+    jsUrl = u.replace("XXXX", $var1); 
+    //	alert(jsUrl);
+      callAjax(jsUrl);
+  }
+
+
+
+
+
+      </script>
+{% endblock %}
+

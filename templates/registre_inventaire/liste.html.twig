@@ -1,0 +1,168 @@
+
+{% extends 'template.html.twig' %}
+
+{% block title %}{{'stock'|trans}}{% endblock %}
+
+{% block body %}
+				<!--breadcrumb-->
+				<div class="page-breadcrumb d-none d-sm-flex align-items-center mb-3">
+					<div class="breadcrumb-title pe-3">{{'stock'|trans}}</div>
+					<div class="ps-3">
+						<nav aria-label="breadcrumb">
+							<ol class="breadcrumb mb-0 p-0">
+								<li class="breadcrumb-item"><a href="javascript:;"><i class="bi bi-box-seam"></i></a>
+								</li>
+								<li class="breadcrumb-item active" aria-current="page">{{'reg_inventaire'|trans}}</li>
+							</ol>
+						</nav>
+					</div>
+				
+				</div>
+				<hr/>
+                 <div class="col-lg-12 mx-auto">
+        <div class="card">
+            <div class="card-body">
+                {% include "flaches.html.twig" %}
+                {{ form_start(form, { 'action': path('newDecharge'), 'attr': { 'class': 'form-horizontal' } }) }}
+                {% set ok = app.session.get('ok') %}
+                {% if ok %}
+                {{ app.session.set('ok',0) }}
+
+                    <div class="card shadow-none bg-light border">
+                        <div class="card-body">
+                            <div class="row g-3">
+                      
+								<div class="col-6">
+                                    {{ form_row(form.personnel) }}
+                                </div>
+								
+                                <div class="col-12">
+                                    <div>
+                                
+                                        <button type='submit' class="btn btn btn-success px-4 col-2" style="float:right"> {{'decharge'|trans}} </button>                                   
+                                    </div>
+                                </div>
+                                {{ form_row(form._token) }}
+
+                            </div>
+                        </div>     
+                    </div>
+                {{ form_end(form , {'render_rest': false}) }}   
+                {% else %} 
+                {% if registreinventaires is not empty %}
+				<div class="card">
+					<div class="card-body">
+						<div class="table-responsive">
+							<table  id="exemple6" class="table table-striped table-bordered" style="text-align:center !important;" >
+								<thead>
+									<tr>
+                                    <th id="tbl" style="background-color:#ff6632;text-align:center !important ;"></th>
+                                        <th style="text-align:center !important;">{{'n_inventaire'|trans}}</th>
+										<th style="text-align:center !important;">{{'n_reception'|trans}}</th>
+										<th style="text-align:center !important;">{{'code_article'|trans}}</th>
+                                        <th style="text-align:center !important;">{{'ref'|trans}}</th>
+										<th style="text-align:center !important;">{{'date_reception'|trans}}</th>
+                                        <th style="text-align:center !important;">{{'n_bc_ao'|trans}}</th>
+                                        <th style="text-align:center !important;">{{'n_livraison'|trans}}</th>
+										{# <th style="text-align:center !important;">{{'fournisseur'|trans}}</th> #}
+                                   {#      <th style="text-align:center !important;">{{'etat'|trans}}</th> #}
+                                        <th style="text-align:center !important;">{{'affecter_a'|trans}}</th>
+                                        <th style="text-align:center !important;">{{'locale'|trans}}</th>
+                                        <th style="text-align:center !important;">{{'op'|trans}}</th>
+									</tr>
+								</thead>
+								<tbody>
+								    {% for registreinventaire in registreinventaires %}
+                                        <tr>
+                                        <td style="text-align:center !important ;">{{registreinventaire.id}}</td>
+                                            <td>{{registreinventaire.numinventaire}}</td>
+                                            <td>{{registreinventaire.receptionligne.reception.numreception}}</td>
+                                            <td>{{registreinventaire.article.code}}</td>
+                                            <td>{{registreinventaire.article.reference}}</td>
+                                            <td>{{registreinventaire.datereception  ? registreinventaire.datereception|date('Y-m-d') : '' }}</td>
+                                            <td>{{registreinventaire.numbcao}}</td>
+                                            <td>{{registreinventaire.numlivraison}}</td>
+
+                                      {#       <td>{{registreinventaire.raisonsocialefournisseur}}</td> #}
+
+
+                                       {#      <td>
+                                          {% if registreinventaire.etatconservation!='seconde main' %}
+                                            {{'neuf'|trans}}
+                                         {% else  %}
+                                           {{'seconde_main'|trans}}
+                                          {% endif  %}
+
+                                            </td> #}
+
+                                            <td>
+                                            
+                                          {% if registreinventaire.affectera!='-' %} 
+                                             {{registreinventaire.affectera}}
+                                         {% else  %}
+                                     <span style="color:green;font-weight:bold;"> {{'en_stock'|trans}} </span>
+                                          {% endif  %}
+                                        
+                                            </td>
+                                            <td>
+                                            
+                    {% if registreinventaire.local!='-' %} 
+                            {{registreinventaire.local}}
+                    {% else  %}
+                            {% if registreinventaire.affectera!='-' %} 
+                              {{registreinventaire.personnel.serviceAffectationId.nomservice}}
+                            {% else  %}
+                                <span style="color:green;font-weight:bold;"> {{'en_stock'|trans}} </span>
+                            {% endif  %}
+                    {% endif  %}
+                                           
+                                            </td>
+                                            <td>
+                                                <div class="text-center">
+                                                    <a href="{{ path('showInventaire', {'id': registreinventaire.id}) }}" class="text-primary" data-bs-toggle="tooltip" data-bs-placement="bottom" aria-label="Views"><i class="bi bi-eye-fill"></i></a>&nbsp;&nbsp;
+                                                    <a href="{{ path('editInventaire', {'id': registreinventaire.id}) }}" class="text-warning" data-bs-toggle="tooltip" data-bs-placement="bottom" aria-label="Edit"><i class="bi bi-pencil-fill"></i></a>&nbsp;&nbsp;
+                                                    <a href="{{ path('invQR', {'id': registreinventaire.id}) }}" class="" data-bs-toggle="tooltip" data-bs-placement="bottom" aria-label="Edit"><i class="bi bi-qr-code"></i></a>&nbsp;&nbsp;
+                                            {% if registreinventaire.affectera!='-' %}
+                                                    <a href="{{ path('etatDechargeInv', {'id': registreinventaire.id}) }}" class="text-info" data-bs-toggle="tooltip" data-bs-placement="bottom" aria-label="Edit"><i class="bi bi-file-earmark-arrow-down"></i></a>&nbsp;&nbsp;
+                                            {% endif %}
+                                                   
+                                                </div>
+                                            </td>			
+                                        </tr>
+                                    {% endfor %}
+								</tbody>
+							
+							</table>
+						</div>
+					</div>
+				</div>
+                
+            	<a class="btn btn btn-primary px-4" href="{{ path('etatInventaire') }}"> {{'imprimer_reg_inventaire'|trans}} </a>
+
+                <a class="btn btn btn-primary px-4" href="{{ path('invQRALL') }}" style="float:right;" > {{'gen_qrcode_tous'|trans}} </a>
+                					</div>
+                    <a class="btn btn-success col-12" id="ajouter"  style="margin-bottom: 5px;"> {{'affect_en_masse'|trans}}</a>
+
+				</div>
+                <div id="path-to-controller" data-href="{{ path('add_list_decharge')}}"> </div>
+                
+            </div>
+        </div>
+    </div>
+
+                {% else %}
+                    <div class="alert alert-success">
+                        <strong>{{'no_reg_inventaire'|trans}} </strong>  
+                    </div>
+                {% endif %}
+                {% endif %}
+{% endblock %}
+
+{% block javascripts %}
+    {{parent()}}
+	
+    {{ encore_entry_script_tags('decharge') }}
+        
+
+
+{% endblock %}

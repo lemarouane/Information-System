@@ -1,0 +1,94 @@
+{{ form_start(form) }}
+   
+<div class="profile-cover bg-dark"></div>
+
+      <div class="row">
+        <div class="col-12 col-lg-8">
+          <div class="card shadow-sm border-0">
+            <div class="card-body">
+                <h5 class="mb-0">{{'User_Edit'|trans}}</h5>
+                <hr>
+                <div class="card shadow-none border">
+                  <div class="card-header">
+                    <h6 class="mb-0"></h6>
+                  </div>
+                  <div class="card-body row g-3">
+
+                         <div class="col-4">
+                           {{ form_row(form.nom_utilisateur ,{ 'attr' : { 'class' : 'form-control' }}) }}
+                       </div>
+                        
+                        <div class="col-4">
+                           {{ form_row(form.email ,{ 'attr' : { 'class' : 'form-control' }}) }}
+                       </div>
+                      <div class="col-4">
+                           {{ form_row(form.locale ,{  'attr' : { 'class' : 'form-select' }}) }}
+                       </div>
+                    
+                      <div class="col-6">
+                           {{ form_row(form.roles ,{  'attr' : { 'class' : 'form-control' }}) }}
+                      </div>
+                      <div class="col-6">
+                        <div class="mb-3">
+                          <label class="form-label" >Codes</label>
+                          <select style="height:150px;" id="utilisateurs_codes" name="searchParam[codes][]" class="form-control" data-placeholder="Choose anything" multiple="multiple">
+                    
+                            
+                          </select>
+                        </div>                   
+                      </div>
+                 
+                  </div>
+                </div>
+                <div class="text-start">
+                  
+                  <button type='submit' class="btn btn btn-primary px-4"> {{'Save'|trans}} </button>
+                  <a class="btn btn btn-primary px-4" href="{{ path('app_utilisateurs_index') }}">  {{'Back'|trans}} </a>
+
+                </div>
+            </div>
+          </div>
+        </div>
+
+
+ <div class="col-12 col-lg-4">
+          <div class="card shadow-sm border-0 overflow-hidden">
+            <div class="card-body">
+               <div class="profile-avatar text-center image-upload" style='.image-upload>input {display: none;}'>
+                <label for=""> 
+                  <img id='file' style='cursor: pointer' src="{{asset('uploads/images/') ~ utilisateur.imageName}}" class="rounded-circle shadow" width="120" height="120" alt="">
+                </label><br>
+            
+                </div>
+                <div class="form-group">
+                                
+                            
+                              </div>
+             
+                <div class="text-center mt-4">
+                  <h4 class="mb-1"></h4>
+                  <p class="mb-0 text-secondary">   </p>
+                  <div class="mt-4"></div>
+                  <h6 class="mb-1">**</h6>
+                  <p class="mb-0 text-secondary">$$</p>
+                </div>
+                <hr>
+                <div class="text-start">
+                  <h5 class="">About</h5>
+                  <p class="mb-0">It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem.
+                </div>
+            </div>
+       
+          </div>
+        </div>
+
+
+
+    </div><!--end row-->
+    {{ form_row(form._token) }}
+{{ form_end(form , {'render_rest': false}) }}
+{% block javascripts %}
+
+  {{ encore_entry_script_tags('add_roles') }}
+      </script>
+{% endblock %}

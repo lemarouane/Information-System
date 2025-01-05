@@ -1,0 +1,55 @@
+<!DOCTYPE  html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="fr" lang="fr">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<title>file_1698225352230</title>
+<meta name="author" content="LeBon"/>
+<style type="text/css"> 
+* {margin:0; padding:0; text-indent:0; }
+ .s1 { color: black; font-family:"Times New Roman", serif; font-style: normal; font-weight: bold; text-decoration: none; font-size: 6.5pt; }
+ .s2 { color: black; font-family:"Times New Roman", serif; font-style: normal; font-weight: normal; text-decoration: none; font-size: 5pt; }
+ .s3 { color: black; font-family:"Times New Roman", serif; font-style: normal; font-weight: normal; text-decoration: none; font-size: 7pt; }
+ .s4 { color: #F00; font-family:"Times New Roman", serif; font-style: normal; font-weight: bold; text-decoration: none; font-size: 5pt; }
+ .s5 { color: black; font-family:"Times New Roman", serif; font-style: normal; font-weight: normal; text-decoration: none; font-size: 4.5pt; }
+ .s6 { color: black; font-family:"Times New Roman", serif; font-style: normal; font-weight: bold; text-decoration: none; font-size: 5pt; }
+ .s7 { color: black; font-family:"Times New Roman", serif; font-style: normal; font-weight: normal; text-decoration: none; font-size: 5.5pt; }
+ .s8 { color: black; font-family:Arial, sans-serif; font-style: normal; font-weight: normal; text-decoration: none; font-size: 5pt; }
+ table, tbody {vertical-align: top; overflow: visible; }
+ td {border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt}
+
+</style></head><body><p style="text-indent: 0pt;text-align: left;"><br/></p>
+{% if inventaires is not empty %}
+<table style="border-collapse:collapse;margin-left:6.12998pt" cellspacing="0"><tr style="height:25pt">
+<td style="width:31pt" bgcolor="#FFC6CE"><p class="s1" style="padding-left: 8pt;text-indent: 0pt;line-height: 4pt;text-align: left;">خيرات</p><p class="s1" style="padding-left: 8pt;text-indent: -1pt;line-height: 108%;text-align: left;">ليجستلا Date</p></td>
+<td style="width:74pt" bgcolor="#FFC6CE"><p class="s1" style="padding-top: 4pt;padding-left: 23pt;padding-right: 22pt;text-indent: 7pt;line-height: 108%;text-align: left;">عونلا Catégorie</p></td>
+<td style="width:179pt" bgcolor="#FFC6CE"><p class="s1" style="padding-top: 4pt;padding-left: 63pt;padding-right: 49pt;text-indent: 21pt;line-height: 108%;text-align: left;">ةعلس Désignation Article</p></td>
+<td style="width:56pt" bgcolor="#FFC6CE"><p class="s1" style="padding-top: 4pt;padding-left: 4pt;text-indent: 19pt;line-height: 108%;text-align: left;">N° D&#39;INVENTAIRE</p></td>
+<td style="width:47pt" bgcolor="#FFC6CE"><p class="s1" style="padding-left: 8pt;padding-right: 9pt;text-indent: 2pt;line-height: 8pt;text-align: justify;">ةروتافلا مقر N° Bon de livraison</p></td>
+<td style="width:54pt" bgcolor="#FFC6CE"><p class="s1" style="padding-left: 6pt;text-indent: 12pt;line-height: 108%;text-align: left;">ردصملا Raison Sociale</p><p class="s1" style="padding-left: 11pt;text-indent: 0pt;line-height: 7pt;text-align: left;">Fournisseur</p></td>
+<td style="width:30pt" bgcolor="#FFC6CE"><p class="s1" style="padding-top: 4pt;padding-left: 10pt;padding-right: 9pt;text-indent: 0pt;line-height: 108%;text-align: left;">ددعلا Qté</p></td>
+<td style="width:71pt" bgcolor="#FFC6CE"><p class="s1" style="padding-top: 4pt;padding-left: 21pt;padding-right: 2pt;text-indent: 8pt;line-height: 108%;text-align: left;">نييعت Affecter à</p></td>
+<td style="width:71pt" bgcolor="#FFC6CE"><p class="s1" style="padding-top: 4pt;padding-left: 15pt;padding-right: 2pt;text-indent: 7pt;line-height: 108%;text-align: left;">نييعتلا لحم Local Affecter</p></td>
+<td style="width:37pt" bgcolor="#FFC6CE"><p class="s1" style="padding-left: 3pt;padding-right: 2pt;text-indent: 0pt;line-height: 4pt;text-align: center;">ةلاحلا</p><p class="s1" style="padding-left: 2pt;padding-right: 1pt;text-indent: -1pt;line-height: 108%;text-align: center;">Etat de conservatio</p></td>
+<td style="width:75pt" bgcolor="#FFC6CE"><p class="s1" style="padding-top: 4pt;padding-left: 19pt;padding-right: 18pt;text-indent: 8pt;line-height: 108%;text-align: left;">تاظحلام Observations</p></td>
+ {% for inventaire in inventaires %}
+</tr>
+<tr style="height:12pt">
+<td style="width:31pt"><p class="s2" style="padding-top: 3pt;padding-left: 2pt;padding-right: 1pt;text-indent: 0pt;text-align: center;">{{inventaire.datereception?inventaire.datereception|date('d/m/Y'):''}}</p></td>
+<td style="width:74pt"><p class="s2" style="padding-top: 3pt;padding-left: 1pt;text-indent: 0pt;text-align: center;">{{inventaire.categorie.designation}}</p></td>
+<td style="width:179pt"><p class="s2" style="padding-top: 3pt;text-indent: 0pt;text-align: center;">{{inventaire.article.designation}}</p></td>
+<td style="width:56pt"><p class="s3" style="padding-top: 1pt;padding-right: 17pt;text-indent: 0pt;text-align: right;">{{inventaire.numinventaire}}</p></td>
+<td style="width:47pt"><p class="s2" style="padding-top: 3pt;text-indent: 0pt;text-align: center;">{{inventaire.numlivraison}}</p></td>
+<td style="width:179pt"><p class="s2" style="padding-top: 3pt;text-indent: 0pt;text-align: center;">{{inventaire.raisonsocialefournisseur}}</p></td>
+<td style="width:30pt"><p class="s1" style="padding-top: 4pt;padding-left: 10pt;padding-right: 9pt;text-indent: 0pt;line-height: 108%;text-align: left;">1</p></td>
+<td style="width:179pt"><p class="s2" style="padding-top: 3pt;text-indent: 0pt;text-align: center;">{{inventaire.affectera}}</p></td>
+<td style="width:179pt"><p class="s2" style="padding-top: 3pt;text-indent: 0pt;text-align: center;">{{inventaire.local}}</p></td>
+<td style="width:179pt"><p class="s2" style="padding-top: 3pt;text-indent: 0pt;text-align: center;">{{inventaire.etatconservation?'Neuf':'Seconde main'}}</p></td>
+<td style="width:179pt"><p class="s2" style="padding-top: 3pt;text-indent: 0pt;text-align: center;">{{inventaire.remarque}}</p></td>
+</tr>
+{% endfor %}
+</table>
+  {% else %}
+                      <div class="alert alert-success">
+                        <strong>Pas d'inventaire </strong>  
+                    </div>
+                {% endif %}

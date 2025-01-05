@@ -1,0 +1,326 @@
+﻿<!DOCTYPE html>
+<html dir="rtl" lang="fr">
+  <head>
+    <title>Programme d'emploi</title>
+    <meta charset="utf-8">
+  </head>
+  <style type="text/css">
+    table, tr, td, th, tbody, thead, tfoot {
+      page-break-inside: avoid !important;
+    }
+
+    .right>h1{
+      font-size: 22px;
+      font-weight: bold;
+      text-align: right;
+      width:40%; 
+    }
+    .left>h1{
+      font-size: 22px;
+      font-weight: bold;
+      text-align: right;
+      width:40%; 
+    }
+    p{
+      text-align: justify;
+      font-size:22px;
+    }
+    
+    .right {
+      text-align: right;
+      margin-right: 1em;
+    }
+
+    .center {
+      text-align: center;
+    }
+    .left {
+      text-align: left;
+      margin-left: 1em;
+    }
+    table {
+      font-family : "Times New Roman", Arial, Verdana, Sans-serif;
+      margin: none;
+      width:100%; 
+    }
+
+    table, th, td {
+      font-size:22px;
+      padding-right: 5px;
+      padding-left: 5px;
+      
+    }
+    .table table{
+      border-collapse: collapse;
+    }
+    .table table, th, td {
+      border: 1px solid black; 
+    }
+    th{
+      background-color: #f0f5f5;
+    }
+    span.right {
+      margin-top: 10px;
+      margin-bottom:10px;
+      vertical-align:top; 
+      display:inline-block;
+      text-align:right;
+      height:80px;
+      width:48%;
+    }
+    span.left {
+      margin-top: 10px;
+      margin-bottom:10px;
+      height:80px;
+      width:100%;
+      text-align:left;
+      display:inline-block;
+    }
+    div.centre {
+      margin-top: 10px;
+      margin-bottom:10px;
+      height:80px;
+      width:100%;
+      font-size: 22px;
+      text-align:center;
+      display:inline-block;
+    }
+    .label_fichier{
+      font-size: 22px;
+      text-align: right;
+      padding-top: 2%;
+    }
+    #footer {
+        bottom: 0;
+        width: 100%;
+    }
+
+
+  </style>
+
+  <body>
+      <div>
+        <div style="width: 100%">
+          <div style="width:40%; display:inline-block; text-justify: inter-word;font-size: 20px;">
+               جامعة عبد المالك السعدي <br>
+               المدرسة الوطنية للعلوم التطبيقية
+                <br>طنجة  B.P : 1818
+          </div>
+          <div style="width:19%; display:inline-block; text-justify: inter-word;font-size: 18px;">
+     
+          </div>
+          <div style="width:40%; display:inline-block;text-align:left; text-justify: inter-word;font-size: 20px;">
+              Université Abdelmalek Essaadi<br>
+               Ecole Nationale des Sciences Appliquée<br>
+               B.P: 1818 - Tanger
+          </div>
+        </div>
+	<div class="label_fichier">
+			
+	</div>
+
+        <div style="margin-top: 20px;margin-bottom:5px;font-size: 22px; text-align: center">
+          PROGRAMME D'EMPLOI N° {{programme.reference}}<br>
+          {{programme.intitule}}<br>
+      
+	  {{programme.annee}}
+        </div>
+        <div style="width: 100%; margin-top: 40px;">
+          <div style="width:100%; display:inline-block;text-align:right; text-justify: inter-word;font-size: 22px;">
+              <strong>{{programme.montant|number_format(2)}}   : EN RECETTES </strong>
+              
+          </div>
+        </div>
+
+        <div style="width: 100%;float: right ;padding-left:0px; margin-top: 5px;">
+            <table style="height: 90%;">
+              <thead style="height: 20px;">
+                <tr>
+                  <th class="col-sm-3" style="background-color: #f0f5f5;">
+		  {% set foo = programme.reference %}
+                    Crédits {{programme.annee}}
+                  </th>
+                  <th class="col-sm-6" style="background-color: #f0f5f5;">
+                    Rubriques
+                  </th>
+                  <th class="col-sm-1" style="background-color: #f0f5f5;">
+                    .Lig
+                  </th>
+                  
+                  <th class="col-sm-1" style="background-color: #f0f5f5;">
+                    §
+                  </th>
+                  <th class="col-sm-1" style="background-color: #f0f5f5;">
+                    .Art
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                {% set ty = "" %}
+                {% set art = "" %}
+                {% set par = "" %}
+                {% set lig = "" %}
+		{% set ligNom= "" %}
+                {% set i = 0 %}
+                {% set reste = programme.montant %}
+                {% for rub in rubrique %}  
+                    {% if ty != rub['type']  %}
+                      {% set ty = rub['type']  %}
+                      {% set art = "" %}
+                      {% set par = "" %} 
+                      <tr>
+                        <td colspan="5" class="left" style="font-weight: bold; text-align: center;">
+                               {{ rub['type']  }}
+                        </td>
+                      </tr>
+                    {% endif %}
+                    {% if art != rub['numArticle']  %}
+                      {% set art = rub['numArticle']  %} 
+                      <tr>
+                        <td class="left">
+                               
+                        </td>
+                        <td class="left" style="font-weight: bold; font-size: 20px;">
+                          {{ rub['libelle_a']  }} 
+                        </td>
+                        
+                        <td class="left">
+                               
+                        </td>
+                        <td class="left">
+                               
+                        </td>
+                        <td class="left" style="font-weight: bold;">
+                          {{ rub['numArticle']  }}
+                        </td>
+                      </tr>
+                    {% endif %}
+                    {% if par != rub['numParagraphe']  %}
+                      {% set par = rub['numParagraphe'] %} 
+                      <tr>
+                        <td class="left">
+                               
+                        </td>
+                        <td class="left" style="font-weight: bold;font-size: 20px;">
+                          {{ rub['libelle_p'] }}
+                        </td>
+                        
+                        <td class="left">
+                               
+                        </td>
+                        <td class="left" style="font-weight: bold;">
+                          {{ rub['numParagraphe'] }}
+                        </td>
+                        <td class="left">
+                               
+                        </td>
+                      </tr>
+                    {% endif %}
+                    {% if ligNom != rub['libelle_l'] and rub['numArticle'] != 909 %}
+                      {% set lig = rub['numLigne'] %}
+                      {% set ligNom = rub['libelle_l'] %}  
+                      <tr>
+                        <td class="left">
+                               
+                        </td>
+                        <td class="left" style="font-weight: bold;font-size: 20px;">
+                          {{ rub['libelle_l'] }} 
+                        </td>
+                        
+                        <td class="left" style="font-weight: bold;">
+                          {{ rub['numLigne'] }}
+                        </td>
+                        <td class="left">
+                          
+                        </td>
+                        <td class="left">
+                               
+                        </td>
+                      </tr>
+                    {% endif %}
+                      <tr>
+                        {% for element in programme.programmeElementRestants %}
+                          {% if element.rubrique.id == rub['id'] %}
+                              <td class="left" style="font-weight:bold; font-size: 20px;text-align: center;">
+                                 {{ element.montant|number_format(2)}}
+                              </td>
+                              {% set i = 1 %} 
+                              {% set reste = reste- element.montant %}
+                          {% endif %}
+                        {% endfor %}
+                        {% if i == 0 %}
+                          <td class="left">
+                          </td>
+                        {% endif %}
+                        {% set i = 0 %}
+                        <td class="left"  style="font-size: 20px;">
+                          {{ rub['libelle_r'] }}
+                        </td>
+                        
+                        <td class="left">
+                            {{ rub['numRubrique'] }}   
+                        </td>
+                        <td class="left">
+                          
+                        </td>
+                        <td class="left">
+                        </td>
+                      </tr>
+                {% endfor %}
+                      <tr>
+                        <td class="left" style="font-weight: bold;font-size: 20px; text-align: center;">
+                             {{ reste|number_format(2) }}  
+                        </td>
+                        <td class="left" style="font-weight: bold;font-size: 20px;">
+                          Crédit à programmer
+                        </td>
+                        
+                        <td class="left" style="font-weight: bold;">
+                            90   
+                        </td>
+                        <td class="left">
+                          
+                        </td>
+                        <td class="left">
+                               
+                        </td>
+                      </tr>
+                      <tr>
+                        <td class="left" style="font-weight: bold;font-size: 20px; text-align: center;">
+                            {{ programme.montant|number_format(2) }}
+                        </td>
+                        <td class="left" style="font-weight: bold;text-align: center;">
+                          TOTAL
+                        </td>
+                        
+                        <td class="left" style="font-weight: bold;">
+  
+                        </td>
+                        <td class="left">
+                          
+                        </td>
+                        <td class="left">
+                               
+                        </td>
+                      </tr>
+              </tbody>
+            </table>
+            <div>
+              <div style="width: 100% ; font-weight:bold;margin-top: 10px;">
+                
+                <div style="width:58%; display:inline-block; text-justify: inter-word;font-size: 22px;">
+                    LE PRESIDENT DE L'UNIVERSITE
+                </div>
+                <div style="width:40%; display:inline-block;text-align:left; text-justify: inter-word;font-size: 22px;">
+                     SOUS ORDONNATEUR
+
+                </div>
+              </div>
+          </div>
+        </div>
+        
+      </div>
+      
+  </body>
+  
+</html>

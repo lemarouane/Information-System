@@ -1,0 +1,37 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}StructRech index{% endblock %}
+
+{% block body %}
+    <h1>StructRech index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>LibelleStructure</th>
+                <th>AbrevStructure</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for struct_rech in struct_reches %}
+            <tr>
+                <td>{{ struct_rech.id }}</td>
+                <td>{{ struct_rech.libelleStructure }}</td>
+                <td>{{ struct_rech.abrevStructure }}</td>
+                <td>
+                    <a href="{{ path('app_struct_rech_show', {'id': struct_rech.id}) }}">show</a>
+                    <a href="{{ path('app_struct_rech_edit', {'id': struct_rech.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="4">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_struct_rech_new') }}">Create new</a>
+{% endblock %}

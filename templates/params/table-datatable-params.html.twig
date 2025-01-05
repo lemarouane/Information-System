@@ -1,0 +1,105 @@
+
+{% extends 'template.html.twig' %}
+
+{% block title %}{{'Users_Table'|trans}}{% endblock %}
+
+{% block body %}
+    <h1>{{'Users_Table'|trans}}</h1>
+
+				<!--breadcrumb-->
+				<div class="page-breadcrumb d-none d-sm-flex align-items-center mb-3">
+					<div class="breadcrumb-title pe-3"></div>
+					<div class="ps-3">
+						<nav aria-label="breadcrumb">
+							<ol class="breadcrumb mb-0 p-0">
+								<li class="breadcrumb-item"><a href="javascript:;"><i class="bx bx-home-alt"></i></a>
+								</li>
+								<li class="breadcrumb-item active" aria-current="page">{{'Users_Table'|trans}}</li>
+							</ol>
+						</nav>
+					</div>
+				
+				</div>
+				<hr/>
+				<div class="card">
+					<div class="card-body">
+						<div class="table-responsive">
+							<table id="example" class="table table-striped table-bordered" >
+								<thead>
+									<tr>
+					
+										<th>{{'Image1'|trans}}</th>
+										<th>{{'Image2'|trans}}</th>
+										<th>{{'Slogan'|trans}}</th>
+										<th>{{'Nom_App'|trans}}</th>
+										<th>{{'Version'|trans}}</th>
+										<th>{{'Adresse'|trans}}</th>
+										<th>{{'Telephone'|trans}}</th>
+										<th>{{'Email'|trans}}</th>							
+										<th>{{'op'|trans}}</th>	
+							
+									
+									</tr>
+								</thead>
+								<tbody>
+								  {% for param in params %}
+            <tr>
+
+             <td>{{ param.imageName }}</td>
+			  <td>{{ param.imageName2 }}</td>
+			<td>{{ param.slogan }}</td>
+			 <td>{{ param.nomApp }}</td>
+			 <td>{{ param.version }}</td>
+            <td>{{ param.adresse }}</td>
+ <td>{{ param.telephone }}</td>
+ <td>{{ param.email }}</td>
+
+        <td>
+
+                    <div class="table-actions d-flex align-items-center gap-3 fs-6">
+                              <a href="{{ path('app_params_edit', {'id': param.id}) }}" class="text-warning" data-bs-toggle="tooltip" data-bs-placement="bottom" aria-label="Edit"><i class="bi bi-pencil-fill"></i></a>
+                              <a href="{{ path('app_params_delete', {'id': param.id ,'_token':csrf_token('delete' ~ param.id) }) }}" class="text-danger" data-bs-toggle="tooltip" data-bs-placement="bottom" aria-label="Delete" onclick=" function delete_msg_trans()
+{
+    langue = document.getElementById('langue').value  ;
+    
+    msg = 'Are yous sure to delete this item ?';
+if(langue=='fr-FR'){
+  msg = 'Êtes-vous sûr de vouloir supprimer cet enregistrement ?'
+    }
+if(langue=='en-GB'){
+  msg = 'Are yous sure to delete this item ?'
+          }
+  if(langue=='ar-AR'){
+  msg = '? هل أنت متأكد أنك تريد حذف هذا السجل '
+              }
+if(langue=='es-ES'){
+   msg = '¿Está seguro de que desea eliminar este registro?'
+                  }
+   return msg ;
+}
+ a = delete_msg_trans() ; return confirm(a)"><i class="bi bi-trash-fill"></i></a>
+                            </div>
+					
+                </td>
+
+
+				
+            </tr>
+       
+        {% endfor %}
+								</tbody>
+							
+							</table>
+						</div>
+
+
+					</div>
+				</div>
+
+
+ 
+
+
+
+{% endblock %}
+

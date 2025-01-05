@@ -1,0 +1,67 @@
+
+Etudiants: Estudiantes
+Filieres: Ramas
+Users: Usuarios
+Etudiant: Estudiante
+Filiere: Rama
+User: Usuario
+Dashboard: Tablero
+Username :  Nombre de usuario
+Email :  E-Mail
+Roles : Roles
+Locale : Idioma
+Id : ID
+New_User : Nuevo usuario
+Operations : Operaciones
+Users_Table :  Lista de usuarios
+Profile : Perfil
+Logout : Cerrar sesión
+Language : Idioma
+Code : Código
+Save : Guardar 
+Send : Enviar
+Back : Volver
+Nom :  Nombre
+Prenom : Primer nombre
+Change_Pass : Cambio de contraseña
+User_Edit : Edición de usuario
+Old_Pass : antigua contraseña   
+New_Pass : nueva contraseña 
+Confirm_Pass : confirmación contraseña 
+MOD_SUCCESS : ¡Tu cambio se ha guardado con éxito!
+MOD_DANGER : Se ha producido un error ! Intentar otra vez !
+security:
+  reset-password: Recuperar contraseña
+  sing-in: iniciar sesión
+  forgetten-password: Olbido mi contraseña 
+  enter-email: Entre su correo electrónico
+  send-email:  Envíe el enlace para recuperar la contraseña
+  email: Correo electrónico
+  password: Contraseña
+  username: Apellido y nombre del usuario
+  remember-me: Recuérdame
+  login: Iniciar sesión
+  dont-have-account: No tengo cuenta
+  register: Registrarse
+  accept: Acepto todos
+  terms: los términos de uso
+
+email_reset :
+  link_expire : Este enlace caducará en
+  greetings : Hola 
+  cheers : Gracias !
+  core : Para restablecer su contraseña , visite el siguiente enlace
+
+password_reset :
+  m0 : Solicitud de Restablecimiento de Contraseña
+  m1 : Has olvidado tu contraseña ?
+  m2 : Ingrese su correo electrónico registrado para restablecer la contraseña
+  m3 : Restablece tu nueva contraseña
+  m4 : Recibimos su solicitud de restablecimiento de contraseña. ¡Por favor ingrese su nueva contraseña!
+
+password_check :
+  m0 : Correo Electrónico de Restablecimiento de Contraseña Enviado
+  m1 : Si existe una cuenta que coincide con su dirección de correo electrónico, se acaba de enviar un correo electrónico que contiene un enlace que puede usar para restablecer su contraseña.   
+  m2 : Este enlace caducará en
+  m3 : Si no recibe un correo electrónico, verifique su carpeta de correo no deseado o
+  m4 : Intentar otra vez !

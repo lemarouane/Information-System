@@ -1,0 +1,69 @@
+{% extends 'template.html.twig' %}
+
+{% block title %}{{'Change_Pass'|trans}}{% endblock %}
+
+{% block body %}
+<style>
+
+    ul>li{color:red;}
+</style>
+    
+     <!--start content-->
+{{ form_start(ProfileUserEditPass) }}
+
+      <!--end breadcrumb-->
+    <div class="profile-cover bg-dark"></div>
+
+      <div class="row">
+        <div class="col-12 col-lg-12">
+          <div class="card shadow-sm border-0">
+            <div class="card-body">
+                <h5 class="mb-0">{{'Change_Pass'|trans}}</h5><br>
+                <div class="card shadow-none border">
+                  <div class="card-body row g-3" >
+                    <form class="row g-3">
+                       <div class="col-6">
+                       
+                        <div class="mb-3">
+                              {{ form_row(ProfileUserEditPass.oldPassword ,{ 'attr' : { 'class' : 'form-control' }}) }}
+                        </div>
+                          <div class="mb-3">
+                              {{ form_row(ProfileUserEditPass.password.first ,{ 'attr' : { 'class' : 'form-control' }}) }}
+                        </div>
+                      
+                          <div class="mb-3">
+                              {{ form_row(ProfileUserEditPass.password.second ,{ 'attr' : { 'class' : 'form-control' }}) }}
+                        </div>
+                        
+                      </div>
+                    {{ form_row(ProfileUserEditPass._token) }}
+                    </form>
+                  </div>
+                </div>
+               
+                <div class="text-start">
+                  <button type="submit" class="btn btn-primary px-4">{{'save'|trans}}</button>  
+                </div>
+            </div>
+          </div>
+        </div>
+ 
+    </div><!--end row-->
+
+ <!--end page main-->
+
+{{ form_end(ProfileUserEditPass , {'render_rest': true}) }}
+
+{% endblock %}
+
+     
+     
+     
+     
+     
+     
+     
+     
+     
+     
+     

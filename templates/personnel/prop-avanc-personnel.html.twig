@@ -1,0 +1,115 @@
+
+{% extends 'template.html.twig' %}
+
+{% block title %}{{'titles.rh'|trans}}{% endblock %}
+
+{% block body %}
+
+
+				<!--breadcrumb-->
+<div class="page-breadcrumb d-none d-sm-flex align-items-center mb-3">
+    <div class="breadcrumb-title pe-3">{{'titles.rh'|trans}}</div>
+         <div class="ps-3">
+            <nav aria-label="breadcrumb">
+             <ol class="breadcrumb mb-0 p-0">
+                <li class="breadcrumb-item"><a href="javascript:;"><i class="bi bi-chevron-bar-up"></i></a></li>
+                <li class="breadcrumb-item active" aria-current="page">{{'liste_prop_echelon_grade'|trans}}</li>
+            </ol>
+        </nav>
+    </div>
+</div> 
+
+<hr/>
+
+<div class="card">
+   <div class="card-body">
+   <div class="card-header py-2 bg-transparent">
+                  <h6 class="mb-0">{{'liste_prop_echelon'|trans}}</h6> 
+                </div>
+       <div class="table-responsive">
+			<table id="example" class="table table-striped table-bordered" style="text-align:center !important ; " >
+					<thead>
+							<tr>
+				 		            	<th style="text-align:center !important ; ">{{'numPPR'|trans}}</th>		
+							        	<th style="text-align:center !important ; ">{{'nom'|trans}}</th>	
+                                        <th style="text-align:center !important ; ">{{'prenom'|trans}}</th>
+										<th style="text-align:center !important ; ">{{'corps'|trans}}</th>	
+										<th style="text-align:center !important ; ">{{'grade'|trans}}</th>		
+										<th style="text-align:center !important ; ">{{'echelon'|trans}}</th>	
+										<th style="text-align:center !important ; ">{{'date_deci'|trans}}</th>	
+										<th style="text-align:center !important ; ">{{'date_grade'|trans}}</th>	
+										<th style="text-align:center !important ; ">{{'fiche_ind'|trans}}</th>				
+							</tr>
+					</thead>
+
+				    <tbody>
+			{% for avancement in etatAvancement %}
+            <tr>
+            <td>{{ avancement.personnel.numPpr }}</td>
+			<td>{{ avancement.personnel.nom }}</td>
+			<td>{{ avancement.personnel.prenom }}</td>
+			<td>{{ avancement.corps.designationFr}}</td>
+			<td>{{ avancement.grade.designationFr }}</td>
+			<td>{{ avancement.echelon.designation }}</td>
+			<td>{{ avancement.dateDeci ? avancement.dateDeci|date('d-m-Y') : ''  }}</td>
+            <td>{{ avancement.dateGrade ? avancement.dateGrade|date('d-m-Y') : ''  }}</td>
+			<td class="center"><a  data-toggle="tooltip" data-placement="top" title="modifier" href="{{ path('exporterFiche_prop', { 'id': avancement.personnel.numPpr }) }}"><span class="fa fa-download"></span></a></td>
+		
+        </tr>
+       
+        {% endfor %}
+				</tbody>				
+			</table>
+		</div>
+	</div>
+</div>
+
+ 
+
+<div class="card">
+   <div class="card-body">
+   <div class="card-header py-2 bg-transparent">
+                  <h6 class="mb-0">{{'liste_prop_grade'|trans}}</h6> 
+                </div>
+       <div class="table-responsive">
+			<table id="example_rh" class="table table-striped table-bordered" style="text-align:center !important ; " >
+					<thead>
+							<tr>
+						            	<th style="text-align:center !important ; ">{{'numPPR'|trans}}</th>		
+							         	<th style="text-align:center !important ; ">{{'nom'|trans}}</th>	
+                                        <th style="text-align:center !important ; ">{{'prenom'|trans}}</th>
+										<th style="text-align:center !important ; ">{{'corps'|trans}}</th>	
+										<th style="text-align:center !important ; ">{{'grade'|trans}}</th>		
+										<th style="text-align:center !important ; ">{{'echelon'|trans}}</th>	
+										<th style="text-align:center !important ; ">{{'date_deci'|trans}}</th>	
+										<th style="text-align:center !important ; ">{{'date_grade'|trans}}</th>	
+										<th style="text-align:center !important ; ">{{'fiche_ind'|trans}}</th>				
+							</tr>
+					</thead>
+
+				    <tbody>
+			{% for avancement in etatAvancementG %}
+            <tr>
+            <td>{{ avancement.personnel.numPpr }}</td>
+			<td>{{ avancement.personnel.nom }}</td>
+			<td>{{ avancement.personnel.prenom }}</td>
+			<td>{{ avancement.corps.designationFr}}</td>
+			<td>{{ avancement.grade.designationFr }}</td>
+			<td>{{ avancement.echelon.designation }}</td>
+			<td>{{ avancement.dateDeci ? avancement.dateDeci|date('d-m-Y') : ''  }}</td>
+            <td>{{ avancement.dateGrade ? avancement.dateGrade|date('d-m-Y') : ''  }}</td>
+            <td class="center"><a  data-toggle="tooltip" data-placement="top" title="modifier" href="{{ path('exporterFiche_prop', { 'id': avancement.personnel.numPpr }) }}"><span class="fa fa-download"></span></a></td>
+
+        </tr>
+       
+        {% endfor %}
+				</tbody>				
+			</table>
+		</div>
+	</div>
+</div>
+
+
+
+{% endblock %}
+

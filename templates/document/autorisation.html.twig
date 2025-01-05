@@ -1,0 +1,257 @@
+﻿
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Autorisation</title>
+    <meta charset="utf-8">
+     <style type="text/css">
+    body{
+      margin-left:20px;
+      margin-right:20px;
+    }
+    .label_fichier{
+      font-size: 17px;
+      text-align: right;
+      padding-top: 15%;
+    }
+    h1{
+      font-size: 17px;
+      font-weight: bold;
+      text-align: center;
+      padding-top: 10px;
+      margin-bottom:10px;
+    }
+    p{
+      text-align: justify;
+      font-size:17px;
+    }
+    
+    .right {
+      text-align: right;
+      margin-right: 1em;
+    }
+
+    .center {
+      text-align: center;
+    }
+    .left {
+      text-align: left;
+      margin-left: 1em;
+    }
+    table {
+
+      font-family : "Times New Roman", Arial, Verdana, Sans-serif;
+      margin-right: 5%;
+      width:90%;
+
+      
+    }
+
+    table, th, td {
+      font-size:15px;
+      padding-right: 5px;
+      padding-top:10px;
+    }
+    
+
+  </style>
+  </head>
+  <body>
+        <div>
+          <span style="width:250px; float: left ;text-align: center;" >Université Abdelmalik Essaadi <br> Ecole Nationale des Sciences Appliquées Tanger</span>
+          <span style="float: right;padding-top:-10px;"><img src="http://localhost/e-ensat/public/ensat.png"></span>
+        </div>
+        <div class="label_fichier">
+      Tanger le, {{ "now"|date("d/m/Y") }} 
+      </div>
+          <h1>AUTORISATION DE SORTIE</h1>
+        <div class="contenu_fichier">
+        <table>
+              <tr>
+                <th class="left">
+                  Nom et Prénom 
+                </th>
+                <td style="text-transform:uppercase;word-wrap: normal;">
+                  : {{autorisation.personnel.nom }}  {{autorisation.personnel.prenom}}
+                </td>
+                <td>
+                </td>
+                <td>
+                </td>
+              </tr>
+              <tr>
+                <th class="left">
+                  Grade
+                </th>
+                <td>
+                  : {{autorisation.personnel.gradeId.designationFr}}
+                </td>
+                <th class="left">
+                  Service  
+                </th>
+                <td>
+                  : {{autorisation.personnel.serviceAffectationId.nomService}}
+                </td>
+              </tr>
+              <tr>
+                <th class="left">
+                  Motif  
+                </th>
+                <td style="word-wrap: normal;">
+                  : {{autorisation.motifAutorisation}}
+                </td>
+                <td>
+                </td>
+                <td>
+                </td>
+              </tr>
+              <tr>
+                <th class="left">
+                  Date et heure de sortie   
+                </th>
+                <td>
+                  : le  {{autorisation.dateSortie | date('d/m/Y') }}
+                </td>
+                <th class="left">
+                  à   
+                </th>
+                <td>
+                   {{autorisation.dateSortie | date('H:i') }}
+                </td>
+              </tr>
+              <tr>
+                <th class="left">
+                  Date et heure de rentrée   
+                </th>
+                <td>
+                  : le {{autorisation.dateRentree | date('d/m/Y') }}
+                </td>
+                <th class="left">
+                  à   
+                </th>
+                <td>
+                  {{autorisation.dateRentree | date('H:i') }}
+                </td>
+              </tr>
+        </table>
+      
+      
+      <p><strong>NB:</strong>
+        L’établissement dégage toute responsabilité lors d’une absence pour motif personnel.
+      </p>
+      <table style="height: 155px;">
+        <tr>
+          <th class="center">L’Intéressé(e)</th>
+          <th class="center">Le Responsable de Service</th>
+          <th class="center">Le Secrétaire Général </th>
+        </tr>
+        <tr>
+          <td></td>
+          <td></td>
+          <td></td>
+        </tr>
+      </table>
+      
+    </div>
+    <hr>
+    <div>
+          <span style="width:250px; float: left ;text-align: center; font-family : "Times New Roman", Arial, Verdana, Sans-serif;">Université Abdelmalik Essaadi <br> Ecole Nationale des Sciences Appliquées Tanger</span>
+          <span style="float: right;padding-top:-10px;"><img src="http://localhost/e-ensat/public/ensat.png"></span>
+        </div>
+        <div class="label_fichier">
+      Tanger le, {{ "now"|date("d/m/Y") }}
+      </div>
+          <h1>AUTORISATION DE SORTIE</h1>
+        <div class="contenu_fichier">
+      
+  
+        <table>
+              <tr>
+                <th class="left">
+                  Nom et Prénom 
+                </th>
+                <td style="text-transform:uppercase;">
+                  : {{autorisation.personnel.nom}}  {{autorisation.personnel.prenom}}
+                </td>
+                <td>
+                </td>
+                <td>
+                </td>
+              </tr>
+              <tr>
+                <th class="left">
+                  Grade
+                </th>
+                <td>
+                  : {{autorisation.personnel.gradeId.designationFr}}
+                </td>
+                <th class="left">
+                  Service  
+                </th>
+                <td>
+                  : {{autorisation.personnel.serviceAffectationId.nomService}}
+                </td>
+              </tr>
+              <tr>
+                <th class="left">
+                  Motif  
+                </th>
+                <td>
+                  : {{autorisation.motifAutorisation}}
+                </td>
+                <td>
+                </td>
+                <td>
+                </td>
+              </tr>
+              <tr>
+                <th class="left">
+                  Date et heure de sortie   
+                </th>
+                <td>
+                  : le  {{autorisation.dateSortie | date('d/m/Y') }}
+                </td>
+                <th class="left">
+                  à   
+                </th>
+                <td>
+                   {{autorisation.dateSortie | date('H:i') }}
+                </td>
+              </tr>
+              <tr>
+                <th class="left">
+                  Date et heure de rentrée   
+                </th>
+                <td>
+                  : le {{autorisation.dateRentree | date('d/m/Y') }}
+                </td>
+                <th class="left">
+                  à   
+                </th>
+                <td>
+                  {{autorisation.dateRentree | date('H:i') }}
+                </td>
+              </tr>
+        </table>
+      
+      
+      <p><strong>NB:</strong>
+        L’établissement dégage toute responsabilité lors d’une absence pour motif personnel.
+      </p>
+      <table >
+        <tr>
+          <th class="center">L’Intéressé(e)</th>
+          <th class="center">Le Responsable de Service</th>
+          <th class="center">Le Secrétaire Général </th>
+        </tr>
+        <tr>
+          <td></td>
+          <td></td>
+          <td></td>
+        </tr>
+      </table>
+      
+    </div>
+    
+  </body>
+</html>

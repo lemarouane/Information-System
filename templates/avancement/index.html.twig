@@ -1,0 +1,41 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Avancement index{% endblock %}
+
+{% block body %}
+    <h1>Avancement index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>DateDeci</th>
+                <th>DateGrade</th>
+                <th>Arrete</th>
+                <th>NumDeci</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for avancement in avancements %}
+            <tr>
+                <td>{{ avancement.id }}</td>
+                <td>{{ avancement.dateDeci ? avancement.dateDeci|date('Y-m-d') : '' }}</td>
+                <td>{{ avancement.dateGrade ? avancement.dateGrade|date('Y-m-d') : '' }}</td>
+                <td>{{ avancement.arrete }}</td>
+                <td>{{ avancement.numDeci }}</td>
+                <td>
+                    <a href="{{ path('app_avancement_show', {'id': avancement.id}) }}">show</a>
+                    <a href="{{ path('app_avancement_edit', {'id': avancement.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="6">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_avancement_new') }}">Create new</a>
+{% endblock %}

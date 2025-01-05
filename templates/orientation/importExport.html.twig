@@ -1,0 +1,140 @@
+
+{% extends 'template.html.twig' %}
+
+{% block title %}{{'Orientation | Etat '|trans}}{% endblock %}
+{% block stylesheets %}
+    {{ parent() }}
+    <link href="{{ asset('uploads/css/filepond.css')}}" rel="stylesheet">
+{% endblock %}
+
+
+{% block body %}
+
+				<!--breadcrumb-->
+				<div class="example-wrapper">
+                    <div class="page-breadcrumb d-none d-sm-flex align-items-center mb-3">
+                        <div class="breadcrumb-title pe-3">Orientation</div>
+                        <div class="ps-3">
+                            <nav aria-label="breadcrumb">
+                            <ol class="breadcrumb mb-0 p-0">
+                                <li class="breadcrumb-item"><a href="javascript:;"><i class="bi bi-arrows-move"></i></a>
+                                </li>
+                                <li class="breadcrumb-item active" aria-current="page">{{'Import/Export'|trans}}</li>
+                            </ol>
+                            </nav>
+                        </div>
+         
+                </div>
+                <hr>
+                <div class="row">
+					<div class="col-xl-12 mx-auto">
+						<div class="card border-top border-orange border-0 border-3">
+							<div class="card-body">
+								<form action="#" method="" id="my-form" enctype="multipart/form-data"  name="my-form">
+                                    <h3><!-- react-text: 2880 -->Fichier .csv de la direction <!-- /react-text -->
+                                        <small>(CNE;MCP1;RACH_CP1;AJR_CP1;DER_CP1;MCP2;RACH_CP2;AJR_CP2;DER_CP2)</small>
+                                    </h3>
+                                    <div style="display: flex; flex-direction: column; flex: 1 1 0%;"> 
+                                        <div class="" style="border:1px dashed black; padding-top: 20px;padding-bottom: 20px;">
+                                        <input type="file" name="file" id="file" accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"/>
+                                        </div>
+                                    </div>
+                                </form>
+                                <form action="{{ path('orientationEtat') }}" method="post">
+                                    <input type="submit" value="Calculer état à partir d'Apogée" class="btn btn-danger col-12" style="background: #ff493c; margin-top: 30px;">
+                                    </form>
+                                        <form action="{{ path('resultatEtat') }}" method="post">
+                                    <input type="submit" value="Exporter état" class="btn btn-success  col-12 " style="background: rgb(30, 191, 174); margin-top: 30px;">
+                                </form>
+							</div>
+						</div>
+					</div>
+				</div>
+                <div class="row">
+					<div class="col-xl-12 mx-auto">
+						<div class="card">
+							<div class="card-body">
+                                <form action="{{ path('resultatFinal') }}" method="post">
+                                    <input type="submit" value="Exporter en .csv" class="btn btn-primary col-12" >
+                                </form>
+                                <form action="{{ path('listEtudiantChoix') }}" id="affecter" method="post">
+                                    <input type="submit" value="les étudiants qui non pas encore envoyer leurs choix" class="btn  col-12" id="EnvoyerChoixList" style="background-color:#C7B446; color:white ;margin-top: 30px;">
+                                </form>
+							</div>
+						</div>
+					</div>
+				</div>
+
+
+
+
+
+
+  
+{% endblock %}
+{% block javascripts %}
+    {{parent()}}
+    <script src="{{ asset('uploads/js/filepond-plugin-file-validate-type.js')}}"></script>
+    <script src="{{ asset('uploads/js/filepond.js')}}"></script>
+    
+    <script>
+        // Register the plugin with FilePond
+        FilePond.registerPlugin(FilePondPluginFileValidateType);
+
+        // Get a reference to the file input element
+        const inputElement = document.querySelector('input[type="file"]');
+
+        // Create the FilePond instance
+        const pond = FilePond.create(inputElement);
+        
+    FilePond.setOptions({
+        server: {
+            process:(fieldName, file, metadata, load, error, progress, abort) => {
+
+                // fieldName is the name of the input field
+                // file is the actual file object to send
+                const formData = new FormData();
+                formData.append(fieldName, file, file.name);
+
+                const request = new XMLHttpRequest();
+                request.open('POST', "{{path('importFileExcelOrientation')}}");
+
+                // Should call the progress method to update the progress to 100% before calling load
+                // Setting computable to false switches the loading indicator to infinite mode
+                request.upload.onprogress = (e) => {
+                    progress(e.lengthComputable, e.loaded, e.total);
+                };
+
+                // Should call the load method when done and pass the returned server file id
+                // this server file id is then used later on when reverting or restoring a file
+                // so your server knows which file to return without exposing that info to the client
+                request.onload = function() {
+                    if (request.status >= 200 && request.status < 300) {
+                        // the load method accepts either a string (id) or an object
+                        load(request.responseText);
+                        alert(request.responseText);
+                    }
+                    else {
+                        // Can call the error method if something is wrong, should exit after
+                        error('oh no');
+                    }
+                };
+
+                request.send(formData);
+                
+                // Should expose an abort method so the request can be cancelled
+                return {
+                    abort: () => {
+                        // This function is entered if the user has tapped the cancel button
+                        request.abort();
+
+                        // Let FilePond know the request has been cancelled
+                        abort();
+                    }
+                };
+            }
+         }
+        });
+    </script>
+{% endblock %}
+

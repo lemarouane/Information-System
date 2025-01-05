@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New HistoDemandes{% endblock %}
+
+{% block body %}
+    <h1>Create new HistoDemandes</h1>
+
+    {{ include('histo_demandes/_form.html.twig') }}
+
+    <a href="{{ path('app_histo_demandes_index') }}">back to list</a>
+{% endblock %}

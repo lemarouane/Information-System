@@ -1,0 +1,37 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Echelon index{% endblock %}
+
+{% block body %}
+    <h1>Echelon index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Designation</th>
+                <th>NbAnnee</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for echelon in echelons %}
+            <tr>
+                <td>{{ echelon.id }}</td>
+                <td>{{ echelon.designation }}</td>
+                <td>{{ echelon.nbAnnee }}</td>
+                <td>
+                    <a href="{{ path('app_echelon_show', {'id': echelon.id}) }}">show</a>
+                    <a href="{{ path('app_echelon_edit', {'id': echelon.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="4">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_echelon_new') }}">Create new</a>
+{% endblock %}

@@ -1,0 +1,1 @@
+$((function(){"use strict";$("#anneeSelect").find(":selected").val();$("#anneeSelect").on("change",(function(){$(this).val()}))}));

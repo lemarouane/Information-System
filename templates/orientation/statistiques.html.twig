@@ -1,0 +1,177 @@
+{% extends 'template.html.twig' %}
+
+{% block title %}{{'stats_orientation'|trans}} {% endblock %}
+
+{% block body %}
+
+
+                    <div class="page-breadcrumb d-none d-sm-flex align-items-center mb-3">
+                        <div class="breadcrumb-title pe-3">{{'orientation'|trans}} </div>
+                        <div class="ps-3">
+                            <nav aria-label="breadcrumb">
+                            <ol class="breadcrumb mb-0 p-0">
+                                <li class="breadcrumb-item"><a href="javascript:;"><i class="bi bi-arrows-move"></i></a>
+                                </li>
+                                <li class="breadcrumb-item active" aria-current="page">{{'stats'|trans}}</li>
+                            </ol>
+                            </nav>
+                        </div>
+         
+                </div>
+                <hr>
+ 
+<div class="row">
+    <div class="row">
+              <div class="col">
+                <div class="card radius-10">
+                  <div class="card-body text-center">
+                    <div class="widget-icon mx-auto mb-3 bg-light-primary text-primary">
+                      <i class="fa fa-users"></i>
+                    </div>
+                    <p class="mb-0"> {{'totale'|trans}}</p>
+                    <h3 class="mt-4 mb-0">{{Totales}}</h3>
+                    <small class="text-danger"> &nbsp;&nbsp;</small>
+                  </div>
+                </div>
+              </div>
+              <div class="col">
+                <div class="card radius-10">
+                  <div class="card-body text-center">
+                    <div class="widget-icon mx-auto mb-3 bg-light-danger text-danger">
+                      <i class="fa fa-male"></i>
+                    </div>
+                     <p class="mb-0"> {{'garcons'|trans}}</p>
+                     <h3 class="mt-4 mb-0">{{ garçons}}</h3>
+                     <small class="text-success">({{ (garçons*100/Totales)|number_format(2)}}%)</small>
+                  </div>
+                </div>
+              </div>
+              <div class="col">
+                <div class="card radius-10">
+                  <div class="card-body text-center">
+                    <div class="widget-icon mx-auto mb-3 bg-light-success text-success">
+                      <i class="fa fa-female"></i>
+                    </div>
+                    <p class="mb-0"> {{'filles'|trans}}</p>
+                     <h3 class="mt-4 mb-0">{{ filles }}</h3>
+                     <small class="text-success">({{ (filles*100/Totales)|number_format(2)}}%)</small>
+                  </div>
+                </div>
+              </div>
+              <div class="col">
+                <div class="card radius-10">
+                  <div class="card-body text-center">
+                    <div class="widget-icon mx-auto mb-3 bg-light-info text-info">
+                      <i class="bi bi-person-check"></i>
+                    </div>
+                    <p class="mb-0"> {{'enregistre'|trans}}</p>
+                     <h3 class="mt-4 mb-0">{{ etat }}</h3>
+                     <small class="text-success">({{ (etat*100/Totales)|number_format(2)}}%)</small>
+                  </div>
+                </div>
+              </div>
+              <div class="col">
+                <div class="card radius-10">
+                  <div class="card-body text-center">
+                    <div class="widget-icon mx-auto mb-3 bg-light-purple text-purple">
+                      <i class="bi bi-check"></i>
+                    </div>
+                    <p class="mb-0">{{'choix_validee'|trans}}</p>
+                     <h3 class="mt-4 mb-0">{{ choix }}</h3>
+                     <small class="text-success">({{ (choix*100/( etat == 0 ? 1 : etat ) )|number_format(2)}}%)</small>
+                  </div>
+                </div>
+              </div>
+            </div>
+    
+
+        <div class="row">
+
+              <div class="col-12 col-lg-6 col-xl-6 d-flex">
+                <div class="card radius-10 w-100">
+                  <div class="card-body">
+                     <div class="row row-cols-1 row-cols-lg-2 g-3 align-items-center pb-3">
+                        <div class="col">
+                          <h5 class="mb-0"></h5>
+                        </div>
+                        <div class="col">
+                          <h5 class="mb-0"> </h5>
+                        </div>
+                     </div>
+                     <div id="chart1"></div>
+                  </div>
+                </div>
+              </div>
+
+               <div class="col-12 col-lg-6 col-xl-6 d-flex">
+                <div class="card radius-10 w-100">
+                  <div class="card-body">
+                     <div class="row row-cols-1 row-cols-lg-2 g-3 align-items-center pb-3">
+                        <div class="col">
+                          <h5 class="mb-0"> </h5>
+                        </div>
+                       
+                     </div>
+                     <div id="chart5"></div>
+                  </div>
+                </div>
+              </div>
+          
+        </div><!--end row-->
+
+
+
+        <div class="row">
+
+              <div class="col-12 col-lg-6 col-xl-12 col-xxl-6 d-flex">
+                <div class="card radius-10 w-100">
+                  <div class="card-body">
+                     <div class="row row-cols-1 row-cols-lg-2 g-3 align-items-center pb-3">
+                        <div class="col">
+                          <h5 class="mb-0"> {{'dist_1er_choix'|trans}}</h5>
+                        </div>
+                       
+                     </div>
+                     <div id="chart6"></div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-12 col-lg-6 col-xl-12 col-xxl-6 d-flex">
+                <div class="card radius-10 w-100">
+                  <div class="card-body">
+                     <div class="row row-cols-1 row-cols-lg-2 g-3 align-items-center pb-3">
+                        <div class="col">
+                          <h5 class="mb-0"> {{'capac_fil'|trans}} </h5>
+                        </div>
+                       
+                     </div>
+                     <div id="chart7"></div>
+                  </div>
+                </div>
+              </div>
+
+              
+
+        
+    </div><!--end row-->
+
+<!--end row-->
+ 
+</div>
+
+
+
+{% endblock %}
+
+
+    {% block javascripts %}
+      {{parent()}}
+      <script src="{{ asset('uploads/js/apexcharts-bundle/js/apexcharts.js') }}"></script>	
+      {{ encore_entry_script_tags('orientation') }} 
+    {% endblock %}
+
+
+
+
+

@@ -1,0 +1,107 @@
+{% extends 'template.html.twig' %}
+
+{% block title %}{{'paiements'|trans}}{% endblock %}
+{% block stylesheets %}
+        {{ parent() }}
+        <link href="{{ asset('uploads/css/bootstrap-material-datetimepicker1.min.css') }}" rel="stylesheet" >
+{% endblock %}
+{% block body %}
+     
+<div class="row">
+    <div class="page-breadcrumb d-none d-sm-flex align-items-center mb-3">
+        <div class="breadcrumb-title pe-3">{{'paiements'|trans}}</div>
+        <div class="ps-3">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb mb-0 p-0">
+                    <li class="breadcrumb-item"><a href="javascript:;"><i class="bi bi-credit-card-fill"></i></a></li>
+                    <li class="breadcrumb-item active" aria-current="page">  {{'edit_paiements'|trans}} - <span style="font-weight:bold;"> {{etudiant}} - {{formation}} </span></li>
+                </ol>
+            </nav>
+        </div>
+         
+    </div>
+
+    <div class="col-lg-12 mx-auto">
+        <div class="card">
+            <div class="card-body">
+                
+               {{ form_start(form, { 'action': path('updatePaiement', { 'id': entity.id}), 'attr': { novalidate: 'novalidate' } }) }}
+                    <div class="card shadow-none bg-light border">
+                        <div class="card-body">
+                            <div class="row g-3">
+                                <div class="col-6">
+                                    {{ form_row(form.rubrique) }}
+                                </div>
+
+                                <div class="col-6">
+                                    {{ form_row(form.responsable) }}
+                                </div>
+
+                                <div class="col-6">
+                                    {{ form_row(form.modePaiement) }}
+                                </div>
+                                 <div class="col-6" id="paiement_numOperationSection">
+                                    {{ form_row(form.numOperation) }}
+                                </div>
+                           
+                                <div class="col-6" id="paiement_dateOperationSection">
+                                    {{ form_row(form.dateOperation) }}
+                                </div>
+                                <div class="col-6">
+                                    {{ form_row(form.datePaiement) }}
+                                </div>
+								<div class="col-6">
+                                    {{ form_row(form.montant) }}
+                                </div>
+                                  <div class="col-6">
+                                    {{ form_row(form.tranche) }}
+                                </div>
+								<div class="col-6">
+                                    {{ form_row(form.annee) }}
+                                </div>
+                                	<div class="col-6">
+                                    {{ form_row(form.numRP) }}
+                                </div>
+                                <div class="col-6">
+                                    {{ form_row(form.commentaire) }}
+                                </div> 
+                                 <div class="col-6">
+                                    {{ form_row(form.tiers) }}
+                                </div> 
+                                
+                                {{ form_row(form._token) }}
+                                <div class="col-12">
+                                    
+							                		
+							       	<button class="btn btn btn-success px-4 col-2" style="float:right">{{'valider'|trans}}</button>
+                        			<a class="btn btn btn-primary px-4 col-2" style="float:left" href="{{ path('paiement') }}"> {{'back'|trans}} </a> 
+
+                                </div>
+								 
+                            </div>
+                        </div>
+                    </div>
+                {{ form_end(form , {'render_rest': false}) }} 
+
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+{% block javascripts %}
+    {{parent()}}
+	
+
+        
+    <script src="{{ asset('uploads/js/jquery-3.6.0.min.js') }}"></script>	    	
+    <script src="{{ asset('uploads/js/moment-with-locales.min.js')}}"></script>
+    <script src="{{ asset('uploads/js/bootstrap-material-datetimepicker.min.js')}}"></script>
+    <script>
+        $(document).ready(function() {
+            $('.js-datePaie').bootstrapMaterialDatePicker({ time: false, lang: 'fr-FR',format: 'YYYY-MM-DD',switchOnClick:true});
+            $('.js-dateOpe').bootstrapMaterialDatePicker({ time: false, lang: 'fr-FR',format: 'YYYY-MM-DD',switchOnClick:true});
+        });
+        
+    </script>
+
+{% endblock %}

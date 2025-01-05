@@ -1,0 +1,106 @@
+
+{% extends 'template.html.twig' %}
+
+{% block title %}{{'Users_Table'|trans}}{% endblock %}
+
+{% block body %}
+
+
+				<!--breadcrumb-->
+				<div class="page-breadcrumb d-none d-sm-flex align-items-center mb-3">
+					<div class="breadcrumb-title pe-3"></div>
+					<div class="ps-3">
+						<nav aria-label="breadcrumb">
+							<ol class="breadcrumb mb-0 p-0">
+								<li class="breadcrumb-item"><a href="javascript:;"><i class="bx bx-home-alt"></i></a>
+								</li>
+								<li class="breadcrumb-item active" aria-current="page">{{'Users_Table'|trans}}</li>
+							</ol>
+						</nav>
+					</div>
+				
+				</div>
+				<hr/>
+				<div class="card">
+					<div class="card-body">
+						<div class="table-responsive">
+							<table id="example" class="table table-striped table-bordered"  style="text-align:center !important ;" >
+								<thead>
+									<tr>
+
+										
+										<th  style="text-align:center !important ;">{{'Username'|trans}}</th>
+
+										<th  style="text-align:center !important ;">{{'Email'|trans}}</th>
+										<th  style="text-align:center !important ;">{{'Roles'|trans}}</th>
+										<th  style="text-align:center !important ;">{{'Locale'|trans}}</th>	
+														
+										<th  style="text-align:center !important ;">{{'op'|trans}}</th>
+									
+									</tr>
+								</thead>
+								<tbody>
+								  {% for utilisateur in utilisateurs %}
+            <tr>
+
+
+			 <td>{{ utilisateur.nomUtilisateur }}</td>
+
+            <td>{{ utilisateur.email }}</td>
+
+
+
+                <td>{{ utilisateur.roles ? utilisateur.roles|json_encode : '' }}</td>
+                <td>{{ utilisateur.locale }}</td>
+             <!--   <td>{{ utilisateur.imageName }}</td>
+                <td>{{ utilisateur.imageSize }}</td>
+                <td>{{ utilisateur.updatedAt ? utilisateur.updatedAt|date('Y-m-d H:i:s') : '' }}</td>-->
+                <td> 
+
+                    <div class="table-actions fs-6">
+                              <a href="{{ path('app_utilisateurs_edit', {'id': utilisateur.id}) }}" class="text-warning" data-bs-toggle="tooltip" data-bs-placement="bottom" aria-label="Edit"><i class="bi bi-pencil-fill"></i></a>&nbsp;&nbsp;
+                              <a href="{{ path('app_utilisateurs_delete', {'id': utilisateur.id ,'_token':csrf_token('delete' ~ utilisateur.id) }) }}" class="text-danger" data-bs-toggle="tooltip" data-bs-placement="bottom" aria-label="Delete" onclick=" function delete_msg_trans()
+{
+    langue = document.getElementById('langue').value  ;
+    
+    msg = 'Are yous sure to delete this item ?';
+if(langue=='fr-FR'){
+  msg = 'Êtes-vous sûr de vouloir supprimer cet enregistrement ?'
+    }
+if(langue=='en-GB'){
+  msg = 'Are yous sure to delete this item ?'
+          }
+  if(langue=='ar-AR'){
+  msg = '? هل أنت متأكد أنك تريد حذف هذا السجل '
+              }
+if(langue=='es-ES'){
+   msg = '¿Está seguro de que desea eliminar este registro?'
+                  }
+   return msg ;
+}
+ a = delete_msg_trans() ; return confirm(a)"><i class="bi bi-trash-fill"></i></a>
+                            </div>
+					
+                </td>
+
+
+				
+            </tr>
+       
+        {% endfor %}
+								</tbody>
+							
+							</table>
+						</div>
+
+
+					</div>
+				</div>
+
+
+ 
+<a class="btn btn btn-primary px-4" href="{{ path('app_utilisateurs_new') }}"> {{'new'|trans}}  </a>
+
+
+{% endblock %}
+

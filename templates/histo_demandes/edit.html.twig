@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit HistoDemandes{% endblock %}
+
+{% block body %}
+    <h1>Edit HistoDemandes</h1>
+
+    {{ include('histo_demandes/_form.html.twig', {'button_label': 'Update'}) }}
+
+    <a href="{{ path('app_histo_demandes_index') }}">back to list</a>
+
+    {{ include('histo_demandes/_delete_form.html.twig') }}
+{% endblock %}

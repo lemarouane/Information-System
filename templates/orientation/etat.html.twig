@@ -1,0 +1,81 @@
+﻿
+{% extends 'template.html.twig' %}
+
+{% block title %}{{'orientation'|trans}}{% endblock %}
+
+{% block body %}
+                <div class="page-breadcrumb d-none d-sm-flex align-items-center mb-3">
+                        <div class="breadcrumb-title pe-3">{{'orientation'|trans}}</div>
+                        <div class="ps-3">
+                            <nav aria-label="breadcrumb">
+                            <ol class="breadcrumb mb-0 p-0">
+                                <li class="breadcrumb-item"><a href="javascript:;"><i class="bi bi-arrows-move"></i></a>
+                                </li>
+                                <li class="breadcrumb-item active" aria-current="page">{{'États des élèves'|trans}} (Total: {{ Totales }} - Après filtres: {{ nbetat}} )</li>
+                            </ol>
+                            </nav>
+                        </div>
+         
+                </div>
+                <hr>
+				<!--breadcrumb-->
+
+				<div class="card border-top border-orange border-0 border-3">
+					<div class="card-body">
+						<div class="table-responsive">
+							<table id="example" class="table table-striped table-bordered"  style="text-align:center !important ;" >
+								<thead>
+									<tr>
+                    <th  style="text-align:center !important ;">{{'code_apogee'|trans}}</th>
+                    <th  style="text-align:center !important ;">{{'nom'|trans}}</th>
+										<th  style="text-align:center !important ;">{{'prenom'|trans}}</th>
+										<th  style="text-align:center !important ;">{{'Note AP1'|trans}}</th>
+										<th  style="text-align:center !important ;">{{'Ra-AP1'|trans}}</th>	
+                    <th  style="text-align:center !important ;">{{'Aj-AP1'|trans}}</th>
+										<th  style="text-align:center !important ;">{{'Dér-AP1'|trans}}</th>
+                    <th  style="text-align:center !important ;">{{'Note AP2'|trans}}</th>
+                    <th  style="text-align:center !important ;">{{'Ra-AP2'|trans}}</th>		
+                    <th  style="text-align:center !important ;">{{'Aj-AP2'|trans}}</th>
+										<th  style="text-align:center !important ;">{{'Dér-AP2'|trans}}</th>
+										<th  style="text-align:center !important ;">{{'Note calculée'|trans}}</th>
+									</tr>
+								</thead>
+								<tbody>
+                                    {% for etat in etats %}
+                                      <tr>
+                                        <td>{{etat.codetudiant}}</td>
+                                        <td>{{etat.user.nom}}</td>
+                                        <td>{{etat.user.prenom}}</td>
+                                        <td>{{etat.mCp1}}</td>
+                                        <td>{{etat.rachCp1}}</td>
+                                        <td>{{etat.ajrCp1}}</td>
+                                        <td>{{etat.derCp1}}</td>
+                                        <td>{{etat.mCp2}}</td>
+                                        <td>{{etat.rachCp2}}</td>
+                                        <td>{{etat.ajrCp2}}</td>
+                                        <td>{{etat.derCp2}}</td>
+                                        <td>{{etat.mCal}}</td>
+                                      </tr>
+                                    {% endfor %}
+                                  </tbody>
+
+							
+							</table>
+						</div>
+
+
+					</div>
+				</div>
+
+
+
+
+
+
+  
+{% endblock %}
+{% block javascripts %}
+{{parent()}}
+  
+{% endblock %}
+

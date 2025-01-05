@@ -1,0 +1,1 @@
+"D"==$("#personnel_activite").val()?$("#div_deces").show():$("#div_deces").hide(),$("#personnel_activite").on("change",(function(){"D"==$("#personnel_activite").val()?$("#div_deces").show():$("#div_deces").hide()}));

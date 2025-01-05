@@ -1,0 +1,84 @@
+                    
+                       
+ {% if page == 'edit' %}
+<div class="form-group col-sm-12">
+                          <label for="intitule" class="control-label">    {{'intitule'|trans}}</label>
+                          <div>
+                            {{ form_widget(form.intitule,{'attr': {'class':'form-control form_article'}  , 'disabled' : true}) }}
+                          </div>
+                        </div>
+                        
+
+                          <div class="form-group col-sm-6">
+                          <label for="type" class="control-label">    {{'articlePE'|trans}} </label>
+                          <div   id="path-to-a-active"  data-href="{{ path('articlePE_paragraphe', {ac:'1111'})}}">
+                            {{ form_widget(form.articlePE,{'attr': {'placeholder': 'Type','class':'form-select form_article'}, 'disabled' : true}) }}
+                          </div>
+                        </div>
+
+                         <div class="form-group col-sm-6">
+                          <label for="type" class="control-label">  {{'montant'|trans}} </label>
+                          <div>
+                            {{ form_widget(form.montant,{'attr': {'class':'form-control form_article'} , 'disabled' : true}) }}
+                          </div>
+                        </div>
+
+                        <div class="form-group col-sm-6">
+                          <label for="type" class="control-label">  {{'annee'|trans}} </label>
+                          <div>
+                            {{ form_widget(form.annee,{'attr': {'class':'form-control form_article'} , 'disabled' : true}) }}
+                          </div>
+                        </div>
+ 
+ {% else %}
+                            <div class="form-group col-sm-12">
+                          <label for="intitule" class="control-label">    {{'intitule'|trans}}</label>
+                          <div>
+                            {{ form_widget(form.intitule,{'attr': {'class':'form-control form_article'}  , 'disabled' : false} ) }}
+                          </div>
+                        </div>
+
+                           <div class="form-group col-sm-6">
+                          <label for="type" class="control-label">    {{'articlePE'|trans}} </label>
+                          <div   id="path-to-a-active"  data-href="{{ path('articlePE_paragraphe', {ac:'1111'})}}">
+                            {{ form_widget(form.articlePE,{'attr': {'placeholder': 'Type','class':'form-select form_article'} , 'disabled' : false}) }}
+                          </div>
+                        </div>
+
+                         <div class="form-group col-sm-6">
+                          <label for="type" class="control-label">  {{'montant'|trans}} </label>
+                          <div>
+                            {{ form_widget(form.montant,{'attr': {'class':'form-control form_article'} , 'disabled' : false}) }}
+                          </div>
+                        </div>
+
+                         <div class="form-group col-sm-6">
+                          <label for="type" class="control-label">  {{'annee'|trans}} </label>
+                          <div>
+                            {{ form_widget(form.annee,{'attr': {'class':'form-control form_article'} , 'disabled' : false}) }}
+                          </div>
+                        </div>
+ 
+ 
+ {% endif %}
+                        
+        
+
+                      
+
+
+
+            {#       <div class="form-group col-sm-6">
+                          <label for="paragraphes" class="control-label"> {{'paragraphes'|trans}} </label>
+                          <div>
+                            {{ form_widget(form.paragraphe,{'attr': {'class':'form-select form_article'}}) }}
+                          </div>
+                   </div>
+
+  #}
+                        
+                      
+                    
+
+    
+

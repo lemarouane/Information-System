@@ -1,0 +1,16 @@
+﻿<p>Bonjour Mme/Mr {{ etudiant.nom }} {{ etudiant.prenom }}</p>
+
+<p>Nous vous informons que votre requête a été {{ decision  == "1" ? 'Validé' : 'Refusé' }}</p>
+{% if decision  == "1" %}
+<p>
+vous pouvez récupérer votre document au niveau de service scolarité demain.
+</p>
+{% else %}
+<p> {{ motif }}  </p> 
+{% endif %}
+
+<p>Cordialement</p>
+
+
+
+

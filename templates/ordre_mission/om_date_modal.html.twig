@@ -1,0 +1,52 @@
+<div id="om_date_modal" class="modal fade" >  
+  <div class="modal-dialog">  
+      <div class="modal-content">  
+        <div class="modal-header">   
+            <h4 class="modal-title"></h4>  
+        </div> 
+        <form method="post" id="attest_om_date_from">
+ 
+        <div class="modal-body row g-3" >
+
+        <div>
+            <label class="form-label">{{'om'|trans}} {{'n'|trans}} </label>
+            <input id="n_om_modal" name="n_om" class="form-control" disabled/>
+          </div> 
+       <div> 
+            <label class="form-label">{{'date_ordre'|trans}} </label>
+            <input type="date" id="datepicker_ordremission_date" name="d_om"  class="form-control" required="">
+      </div>
+
+    <div> 
+            <label class="form-label">{{'changer_moy_transp'|trans}} </label>
+
+            <select id="changer_moy_transp" class="form-control" name="c_moy_transp_om"  required="">
+            <option selected value='0'>{{'ne_pas_changer'|trans}}</option>
+            <option value="Transport Public"> {{'transp_pub'|trans}}</option>
+            <option value="Voiture Personnelle"> {{'voit_perso'|trans}}</option>
+            <option value="Avion">{{'avion'|trans}}</option>
+            </select>
+      </div>
+
+
+        </div>  
+        <div class="modal-footer">
+            <input type="submit"  value="{{'envoyer'|trans}} " style="float: left" class="btn btn-success" />  
+            <button  type="button" class="btn btn-danger" data-bs-dismiss="modal">{{'fermer'|trans}} </button> 
+        </div> 
+      </form> 
+    </div>  
+  </div>  
+</div>
+ 
+        <script> 
+
+
+function today(){
+var d = new Date();
+document.getElementById("datepicker_ordremission_date").valueAsDate  = d;
+}
+
+               </script>
+ 
+

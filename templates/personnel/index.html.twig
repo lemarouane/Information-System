@@ -1,0 +1,71 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Personnel index{% endblock %}
+
+{% block body %}
+    <h1>Personnel index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>NumPPR</th>
+                <th>Genre</th>
+                <th>DateNaissance</th>
+                <th>DateRecrutement</th>
+                <th>DateAffectationMESRSFC</th>
+                <th>DateAffectationEnseignement</th>
+                <th>EtabDelivreDiplome</th>
+                <th>Tel</th>
+                <th>NomArabe</th>
+                <th>PrenomArabe</th>
+                <th>SoldeConge</th>
+                <th>SoldeCongeEx</th>
+                <th>Cin</th>
+                <th>PosteBudget</th>
+                <th>NbEnfant</th>
+                <th>SituationFamiliale</th>
+                <th>DateAffectationENSAT</th>
+                <th>DateSoutenanceH</th>
+                <th>Adresse</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for personnel in personnels %}
+            <tr>
+                <td>{{ personnel.id }}</td>
+                <td>{{ personnel.numPPR }}</td>
+                <td>{{ personnel.genre }}</td>
+                <td>{{ personnel.dateNaissance ? personnel.dateNaissance|date('Y-m-d') : '' }}</td>
+                <td>{{ personnel.dateRecrutement ? personnel.dateRecrutement|date('Y-m-d') : '' }}</td>
+                <td>{{ personnel.dateAffectationMESRSFC ? personnel.dateAffectationMESRSFC|date('Y-m-d') : '' }}</td>
+                <td>{{ personnel.dateAffectationEnseignement ? personnel.dateAffectationEnseignement|date('Y-m-d') : '' }}</td>
+                <td>{{ personnel.etabDelivreDiplome }}</td>
+                <td>{{ personnel.tel }}</td>
+                <td>{{ personnel.nomArabe }}</td>
+                <td>{{ personnel.prenomArabe }}</td>
+                <td>{{ personnel.soldeConge }}</td>
+                <td>{{ personnel.soldeCongeEx }}</td>
+                <td>{{ personnel.cin }}</td>
+                <td>{{ personnel.posteBudget }}</td>
+                <td>{{ personnel.nbEnfant }}</td>
+                <td>{{ personnel.situationFamiliale }}</td>
+                <td>{{ personnel.dateAffectationENSAT ? personnel.dateAffectationENSAT|date('Y-m-d') : '' }}</td>
+                <td>{{ personnel.dateSoutenanceH ? personnel.dateSoutenanceH|date('Y-m-d') : '' }}</td>
+                <td>{{ personnel.adresse }}</td>
+                <td>
+                    <a href="{{ path('app_personnel_show', {'id': personnel.id}) }}">show</a>
+                    <a href="{{ path('app_personnel_edit', {'id': personnel.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="21">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_personnel_new') }}">Create new</a>
+{% endblock %}

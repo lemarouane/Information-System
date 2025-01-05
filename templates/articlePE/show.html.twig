@@ -1,0 +1,61 @@
+{% extends "template.html.twig" %}
+
+{% block title %}{{'articlesPE'|trans}}{% endblock %}
+
+{% block body %}
+ <!--breadcrumb-->
+        <div class="page-breadcrumb d-none d-sm-flex align-items-center mb-3">
+          <div class="breadcrumb-title pe-3">{{'articlesPE'|trans}}</div>
+          <div class="ps-3">
+            <nav aria-label="breadcrumb">
+              <ol class="breadcrumb mb-0 p-0">
+                <li class="breadcrumb-item"><a href="javascript:;"><i class="bx bx-home-alt"></i></a>
+                </li>
+                <li class="breadcrumb-item active" aria-current="page"> {{'details_article_n'|trans}} {{articlePE.id}}  </li>
+              </ol>
+            </nav>
+          </div>
+        
+        </div>
+        <hr/>
+
+        <div class="card">
+          <div class="card-body">
+            <div class="table-responsive">
+              
+
+					<table class="table table-striped table-bordered" >
+							
+								<tbody>
+					
+										<tr>
+											<td>{{'n'|trans}}</td> <td>{{articlePE.id}}</td>
+										</tr>
+					
+				                       	<tr>
+											<td>{{'libelle_articlePE'|trans}}</td> <td>{{articlePE.libelle}}</td>
+										</tr>
+
+										<tr>
+											<td>{{'n_article'|trans}}</td> <td>{{articlePE.numArticle}}</td>
+										</tr>
+
+										
+		
+								</tbody>
+							
+							</table>
+
+            </div>
+
+
+          </div>
+        </div>
+							                    
+        <div>                               
+          <a class="btn btn btn-primary px-4 col-2" style="float:left" href="{{ path('articlePE') }}"> {{'back'|trans}} </a>                          
+        </div>
+{% endblock %}
+{% block javascripts %}
+	{{ parent() }}
+{% endblock %}

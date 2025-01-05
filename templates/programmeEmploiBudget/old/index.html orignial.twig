@@ -1,0 +1,158 @@
+
+{% extends 'template.html.twig' %}
+
+{% block title %}{{'programme_emploi'|trans}}{% endblock %}
+
+{% block body %}
+    <div id="path-to-pe_active" data-href="{{ path('modPEIsActive', {id:'val' , checked:'ac'} )}}"> </div>
+    <div id="path-to-pe_valide" data-href="{{ path('peIsValide', {id:'val' , checked:'ac'} )}}"> </div>
+
+				<!--breadcrumb-->
+				<div class="page-breadcrumb d-none d-sm-flex align-items-center mb-3">
+					<div class="breadcrumb-title pe-3">{{'programme_emploi'|trans}}</div>
+					<div class="ps-3">
+						<nav aria-label="breadcrumb">
+							<ol class="breadcrumb mb-0 p-0">
+								<li class="breadcrumb-item"><a href="javascript:;"><i class="bx bx-home-alt"></i></a>
+								</li>
+								<li class="breadcrumb-item active" aria-current="page">{{'liste_programme_emploi'|trans}}</li>
+							</ol>
+						</nav>
+					</div>
+				
+				</div>
+				<hr/>
+                {% if ProgrammeEmploi is not empty %}
+				<div class="card">
+					<div class="card-body">
+						<div class="table-responsive">
+							<table id="example" class="table table-striped table-bordered"  style="text-align:center !important ; " >
+								<thead>
+                                    <tr>
+                                     <th  style="text-align:center !important ; ">  {{'n'|trans}}</th>
+                                      <th  style="text-align:center !important ; ">  {{'ref'|trans}}</th>
+                                      <th  style="text-align:center !important ; ">  {{'intitule'|trans}}</th>
+                                      <th  style="text-align:center !important ; ">  {{'annee'|trans}}</th>
+                                      <th  style="text-align:center !important ; ">  {{'montant'|trans}}</th>
+                                      <th  style="text-align:center !important ; ">  {{'type'|trans}}</th>
+                                      <th  style="text-align:center !important ; ">  {{'personnel'|trans}}</th>
+                                      <th  style="text-align:center !important ; ">  {{'nombre_rubrique'|trans}}</th>
+                                      <th  style="text-align:center !important ; ">  {{'execution_pe'|trans}}</th>
+                                      <th  style="text-align:center !important ; ">  {{'modification'|trans}}</th>
+                                      <th  style="text-align:center !important ; ">  {{'valide_pe'|trans}}</th>
+                                      <th  style="text-align:center !important ; ">  {{'op'|trans}}</th>
+                                      
+                                    </tr>
+								</thead>
+								<tbody>
+                                    {% for pe in ProgrammeEmploi %}
+                                        {% if pe.element|length > 0 %}
+                                            <tr style="background-color: #5AA00A;color: white;">
+                                        {% else %}
+                                            <tr>
+                                        {% endif %}
+                                        <td>{{pe.id}}</td>
+                                        <td class="sorting_1">{{pe.reference}}</td>
+                                        <td>{{pe.intitule}}</td>
+                                        <td>{{pe.annee}}</td>
+                                        <td>{{pe.montant}}</td>
+                                        <td>{{pe.type}}</td>
+                                        <td>{{pe.personne.nom }} {{pe.personne.prenom }}</td>
+                                        <td>{{pe.element|length}}</td>
+                                        <td>
+                                          <div class="text-center">
+                                            <a class="btn  btn-xs" data-toggle="tooltip" data-placement="top" title="détail" href="#"><span style="{% if pe.element|length > 0 %} color:white; {% endif %}" class="fa fa-edit">éxecution </span></a>
+                                          </div>
+                                        </td>
+                                      
+                                        <td>
+                                            <div class="Affectation__SliderWrapper-biEllm kNhWCl" style="margin-top: 2px; ">
+                                                <span class="Affectation__Close-LPnhg ilYQjq"></span>
+                                              
+                                                <div class=" smart-form row">
+                                                    <section class="col col-6">
+                                                        <!-- Rounded switch -->
+                                                        <label style="text-align:center;" class="switch form-check-danger form-check form-switch">
+                                                            <input style="width:20px;" type="checkbox"  class="platformActive form-check-input " name="platformActive" value="{{pe.id}}" {% if pe.activer == 'OUI' %} checked="checked" {% endif %}>
+                                                            <span  class="slider round"></span>
+                                                        </label>
+                                                    </section>
+
+                                                </div>
+                                                <span class="Affectation__Close-LPnhg ilYQjq" style="text-align: right;"></span>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="Affectation__SliderWrapper-biEllm kNhWCl" style="margin-top: 2px;">
+                                                <span class="Affectation__Close-LPnhg ilYQjq"></span>
+                                              
+                                                <div class=" smart-form row">
+                                                    <section class="col col-6">
+                                                        <!-- Rounded switch -->
+                                                        <label class="switch">
+                                                            <input type="checkbox"  class="platformValide" name="platformValide" value="{{pe.id}}" {% if pe.valider == 'OUI' %} checked="checked" {% endif %}>
+                                                            <span  class="slider round"></span>
+                                                        </label>
+                                                    </section>
+
+                                                </div>
+                                                <span class="Affectation__Close-LPnhg ilYQjq" style="text-align: right;"></span>
+                                            </div>
+                                        </td>
+
+
+                                        <td>
+                                            <div class="text-center">
+                                                <a data-bs-toggle="tooltip" data-bs-placement="top" title="imprimer" href="{{ path('pdfPE', { 'id': pe.id }) }}"><i class="bi bi-file-earmark-arrow-down"></i></a>&nbsp;
+                                                <a href="{{ path('showProgrammeEmploi', {'id': pe.id}) }}" class="text-primary" data-bs-toggle="tooltip" data-bs-placement="bottom" aria-label="Views"><i class="bi bi-eye-fill"></i></a>&nbsp;
+                                            
+                                                <a href="{{ path('editProgrammeEmploi', {'id': pe.id}) }}" class="text-warning" data-bs-toggle="tooltip" data-bs-placement="bottom" aria-label="Edit"><i class="bi bi-pencil-fill"></i></a>&nbsp;
+                                                    <a href="{{ path('remove_ProgrammeEmploi', {'id': pe.id ,'_token':csrf_token('delete' ~ pe.id) }) }}" class="text-danger" data-bs-toggle="tooltip" data-bs-placement="bottom" aria-label="Delete" onclick=" function delete_msg_trans()
+                                                                {
+                                                                    langue = document.getElementById('langue').value  ;
+                                                                    
+                                                                    msg = 'Are yous sure to delete this item ?';
+                                                                if(langue=='fr-FR'){
+                                                                msg = 'Êtes-vous sûr de vouloir supprimer cet enregistrement ?'
+                                                                    }
+                                                                if(langue=='en-GB'){
+                                                                msg = 'Are yous sure to delete this item ?'
+                                                                        }
+                                                                if(langue=='ar-AR'){
+                                                                msg = '? هل أنت متأكد أنك تريد حذف هذا السجل '
+                                                                            }
+                                                                if(langue=='es-ES'){
+                                                                msg = '¿Está seguro de que desea eliminar este registro?'
+                                                                                }
+                                                                return msg ;
+                                                                }
+                                                                a = delete_msg_trans() ; return confirm(a)"><i class="bi bi-trash-fill"></i></a>
+                                            </div>
+                                        </td>
+
+
+                                      </tr>
+                                    {% endfor %}
+                                            
+						        </tbody>
+							
+							</table>
+						</div>
+					</div>
+				</div>
+                {% else %}
+                    <div class="alert alert-success">
+                        <strong> {{'no_programe_emploi'|trans}} </strong>  
+                    </div>
+                {% endif %}
+            	<a class="btn btn btn-primary px-4" href="{{ path('addProgrammeEmploi') }}"> {{'new'|trans}}  </a>
+
+
+
+{% endblock %}
+
+ {% block javascripts %}
+
+{{ parent() }}
+  {{ encore_entry_script_tags('programme_emploi_ajax') }}
+{% endblock %}

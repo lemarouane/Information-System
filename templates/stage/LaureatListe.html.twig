@@ -1,0 +1,79 @@
+
+{% extends 'template.html.twig' %}
+
+{% block title %}{{'liste_laureats'|trans}}{% endblock %}
+
+{% block body %}
+
+				<!--breadcrumb-->
+
+                <div class="page-breadcrumb d-none d-sm-flex align-items-center mb-3">
+                        <div class="breadcrumb-title pe-3">{{'cooperation'|trans}}</div>
+                        <div class="ps-3">
+                            <nav aria-label="breadcrumb">
+                            <ol class="breadcrumb mb-0 p-0">
+                                <li class="breadcrumb-item"><a href="javascript:;"><i class="bi bi-distribute-horizontal"></i></a>
+                                </li>
+                                <li class="breadcrumb-item active" aria-current="page"> {{'liste_laureats'|trans}}</li>
+                            </ol>
+                            </nav>
+                        </div>
+         
+                </div>
+                <hr>
+
+                <div class="card border-top border-success border-0 border-3">
+                  <div class="card-body">
+                    <div class="table-responsive">
+                      <table id="example" class="table table-striped table-bordered dataTable" style="text-align:center !important ;" >
+                        <thead>
+                          <tr>
+                                <th style="text-align:center !important ;">{{'num_apogee'|trans}}</th>
+                                <th style="text-align:center !important ;">{{'promotion'|trans}}</th>
+                                <th style="text-align:center !important ;">{{'nom'|trans}}</th>
+                                <th style="text-align:center !important ;">{{'prenom'|trans}}</th>
+                                <th style="text-align:center !important ;">{{'filiere'|trans}}</th>
+                                <th style="text-align:center !important ;">{{'op'|trans}}</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for diplome in diplomes %}
+                                <tr>
+
+                                    <td>{{diplome.codeEtudiant.code}}</td>
+                                    <td>{{diplome.anneeUniv}}/{{diplome.anneeUniv + 1 }}</td>
+                                    <td>{{diplome.codeEtudiant.nom}}</td>
+                                    <td>{{diplome.codeEtudiant.prenom}}</td>
+                                    
+                                     
+                    
+
+                                    
+					                <td>{{diplome.filiere}}</td>
+        
+                                    <td> <a href="{{ path('suivi_loop', { 'id': diplome.codeEtudiant.id }) }}"><i class="bi bi-search"></i></a> &nbsp;&nbsp;
+
+                                    {% if diplome.codeEtudiant.id in cv %}
+                                     <a href="{{ path('cvtheque_pdf', { 'id': diplome.codeEtudiant.id }) }}"><i class="bi bi-file-earmark-person-fill text-success"></i></a> </td>
+                                    {% endif %}
+                                    
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+
+							
+					</table>
+					</div>
+                    
+					</div>
+				</div>
+                
+
+
+
+
+
+
+
+  
+{% endblock %}

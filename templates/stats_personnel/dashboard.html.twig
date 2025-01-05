@@ -1,0 +1,309 @@
+{% extends 'template.html.twig' %}
+
+{% block title %}{{'titles.stats_personnel'|trans}}{% endblock %}
+
+{% block body %}
+
+<div class="example-wrapper">
+ 
+<div class="row">
+
+<div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-xl-5 row-cols-xxl-5 align-items-center">
+
+              <div class="col">
+                <div class="card radius-10 bg-info">
+                  <div class="card-body">
+                    <div class="d-flex align-items-center">
+                      <div class="">
+                        <p class="mb-1 text-white">{{'adms'|trans}}</p>
+                        <h4 id="adm_totale" class="mb-0 text-white"></h4>
+                      </div>
+                      <div class="ms-auto widget-icon bg-white-1 text-white">
+                        <i class="bi bi-person-fill-gear"></i>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+               </div>
+               <div class="col">
+                <div class="card radius-10 bg-success">
+                  <div class="card-body">
+                    <div class="d-flex align-items-center">
+                      <div class="">
+                        <p class="mb-1 text-white">{{'prfs'|trans}}</p>
+                        <h4 id="pr_totale"  class="mb-0 text-white"></h4>
+                      </div>
+                      <div class="ms-auto widget-icon bg-white-1 text-white">
+                        <i class="bi bi-easel-fill"></i>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+               </div>
+                <div class="col">
+                <div class="card radius-10 bg-danger">
+                  <div class="card-body">
+                    <div class="d-flex align-items-center">
+                      <div class="">
+                        <p class="mb-1 text-white">{{'totale'|trans}}</p>
+                        <h4 id="personnel_totale"  class="mb-0 text-white"></h4>
+                      </div>
+                      <div class="ms-auto widget-icon bg-white-1 text-white">
+                        <i class="bi bi-asterisk"></i>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+               </div>
+               <div class="col">
+                <div class="card radius-10 bg-primary">
+                  <div class="card-body">
+                    <div class="d-flex align-items-center">
+                      <div class="">
+                        <p class="mb-1 text-white">{{'hommes'|trans}}</p>
+                        <h4 id="personnel_homme"  class="mb-0 text-white"></h4>
+                      </div>
+                      <div class="ms-auto widget-icon bg-white-1 text-white">
+                      <i class="bi bi-gender-male"></i>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+               </div>
+
+                   <div class="col">
+                <div class="card radius-10 bg-pink">
+                  <div class="card-body">
+                    <div class="d-flex align-items-center">
+                      <div class="">
+                        <p class="mb-1 text-white">{{'femmes'|trans}}</p>
+                        <h4 id="personnel_femme"  class="mb-0 text-white"></h4>
+                      </div>
+                      <div class="ms-auto widget-icon bg-white-1 text-white">
+                        <i class="bi bi-gender-female"></i>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+               </div>
+               
+               
+        </div>
+
+   <div class="row">
+
+              <div class="col-12 col-lg-12 col-xl-6 d-flex">
+                <div class="card radius-10 w-100">
+                  <div class="card-body">
+                     <div class="row row-cols-1 row-cols-lg-2 g-3 align-items-center pb-3">
+                        <div class="col">
+                          <h5 class="mb-0">{{'evo_effectif'|trans}} </h5>
+                        </div>
+                        <div class="col">
+                          <div class="d-flex align-items-center justify-content-sm-end gap-3 cursor-pointer">
+                             <div class="font-13"><i class="bi bi-circle-fill text-success"></i><span class="ms-2">Nb.Par Année</span></div>
+         
+                          </div>
+                        </div>
+                     </div>
+                     <div id="chart1"></div>
+                  </div>
+                </div>
+              </div>
+
+               <div class="col-12 col-lg-12 col-xl-6 d-flex">
+                <div class="card radius-10 w-100">
+                  <div class="card-body">
+                     <div class="row row-cols-1 row-cols-lg-2 g-3 align-items-center pb-3">
+                        <div class="col">
+                          <h5 class="mb-0"> {{'evo_rec'|trans}} </h5>
+                        </div>
+                       
+                     </div>
+                     <div id="chart5"></div>
+                  </div>
+                </div>
+              </div>
+          
+    </div><!--end row-->
+
+
+
+<div class="row">
+
+              <div class="col-12 col-lg-12 col-xl-12 col-xxl-6 d-flex">
+                <div class="card radius-10 w-100">
+                  <div class="card-body">
+                     <div class="row row-cols-1 row-cols-lg-2 g-3 align-items-center pb-3">
+                        <div class="col">
+                          <h5 class="mb-0">{{'eff_dep'|trans}} </h5>
+                        </div>
+                       
+                     </div>
+                     <div id="chart6"></div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-12 col-lg-12 col-xl-12 col-xxl-6 d-flex">
+                <div class="card radius-10 w-100">
+                  <div class="card-body">
+                     <div class="row row-cols-1 row-cols-lg-2 g-3 align-items-center pb-3">
+                        <div class="col">
+                          <h5 class="mb-0">{{'eff_service'|trans}}  </h5>
+                        </div>
+                       
+                     </div>
+                     <div id="chart9"></div>
+                  </div>
+                </div>
+              </div>
+
+              
+
+        
+</div><!--end row-->
+
+<div class="row">
+
+<div class="col-12 col-lg-12 col-xl-6 d-flex">
+
+              <div class="card radius-10 w-100">
+                 
+							<div class="card-body">
+           <h5 class="mb-0">{{'rep_ens_grade'|trans}} </h5><br>
+								<table class="table table-sm mb-0 table-striped">
+									<thead>
+										<tr>
+
+											<th scope="col">{{'grade'|trans}}</th>
+											<th scope="col">{{'nombre'|trans}}</th>
+
+										</tr>
+									</thead>
+									<tbody id="ul_ens">
+									
+									</tbody>
+								</table>
+							</div>
+						</div>     
+                   </div>
+              
+
+
+
+
+
+
+<div class="col-12 col-lg-12 col-xl-6 d-flex">
+
+                <div class="card radius-10 w-100">
+							<div class="card-body">
+              <h5 class="mb-0" >{{'rep_adm_grade'|trans}}  </h5><br>
+								<table class="table table-sm mb-0 table-striped">
+									<thead>
+										<tr>
+											<th scope="col">{{'grade'|trans}}</th>
+											<th scope="col">{{'nombre'|trans}}</th>
+										</tr>
+									</thead>
+									<tbody id="ul_adm">
+									
+									</tbody>
+								</table>
+							</div>
+						</div>  
+
+                   </div>
+
+
+
+
+
+        
+</div><!--end row-->
+
+
+<div class="row">
+<div class="col-12 col-lg-12 col-xl-12 col-xxl-6 d-flex">
+                <div class="card radius-10 w-100">
+                  <div class="card-body">
+                    <div class="row g-3 align-items-center">
+                      <div class="col">
+                        <h5 class="mb-0">{{'stats_act_personnel'|trans}}  </h5>
+                      </div>
+                      
+                     
+                     </div>
+                  </div>
+                  <div class="card-body">
+                      <div class="row align-items-center justify-content-center">
+                        
+                        <div class="col-12 col-lg-12 ">
+                           <div class="row row-cols-12 row-cols-lg-12 row-cols-xl-12 g-3">
+                              <div class="col">
+                                 <div class="card radius-10 mb-0 shadow-none bg-light-purple">
+                                   <div class="card-body p-4">
+                                      <div class="text-center">
+                                        <h5 id="act_n" class="mb-0 text-purple">0</h5>
+                                        <p  class="mb-0 text-purple">{{'act_normale'|trans}}</p>
+                                      </div>
+                                   </div>
+                                 </div>
+                              </div>
+                              <div class="col">
+                                <div class="card radius-10 mb-0 shadow-none bg-light-orange">
+                                  <div class="card-body p-4">
+                                     <div class="text-center">
+                                       <h5 id="act_r" class="mb-0 text-orange">0</h5>
+                                       <p class="mb-0 text-orange">{{'act_ret'|trans}}</p>
+                                     </div>
+                                  </div>
+                                </div>
+                             </div>
+                             <div class="col">
+                              <div class="card radius-10 mb-0 shadow-none bg-light-success">
+                                <div class="card-body p-4">
+                                   <div class="text-center">
+                                     <h5 id="act_m" class="mb-0 text-success">0</h5>
+                                     <p class="mb-0 text-success">{{'act_mutation'|trans}}</p>
+                                   </div>
+                                </div>
+                              </div>
+                           </div>
+                           <div class="col">
+                            <div class="card radius-10 mb-0 shadow-none bg-light-primary">
+                              <div class="card-body p-4">
+                                 <div class="text-center">
+                                   <h5 id="act_a" class="mb-0 text-primary">0</h5>
+                                   <p class="mb-0 text-primary">{{'act_abondon'|trans}}</p>
+                                 </div>
+                              </div>
+                            </div>
+                         </div>
+
+                           </div>
+                        </div>
+                      </div>
+                  </div>
+                </div>
+              </div>
+</div><!--end row-->
+ 
+</div>
+
+
+
+{% endblock %}
+
+
+    {% block javascripts %}
+      {{parent()}}
+      {{ encore_entry_script_tags('stats_rh') }}
+      <script src="{{ asset('uploads/js/apexcharts-bundle/js/apexcharts.js') }}"></script>	 
+    {% endblock %}
+
+
+
+
+

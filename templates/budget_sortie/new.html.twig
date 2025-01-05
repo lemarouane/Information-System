@@ -1,0 +1,89 @@
+
+	              				
+{% extends 'template.html.twig' %}
+
+{% block title %}{{'budget_sortie'|trans}}{% endblock %}
+{% block stylesheets %}
+        {{ parent() }}
+        
+{% endblock %}
+{% block body %}
+     
+<div class="row">
+    <div class="page-breadcrumb d-none d-sm-flex align-items-center mb-3">
+        <div class="breadcrumb-title pe-3">{{'budget_sortie'|trans}}</div>
+        <div class="ps-3">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb mb-0 p-0">
+                    <li class="breadcrumb-item"><a href="javascript:;"><i class="bi bi-box-seam"></i></a></li>
+                    <li class="breadcrumb-item active" aria-current="page"> {{'ajouter_budget_sortie'|trans}}</li>
+                </ol>
+            </nav>
+        </div>
+         
+    </div>
+
+    <div class="col-lg-12 mx-auto">
+        <div class="card">
+            <div class="card-body" id="pathToType"    data-href="{{ path('StructOfTypeStruct', {id:'1111'})}}">
+                {% include "flaches.html.twig" %}
+                {{ form_start(form, { 'action': path('app_budget_sortie_new'), 'attr': { 'class': 'form-horizontal' } }) }}
+                    <div class="card shadow-none bg-light border">
+                        <div class="card-body" >
+                            <div class="row g-3">
+
+                                    {{ form_row(form.budget) }}  
+
+                                    {{ form_row(form.libelle) }}
+
+                                    {{ form_row(form.montant) }}
+                                
+                                    {{ form_row(form.type_structure) }}
+                                
+								
+								
+                                    {{ form_row(form.structure) }}
+                              
+								
+
+
+                                <div>
+                                    <div>
+                                
+                                        <button type='submit' class="btn btn btn-success px-4 col-2" style="float:right"> {{'save'|trans}} </button>
+                                        <a class="btn btn btn-primary px-4 col-2" style="float:left" href="{{ path('app_budget_sortie_index') }}"> {{'back'|trans}} </a>
+                                    
+                                    </div>
+                                </div>
+                                {{ form_row(form._token) }}
+
+                            </div>
+                        </div>     
+                    </div>
+                {{ form_end(form , {'render_rest': false}) }}    
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+
+{% block javascripts %}
+    {{parent()}} 
+    {{ encore_entry_script_tags('addBudgetSortie') }}
+  
+{% endblock %} 
+
+
+     
+     
+     
+     
+     
+     
+     
+     
+     
+     
+     
+		              

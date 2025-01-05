@@ -1,0 +1,39 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Engagement index{% endblock %}
+
+{% block body %}
+    <h1>Engagement index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>TypeEngagement</th>
+                <th>Matiere</th>
+                <th>DateFait</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for engagement in engagements %}
+            <tr>
+                <td>{{ engagement.id }}</td>
+                <td>{{ engagement.typeEngagement }}</td>
+                <td>{{ engagement.matiere }}</td>
+                <td>{{ engagement.dateFait ? engagement.dateFait|date('Y-m-d') : '' }}</td>
+                <td>
+                    <a href="{{ path('app_engagement_show', {'id': engagement.id}) }}">show</a>
+                    <a href="{{ path('app_engagement_edit', {'id': engagement.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="5">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_engagement_new') }}">Create new</a>
+{% endblock %}

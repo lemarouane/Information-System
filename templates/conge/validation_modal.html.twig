@@ -1,0 +1,66 @@
+<div id="validation_modal" class="modal fade">  
+  <div class="modal-dialog">  
+    <div class="modal-content">  
+        <div class="modal-header">  
+            <h4 class="modal-title"></h4>  
+        </div> 
+        <form method="post" id="attest_validation_from">
+          <div class="modal-body row g-3" >
+            <div>
+              <label class="form-label">{{'cong'|trans}} {{'n'|trans}}</label>
+              <input id="n_conge" name="searchParam[id_conge]" class="form-control" disabled/>
+            </div>   
+            <div>
+              <label class="form-label">{{'demandeur'|trans}}</label>
+              <input id="demandeur_conge"  class="form-control" disabled/>
+            </div> 
+            <div>  
+              <label class="form-label">{{'action'|trans}}</label>
+              <select  id="select_action" name="searchParam[statut]" class="form-control" onchange="hide_motif();">
+                <option value="1">{{'valider'|trans}}</option>
+                <option value="0">{{'refuser'|trans}}</option>
+              </select>
+             </div>
+            <div id="mtf" class="form-group" style="display:none;">
+              <label class="form-label">{{'mt_refus'|trans}}:</label>
+              <textarea class="form-control" name="searchParam[motifRefu]" rows="3" placeholder="..."></textarea>
+            </div>   
+          </div>  
+          <div class="modal-footer">
+            <input type="submit" name="ordreName" id="ordreId" value="{{'envoyer'|trans}}" style="float: left" class="btn btn-success" />  
+            <button onclick="debloque_modif();" type="button" class="btn btn-danger" data-bs-dismiss="modal">{{'fermer'|trans}}</button> 
+          </div> 
+        </form> 
+      </div>  
+    </div>  
+</div>
+
+       <script> 
+function debloque_modif(){
+    $var1 =  document.getElementById("n_conge").value ;
+    var u='conge_debloque_XXXX',
+    jsUrl = u.replace("XXXX", $var1); 
+    //	alert(jsUrl);
+      callAjax(jsUrl);
+      document.getElementById('attest_validation_from').reset();
+      document.getElementById('mtf').style.display = "none";
+  }
+
+
+function callAjax(jsUrl){
+var xhr = new XMLHttpRequest();
+xhr.onreadystatechange = function() {};
+xhr.open('POST',jsUrl );
+xhr.send()
+}
+
+function hide_motif(){
+if(document.getElementById('select_action').value == "1" ){
+  document.getElementById('mtf').style.display = "none";
+}else{
+    document.getElementById('mtf').style.display = "block";
+}
+
+}
+
+ </script>

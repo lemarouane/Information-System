@@ -1,0 +1,35 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}StructureRechType index{% endblock %}
+
+{% block body %}
+    <h1>StructureRechType index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>NomStructure</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for structure_rech_type in structure_rech_types %}
+            <tr>
+                <td>{{ structure_rech_type.id }}</td>
+                <td>{{ structure_rech_type.nomStructure }}</td>
+                <td>
+                    <a href="{{ path('app_structure_rech_type_show', {'id': structure_rech_type.id}) }}">show</a>
+                    <a href="{{ path('app_structure_rech_type_edit', {'id': structure_rech_type.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="3">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_structure_rech_type_new') }}">Create new</a>
+{% endblock %}

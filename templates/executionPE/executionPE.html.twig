@@ -1,0 +1,146 @@
+{% extends "template.html.twig" %}
+{% block title %}
+Execution Programme| {{ parent() }}
+{% endblock %}
+{% block stylesheets %}
+{{ parent() }}
+
+<style type="text/css">
+#ui-datepicker-div{
+
+  background-color: orange;
+}
+.ui-datepicker-calendar{
+  color :white;
+  border :1px solid gray;
+}
+label{
+  margin-right: 15px;
+}
+</style>
+
+{% endblock %}
+{% block body %}
+
+      <!-- NEW COL START -->
+      {% for message in app.flashes('success') %}
+        <div class="flash-notice">
+            {{ message }}
+         </div>
+      {% endfor %}
+      <div class="box-footer">
+      <section class="content">
+        {% include "menuStock.html.twig" %}
+        <div class="row">
+          
+
+            {% if page == 'new' %}
+              {{ form_start(form, {'action': path('addExecutionPE',{'id': programme.id}), 'method': 'POST'}) }}
+            {% else %}
+              {{ form_start(form, {'action': path('updateExecutionPE',{'id': entity.id}), 'method': 'POST'}) }}         
+            {% endif %}
+
+            <div class="col-md-12">
+              <div class="box box-primary">
+                <div class="box-header with-border">
+                  <div style="padding-top: 5px;padding-left: 20px;background-color:#f4a024; color:white; height: 30px;"><h3 class="box-title">Execution Programme:</h3></div>
+                  <div class="box-body">
+                    <div class="form-group">
+                      <div class="row panalArticle">
+                      
+                        
+                        {% include "executionPE/form.html.twig" %}
+                          
+                      </div>
+
+                    </div>
+                  </div>
+
+                  <div style="padding-top: 5px;padding-left: 20px;background-color:#f4a024; color:white; height: 30px;"><h3 class="box-title">La liste des executions :</h3></div>
+                  <p style="font-family: 'Times New Roman', Arial, Verdana, Sans-serif; margin-top: 20px;">
+                    Si vous avez des P.E merci de les ajouter en cliquant sur le botton +.
+                  </p>
+                  <div class="box-body"  id="article_list" data-prototype="{{ form_widget(form.element.vars.prototype)|e('html_attr')}}">
+                    {% for row in form.element %}
+                      <div class="form-group panel">
+                        <div class="row panalArticle" style="margin-bottom: 15px;">
+
+                          <div class="form-group col-sm-6">
+                            <label for="rubrique" class="control-label">Rubrique</label>
+
+                            <div>
+                              {{ form_widget(row.rubrique,{'attr': {'placeholder': 'Rubrique','class':'form-control'}}) }}
+                            </div>
+                          </div>
+                          
+                          <div class="form-group col-sm-6">
+                            <label for="intitule" class="control-label">Intitulé:</label>
+
+                            <div>
+                              {{ form_widget(row.intitule,{'attr': {'placeholder': 'Intitule','class':'form-control'}}) }}
+                            </div>
+                          </div>
+
+                          <div class="form-group col-sm-6">
+                            <label for="description" class="control-label">Description:</label>
+
+                            <div>
+                              {{ form_widget(row.description,{'attr': {'placeholder': 'Description','class':'form-control'}}) }}
+                            </div>
+                          </div>
+                          <div class="form-group col-sm-6">
+                            <label for="montant" class="control-label">Montant:</label>
+
+                            <div>
+                              {{ form_widget(row.montant,{'attr': {'placeholder': 'montant','class':'form-control'}}) }}
+                            </div>
+                          </div>
+                          
+                        </div>
+
+                      </div>
+                    {% endfor %}
+                  </div>
+                  <div>
+                    <hr>
+                    <a class="btn btn-primary  pull-left"  href="{{path('paramStock', { 'param': 'EPE' })}}" >Vers la liste</a>
+                   
+                    <button type="submit" class="btn  btn-success pull-right">Valider</button>
+                  </div>
+                </div>
+              </div>
+                      
+              
+            </div>
+            {{ form_rest(form) }}
+            {{ form_end(form) }}   
+          </div>
+        </section> 
+      </div>
+
+{% endblock body %}
+
+ {% block javascripts %}
+
+{{ parent() }}
+<script src="{{ asset('webroot/js/article.js')}}"></script>
+<script> 
+    
+    (function($) {
+
+
+      $(".js-dateDebut").datepicker({
+        minDate: 0,
+        maxDate: "+50Y",
+        numberOfMonths: 1,
+        language:'fr',
+        dateFormat : 'yy-mm-dd',
+        prevText : '<i class="fa fa-chevron-left"></i>',
+        nextText : '<i class="fa fa-chevron-right"></i>',
+    });
+
+    })(jQuery);
+</script>
+
+
+{% endblock %}

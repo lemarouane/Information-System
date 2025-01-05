@@ -1,0 +1,33 @@
+
+                    <div class="row g-3">
+                        <div class="col-6">
+                            {{ form_row(form.intitule ,{ 'attr' : { 'class' : 'form-control' }}) }}
+                        </div>
+
+                        <div class="col-6">
+                            {{ form_row(form.secteur ,{ 'attr' : { 'class' : 'form-control' }}) }}
+                        </div>
+                        <div class="col-6">
+                            {{ form_row(form.per_contact ,{ 'attr' : { 'class' : 'form-control' }}) }}
+                        </div>
+                        <div class="col-6">
+                            {{ form_row(form.telephone ,{ 'attr' : { 'class' : 'form-control' }}) }}
+                        </div>
+                        <div class="col-6">
+                            {{ form_row(form.adresse ,{ 'attr' : { 'class' : 'form-control' }}) }}
+                        </div>
+                        <div class="col-6">
+                            {{ form_row(form.ville,{ 'attr' : { 'class' : 'form-control' }}) }} 
+                        </div>
+                        <div class="col-6">
+                            <label for="fichier" class="form-label">{{'invit'|trans}}</label>
+                            {{ form_widget(form.fichier,{'attr': {'class':'form-control','type':'file','id':'formFile','style':'visibility: visible;'}}) }}
+                        </div>
+                        <div class="col-6">
+                           {{ form_row(form.convention ,{ 'attr' : { 'class' : 'form-select' }}) }}
+                       </div>
+
+                        {{ form_row(form._token) }}
+
+                    </div>
+                

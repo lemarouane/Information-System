@@ -1,0 +1,105 @@
+{% extends 'template.html.twig' %}
+{% block body %}
+            
+
+            <!--end breadcrumb-->
+    <div class="card  border-top border-primary border-0">
+        <div class="card-body">
+            <div class="row">
+                <div class="col-12">
+                    {% include "flaches.html.twig" %}
+                    <div class="card border shadow-none">
+                        <div class="card-header py-3">
+                            <div class="row align-items-center g-3">
+                                <div class="col-12 col-lg-6">
+                                    <h5 class="mb-0">{{ etudiant.LIB_NOM_PAT_IND }}, {{ etudiant.LIB_PR1_IND}}</h5>
+                                </div>
+                                <div class="col-12 col-lg-6 text-md-end"> 
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-header py-2 bg-light">
+                            <div class="row row-cols-1 row-cols-lg-1">
+                                {% include "elements/info_etudiant.html.twig" %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+    </div>
+    <div class="card">
+		<div class="card-body">
+			<ul class="nav nav-pills nav-pills-success mb-3" role="tablist">
+				<li class="nav-item" role="presentation">
+					<a class="nav-link " data-bs-toggle="pill" href="#danger-pills-home" role="tab" aria-selected="true">
+						<div class="d-flex align-items-center">
+							<div class="tab-icon"><i class=''></i>
+							</div>
+							<div class="tab-title"></div>
+						</div>
+					</a>
+				</li>
+			</ul>
+			<div class="tab-content" id="danger-pills-tabContent">
+				<div class="tab-pane fade show active" id="danger-pills-home" role="tabpanel">
+					{% if absences is not empty %}
+                        <div class="table-responsive">
+                            <table id="example" class="table table-striped table-bordered" style="text-align:center !important ;" >
+                                <thead>
+                                <tr>
+                                    <th style="text-align:center !important ;">{{'module'|trans}}</th>
+                                    <th style="text-align:center !important ;">{{'matiere'|trans}}</th>
+                                    <th style="text-align:center !important ;">{{'date_absence'|trans}}</th>
+                                    <th style="text-align:center !important ;">{{'justif'|trans}}</th>
+                                    <th style="text-align:center !important ;">{{'date_debut'|trans}}</th>
+                                    <th style="text-align:center !important ;">{{'date_fin'|trans}}</th>
+                                    <th style="text-align:center !important ;">{{'certif'|trans}}</th>
+                                    <th style="text-align:center !important ;">{{'op'|trans}}</th>  
+                                </tr>
+                                </thead>
+                                <tbody>
+                                {% for absence in absences %}
+                                    <tr>
+                                        <td>{{absence.module}}</td>
+                                        <td>{{absence.matiere}}</td>
+                                        <td>{{absence.dateAbsence ? absence.dateAbsence|date('Y-m-d') : ''}}</td>
+                                        <td>{{absence.justif ? 'OUI' : 'NON'}}</td>
+                                        <td>{{absence.datedebut ? absence.datedebut|date('Y-m-d') : ''}}</td>
+                                        <td>{{absence.datefin ? absence.datefin|date('Y-m-d') : ''}}</td>
+                                        <td>
+                                            {% if absence.fichier != '' %}
+									            <a href="{{ asset('webroot/absence/' ~ absence.fichier) }}"  class="" onclick="window.open(this.href); return false;">{{ absence.fichier}}
+									            </a>
+									        {% else %} {% endif %}
+									    </td>
+                                        <td>
+                                            <div class="text-center">
+                                                <a class="text-danger icons" onclick="return confirm('Are you sure you want to delete this item?');" data-toggle="tooltip" data-placement="top" title="supprimer" href="{{ path('removeAbsence', { 'id': absence.id }) }}"><span class="fa fa-remove"></span>
+                                                </a>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                {% endfor %}
+                                </tbody>
+                            
+                            </table>
+                        </div>
+                    {% else %}
+                        <div class="alert alert-success">
+                            <strong> {{'MOD_EMPTY_DEM'|trans}} </strong>  
+                        </div>
+                    {% endif %}
+				</div>
+			</div>
+		</div>
+	</div>       
+{% endblock %}
+{% block javascripts %}
+    {{ parent() }}
+    
+{% endblock %}
+    
+
+

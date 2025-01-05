@@ -1,0 +1,97 @@
+.body{
+	color: #222;
+	font-family: "Times New Roman"
+}
+
+.label_fichier{
+	font-size: 22px;
+	text-align: right;
+	padding-top: 20%;
+}
+.label_date{
+	font-size: 22px;
+	font-weight: bold;
+	text-align: left;
+	padding-top: 20%;
+}
+h1{
+	font-size: 28px;
+	font-weight: bold;
+	text-align: center;
+	padding-top: 5%;
+	margin-bottom:10%;
+}
+.contenu_fichier p{
+
+	font-size: 24px;
+}
+
+p:first-letter /* Je veux que la première lettre de mes paragraphes... */ 
+{     
+	font-family : "Times New Roman", Arial, Verdana, Sans-serif; /* Soit mise en Arial si possible*/    
+	font-weight : bold; /* Soit écrite en gras (c'est plus voyant) */
+	margin-left:  2px; /* Qu'il y ait une marge de 5px à droite pour que ça colle pas trop au reste du texte */
+}
+p{
+	margin-right: 50px;
+	margin-left: 50px;
+	font-size: 22px;
+	font-size: 1;
+	line-height: 35px;
+}
+#parag{
+	margin-right: 50px;
+	font-size: 15px;
+}
+table{
+	font-family : "Times New Roman", Arial, Verdana, Sans-serif;
+    width:100%;
+	margin-right: 50px;
+	margin-left: 45px;
+}
+table th{
+	font-size: 24px;
+	text-align: left;
+	font-weight : normal;
+}
+table td{
+	font-size: 24px;
+	font-weight : bold;
+
+}
+
+table tr{
+	height: 50px;
+
+}
+#tableOrdre{
+	border-collapse:collapse;
+    width:100%;
+	margin-right: 50px;
+}
+#tableOrdre th{
+	text-transform: lowercase;
+	border:1px solid black;
+	font-size: 18px;
+	text-align: left;
+}
+#tableOrdre td{
+	text-transform: lowercase;
+	border:1px solid black;
+	font-size: 15px;
+
+}
+#tableOrdre td:first-letter,th:first-letter{
+	text-transform: uppercase;
+
+}
+#ordreMissionUL>li{
+	font-size: 15px;
+	font-family : "Times New Roman", Arial, Verdana, Sans-serif; /* Soit mise en Arial si possible*/    
+    font-weight : bold; /* Soit écrite en gras (c'est plus voyant) */
+}
+
+#headerOrdre{
+	min-height: 200px;
+}
+

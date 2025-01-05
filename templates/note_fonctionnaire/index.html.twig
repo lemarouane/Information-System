@@ -1,0 +1,51 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}NoteFonctionnaire index{% endblock %}
+
+{% block body %}
+    <h1>NoteFonctionnaire index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Note1</th>
+                <th>Note2</th>
+                <th>Note3</th>
+                <th>Note4</th>
+                <th>Note5</th>
+                <th>NoteAnuelle</th>
+                <th>Annee</th>
+                <th>Remarque</th>
+                <th>Lien</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for note_fonctionnaire in note_fonctionnaires %}
+            <tr>
+                <td>{{ note_fonctionnaire.id }}</td>
+                <td>{{ note_fonctionnaire.note1 }}</td>
+                <td>{{ note_fonctionnaire.note2 }}</td>
+                <td>{{ note_fonctionnaire.note3 }}</td>
+                <td>{{ note_fonctionnaire.note4 }}</td>
+                <td>{{ note_fonctionnaire.note5 }}</td>
+                <td>{{ note_fonctionnaire.noteAnuelle }}</td>
+                <td>{{ note_fonctionnaire.annee }}</td>
+                <td>{{ note_fonctionnaire.remarque }}</td>
+                <td>{{ note_fonctionnaire.lien }}</td>
+                <td>
+                    <a href="{{ path('app_note_fonctionnaire_show', {'id': note_fonctionnaire.id}) }}">show</a>
+                    <a href="{{ path('app_note_fonctionnaire_edit', {'id': note_fonctionnaire.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="11">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_note_fonctionnaire_new') }}">Create new</a>
+{% endblock %}

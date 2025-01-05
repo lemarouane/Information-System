@@ -1,0 +1,71 @@
+{% extends 'template.html.twig' %}
+
+{% block title %}{{'finance'|trans}}{% endblock %}
+
+{% block body %}
+				<!--breadcrumb-->
+				<div class="page-breadcrumb d-none d-sm-flex align-items-center mb-3">
+					<div class="breadcrumb-title pe-3"> {{'finance'|trans}}</div>
+					<div class="ps-3">
+						<nav aria-label="breadcrumb">
+							<ol class="breadcrumb mb-0 p-0">
+								<li class="breadcrumb-item"><a href="javascript:;"><i class="bi bi-cash-coin"></i></a>
+								</li>
+								<li class="breadcrumb-item active" aria-current="page">{{'hist_paiements_fc'|trans}}</li>
+							</ol>
+						</nav>
+					</div>
+				
+				</div>
+				<hr/>
+                {% if paiement is not empty %}
+				<div class="card">
+					<div class="card-body">
+						<div class="table-responsive">
+							<table id="example" class="table table-striped table-bordered" style="text-align:center !important ; " >
+								<thead>
+									<tr>
+								
+										<th style="text-align:center !important ; ">{{'num_apogee'|trans}}</th>
+                                        <th style="text-align:center !important ; ">{{'nom'|trans}}</th>
+                                        <th style="text-align:center !important ; ">{{'prenom'|trans}}</th>
+                                        <th style="text-align:center !important ; ">{{'cin'|trans}}</th>
+                                        <th style="text-align:center !important ; ">{{'montant'|trans}}</th>
+                                        <th style="text-align:center !important ; ">{{'op'|trans}}</th>
+									</tr>
+								</thead>
+								<tbody>
+                                    {% for pai in paiement %}
+                                      <tr>
+					
+                                        <td>{{pai[0].demandeur}}</td>
+                                        <td>{{pai[0].nom}}</td>
+                                        <td>{{pai[0].prenom}}</td>
+                                        <td>{{pai[0].cin }}</td>
+                                   		<td style="color:green;font-weight:bold;">{{pai[1]|number_format(2, ',', '.')}}</td>
+                                        <td>
+                                            <div class="text-center">
+                                              <a class="text-success" data-bs-toggle="tooltip" data-bs-placement="bottom" title="afficher" href="{{ path('showPaiement', { 'id': pai[0].demandeur }) }}"><span class="fa fa-search"></span></a>
+                                              
+                                            </div>
+                                          </td>
+                                      </tr>
+                                    {% endfor %}
+								    
+								</tbody>
+							
+							</table>
+						</div>
+					</div>
+				</div>
+                {% else %}
+                    <div class="alert alert-success">
+                        <strong>{{'MOD_EMPTY_PAIEMENT'|trans}} </strong>  
+                    </div>
+                {% endif %}
+            	
+
+
+
+{% endblock %}
+

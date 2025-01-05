@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit Params{% endblock %}
+
+{% block body %}
+    <h1>Edit Params</h1>
+
+    {{ include('params/_form.html.twig', {'button_label': 'Update'}) }}
+
+    <a href="{{ path('app_params_index') }}">back to list</a>
+
+    {{ include('params/_delete_form.html.twig') }}
+{% endblock %}

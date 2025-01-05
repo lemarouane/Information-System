@@ -1,0 +1,47 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Params index{% endblock %}
+
+{% block body %}
+    <h1>Params index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Logo</th>
+                <th>Slogan</th>
+                <th>Nom_app</th>
+                <th>Version</th>
+                <th>Adresse</th>
+                <th>Telephone</th>
+                <th>Email</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for param in params %}
+            <tr>
+                <td>{{ param.id }}</td>
+                <td>{{ param.logo }}</td>
+                <td>{{ param.slogan }}</td>
+                <td>{{ param.nomApp }}</td>
+                <td>{{ param.version }}</td>
+                <td>{{ param.adresse }}</td>
+                <td>{{ param.telephone }}</td>
+                <td>{{ param.email }}</td>
+                <td>
+                    <a href="{{ path('app_params_show', {'id': param.id}) }}">show</a>
+                    <a href="{{ path('app_params_edit', {'id': param.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="9">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_params_new') }}">Create new</a>
+{% endblock %}

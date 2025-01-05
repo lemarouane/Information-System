@@ -1,0 +1,187 @@
+﻿
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Ordre de Mission</title>
+    <meta charset="utf-8">
+
+
+    <style type="text/css">
+      body{
+      margin-left:25px;
+      margin-right:25px;
+    }
+    .label_date{
+      font-size: 20px;
+      font-weight: bold;
+      text-align: left;
+      padding-top: 20%;
+    }
+    .label_date1{
+      font-size: 20px;
+      font-weight: bold;
+      text-align: center;
+      padding-top: 5%;
+    }
+    h1{ 
+      font-size: 24px;
+      font-weight: bold;
+      text-align: center;
+      padding-top: 5%;
+      margin-bottom:5%;
+    }
+    p{
+      text-align: justify;
+      font-size:18px;
+    }
+    
+    .right {
+      text-align: right;
+      margin-right: 1em;
+    }
+
+    .left {
+      text-align: left;
+      margin-right: 1em;
+    }
+
+    .center {
+      text-align: center;
+    }
+    .demande th {
+      text-align: left;
+      margin-left: 1em;
+      background-color: #f0f5f5;
+      width: 30%
+    }
+    .ordre th {
+      text-align: left;
+      margin-left: 1em;
+      width: 30%
+    }
+    table {
+
+      font-family : "Times New Roman", Arial, Verdana, Sans-serif;
+      margin: none;
+      width:100%;
+      border-collapse: collapse;
+      
+    }
+
+    table, th, td {
+      font-size:18px;
+      border: 1px solid black;
+      padding-left: 10px;
+      padding-right: 10px;
+    }
+    
+    </style>
+  </head>
+           <body>
+
+                  <div id="ordre">
+                    <div class="label_date" style="padding-bottom: 10%;padding-top:30%">
+                 N°{{nb_om}}/{{ "now"|date("Y") }}
+                    </div>
+                     <p>M. Le Directeur de l'Ecole Nationale des Sciences Appliquées de Tanger ordonne à </p>
+                    <table style="border:none; margin-left:20%; width: 80%">
+                      <tr>
+                        <th class="left" style="height: 40px;border:none;">
+                         {% if ordreMission.personnel.genre == 'M' %}  M. {% else %} Mme. {% endif %}                
+                        </th>
+                        <td style="border:none;">
+                          :&nbsp;&nbsp;&nbsp;{{ordreMission.personnel.nom}} {{ordreMission.personnel.prenom}}
+                        </td>
+                      </tr>
+                    
+                      <tr>
+                        <th class="left" style="height: 40px;border:none;">
+                          Grade
+                        </th>
+                        <td style="border:none;">
+                          :&nbsp;&nbsp;&nbsp;{{ordreMission.personnel.gradeId.designationFR}}
+                        </td>
+                      </tr>
+		   
+
+       {% if  ("ROLE_DIR_ADJ" in ordreMission.personnel.idUser.roles) or ("ROLE_PROF" in ordreMission.personnel.idUser.roles) or ("ROLE_CHEF_FIL" in ordreMission.personnel.idUser.roles) or ("ROLE_CHEF_DEP" in ordreMission.personnel.idUser.roles)  or ("ROLE_CHEF_SERV" in ordreMission.personnel.idUser.roles)  or ("ROLE_DIR" in ordreMission.personnel.idUser.roles)  %}
+
+
+ {% if ordreMission.personnel.fonctionExercee.fonctionExercee != 'Aucune' %}
+		      <tr>
+                        <th class="left" style="height: 40px;border:none;">
+                          Fonction
+                        </th>
+                        <td style="border:none;">
+                          :&nbsp;&nbsp;&nbsp;{{ ordreMission.personnel.fonctionExercee.fonctionExercee }}
+                        </td>
+                      </tr>
+		      {% endif %}
+	      	
+{% endif %}  
+
+                      <tr>
+                        <th class="left" style="height: 40px;border:none;">
+                          De se rendre en mission                
+                        </th>
+                        <td style="border:none;">
+                          :&nbsp;&nbsp;&nbsp;{{ordreMission.destination}}
+                        </td>
+                      </tr> 
+
+                      <tr>
+                        <th class="left" style="height: 40px;border:none;">
+                          Objet de la mission
+                        </th>
+                        <td style="border:none;">
+                          :&nbsp;&nbsp;&nbsp;{{ordreMission.objetMission}}
+                        </td>
+                      </tr>
+
+                      <tr>
+                        <th class="left" style="height: 40px;border:none;">
+                          Moyen de transport
+                        </th>
+                        <td style="border:none;">
+                          :&nbsp;&nbsp;&nbsp;{{ordreMission.moyenTransport}}
+                        </td>
+                      </tr>
+                      <tr>
+
+ {% if ordreMission.marqueauto is not null %}
+                       <tr>
+                        <th class="left" style="height: 40px;border:none;">
+                          Marque de la voiture
+                        </th>
+                        <td style="border:none;">
+                          :&nbsp;&nbsp;&nbsp;{{ordreMission.marqueauto}} - <span style="font-weight:bold;">Immatriculée</span> : {{ordreMission.matriculeauto}}
+                        </td>
+                      </tr>
+                     
+{% endif %}
+                      <tr>
+                        <th class="left" style="height: 40px;border:none;">
+                          Date de départ                 
+                        </th>
+                        <td style="border:none;">
+                          :&nbsp;&nbsp;&nbsp;{{ordreMission.dateDebut|date("d/m/Y")}} à 7h
+                        </td>
+                      </tr>
+                      <tr>
+                        <th class="left" style="height: 40px;border:none;">
+                          Date de retour                 
+                        </th>
+                        <td style="border:none;">
+                          :&nbsp;&nbsp;&nbsp;{{ordreMission.dateFin|date("d/m/Y")}} à 23
+                        </td>
+                      </tr> 
+                    </table>
+                    <p style="color: red; font-size: 24px;padding-top:10%">
+                      Les autorités sont priées porter aide et assistance au porteur du présent ordre de mission.
+                    </p>
+                   <div class="label_date1" style="padding-top:10%">
+                      Tanger , le {% if date_om|default(null) %} {{date_om|date("d/m/Y")}} {% else %} {{"now"|date("d/m/Y")}} {% endif %}
+                    </div>
+                  </div>   
+  </body>
+</html>

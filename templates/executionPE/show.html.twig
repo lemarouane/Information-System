@@ -1,0 +1,128 @@
+{% extends "template.html.twig" %}
+{% block title %}
+Programme d'emploi | {{ parent() }}
+{% endblock %}
+
+{% block body %}
+
+    <section class="invoice">
+      {% include "menuStock.html.twig" %}
+        <!-- title row -->
+        <div class="row">
+          <div class="col-xs-12">
+            <h2 class="page-header">
+              <i class="fa fa-globe"></i> 
+              <small class="pull-right"></small>
+            </h2>
+          </div>
+          <!-- /.col -->
+        </div>
+
+        <!-- info row -->
+        <div class="row invoice-info" style="border-bottom: 1px solid #eee;margin-bottom: 10px;">
+          <div class="col-sm-2 invoice-col">
+            <address>
+              <strong>Programme d'emploi</strong>
+              <br>
+              <br>
+              {{ executionPE.programme.reference}} <br>
+              
+            </address>
+          </div>
+          <!-- /.col -->
+          <div class="col-sm-2 invoice-col">
+            <address>
+              <strong>Date de création</strong>
+              <br><br>
+              {{ executionPE.dateCRE ? executionPE.dateCRE|date('d/m/Y') : '' }}<br>
+              
+            </address>
+          </div>
+          <!-- /.col -->
+          <div class="col-sm-2 invoice-col" >
+             <address>
+              <strong>Date de modification</strong>
+              <br><br>
+              {{ executionPE.dateMOD ? executionPE.dateMOD|date('d/m/Y') : '' }} <br>
+ 
+            </address>
+          </div>
+          <div class="col-sm-2 invoice-col" >
+             <address>
+              <strong>Statut</strong>
+              <br><br>
+              {{ executionPE.statut}}<br>
+ 
+            </address>
+          </div>
+          <div class="col-sm-2 invoice-col" >
+             <address>
+              <strong>Motif si refusé</strong>
+              <br><br>
+              {{ executionPE.motif}}<br>
+ 
+            </address>
+          </div>
+          <div class="col-sm-2 invoice-col" >
+             <address>
+              <strong>personne</strong>
+              <br><br>
+              {{ executionPE.programme.personne.nom}} {{ executionPE.programme.personne.prenom }}<br>
+            </address>
+          </div>
+          <!-- /.col -->
+        </div>
+        <div class="row">
+          <div class="col-md-12" style="padding-left:30px;padding-right:30px;">
+            <div id="example2_wrapper" class="dataTables_wrapper form-inline dt-bootstrap">
+                          <div class="row">
+                            <div class="col-sm-6"></div>
+                            <div class="col-sm-6"></div>
+                          </div>
+                          <div class="row">
+                            <div class="col-sm-12">
+                              <table id="example2" class="table table-bordered table-hover dataTable" role="grid" aria-describedby="example2_info">
+                                <thead>
+                                  <tr role="row">
+                                    <th class="sorting" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-sort="ascending" aria-label="article: activate to sort column descending">Rubrique</th>
+                                    <th class="sorting" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-label="Intitulé: activate to sort column ascending">Intitulé</th>
+                                    <th class="sorting" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-label="Description: activate to sort column ascending">Description</th>
+                                    <th class="sorting" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-label="montant: activate to sort column ascending">Montant</th>
+                                  </tr>
+                                </thead>
+                                <tbody>
+                                {% for execution in executionPE.element %}
+                                  <tr role="row" class="odd">
+                                    <td class="sorting_1">{{ execution.rubrique.libelle }}</td>
+                                    <td>{{ execution.intitule}}</td>
+                                    <td>{{ execution.description}}</td>
+                                    <td>{{ execution.montant}}</td>
+                                  </tr>
+                                {% endfor %}
+                              </tbody>
+                            </table>
+                          </div>
+                        </div>
+                      </div>
+                      <div>
+                              <form action="#" >
+                                <a class="btn btn-primary btn-block col-sm-4" style=" position:relative " href="{{ path('paramStock',{ 'param': 'EPE'}) }}">Vers la liste</a>
+                              
+                                <hr>
+                              </form>
+                          </div> 
+          </div>
+          <!-- /.col -->
+        </div>
+        <!-- /.row -->
+    </section>
+{% endblock body %}
+
+ {% block javascripts %}
+{{ parent() }}
+<script> 
+    (function($) {
+    })(jQuery);
+</script>
+
+{% endblock %}

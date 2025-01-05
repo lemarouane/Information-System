@@ -1,0 +1,8 @@
+<p>Bonjour Mr/Mme {{ ficheheure.personnel.nom }} {{ ficheheure.personnel.prenom }}</p>
+
+<p>Votre demande d'autorisation HS N° {{ ficheheure.id }} a été {{ ficheheure.statut  == "1" ? 'Validé' : 'Refusé' }}</p>
+<p>Commentaire : {{ ficheheure.motif }}  </p>
+
+<p>Cordialement</p>
+
+<a href="https://app-ensat.uae.ac.ma/e-ensat/public/login">Accéder à la platforme E-ENSAT (Cliquer içi)</a>

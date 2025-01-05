@@ -1,0 +1,120 @@
+{% extends "template.html.twig" %}
+{% block title %} {{'finance'|trans}}{% endblock %}
+{% block stylesheets %}
+{{ parent() }}
+
+
+
+{% endblock %}
+
+
+{% block body %}
+
+<div id="budget-to-validation"  data-href="{{ path('rubriques_of_article', {id:'1111'})}}" ></div>  
+
+	<div class="page-breadcrumb d-none d-sm-flex align-items-center mb-3">
+					<div class="breadcrumb-title pe-3">{{'finance'|trans}} </div>
+					<div class="ps-3">
+						<nav aria-label="breadcrumb">
+							<ol class="breadcrumb mb-0 p-0">
+								<li class="breadcrumb-item"><a href="javascript:;"><i class="bi bi-arrow-bar-down"></i></a>
+								</li>
+								<li class="breadcrumb-item active" aria-current="page">{{'ajouter_budget'|trans}}</li>
+							</ol>
+						</nav>
+					</div>
+				</div>
+		<hr/>
+
+
+
+
+
+ 
+
+
+
+
+     {% include "flaches.html.twig" %}
+      <div class="box-footer">
+      <section class="content">
+
+        <div class="row">
+          
+
+            {% if page == 'new' %}
+              {{ form_start(form, {'action': path('addBudget'), 'method': 'POST'}) }}
+            {% else %}
+              {{ form_start(form, {'action': path('updateBudget',{id: entity.id}), 'method': 'POST'}) }}         
+            {% endif %}
+
+            <div class="col-md-12">
+              <div class="box box-primary">
+                <div class="box-header with-border">
+                  <div class="box-body">
+                    <div class="form-group">
+                      <div class="row panalArticle">
+                      
+                        
+                        {% include "budget/form.html.twig" %}
+                        
+                      </div>
+ 
+                    </div>
+                  </div>
+
+
+
+                 
+
+                  <div><br>
+                 
+              
+                    <button type="submit" class="btn btn btn-success px-4 col-12 pull-right">{{'valider'|trans}}</button>
+
+                  </div>
+                </div>
+              </div>
+                      
+              
+            </div>
+            {{ form_rest(form) }}
+            {{ form_end(form , {'render_rest': false}) }}
+        
+
+          </div>
+        </section> 
+      </div>
+ 
+{% endblock body %}
+
+ {% block javascripts %}
+
+
+{{ parent() }}
+
+    {{ encore_entry_script_tags('budget_ajouter') }}
+   {% if page == 'new' %}
+
+ {% endif %}
+
+<script> 
+    
+    (function($) {
+
+
+      $(".js-dateDebut").datepicker({
+        minDate: 0,
+        maxDate: "+50Y",
+        numberOfMonths: 1,
+        language:'fr',
+        dateFormat : 'yy-mm-dd',
+        prevText : '<i class="fa fa-chevron-left"></i>',
+        nextText : '<i class="fa fa-chevron-right"></i>',
+    });
+
+    })(jQuery);
+</script>
+
+
+{% endblock %}

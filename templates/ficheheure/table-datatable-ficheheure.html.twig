@@ -1,0 +1,115 @@
+
+{% extends 'template.html.twig' %}
+
+{% block title %}{{'fhs'|trans}}{% endblock %}
+
+{% block body %}
+
+				<!--breadcrumb-->
+				<div class="page-breadcrumb d-none d-sm-flex align-items-center mb-3">
+					<div class="breadcrumb-title pe-3">{{'trs'|trans}}</div>
+					<div class="ps-3">
+						<nav aria-label="breadcrumb">
+							<ol class="breadcrumb mb-0 p-0">
+								<li class="breadcrumb-item"><a href="javascript:;"><i class="bi bi-arrow-bar-down"></i></a>
+								</li>
+								<li class="breadcrumb-item active" aria-current="page">{{'fhs'|trans}}</li>
+							</ol>
+						</nav>
+					</div>
+				
+				</div>
+				<hr/>
+					{% if ficheheures is not empty %}
+				<div class="card">
+					<div class="card-body">
+			
+						<div class="table-responsive">
+							<table id="example" class="table table-striped table-bordered"  style="text-align:center !important ;" >
+								<thead>
+									<tr>
+				                    	<th style="text-align:center !important ;">{{'n'|trans}}</th>
+										<th style="text-align:center !important ;">{{'numPPR'|trans}}</th>
+										<th style="text-align:center !important ;">{{'demandeur'|trans}}</th>
+										<th style="text-align:center !important ;">{{'date_envoie'|trans}}</th>	
+										<th style="text-align:center !important ;">{{'etablissement'|trans}}</th>	
+                                        <th style="text-align:center !important ;">{{'date_debut'|trans}}</th>
+										<th style="text-align:center !important ;">{{'date_fin'|trans}}</th>			
+										<th style="text-align:center !important ;" >{{'op'|trans}}</th>	
+									
+									</tr>
+								</thead>
+								<tbody>
+	{% for ficheheure in ficheheures %}
+<tr>
+      <td>{{ ficheheure.id }}</td>
+      <td>{{ ficheheure.personnel.numPPR }}</td>
+	  <td>{{ ficheheure.personnel.nom }} {{ ficheheure.personnel.prenom }}</td>
+ 	  <td>{{ ficheheure.dateEnvoie|date('Y-m-d ') }}</td>
+	
+	    <td>{{ ficheheure.etablissement }} </td>
+      <td>{{ ficheheure.moisDebut|date('Y-m-d') }} </td>
+      <td>{{ ficheheure.moisFin|date('Y-m-d') }} </td>
+	
+	  <td>
+                    <div class="table-actions fs-6">
+						{% if "ROLE_RH" in app.user.roles %}
+					  <a href="{{ path('ficheheurePdf', {'id': ficheheure.id}) }}" class="text-tiffany" data-bs-toggle="tooltip" data-bs-placement="bottom" aria-label="Edit"><i class="bi bi-file-earmark-arrow-down"></i></a>
+&nbsp;  &nbsp;
+                      <a href="{{ asset('webroot/docs/' ~ ficheheure.personnel.nom ~ '_' ~ ficheheure.personnel.prenom ~ '/Fiche_Heure/' ~ ficheheure.emploi) }}" class="text-tiffany" data-bs-toggle="tooltip" data-bs-placement="bottom" aria-label="Edit"><i class="bi bi-calendar-week-fill"></i></a>
+					  
+&nbsp;  &nbsp;
+					  	{% endif %}
+							<a href="{{ path('app_fh_loop', {'id': ficheheure.id}) }}" class="text-primary" aria-label="Loop"><i class="bi bi-search" ></i></a>&nbsp; 
+&nbsp;  &nbsp;
+                      <a onclick="get_attest_params('{{ficheheure.id}}' , '{{ficheheure.personnel.nom ~ " " ~ ficheheure.personnel.prenom}}') ; "    href="" class="text-success" data-bs-toggle="modal" data-bs-target="#validation_modal"  data-bs-toggle="tooltip" data-bs-placement="bottom" aria-label="Edit"><i class="bi bi-check2-circle" ></i></a>
+                    </div>
+					
+     </td>
+
+</tr>
+       
+        {% endfor %}
+								</tbody>
+							
+							</table>
+						</div>
+
+
+					</div>
+				</div>
+
+            {% else %}
+                      <div class="alert alert-success" >
+                  {{'MOD_CONGRATS'|trans}}
+                      </div>
+                {% endif %}
+
+
+
+{% include 'ficheheure/validation_modal.html.twig' %}
+
+  
+{% endblock %}
+{% block javascripts %}
+{{parent()}}
+  {{ encore_entry_script_tags('validation_ficheheure') }}
+  <script>  
+  function get_attest_params($var1,$var2){
+    document.getElementById("n_attest").value = $var1;
+    document.getElementById("demandeur_attest").value = $var2;
+	bloque_modif($var1);
+  } 
+
+  function bloque_modif($var1){
+    var u='ficheheures_bloque_XXXX',
+    jsUrl = u.replace("XXXX", $var1); 
+    //	alert(jsUrl);
+      callAjax(jsUrl);
+  }
+
+
+      </script>
+{% endblock %}
+
+  

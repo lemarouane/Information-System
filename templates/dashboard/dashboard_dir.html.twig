@@ -1,0 +1,2372 @@
+
+{% extends 'template.html.twig' %}
+
+{% block title %}{{'t_trait'|trans}}{% endblock %}
+
+
+{% block body %}
+
+        <!--breadcrumb-->
+        <div class="page-breadcrumb d-none d-sm-flex align-items-center mb-3">
+          <div class="breadcrumb-title pe-3">{{'t_trait'|trans}}</div>
+          <div class="ps-3">
+            <nav aria-label="breadcrumb">
+              <ol class="breadcrumb mb-0 p-0">
+                <li class="breadcrumb-item"><a href="javascript:;"><i class="bi bi-percent"></i></a>
+                </li>
+                <li class="breadcrumb-item active" aria-current="page"> {{'t_trait'|trans}} <span style="font-weight:bold;">  {{'a'|trans}} {{ "now"|date_modify("-1 hour")|date("d/m/Y - H:i") }} </span> </li>
+              </ol>
+            </nav>
+          </div>
+        
+        </div>
+        <hr/>
+
+        <div class="card">
+
+
+
+<div class="card-body">
+            <div class="table-responsive">
+
+{% set colors1 = ['#FCF4FF', '#FFF9F4', '#F5FCFF' ,'#F4FFF3', '#FFF6F9' , '#FCF4FF', '#FFF9F4', '#F5FCFF' ,'#F4FFF3', '#FFF6F9', '#FCF4FF', '#FFF9F4', '#F5FCFF' ,'#F4FFF3', '#FFF6F9' ,'#F4FFF3', '#FFF6F9', '#FCF4FF', '#FFF9F4', '#F5FCFF' ,'#F4FFF3', '#FFF6F9'] %}
+{% set i = 0 %}
+
+
+
+<table class="table table-bordered" style="text-align:center ; font-weight:bold; font-size:13px; border : 1px solid black " >
+
+            	<thead>
+                <th class="col-2" style="background-color:lightblue!important;">{{'entite'|trans}}  </th>
+                <th class="col-2" style="background-color:lightblue!important;">{{'chef_entite'|trans}}  </th>
+                <th class="col-8" style="background-color:lightblue!important;">{{'dem_service'|trans}}  </th>
+              </thead>
+								<tbody>
+
+<tr>
+
+    <td style="vertical-align: middle;" class="col-2">
+ Direction
+    </td>   
+                        
+    <td  style="vertical-align: middle;" class="col-2">
+    {{CHEF_DIR}}
+    </td>
+
+
+
+
+<td class='col-8' >
+
+<div class="col-12"  >
+
+
+    <div >
+
+{% if auto_all_DIR != 0 and ((auto_all_DIR - auto_tr_DIR) / auto_all_DIR) != 1  %}
+ <div class="card radius-10" style="background-color:#7BD3EA;color:#0d6efd;height:70px;width:220px;display: inline-block;float:inline-start;margin:2px; border: 3px solid red;">
+{% else %}
+<div class="card radius-10" style="background-color:#7BD3EA;color:#0d6efd;height:70px;width:220px;display: inline-block;float:inline-start;margin:2px; ">
+{% endif %}
+               
+                  <div class="card-body">
+          
+                    <div class="d-flex align-items-center">
+         
+<a href="{{ path('app_histo_demandes_gen_var' , {'type': 'AUTO' , 'entite': 'DIR' , 'code' : 'null' } ) }}">
+                      <div class="">
+                      
+                        <p class="mb-1 ">Autorisations</p>
+                        <p class="mb-0 " style="float:left;"> {{ (auto_all_DIR - auto_tr_DIR) }} / {{auto_all_DIR}}</p>
+                      </div>
+    </a>
+                      <div class="ms-auto ">
+                          {% if auto_all_DIR != 0 %}     {{(( (auto_all_DIR - auto_tr_DIR) / auto_all_DIR) * 100)|number_format(2, ',', '.')}} % {% else %}  {{100|number_format(2, ',', '.')}} %    {% endif %} 
+                      </div>
+                    </div>
+                    
+                  </div>
+                </div>
+  </div>
+
+  <div >
+              {% if conge_all_DIR != 0 and ((conge_all_DIR - conge_tr_DIR) / conge_all_DIR) != 1  %}
+ <div class="card radius-10" style="background-color:#A1EEBD;color:#0d6efd;height:70px;width:220px;display: inline-block;float:inline-start;margin:2px; border: 3px solid red;">
+{% else %}
+<div class="card radius-10" style="background-color:#A1EEBD;color:#0d6efd;height:70px;width:220px;display: inline-block;float:inline-start;margin:2px; ">
+{% endif %}
+
+                  <div class="card-body">
+
+                    <div class="d-flex align-items-center">
+<a href="{{ path('app_histo_demandes_gen_var' , {'type': 'CONGE' , 'entite': 'DIR' , 'code' : 'null' } ) }}">
+                      <div class="">
+                        <p class="mb-1 ">Congés</p>
+                        <p class="mb-0 " style="float:left;">{{ (conge_all_DIR - conge_tr_DIR) }} / {{conge_all_DIR}}</p>
+                      </div>
+    </a>
+                      <div class="ms-auto ">
+                        {% if conge_all_DIR != 0 %}       {{(( (conge_all_DIR - conge_tr_DIR)  / conge_all_DIR) * 100)|number_format(2, ',', '.')}} % {% else %}  {{100|number_format(2, ',', '.')}} %    {% endif %} 
+                      </div>
+                    </div>
+                    
+                  </div>
+                </div>
+  </div>
+
+
+  <div >
+             
+                 {% if om_all_DIR != 0 and ((om_all_DIR - om_tr_DIR) / om_all_DIR) != 1  %}
+ <div class="card radius-10" style="background-color:#F6F7C4;color:#0d6efd;height:70px;width:220px;display: inline-block;float:inline-start;margin:2px; border: 3px solid red;">
+{% else %}
+<div class="card radius-10" style="background-color:#F6F7C4;color:#0d6efd;height:70px;width:220px;display: inline-block;float:inline-start;margin:2px; ">
+{% endif %}
+
+                  <div class="card-body">
+
+                    <div class="d-flex align-items-center">
+<a href="{{ path('app_histo_demandes_gen_var' , {'type': 'OM' , 'entite': 'DIR' , 'code' : 'null' } ) }}">
+                      <div class="">
+                        <p class="mb-1 " >Ordres de Missions</p>
+                        <p class="mb-0 " style="float:left;">{{ om_all_DIR - om_tr_DIR}} / {{om_all_DIR}}</p>
+                      </div>
+    </a>
+                      <div class="ms-auto ">
+                       {% if om_all_DIR != 0 %}        {{(( (om_all_DIR - om_tr_DIR) / om_all_DIR) * 100)|number_format(2, ',', '.')}} % {% else %}  {{100|number_format(2, ',', '.')}} %    {% endif %} 
+                      </div>
+                    </div>
+                    
+                  </div>
+                </div>
+  </div>
+
+
+
+
+
+
+</div>
+
+</td>
+
+</tr>
+
+
+
+
+<tr>
+
+    <td style="vertical-align: middle;" class="col-2">
+    Directeur Adjoint  (Affaires Pédagogiques)
+    </td>   
+                        
+    <td  style="vertical-align: middle;" class="col-2">
+    {{CHEF_DIR_ADJ_1}}
+    </td>
+
+
+
+<td class='col-8'>
+
+<div class="col-12">
+
+    <div >
+              
+      {% if auto_all_DIRADJ1 != 0 and ((auto_all_DIRADJ1 - auto_tr_DIRADJ1) / auto_all_DIRADJ1) != 1  %}
+ <div class="card radius-10" style="background-color:#7BD3EA;color:#0d6efd;height:70px;width:220px;display: inline-block;float:inline-start;margin:2px; border: 3px solid red;">
+{% else %}
+<div class="card radius-10" style="background-color:#7BD3EA;color:#0d6efd;height:70px;width:220px;display: inline-block;float:inline-start;margin:2px; ">
+{% endif %}
+
+                  <div class="card-body">
+
+                    <div class="d-flex align-items-center">
+<a href="{{ path('app_histo_demandes_gen_var' , {'type': 'AUTO' , 'entite': 'DIRADJ' , 'code' : '1' } ) }}">
+                      <div class="">
+                        <p class="mb-1 ">Autorisations</p>
+                        <p class="mb-0 " style="float:left;">{{ auto_all_DIRADJ1 - auto_tr_DIRADJ1 }} / {{auto_all_DIRADJ1}}</p>
+                      </div>
+    </a>
+                      <div class="ms-auto  ">
+                          {% if auto_all_DIRADJ1 != 0 %}     {{(( (auto_all_DIRADJ1 - auto_tr_DIRADJ1) / auto_all_DIRADJ1) * 100)|number_format(2, ',', '.')}} % {% else %}  {{100|number_format(2, ',', '.')}} %    {% endif %} 
+                      </div>
+                    </div>
+                    
+                  </div>
+                </div>
+  </div>
+
+  <div >
+               
+                {% if conge_all_DIRADJ1 != 0 and ((conge_all_DIRADJ1 - conge_tr_DIRADJ1) / conge_all_DIRADJ1) != 1  %}
+ <div class="card radius-10" style="background-color:#A1EEBD;color:#0d6efd;height:70px;width:220px;display: inline-block;float:inline-start;margin:2px; border: 3px solid red;">
+{% else %}
+<div class="card radius-10" style="background-color:#A1EEBD;color:#0d6efd;height:70px;width:220px;display: inline-block;float:inline-start;margin:2px; ">
+{% endif %}
+                  <div class="card-body">
+
+                    <div class="d-flex align-items-center">
+<a href="{{ path('app_histo_demandes_gen_var' , {'type': 'CONGE' , 'entite': 'DIRADJ' , 'code' : '1' } ) }}">
+                      <div class="">
+                        <p class="mb-1 ">Congés</p>
+                        <p class="mb-0 " style="float:left;">{{ conge_all_DIRADJ1 - conge_tr_DIRADJ1}} / {{conge_all_DIRADJ1}}</p>
+                      </div>
+    </a>
+                      <div class="ms-auto  ">
+                        {% if conge_all_DIRADJ1 != 0 %}       {{(((conge_all_DIRADJ1 - conge_tr_DIRADJ1) / conge_all_DIRADJ1) * 100)|number_format(2, ',', '.')}} % {% else %}  {{100|number_format(2, ',', '.')}} %    {% endif %} 
+                      </div>
+                    </div>
+                    
+                  </div>
+                </div>
+  </div>
+
+
+  <div>
+              
+
+                         {% if om_all_DIRADJ1 != 0 and ((om_all_DIRADJ1 - om_tr_DIRADJ1) / om_all_DIRADJ1) != 1  %}
+ <div class="card radius-10" style="background-color:#F6F7C4;color:#0d6efd;height:70px;width:220px;display: inline-block;float:inline-start;margin:2px; border: 3px solid red;">
+{% else %}
+<div class="card radius-10" style="background-color:#F6F7C4;color:#0d6efd;height:70px;width:220px;display: inline-block;float:inline-start;margin:2px; ">
+{% endif %}     
+                  <div class="card-body">
+
+                    <div class="d-flex align-items-center">
+<a href="{{ path('app_histo_demandes_gen_var' , {'type': 'OM' , 'entite': 'DIRADJ' , 'code' : '1' } ) }}">
+                      <div class="">
+                        <p class="mb-1 " >Ordres de Missions</p>
+                        <p class="mb-0 " style="float:left;">{{ om_all_DIRADJ1 - om_tr_DIRADJ1}} / {{om_all_DIRADJ1}}</p>
+                      </div>
+    </a>
+                      <div class="ms-auto  ">
+                       {% if om_all_DIRADJ1 != 0 %}        {{(( (om_all_DIRADJ1 - om_tr_DIRADJ1) / om_all_DIRADJ1) * 100)|number_format(2, ',', '.')}} % {% else %}  {{100|number_format(2, ',', '.')}} %    {% endif %} 
+                      </div>
+                    </div>
+                    
+                  </div>
+                </div>
+  </div>
+
+
+
+ <div>
+
+                {% if fh_all_DIRADJ1 != 0 and ((fh_all_DIRADJ1 - fh_tr_DIRADJ1) / fh_all_DIRADJ1) != 1  %}
+ <div class="card radius-10" style="background-color:#F6D6D6;color:#0d6efd;height:70px;width:250px;display: inline-block;float:inline-start;margin:2px; border: 3px solid red;">
+{% else %}
+<div class="card radius-10" style="background-color:#F6D6D6;color:#0d6efd;height:70px;width:250px;display: inline-block;float:inline-start;margin:2px; ">
+{% endif %} 
+
+                  <div class="card-body">
+
+                    <div class="d-flex align-items-center">
+<a href="{{ path('app_histo_demandes_gen_var' , {'type': 'FH' , 'entite': 'DIRADJ' , 'code' : '1' } ) }}">
+                      <div class="">
+                        <p class="mb-1 " >Aut. Heures Sup.</p>
+                        <p class="mb-0 " style="float:left;">{{ (fh_all_DIRADJ1 - fh_tr_DIRADJ1 ) }} / {{fh_all_DIRADJ1}}</p>
+                      </div>
+    </a>
+                      <div class="ms-auto  ">
+                       {% if fh_all_DIRADJ1 != 0 %}        {{(((fh_all_DIRADJ1 - fh_tr_DIRADJ1 ) / fh_all_DIRADJ1) * 100)|number_format(2, ',', '.')}} % {% else %}  {{100|number_format(2, ',', '.')}} %    {% endif %} 
+                      </div>
+                    </div>
+                    
+                  </div>
+                </div>
+</div>
+
+
+</div>
+
+</td>
+
+
+  
+ 
+</tr>
+
+
+
+<tr>
+
+    <td style="vertical-align: middle;" class="col-2">
+    Directeur Adjoint  (Recherche Scientifique & Coopération)
+    </td>   
+                        
+    <td  style="vertical-align: middle;" class="col-2">
+    {{CHEF_DIR_ADJ_2}}
+    </td>
+
+
+ 
+
+
+<td class='col-8'>
+
+<div class="col-12">
+
+    <div >
+           
+                 {% if auto_all_DIRADJ2 != 0 and ((auto_all_DIRADJ2 - auto_tr_DIRADJ2) / auto_all_DIRADJ2) != 1  %}
+ <div class="card radius-10" style="background-color:#7BD3EA;color:#0d6efd;height:70px;width:220px;display: inline-block;float:inline-start;margin:2px; border: 3px solid red;">
+{% else %}
+<div class="card radius-10" style="background-color:#7BD3EA;color:#0d6efd;height:70px;width:220px;display: inline-block;float:inline-start;margin:2px; ">
+{% endif %} 
+                  <div class="card-body">
+
+                    <div class="d-flex align-items-center">
+<a href="{{ path('app_histo_demandes_gen_var' , {'type': 'AUTO' , 'entite': 'DIRADJ' , 'code' : '2' } ) }}">
+                      <div class="">
+                        <p class="mb-1 ">Autorisations</p>
+                        <p class="mb-0 " style="float:left;">{{ auto_all_DIRADJ2 -  auto_tr_DIRADJ2 }} / {{auto_all_DIRADJ2}}</p>
+                      </div>
+    </a>
+                      <div class="ms-auto  ">
+                          {% if auto_all_DIRADJ2 != 0 %}     {{(( (auto_all_DIRADJ2 -  auto_tr_DIRADJ2) / auto_all_DIRADJ2) * 100)|number_format(2, ',', '.')}} % {% else %}  {{100|number_format(2, ',', '.')}} %    {% endif %} 
+                      </div>
+                    </div>
+                    
+                  </div>
+                </div>
+  </div>
+
+  <div >
+                
+
+                     {% if conge_all_DIRADJ2 != 0 and ((conge_all_DIRADJ2 - conge_tr_DIRADJ2) / conge_all_DIRADJ2) != 1  %}
+ <div class="card radius-10" style="background-color:#A1EEBD;color:#0d6efd;height:70px;width:220px;display: inline-block;float:inline-start;margin:2px; border: 3px solid red;">
+{% else %}
+<div class="card radius-10" style="background-color:#A1EEBD;color:#0d6efd;height:70px;width:220px;display: inline-block;float:inline-start;margin:2px; ">
+{% endif %} 
+                  <div class="card-body">
+
+                    <div class="d-flex align-items-center">
+<a href="{{ path('app_histo_demandes_gen_var' , {'type': 'CONGE' , 'entite': 'DIRADJ' , 'code' : '2' } ) }}">
+                      <div class="">
+                        <p class="mb-1 ">Congés</p>
+                        <p class="mb-0 " style="float:left;">{{ conge_all_DIRADJ2 - conge_tr_DIRADJ2 }} / {{conge_all_DIRADJ2}}</p>
+                      </div>
+    </a>
+                      <div class="ms-auto  ">
+                        {% if conge_all_DIRADJ2 != 0 %}       {{(( (conge_all_DIRADJ2 - conge_tr_DIRADJ2) / conge_all_DIRADJ2) * 100)|number_format(2, ',', '.')}} % {% else %}  {{100|number_format(2, ',', '.')}} %    {% endif %} 
+                      </div>
+                    </div>
+                    
+                  </div>
+                </div>
+  </div>
+
+
+  <div>
+             
+                         {% if om_all_DIRADJ2 != 0 and ((om_all_DIRADJ2 - om_tr_DIRADJ2) / om_all_DIRADJ2) != 1  %}
+ <div class="card radius-10" style="background-color:#F6F7C4;color:#0d6efd;height:70px;width:220px;display: inline-block;float:inline-start;margin:2px; border: 3px solid red;">
+{% else %}
+<div class="card radius-10" style="background-color:#F6F7C4;color:#0d6efd;height:70px;width:220px;display: inline-block;float:inline-start;margin:2px; ">
+{% endif %} 
+                  <div class="card-body">
+
+                    <div class="d-flex align-items-center">
+<a href="{{ path('app_histo_demandes_gen_var' , {'type': 'OM' , 'entite': 'DIRADJ' , 'code' : '2' } ) }}">
+                      <div class="">
+                        <p class="mb-1 " >Ordres de Missions</p>
+                        <p class="mb-0 " style="float:left;">{{ om_all_DIRADJ2 - om_tr_DIRADJ2 }} / {{om_all_DIRADJ2}}</p>
+                      </div>
+    </a>
+                      <div class="ms-auto  ">
+                       {% if om_all_DIRADJ2 != 0 %}        {{(( (om_all_DIRADJ2 - om_tr_DIRADJ2) / om_all_DIRADJ2) * 100)|number_format(2, ',', '.')}} % {% else %}  {{100|number_format(2, ',', '.')}} %    {% endif %} 
+                      </div>
+                    </div>
+                    
+                  </div>
+                </div>
+  </div>
+
+
+
+</div>
+
+</td>
+
+
+  
+ 
+</tr>
+
+
+<tr>
+
+    <td style="vertical-align: middle;" class="col-1">
+    Division des Affaires Administratives (SG)
+    </td>   
+                        
+    <td  style="vertical-align: middle;" class="col-1">
+    {{CHEF_SG}}
+    </td>
+
+
+<td class='col-10'>
+
+<div class="col-12">
+
+    <div >
+             
+                      {% if auto_all_SG != 0 and ((auto_all_SG - auto_tr_SG) / auto_all_SG) != 1  %}
+ <div class="card radius-10" style="background-color:#7BD3EA;color:#0d6efd;height:70px;width:220px;display: inline-block;float:inline-start;margin:2px; border: 3px solid red;">
+{% else %}
+<div class="card radius-10" style="background-color:#7BD3EA;color:#0d6efd;height:70px;width:220px;display: inline-block;float:inline-start;margin:2px; ">
+{% endif %}
+                  <div class="card-body">
+
+                    <div class="d-flex align-items-center">
+<a href="{{ path('app_histo_demandes_gen_var' , {'type': 'AUTO' , 'entite': 'SG' , 'code' : 'null' } ) }}">
+                      <div class="">
+                        <p class="mb-1 ">Autorisations</p>
+                        <p class="mb-0 " style="float:left;">{{ auto_all_SG - auto_tr_SG}} / {{auto_all_SG}}</p>
+                      </div>
+    </a>
+                      <div class="ms-auto  ">
+                          {% if auto_all_SG != 0 %}     {{(( (auto_all_SG - auto_tr_SG) / auto_all_SG) * 100)|number_format(2, ',', '.')}} % {% else %}  {{100|number_format(2, ',', '.')}} %    {% endif %} 
+                      </div>
+                    </div>
+                    
+                  </div>
+                </div>
+  </div>
+
+  <div >
+                
+
+                        {% if conge_all_SG != 0 and ((conge_all_SG - conge_tr_SG) / conge_all_SG) != 1  %}
+ <div class="card radius-10" style="background-color:#A1EEBD;color:#0d6efd;height:70px;width:220px;display: inline-block;float:inline-start;margin:2px; border: 3px solid red;">
+{% else %}
+<div class="card radius-10" style="background-color:#A1EEBD;color:#0d6efd;height:70px;width:220px;display: inline-block;float:inline-start;margin:2px; ">
+{% endif %}
+
+                  <div class="card-body">
+
+                    <div class="d-flex align-items-center">
+<a href="{{ path('app_histo_demandes_gen_var' , {'type': 'CONGE' , 'entite': 'SG' , 'code' : 'null' } ) }}">
+                      <div class="">
+                        <p class="mb-1 ">Congés</p>
+                        <p class="mb-0 " style="float:left;">{{ conge_all_SG - conge_tr_SG }} / {{conge_all_SG}}</p>
+                      </div>
+    </a>
+                      <div class="ms-auto  ">
+                        {% if conge_all_SG != 0 %}       {{(((conge_all_SG - conge_tr_SG) / conge_all_SG) * 100)|number_format(2, ',', '.')}} % {% else %}  {{100|number_format(2, ',', '.')}} %    {% endif %} 
+                      </div>
+                    </div>
+                    
+                  </div>
+                </div>
+  </div>
+
+
+  <div >
+               
+
+                           {% if om_all_SG != 0 and ((om_all_SG - om_tr_SG) / om_all_SG) != 1  %}
+ <div class="card radius-10" style="background-color:#F6F7C4;color:#0d6efd;height:70px;width:220px;display: inline-block;float:inline-start;margin:2px; border: 3px solid red;">
+{% else %}
+<div class="card radius-10" style="background-color:#F6F7C4;color:#0d6efd;height:70px;width:220px;display: inline-block;float:inline-start;margin:2px; ">
+{% endif %}
+                  <div class="card-body">
+
+                    <div class="d-flex align-items-center">
+<a href="{{ path('app_histo_demandes_gen_var' , {'type': 'OM' , 'entite': 'SG' , 'code' : 'null' } ) }}">
+                      <div class="">
+                        <p class="mb-1 " >Ordres de Missions</p>
+                        <p class="mb-0 " style="float:left;">{{ om_all_SG - om_tr_SG }} / {{om_all_SG}}</p>
+                      </div>
+    </a>
+                      <div class="ms-auto  ">
+                       {% if om_all_SG != 0 %}        {{(((om_all_SG - om_tr_SG ) / om_all_SG) * 100)|number_format(2, ',', '.')}} % {% else %}  {{100|number_format(2, ',', '.')}} %    {% endif %} 
+                      </div>
+                    </div>
+                    
+                  </div>
+                </div>
+  </div>
+
+
+
+</div>
+
+</td>
+
+
+  
+ 
+</tr>
+
+
+
+<tr>
+
+    <td style="vertical-align: middle;" class="col-1">
+    Service des Affaires Estudiantines
+    </td>   
+                        
+    <td  style="vertical-align: middle;" class="col-1">
+    {{CHEF_SCO}}
+    </td>
+
+
+
+<td class='col-10'>
+
+<div class="col-12">
+
+
+
+
+<div >
+              
+    {% if attest_all != 0 and (attest_tr / attest_all) != 1  %}
+ <div class="card radius-10" style="background-color:#FFDDCC;color:#0d6efd;height:70px;width:250px;display: inline-block;float:inline-start;margin:2px; border: 3px solid red;">
+{% else %}
+<div class="card radius-10" style="background-color:#FFDDCC;color:#0d6efd;height:70px;width:250px;display: inline-block;float:inline-start;margin:2px; ">
+{% endif %}
+
+                  <div class="card-body">
+
+                    <div class="d-flex align-items-center">
+<a href="{{ path('documents', {'type': 'attestation'}) }}">
+                      <div class="" style="color:#0d6efd;">
+                        <p class="mb-1">Att. de scolarité</p>
+                        <p class="mb-0" style="float:left;" >{{attest_tr}} / {{attest_all}}</p>
+                      </div>
+    </a>
+                      <div class="ms-auto ">
+                      {% if attest_all != 0 %}  {{((attest_tr / attest_all) * 100)|number_format(2, ',', '.')}} %  {% else %}  {{100|number_format(2, ',', '.')}} %    {% endif %} 
+                      </div>
+                    </div>
+                    
+                  </div>
+                </div>
+  </div>
+
+  <div >
+              
+
+                            {% if (attest_res_all + rel_all) != 0 and ( (attest_res_tr + rel_tr ) / (attest_res_all + rel_all) ) != 1  %}
+ <div class="card radius-10" style="background-color:#FEBBCC;color:#0d6efd;height:70px;width:250px;display: inline-block;float:inline-start;margin:2px; border: 3px solid red;">
+{% else %}
+<div class="card radius-10" style="background-color:#FEBBCC;color:#0d6efd;height:70px;width:250px;display: inline-block;float:inline-start;margin:2px; ">
+{% endif %}
+                  <div class="card-body">
+
+                    <div class="d-flex align-items-center">
+<a href="{{ path('documents', {'type': 'releve'}) }}">
+                      <div class="">
+                        <p class="mb-1 " style="font-size:11px;">Att. de reussite & R.de Notes </p>
+                        <p class="mb-0 " style="float:left;"> {{ (attest_res_tr + rel_tr ) }} / {{ (attest_res_all + rel_all)  }}</p>
+                      </div>
+    </a>
+                      <div class="ms-auto  ">
+                          {% if (attest_res_all + rel_all)!= 0 %}   {{(( (attest_res_tr + rel_tr ) / (attest_res_all + rel_all) ) * 100)|number_format(2, ',', '.')}} % {% else %}  {{100|number_format(2, ',', '.')}} %    {% endif %} 
+                      </div>
+                    </div>
+                    
+                  </div>
+                </div>
+  </div>
+
+  <div >
+                
+
+
+                                 {% if (carte_all) != 0 and ( carte_tr / carte_all ) != 1  %}
+ <div class="card radius-10" style="background-color:#FFC7EA;color:#0d6efd;height:70px;width:250px;display: inline-block;float:inline-start;margin:2px; border: 3px solid red;">
+{% else %}
+<div class="card radius-10" style="background-color:#FFC7EA;color:#0d6efd;height:70px;width:250px;display: inline-block;float:inline-start;margin:2px; ">
+{% endif %}
+                  <div class="card-body">
+
+                    <div class="d-flex align-items-center">
+<a href="{{ path('documents', {'type': 'carte'}) }}">
+                      <div class="" style="margin-left:0;">
+                        <p class="mb-1 " >Cartes d'etudiants</p>
+                        <p class="mb-0 " style="float:left;">{{carte_tr}} / {{carte_all}}</p>
+                      </div>
+    </a>
+                      <div class="ms-auto  ">
+                         {% if carte_all != 0 %}      {{((carte_tr / carte_all) * 100)|number_format(2, ',', '.')}} % {% else %}  {{100|number_format(2, ',', '.')}} %    {% endif %} 
+                      </div>
+                    </div>
+                    
+                  </div>
+                </div>
+  </div>
+
+
+
+
+
+
+    <div >
+                
+
+                                   {% if auto_all_SCO != 0 and ((auto_all_SCO - auto_tr_SCO) / auto_all_SCO)!= 1  %}
+ <div class="card radius-10" style="background-color:#7BD3EA;color:#0d6efd;height:70px;width:220px;display: inline-block;float:inline-start;margin:2px; border: 3px solid red;">
+{% else %}
+<div class="card radius-10" style="background-color:#7BD3EA;color:#0d6efd;height:70px;width:220px;display: inline-block;float:inline-start;margin:2px; ">
+{% endif %}
+                  <div class="card-body">
+
+                    <div class="d-flex align-items-center">
+<a href="{{ path('app_histo_demandes_gen_var' , {'type': 'AUTO' , 'entite': 'SER' , 'code' : '3' } ) }}">
+                      <div class="">
+                        <p class="mb-1 ">Autorisations</p>
+                        <p class="mb-0 " style="float:left;">{{ auto_all_SCO - auto_tr_SCO }} / {{auto_all_SCO}}</p>
+                      </div>
+    </a>
+                      <div class="ms-auto  ">
+                          {% if auto_all_SCO != 0 %}     {{((auto_all_SCO - auto_tr_SCO / auto_all_SCO) * 100)|number_format(2, ',', '.')}} % {% else %}  {{100|number_format(2, ',', '.')}} %    {% endif %} 
+                      </div>
+                    </div>
+                    
+                  </div>
+                </div>
+  </div>
+
+  <div >
+              
+                                       {% if conge_all_SCO != 0 and ( (conge_all_SCO - conge_tr_SCO) / conge_all_SCO)!= 1  %}
+ <div class="card radius-10" style="background-color:#A1EEBD;color:#0d6efd;height:70px;width:220px;display: inline-block;float:inline-start;margin:2px; border: 3px solid red;">
+{% else %}
+<div class="card radius-10" style="background-color:#A1EEBD;color:#0d6efd;height:70px;width:220px;display: inline-block;float:inline-start;margin:2px; ">
+{% endif %}
+                  <div class="card-body">
+
+                    <div class="d-flex align-items-center">
+<a href="{{ path('app_histo_demandes_gen_var' , {'type': 'CONGE' , 'entite': 'SER' , 'code' : '3' } ) }}">
+                      <div class="">
+                        <p class="mb-1 ">Congés</p>
+                        <p class="mb-0 " style="float:left;">{{ conge_all_SCO - conge_tr_SCO }} / {{conge_all_SCO}}</p>
+                      </div>
+    </a>
+                      <div class="ms-auto  ">
+                        {% if conge_all_SCO != 0 %}       {{(( (conge_all_SCO - conge_tr_SCO) / conge_all_SCO) * 100)|number_format(2, ',', '.')}} % {% else %}  {{100|number_format(2, ',', '.')}} %    {% endif %} 
+                      </div>
+                    </div>
+                    
+                  </div>
+                </div>
+  </div>
+
+
+  <div >
+              
+
+                                               {% if om_all_SCO != 0 and ((om_all_SCO - om_tr_SCO)  / om_all_SCO) != 1  %}
+ <div class="card radius-10" style="background-color:#F6F7C4;color:#0d6efd;height:70px;width:220px;display: inline-block;float:inline-start;margin:2px; border: 3px solid red;">
+{% else %}
+<div class="card radius-10" style="background-color:#F6F7C4;color:#0d6efd;height:70px;width:220px;display: inline-block;float:inline-start;margin:2px; ">
+{% endif %}
+                  <div class="card-body">
+
+                    <div class="d-flex align-items-center">
+<a href="{{ path('app_histo_demandes_gen_var' , {'type': 'OM' , 'entite': 'SER' , 'code' : '3' } ) }}">
+                      <div class="">
+                        <p class="mb-1 " >Ordres de Missions</p>
+                        <p class="mb-0 " style="float:left;">{{ om_all_SCO - om_tr_SCO }} / {{om_all_SCO}}</p>
+                      </div>
+    </a>
+                      <div class="ms-auto  ">
+                       {% if om_all_SCO != 0 %}        {{(( (om_all_SCO - om_tr_SCO)  / om_all_SCO) * 100)|number_format(2, ',', '.')}} % {% else %}  {{100|number_format(2, ',', '.')}} %    {% endif %} 
+                      </div>
+                    </div>
+                    
+                  </div>
+                </div>
+  </div>
+
+
+
+</div>
+
+</td>
+
+
+  
+ 
+</tr>
+
+
+
+
+<tr>
+
+    <td style="vertical-align: middle;" class="col-1">
+    Service des Ressources Humaines
+    </td>   
+                        
+    <td  style="vertical-align: middle;" class="col-1">
+   {{CHEF_RH}}
+    </td>
+
+
+
+
+
+<td class='col-10'>
+
+<div class="col-12">
+
+    <div >
+                
+
+                              {% if (auto_all_RH + auto_all_RHS) != 0 and ( ((auto_all_RH + auto_all_RHS) - (auto_tr_RH + auto_tr_RHS))  / (auto_all_RH + auto_all_RHS ))!= 1  %}
+ <div class="card radius-10" style="background-color:#7BD3EA;color:#0d6efd;height:70px;width:220px;display: inline-block;float:inline-start;margin:2px; border: 3px solid red;">
+{% else %}
+<div class="card radius-10" style="background-color:#7BD3EA;color:#0d6efd;height:70px;width:220px;display: inline-block;float:inline-start;margin:2px; ">
+{% endif %}
+                  <div class="card-body">
+
+                    <div class="d-flex align-items-center">
+<a href="{{ path('app_histo_demandes_gen_var' , {'type': 'AUTO' , 'entite': 'RH' , 'code' : 'null' } ) }}">
+                      <div class="">
+                        <p class="mb-1 ">Autorisations</p>
+                        <p class="mb-0 " style="float:left;">{{ (auto_all_RH + auto_all_RHS) - (auto_tr_RH + auto_tr_RHS)  }} / {{ auto_all_RH + auto_all_RHS }}</p>
+                      </div>
+    </a>
+                      <div class="ms-auto  ">
+                          {% if (auto_all_RH + auto_all_RHS) != 0  %}     {{(( ((auto_all_RH + auto_all_RHS) - (auto_tr_RH + auto_tr_RHS))  / (auto_all_RH + auto_all_RHS )) * 100)|number_format(2, ',', '.')}} % {% else %}  {{100|number_format(2, ',', '.')}} %    {% endif %} 
+                      </div>
+                    </div>
+                    
+                  </div>
+                </div>
+  </div>
+
+  <div >
+               
+
+                                         {% if (conge_all_RH + conge_all_RHS ) != 0 and ( ((conge_all_RH + conge_all_RHS) -  (conge_tr_RH + conge_tr_RHS))  / (conge_all_RH + conge_all_RHS) )!= 1  %}
+ <div class="card radius-10" style="background-color:#A1EEBD;color:#0d6efd;height:70px;width:220px;display: inline-block;float:inline-start;margin:2px; border: 3px solid red;">
+{% else %}
+<div class="card radius-10" style="background-color:#A1EEBD;color:#0d6efd;height:70px;width:220px;display: inline-block;float:inline-start;margin:2px;">
+{% endif %}
+                  <div class="card-body">
+
+                    <div class="d-flex align-items-center">
+<a href="{{ path('app_histo_demandes_gen_var' , {'type': 'CONGE' , 'entite': 'RH' , 'code' : 'null' } ) }}">
+                      <div class="">
+                        <p class="mb-1 ">Congés</p>
+                        <p class="mb-0 " style="float:left;">{{ (conge_all_RH + conge_all_RHS) -  (conge_tr_RH + conge_tr_RHS)  }} / {{conge_all_RH + conge_all_RHS }} </p>
+                      </div>
+    </a>
+                      <div class="ms-auto  ">
+                        {% if (conge_all_RH + conge_all_RHS )!= 0 %}     {{(( ((conge_all_RH + conge_all_RHS) -  (conge_tr_RH + conge_tr_RHS))  / (conge_all_RH + conge_all_RHS) ) * 100)|number_format(2, ',', '.')}} % {% else %}  {{100|number_format(2, ',', '.')}} %    {% endif %} 
+                      </div>
+                    </div>
+                    
+                  </div>
+                </div>
+  </div>
+
+
+  <div >
+              
+
+                                         {% if (om_all_RH + om_all_RHS ) != 0 and ( ((om_all_RH + om_all_RHS) - (om_tr_RH + om_tr_RHS)) / (om_all_RH + om_all_RHS ) ) != 1  %}
+ <div class="card radius-10" style="background-color:#F6F7C4;color:#0d6efd;height:70px;width:220px;display: inline-block;float:inline-start;margin:2px; border: 3px solid red;">
+{% else %}
+<div class="card radius-10" style="background-color:#F6F7C4;color:#0d6efd;height:70px;width:220px;display: inline-block;float:inline-start;margin:2px; ">
+{% endif %}
+                  <div class="card-body">
+
+                    <div class="d-flex align-items-center">
+<a href="{{ path('app_histo_demandes_gen_var' , {'type': 'OM' , 'entite': 'RH' , 'code' : 'null' } ) }}">
+                      <div class="">
+                        <p class="mb-1 " >Ordres de Missions</p>
+                        <p class="mb-0 " style="float:left;">{{ (om_all_RH + om_all_RHS) - (om_tr_RH + om_tr_RHS)  }} / {{om_all_RH + om_all_RHS }}</p>
+                      </div>
+    </a>
+                      <div class="ms-auto  ">
+                       {% if (om_all_RH + om_all_RHS ) != 0 %}        {{(( ((om_all_RH + om_all_RHS) - (om_tr_RH + om_tr_RHS))   /  (om_all_RH + om_all_RHS ) ) * 100)|number_format(2, ',', '.')}} % {% else %}  {{100|number_format(2, ',', '.')}} %    {% endif %} 
+                      </div>
+                    </div>
+                    
+                  </div>
+                </div>
+  </div>
+
+  <div >
+                
+
+                                            {% if (fh_all_RH ) != 0 and ( (fh_all_RH - fh_tr_RH)  / fh_all_RH ) != 1  %}
+ <div class="card radius-10" style="background-color:#F6D6D6;color:#0d6efd;height:70px;width:220px;display: inline-block;float:inline-start;margin:2px; border: 3px solid red;">
+{% else %}
+<div class="card radius-10" style="background-color:#F6D6D6;color:#0d6efd;height:70px;width:220px;display: inline-block;float:inline-start;margin:2px; ">
+{% endif %}
+                  <div class="card-body">
+
+                    <div class="d-flex align-items-center">
+<a href="{{ path('app_histo_demandes_gen_var' , {'type': 'FH' , 'entite': 'RH' , 'code' : 'null' } ) }}">
+                      <div class="">
+                        <p class="mb-1 " >Aut. Heures Sup.</p>
+                        <p class="mb-0 " style="float:left;">{{  (fh_all_RH - fh_tr_RH)  }} / {{fh_all_RH }}</p>
+                      </div>
+    </a>
+                      <div class="ms-auto  ">
+                       {% if fh_all_RH  != 0 %}        {{(( (fh_all_RH - fh_tr_RH)  / fh_all_RH ) * 100)|number_format(2, ',', '.')}} % {% else %}  {{100|number_format(2, ',', '.')}} %    {% endif %} 
+                      </div>
+                    </div>
+                    
+                  </div>
+                </div>
+  </div>
+
+
+
+
+</div>
+
+</td>
+ 
+  
+</tr>
+
+
+</tr>
+
+
+<tr>
+
+ <td style="vertical-align: middle;" class="col-1">
+    Service Cooperation & Stages
+    </td>   
+                        
+    <td  style="vertical-align: middle;" class="col-1">
+    {{CHEF_COOP}}
+    </td>
+
+
+<td class='col-3'>
+
+<div class="col-12">
+
+
+  <div >
+               
+
+                                                   {% if (stage_all ) != 0 and ( (stage_all - stage_tr) / stage_all) != 1  %}
+ <div class="card radius-10" style="background-color:#FFDDCC;color:#0d6efd;height:70px;width:220px;display: inline-block;float:inline-start;margin:2px; border: 3px solid red;">
+{% else %}
+<div class="card radius-10" style="background-color:#FFDDCC;color:#0d6efd;height:70px;width:220px;display: inline-block;float:inline-start;margin:2px; ">
+{% endif %}
+                  <div class="card-body">
+
+                    <div class="d-flex align-items-center">
+<a href="{{ path('conventions') }}">
+                      <div class="" style="color:#0d6efd;">
+                        <p class="mb-1">Conv. de Stages</p>
+                        <p class="mb-0" style="float:left;" >{{ stage_all - stage_tr }} / {{ stage_all }}</p>
+                      </div>
+    </a>
+                      <div class="ms-auto ">
+                      {% if stage_all != 0 %}  {{(( (stage_all - stage_tr) / stage_all) * 100)|number_format(2, ',', '.')}} %  {% else %}  {{100|number_format(2, ',', '.')}} %    {% endif %} 
+                      </div>
+                    </div>
+                    
+                  </div>
+                </div>
+  </div>
+
+  <div >
+                
+
+                                                  {% if (dip_all ) != 0 and (dip_tr / dip_all) != 1  %}
+ <div class="card radius-10" style="background-color:#FEBBCC;color:#0d6efd;height:70px;width:220px;display: inline-block;float:inline-start;margin:2px; border: 3px solid red;">
+{% else %}
+<div class="card radius-10" style="background-color:#FEBBCC;color:#0d6efd;height:70px;width:220px;display: inline-block;float:inline-start;margin:2px; ">
+{% endif %}
+                  <div class="card-body">
+
+                    <div class="d-flex align-items-center">
+<a href="{{ path('diplomes') }}">
+                      <div class="">
+                        <p class="mb-1 ">Diplomes</p>
+                        <p class="mb-0 " style="float:left;">{{dip_tr}} / {{dip_all}}</p>
+                      </div>
+    </a>
+                      <div class="ms-auto  ">
+                          {% if dip_all != 0 %}     {{((dip_tr / dip_all) * 100)|number_format(2, ',', '.')}} % {% else %}  {{100|number_format(2, ',', '.')}} %    {% endif %} 
+                      </div>
+                    </div>
+                    
+                  </div>
+                </div>
+  </div>
+
+
+
+
+    <div >
+              
+
+                                         {% if (auto_all_COOP ) != 0 and ((auto_all_COOP - auto_tr_COOP) / auto_all_COOP) != 1  %}
+ <div class="card radius-10" style="background-color:#7BD3EA;color:#0d6efd;height:70px;width:220px;display: inline-block;float:inline-start;margin:2px; border: 3px solid red;">
+{% else %}
+<div class="card radius-10" style="background-color:#7BD3EA;color:#0d6efd;height:70px;width:220px;display: inline-block;float:inline-start;margin:2px; ">
+{% endif %}
+                  <div class="card-body">
+
+                    <div class="d-flex align-items-center">
+<a href="{{ path('app_histo_demandes_gen_var' , {'type': 'AUTO' , 'entite': 'SER' , 'code' : '2' } ) }}">
+                      <div class="">
+                        <p class="mb-1 ">Autorisations</p>
+                        <p class="mb-0 " style="float:left;">{{ (auto_all_COOP - auto_tr_COOP) }} / {{auto_all_COOP}}</p>
+                      </div>
+    </a>
+                      <div class="ms-auto  ">
+                          {% if auto_all_COOP != 0 %}     {{(((auto_all_COOP - auto_tr_COOP) / auto_all_COOP) * 100)|number_format(2, ',', '.')}} % {% else %}  {{100|number_format(2, ',', '.')}} %    {% endif %} 
+                      </div>
+                    </div>
+                    
+                  </div>
+                </div>
+  </div>
+
+  <div >
+
+                                          {% if (conge_all_COOP ) != 0 and ((conge_all_COOP - conge_tr_COOP) / conge_all_COOP) != 1  %}
+ <div class="card radius-10" style="background-color:#A1EEBD;color:#0d6efd;height:70px;width:220px;display: inline-block;float:inline-start;margin:2px; border: 3px solid red;">
+{% else %}
+<div class="card radius-10" style="background-color:#A1EEBD;color:#0d6efd;height:70px;width:220px;display: inline-block;float:inline-start;margin:2px; ">
+{% endif %}
+                  <div class="card-body">
+
+                    <div class="d-flex align-items-center">
+<a href="{{ path('app_histo_demandes_gen_var' , {'type': 'CONGE' , 'entite': 'SER' , 'code' : '2' } ) }}">
+                      <div class="">
+                        <p class="mb-1 ">Congés</p>
+                        <p class="mb-0 " style="float:left;">{{ (conge_all_COOP - conge_tr_COOP) }} / {{conge_all_COOP}}</p>
+                      </div>
+    </a>
+                      <div class="ms-auto  ">
+                        {% if conge_all_COOP != 0 %}       {{(((conge_all_COOP - conge_tr_COOP) / conge_all_COOP) * 100)|number_format(2, ',', '.')}} % {% else %}  {{100|number_format(2, ',', '.')}} %    {% endif %} 
+                      </div>
+                    </div>
+                    
+                  </div>
+                </div>
+  </div>
+
+
+  <div >
+                
+
+                                               {% if (om_all_COOP ) != 0 and ((om_all_COOP - om_tr_COOP) / om_all_COOP) != 1  %}
+ <div class="card radius-10" style="background-color:#F6F7C4;color:#0d6efd;height:70px;width:220px;display: inline-block;float:inline-start;margin:2px; border: 3px solid red;">
+{% else %}
+<div class="card radius-10" style="background-color:#F6F7C4;color:#0d6efd;height:70px;width:220px;display: inline-block;float:inline-start;margin:2px; ">
+{% endif %}
+                  <div class="card-body">
+             <div class="d-flex align-items-center">
+<a href="{{ path('app_histo_demandes_gen_var' , {'type': 'OM' , 'entite': 'SER' , 'code' : '2' } ) }}">
+                      <div class="">
+                        <p class="mb-1">Ordres de Missions</p>
+                        <p class="mb-0 " style="float:left;">{{ (om_all_COOP - om_tr_COOP) }} / {{om_all_COOP}}</p>
+                      </div>
+    </a>
+                      <div class="ms-auto  ">
+                       {% if om_all_COOP != 0 %}        {{(((om_all_COOP - om_tr_COOP) / om_all_COOP) * 100)|number_format(2, ',', '.')}} % {% else %}  {{100|number_format(2, ',', '.')}} %    {% endif %} 
+                      </div>
+                    </div>
+                    
+                  </div>
+                </div>
+  </div>
+
+
+
+</div>
+
+</td>
+
+
+
+</tr>
+
+
+
+<tr>
+
+
+
+    <td style="vertical-align: middle;" class="col-3">
+    Service Informatique
+    </td>   
+                        
+    <td  style="vertical-align: middle;" class="col-3">
+      {{CHEF_INFO}}
+    </td>
+
+
+
+<td class='col-3'>
+
+<div class="col-12">
+
+    <div >
+        
+                                                {% if (auto_all_INFO ) != 0 and ( (auto_all_INFO - auto_tr_INFO)  / auto_all_INFO ) != 1  %}
+ <div class="card radius-10" style="background-color:#7BD3EA;color:#0d6efd;height:70px;width:220px;display: inline-block;float:inline-start;margin:2px; border: 3px solid red;">
+{% else %}
+<div class="card radius-10" style="background-color:#7BD3EA;color:#0d6efd;height:70px;width:220px;display: inline-block;float:inline-start;margin:2px; ">
+{% endif %}
+                  <div class="card-body">
+
+                    <div class="d-flex align-items-center">
+<a href="{{ path('app_histo_demandes_gen_var' , {'type': 'AUTO' , 'entite': 'SER' , 'code' : '6' } ) }}">
+                      <div class="">
+                        <p class="mb-1 ">Autorisations</p>
+                        <p class="mb-0 " style="float:left;">{{ (auto_all_INFO - auto_tr_INFO) }} / {{auto_all_INFO}}</p>
+                      </div>
+    </a>
+                      <div class="ms-auto  ">
+                          {% if auto_all_INFO != 0  %}     {{(( (auto_all_INFO - auto_tr_INFO)  / auto_all_INFO ) * 100)|number_format(2, ',', '.')}} % {% else %}  {{100|number_format(2, ',', '.')}} %    {% endif %} 
+                      </div>
+                    </div>
+                    
+                  </div>
+                </div>
+  </div>
+
+  <div >
+   
+
+                                                   {% if (conge_all_INFO ) != 0 and ( (conge_all_INFO -  conge_tr_INFO)   / conge_all_INFO ) != 1  %}
+ <div class="card radius-10" style="background-color:#A1EEBD;color:#0d6efd;height:70px;width:220px;display: inline-block;float:inline-start;margin:2px; border: 3px solid red;">
+{% else %}
+<div class="card radius-10" style="background-color:#A1EEBD;color:#0d6efd;height:70px;width:220px;display: inline-block;float:inline-start;margin:2px; ">
+{% endif %}
+                  <div class="card-body">
+
+                    <div class="d-flex align-items-center">
+<a href="{{ path('app_histo_demandes_gen_var' , {'type': 'CONGE' , 'entite': 'SER' , 'code' : '6' } ) }}">
+                      <div class="">
+                        <p class="mb-1 ">Congés</p>
+                        <p class="mb-0 " style="float:left;">{{ (conge_all_INFO -  conge_tr_INFO)   }} / {{conge_all_INFO  }} </p>
+                      </div>
+    </a>
+                      <div class="ms-auto  ">
+                        {% if conge_all_INFO  != 0 %}     {{(( (conge_all_INFO -  conge_tr_INFO)   / conge_all_INFO ) * 100)|number_format(2, ',', '.')}} % {% else %}  {{100|number_format(2, ',', '.')}} %    {% endif %} 
+                      </div>
+                    </div>
+                    
+                  </div>
+                </div>
+  </div>
+
+
+  <div >
+                
+
+                      {% if (om_all_INFO ) != 0 and ( (om_all_INFO - om_tr_INFO)  / om_all_INFO ) != 1  %}
+ <div class="card radius-10" style="background-color:#F6F7C4;color:#0d6efd;height:70px;width:220px;display: inline-block;float:inline-start;margin:2px; border: 3px solid red;">
+{% else %}
+<div class="card radius-10" style="background-color:#F6F7C4;color:#0d6efd;height:70px;width:220px;display: inline-block;float:inline-start;margin:2px; ">
+{% endif %}
+                  <div class="card-body">
+
+                    <div class="d-flex align-items-center">
+<a href="{{ path('app_histo_demandes_gen_var' , {'type': 'OM' , 'entite': 'SER' , 'code' : '6' } ) }}">
+                      <div class="">
+                        <p class="mb-1 " >Ordres de Missions</p>
+                        <p class="mb-0 " style="float:left;">{{ (om_all_INFO - om_tr_INFO)   }} / {{om_all_INFO  }}</p>
+                      </div>
+    </a>
+                      <div class="ms-auto  ">
+                       {% if om_all_INFO   != 0 %}        {{(( (om_all_INFO - om_tr_INFO)  / om_all_INFO ) * 100)|number_format(2, ',', '.')}} % {% else %}  {{100|number_format(2, ',', '.')}} %    {% endif %} 
+                      </div>
+                    </div>
+                    
+                  </div>
+                </div>
+  </div>
+
+
+
+
+
+</div>
+
+</td>
+ 
+
+</tr>
+
+<tr>
+
+
+    <td style="vertical-align: middle;" class="col-3">
+    Service Financier
+    </td>   
+                        
+    <td  style="vertical-align: middle;" class="col-3">
+      {{CHEF_FIN}}
+    </td>
+
+
+   
+
+<td class='col-3'>
+
+<div class="col-12">
+
+    <div >
+              
+
+                         {% if (auto_all_FIN ) != 0 and ( (auto_all_FIN - auto_tr_FIN) / auto_all_FIN )!= 1  %}
+ <div class="card radius-10" style="background-color:#7BD3EA;color:#0d6efd;height:70px;width:220px;display: inline-block;float:inline-start;margin:2px; border: 3px solid red;">
+{% else %}
+<div class="card radius-10" style="background-color:#7BD3EA;color:#0d6efd;height:70px;width:220px;display: inline-block;float:inline-start;margin:2px; ">
+{% endif %}
+                  <div class="card-body">
+
+                    <div class="d-flex align-items-center">
+<a href="{{ path('app_histo_demandes_gen_var' , {'type': 'AUTO' , 'entite': 'SER' , 'code' : '1' } ) }}">
+                      <div class="">
+                        <p class="mb-1 ">Autorisations</p>
+                        <p class="mb-0 " style="float:left;">{{ (auto_all_FIN - auto_tr_FIN) }} / {{auto_all_FIN}}</p>
+                      </div>
+    </a>
+                      <div class="ms-auto  ">
+                          {% if auto_all_FIN != 0  %}     {{(( (auto_all_FIN - auto_tr_FIN) / auto_all_FIN ) * 100)|number_format(2, ',', '.')}} % {% else %}  {{100|number_format(2, ',', '.')}} %    {% endif %} 
+                      </div>
+                    </div>
+                    
+                  </div>
+                </div>
+  </div>
+
+  <div >
+              
+
+                           {% if (conge_all_FIN ) != 0 and ( (conge_all_FIN - conge_tr_FIN)  / conge_all_FIN )!= 1  %}
+ <div class="card radius-10" style="background-color:#A1EEBD;color:#0d6efd;height:70px;width:220px;display: inline-block;float:inline-start;margin:2px; border: 3px solid red;">
+{% else %}
+<div class="card radius-10" style="background-color:#A1EEBD;color:#0d6efd;height:70px;width:220px;display: inline-block;float:inline-start;margin:2px; ">
+{% endif %}
+                  <div class="card-body">
+
+                    <div class="d-flex align-items-center">
+<a href="{{ path('app_histo_demandes_gen_var' , {'type': 'AUTO' , 'entite': 'SER' , 'code' : '1' } ) }}">
+                      <div class="">
+                        <p class="mb-1 ">Congés</p>
+                        <p class="mb-0 " style="float:left;">{{ (conge_all_FIN - conge_tr_FIN)   }} / {{conge_all_FIN  }} </p>
+                      </div>
+    </a>
+                      <div class="ms-auto  ">
+                        {% if conge_all_FIN  != 0 %}  {{(( (conge_all_FIN - conge_tr_FIN)  / conge_all_FIN ) * 100)|number_format(2, ',', '.')}} % {% else %}  {{100|number_format(2, ',', '.')}} %    {% endif %} 
+                      </div>
+                    </div>
+                    
+                  </div>
+                </div>
+  </div>
+
+
+  <div >
+              
+
+                                {% if (om_all_FIN ) != 0 and ( (om_all_FIN - om_tr_FIN)  / om_all_FIN ) != 1  %}
+ <div class="card radius-10" style="background-color:#F6F7C4;color:#0d6efd;height:70px;width:220px;display: inline-block;float:inline-start;margin:2px; border: 3px solid red;">
+{% else %}
+<div class="card radius-10" style="background-color:#F6F7C4;color:#0d6efd;height:70px;width:220px;display: inline-block;float:inline-start;margin:2px; ">
+{% endif %}
+
+                  <div class="card-body">
+
+                    <div class="d-flex align-items-center">
+<a href="{{ path('app_histo_demandes_gen_var' , {'type': 'AUTO' , 'entite': 'SER' , 'code' : '1' } ) }}">
+                      <div class="">
+                        <p class="mb-1 " >Ordres de Missions</p>
+                        <p class="mb-0 " style="float:left;">{{ (om_all_FIN - om_tr_FIN)  }} / {{om_all_FIN }}</p>
+                      </div>
+    </a>
+                      <div class="ms-auto  ">
+                       {% if om_all_FIN  != 0 %}        {{(( (om_all_FIN - om_tr_FIN)  / om_all_FIN ) * 100)|number_format(2, ',', '.')}} % {% else %}  {{100|number_format(2, ',', '.')}} %    {% endif %} 
+                      </div>
+                    </div>
+                    
+                  </div>
+                </div>
+  </div>
+
+
+
+
+
+</div>
+
+</td>
+
+</tr>
+
+
+
+
+
+<tr>
+
+    <td style="vertical-align: middle;" class="col-1">
+   Departement SIC
+    </td>   
+                        
+    <td  style="vertical-align: middle;" class="col-1">
+    {{CHEF_SIC}}
+    </td>
+
+
+<td class='col-10'>
+
+<div class="col-12">
+
+   
+
+
+
+  <div >
+  
+
+                                  {% if (om_all_DEP_SIC ) != 0 and ( (om_all_DEP_SIC - om_tr_DEP_SIC)  / om_all_DEP_SIC) != 1  %}
+ <div class="card radius-10" style="background-color:#F6F7C4;color:#0d6efd;height:70px;width:250px;display: inline-block;float:inline-start;margin:2px; border: 3px solid red;">
+{% else %}
+<div class="card radius-10" style="background-color:#F6F7C4;color:#0d6efd;height:70px;width:250px;display: inline-block;float:inline-start;margin:2px; ">
+{% endif %}
+                  <div class="card-body">
+
+                    <div class="d-flex align-items-center">
+<a href="{{ path('app_histo_demandes_gen_var' , {'type': 'OM' , 'entite': 'DEP' , 'code' : '1' } ) }}">
+                      <div class="">
+                        <p class="mb-1 " >Ordres de Missions</p>
+                        <p class="mb-0 " style="float:left;">{{ (om_all_DEP_SIC - om_tr_DEP_SIC) }} / {{om_all_DEP_SIC}}</p>
+                      </div>
+    </a>
+                      <div class="ms-auto  ">
+                       {% if om_all_DEP_SIC != 0 %}        {{(( (om_all_DEP_SIC - om_tr_DEP_SIC)  / om_all_DEP_SIC) * 100)|number_format(2, ',', '.')}} % {% else %}  {{100|number_format(2, ',', '.')}} %    {% endif %} 
+                      </div>
+                    </div>
+                    
+                  </div>
+                </div>
+  </div>
+
+
+ <div>
+               
+
+                                   {% if (fh_all_DEP_SIC ) != 0 and ((fh_all_DEP_SIC - fh_tr_DEP_SIC ) / fh_all_DEP_SIC)!= 1  %}
+ <div class="card radius-10" style="background-color:#F6D6D6;color:#0d6efd;height:70px;width:250px;display: inline-block;float:inline-start;margin:2px; border: 3px solid red;">
+{% else %}
+<div class="card radius-10" style="background-color:#F6D6D6;color:#0d6efd;height:70px;width:250px;display: inline-block;float:inline-start;margin:2px; ">
+{% endif %}
+                  <div class="card-body">
+
+                    <div class="d-flex align-items-center">
+<a href="{{ path('app_histo_demandes_gen_var' , {'type': 'FH' , 'entite': 'DEP' , 'code' : '1' } ) }}">
+                      <div class="">
+                        <p class="mb-1 " >Aut. Heures Sup.</p>
+                        <p class="mb-0 " style="float:left;">{{ (fh_all_DEP_SIC - fh_tr_DEP_SIC ) }} / {{fh_all_DEP_SIC}}</p>
+                      </div>
+    </a>
+                      <div class="ms-auto  ">
+                       {% if fh_all_DEP_SIC != 0 %}        {{(((fh_all_DEP_SIC - fh_tr_DEP_SIC ) / fh_all_DEP_SIC) * 100)|number_format(2, ',', '.')}} % {% else %}  {{100|number_format(2, ',', '.')}} %    {% endif %} 
+                      </div>
+                    </div>
+                    
+                  </div>
+                </div>
+</div>
+
+
+
+
+</div>
+
+</td>
+
+
+  
+ 
+</tr>
+
+<tr>
+
+    <td style="vertical-align: middle;" class="col-1">
+      Departement MI
+    </td>   
+                        
+    <td  style="vertical-align: middle;" class="col-1">
+    {{CHEF_MI}}
+    </td>
+
+
+
+
+<td class='col-10'>
+
+<div class="col-12">
+
+
+
+  <div >
+        
+
+                                     {% if (om_all_DEP_MI ) != 0 and ((om_all_DEP_MI - om_tr_DEP_MI) / om_all_DEP_MI) != 1  %}
+ <div class="card radius-10" style="background-color:#F6F7C4;color:#0d6efd;height:70px;width:250px;display: inline-block;float:inline-start;margin:2px; border: 3px solid red;">
+{% else %}
+<div class="card radius-10" style="background-color:#F6F7C4;color:#0d6efd;height:70px;width:250px;display: inline-block;float:inline-start;margin:2px; ">
+{% endif %}
+                  <div class="card-body">
+
+                    <div class="d-flex align-items-center">
+<a href="{{ path('app_histo_demandes_gen_var' , {'type': 'OM' , 'entite': 'DEP' , 'code' : '2' } ) }}">
+                      <div class="">
+                        <p class="mb-1 " >Ordres de Missions</p>
+                        <p class="mb-0 " style="float:left;">{{ (om_all_DEP_MI - om_tr_DEP_MI) }} / {{om_all_DEP_MI}}</p>
+                      </div>
+    </a>
+                      <div class="ms-auto  ">
+                       {% if om_all_DEP_MI != 0 %}        {{(((om_all_DEP_MI - om_tr_DEP_MI) / om_all_DEP_MI) * 100)|number_format(2, ',', '.')}} % {% else %}  {{100|number_format(2, ',', '.')}} %    {% endif %} 
+                      </div>
+                    </div>
+                    
+                  </div>
+                </div>
+</div>
+
+
+  <div >
+             
+
+                                         {% if (fh_all_DEP_MI ) != 0 and ( (fh_all_DEP_MI - fh_tr_DEP_MI ) / fh_all_DEP_MI)!= 1  %}
+ <div class="card radius-10" style="background-color:#F6D6D6;color:#0d6efd;height:70px;width:250px;display: inline-block;float:inline-start;margin:2px; border: 3px solid red;">
+{% else %}
+<div class="card radius-10" style="background-color:#F6D6D6;color:#0d6efd;height:70px;width:250px;display: inline-block;float:inline-start;margin:2px; ">
+{% endif %}
+                  <div class="card-body">
+
+                    <div class="d-flex align-items-center">
+<a href="{{ path('app_histo_demandes_gen_var' , {'type': 'FH' , 'entite': 'DEP' , 'code' : '2' } ) }}">
+                      <div class="">
+                        <p class="mb-1 " >Aut. Heures Sup.</p>
+                        <p class="mb-0 " style="float:left;">{{ (fh_all_DEP_MI - fh_tr_DEP_MI ) }} / {{fh_all_DEP_MI}}</p>
+                      </div>
+    </a>
+                      <div class="ms-auto  ">
+                       {% if fh_all_DEP_MI != 0 %}        {{( ( (fh_all_DEP_MI - fh_tr_DEP_MI ) / fh_all_DEP_MI) * 100)|number_format(2, ',', '.')}} % {% else %}  {{100|number_format(2, ',', '.')}} %    {% endif %} 
+                      </div>
+                    </div>
+                    
+                  </div>
+                </div>
+</div>
+
+
+
+</div>
+
+</td>
+
+
+  
+ 
+</tr>
+
+
+
+<tr>
+
+    <td style="vertical-align: middle;" class="col-1">
+   Departement GEI
+    </td>   
+                        
+    <td  style="vertical-align: middle;" class="col-1">
+    {{CHEF_GEI}}
+    </td>
+
+
+  
+
+
+<td class='col-10'>
+
+<div class="col-12">
+
+  
+
+
+  <div >
+              
+
+                                             {% if (om_all_DEP_GEI ) != 0 and ((om_all_DEP_GEI - om_tr_DEP_GEI) / om_all_DEP_GEI) != 1  %}
+ <div class="card radius-10" style="background-color:#F6F7C4;color:#0d6efd;height:70px;width:250px;display: inline-block;float:inline-start;margin:2px; border: 3px solid red;">
+{% else %}
+<div class="card radius-10" style="background-color:#F6F7C4;color:#0d6efd;height:70px;width:250px;display: inline-block;float:inline-start;margin:2px; ">
+{% endif %}
+                  <div class="card-body">
+
+                    <div class="d-flex align-items-center">
+<a href="{{ path('app_histo_demandes_gen_var' , {'type': 'OM' , 'entite': 'DEP' , 'code' : '3' } ) }}">
+                      <div class="">
+                        <p class="mb-1 " >Ordres de Missions</p>
+                        <p class="mb-0 " style="float:left;">{{ (om_all_DEP_GEI - om_tr_DEP_GEI) }} / {{om_all_DEP_GEI}}</p>
+                      </div>
+    </a>
+                      <div class="ms-auto  ">
+                       {% if om_all_DEP_GEI != 0 %}        {{(((om_all_DEP_GEI - om_tr_DEP_GEI) / om_all_DEP_GEI) * 100)|number_format(2, ',', '.')}} % {% else %}  {{100|number_format(2, ',', '.')}} %    {% endif %} 
+                      </div>
+                    </div>
+                    
+                  </div>
+                </div>
+  </div>
+
+
+
+
+  <div >
+            
+                                                {% if (fh_all_DEP_GEI ) != 0 and ((fh_all_DEP_GEI - fh_tr_DEP_GEI) / fh_all_DEP_GEI) != 1  %}
+ <div class="card radius-10" style="background-color:#F6D6D6;color:#0d6efd;height:70px;width:250px;display: inline-block;float:inline-start;margin:2px; border: 3px solid red;">
+{% else %}
+<div class="card radius-10" style="background-color:#F6D6D6;color:#0d6efd;height:70px;width:250px;display: inline-block;float:inline-start;margin:2px; ">
+{% endif %}
+                  <div class="card-body">
+
+                    <div class="d-flex align-items-center">
+<a href="{{ path('app_histo_demandes_gen_var' , {'type': 'FH' , 'entite': 'DEP' , 'code' : '3' } ) }}">
+                      <div class="">
+                        <p class="mb-1 "> Aut. Heures Sup.</p>
+                        <p class="mb-0 " style="float:left;">{{ (fh_all_DEP_GEI - fh_tr_DEP_GEI)}} / {{fh_all_DEP_GEI}}</p>
+                      </div>
+    </a>
+                      <div class="ms-auto  ">
+                       {% if fh_all_DEP_GEI != 0 %}        {{(((fh_all_DEP_GEI - fh_tr_DEP_GEI) / fh_all_DEP_GEI) * 100)|number_format(2, ',', '.')}} % {% else %}  {{100|number_format(2, ',', '.')}} %    {% endif %} 
+                      </div>
+                    </div>
+                    
+                  </div>
+                </div>
+  </div>
+
+
+
+
+
+
+
+
+
+</div>
+
+</td>
+
+
+  
+ 
+</tr>
+
+<tr>
+
+    <td style="vertical-align: middle;" class="col-1">
+   Departement LCM
+    </td>   
+                        
+    <td  style="vertical-align: middle;" class="col-1">
+    {{CHEF_LCM}}
+    </td>
+
+
+  
+
+
+<td class='col-10'>
+
+<div class="col-12">
+
+  
+
+
+  <div >
+                
+
+                                                  {% if (om_all_DEP_LCM ) != 0 and ((om_all_DEP_LCM - om_tr_DEP_LCM ) / om_all_DEP_LCM)!= 1  %}
+ <div class="card radius-10" style="background-color:#F6F7C4;color:#0d6efd;height:70px;width:250px;display: inline-block;float:inline-start;margin:2px; border: 3px solid red;">
+{% else %}
+<div class="card radius-10" style="background-color:#F6F7C4;color:#0d6efd;height:70px;width:250px;display: inline-block;float:inline-start;margin:2px; ">
+{% endif %}
+                  <div class="card-body">
+
+                    <div class="d-flex align-items-center">
+<a href="{{ path('app_histo_demandes_gen_var' , {'type': 'OM' , 'entite': 'DEP' , 'code' : '5' } ) }}">
+                      <div class="">
+                        <p class="mb-1 " >Ordres de Missions</p>
+                        <p class="mb-0 " style="float:left;">{{ (om_all_DEP_LCM - om_tr_DEP_LCM )}} / {{om_all_DEP_LCM}}</p>
+                      </div>
+    </a>
+                      <div class="ms-auto  ">
+                       {% if om_all_DEP_LCM != 0 %}        {{(( (om_all_DEP_LCM - om_tr_DEP_LCM ) / om_all_DEP_LCM) * 100)|number_format(2, ',', '.')}} % {% else %}  {{100|number_format(2, ',', '.')}} %    {% endif %} 
+                      </div>
+                    </div>
+                    
+                  </div>
+                </div>
+  </div>
+
+
+
+
+  <div >
+                
+
+                                                  {% if (fh_all_DEP_LCM ) != 0 and ((fh_all_DEP_LCM - fh_tr_DEP_LCM ) / fh_all_DEP_LCM) != 1  %}
+ <div class="card radius-10" style="background-color:#F6D6D6;color:#0d6efd;height:70px;width:250px;display: inline-block;float:inline-start;margin:2px; border: 3px solid red;">
+{% else %}
+<div class="card radius-10" style="background-color:#F6D6D6;color:#0d6efd;height:70px;width:250px;display: inline-block;float:inline-start;margin:2px; ">
+{% endif %}
+                  <div class="card-body">
+
+                    <div class="d-flex align-items-center">
+<a href="{{ path('app_histo_demandes_gen_var' , {'type': 'FH' , 'entite': 'DEP' , 'code' : '5' } ) }}">
+                      <div class="">
+                        <p class="mb-1 "> Aut. Heures Sup. </p>
+                        <p class="mb-0 " style="float:left;">{{ (fh_all_DEP_LCM - fh_tr_DEP_LCM )}} / {{fh_all_DEP_LCM}}</p>
+                      </div>
+    </a>
+                      <div class="ms-auto  ">
+                       {% if fh_all_DEP_LCM != 0 %}        {{(((fh_all_DEP_LCM - fh_tr_DEP_LCM ) / fh_all_DEP_LCM) * 100)|number_format(2, ',', '.')}} % {% else %}  {{100|number_format(2, ',', '.')}} %    {% endif %} 
+                      </div>
+                    </div>
+                    
+                  </div>
+                </div>
+  </div>
+
+
+
+
+
+
+
+
+
+</div>
+
+</td>
+
+
+  
+ 
+</tr>
+
+
+
+
+<tr>
+
+    <td style="vertical-align: middle;" class="col-2">
+   Laboratoire LTI
+    </td>   
+                        
+    <td  style="vertical-align: middle;" class="col-2">
+    {{CHEF_LTI}}
+    </td>
+
+
+    
+
+
+<td class='col-8'>
+
+<div class="col-12">
+
+
+
+
+
+
+  <div >
+            
+
+                                                    {% if (om_all_STR_LTI ) != 0 and ((om_all_STR_LTI - om_tr_STR_LTI ) / om_all_STR_LTI) != 1  %}
+ <div class="card radius-10" style="background-color:#F6F7C4;color:#0d6efd;height:70px;width:250px;display: inline-block;float:inline-start;margin:2px; border: 3px solid red;">
+{% else %}
+<div class="card radius-10" style="background-color:#F6F7C4;color:#0d6efd;height:70px;width:250px;display: inline-block;float:inline-start;margin:2px; ">
+{% endif %}
+                  <div class="card-body">
+
+                    <div class="d-flex align-items-center">
+<a href="{{ path('app_histo_demandes_gen_var' , {'type': 'OM' , 'entite': 'STR' , 'code' : '1' } ) }}">
+                      <div class="">
+                        <p class="mb-1 " >Ordres de Missions</p>
+                        <p class="mb-0 " style="float:left;">{{ (om_all_STR_LTI - om_tr_STR_LTI ) }} / {{om_all_STR_LTI}}</p>
+                      </div>
+    </a>
+                      <div class="ms-auto  ">
+                       {% if om_all_STR_LTI != 0 %}        {{(((om_all_STR_LTI - om_tr_STR_LTI ) / om_all_STR_LTI) * 100)|number_format(2, ',', '.')}} % {% else %}  {{100|number_format(2, ',', '.')}} %    {% endif %} 
+                      </div>
+                    </div>
+                    
+                  </div>
+                </div>
+  </div>
+
+
+  <div >
+              
+
+                                  {% if (fh_all_STR_LTI ) != 0 and ((fh_all_STR_LTI - fh_tr_STR_LTI ) / fh_all_STR_LTI) != 1  %}
+ <div class="card radius-10" style="background-color:#F6D6D6;color:#0d6efd;height:70px;width:250px;display: inline-block;float:inline-start;margin:2px; border: 3px solid red;">
+{% else %}
+<div class="card radius-10" style="background-color:#F6D6D6;color:#0d6efd;height:70px;width:250px;display: inline-block;float:inline-start;margin:2px; ">
+{% endif %}
+                  <div class="card-body">
+
+                    <div class="d-flex align-items-center">
+<a href="{{ path('app_histo_demandes_gen_var' , {'type': 'FH' , 'entite': 'STR' , 'code' : '1' } ) }}">
+                      <div class="">
+                        <p class="mb-1 " >Aut. Heures Sup.</p>
+                        <p class="mb-0 " style="float:left;">{{ (fh_all_STR_LTI - fh_tr_STR_LTI )}} / {{fh_all_STR_LTI}}</p>
+                      </div>
+    </a>
+                      <div class="ms-auto  ">
+                       {% if fh_all_STR_LTI != 0 %}        {{(((fh_all_STR_LTI - fh_tr_STR_LTI ) / fh_all_STR_LTI) * 100)|number_format(2, ',', '.')}} % {% else %}  {{100|number_format(2, ',', '.')}} %    {% endif %} 
+                      </div>
+                    </div>
+                    
+                  </div>
+                </div>
+  </div>
+
+
+
+</div>
+
+</td>
+
+
+  
+ 
+</tr>
+
+<tr>
+
+    <td style="vertical-align: middle;" class="col-2">
+       Laboratoire LABTIC
+    </td>   
+                        
+    <td  style="vertical-align: middle;" class="col-2">
+    {{CHEF_LABTIC}}
+    </td>
+
+
+  
+
+
+<td class='col-8'>
+
+<div class="col-12">
+
+  
+
+
+  <div >
+                <div class="card radius-10" style="background-color:#F6F7C4;color:#0d6efd;height:70px;width:250px;display: inline-block;float:inline-start;margin:2px;">
+
+                                 {% if (om_all_STR_LABTIC ) != 0 and ((om_all_STR_LABTIC - om_tr_STR_LABTIC)  / om_all_STR_LABTIC) != 1  %}
+ <div class="card radius-10" style="background-color:#F6F7C4;color:#0d6efd;height:70px;width:250px;display: inline-block;float:inline-start;margin:2px; border: 3px solid red;">
+{% else %}
+<div class="card radius-10" style="background-color:#F6F7C4;color:#0d6efd;height:70px;width:250px;display: inline-block;float:inline-start;margin:2px; ">
+{% endif %}
+                  <div class="card-body">
+
+                    <div class="d-flex align-items-center">
+<a href="{{ path('app_histo_demandes_gen_var' , {'type': 'OM' , 'entite': 'STR' , 'code' : '2' } ) }}">
+                      <div class="">
+                        <p class="mb-1 " >Ordres de Missions</p>
+                        <p class="mb-0 " style="float:left;">{{ (om_all_STR_LABTIC - om_tr_STR_LABTIC) }} / {{om_all_STR_LABTIC}}</p>
+                      </div>
+    </a>
+                      <div class="ms-auto  ">
+                       {% if om_all_STR_LABTIC != 0 %}        {{(((om_all_STR_LABTIC - om_tr_STR_LABTIC)  / om_all_STR_LABTIC) * 100)|number_format(2, ',', '.')}} % {% else %}  {{100|number_format(2, ',', '.')}} %    {% endif %} 
+                      </div>
+                    </div>
+                    
+                  </div>
+                </div>
+  </div>
+
+  <div >
+          
+
+                                     {% if (fh_all_STR_LABTIC ) != 0 and ( (fh_all_STR_LABTIC - fh_tr_STR_LABTIC) / fh_all_STR_LABTIC) != 1  %}
+ <div class="card radius-10" style="background-color:#F6D6D6;color:#0d6efd;height:70px;width:250px;display: inline-block;float:inline-start;margin:2px; border: 3px solid red;">
+{% else %}
+<div class="card radius-10" style="background-color:#F6D6D6;color:#0d6efd;height:70px;width:250px;display: inline-block;float:inline-start;margin:2px; ">
+{% endif %}
+                  <div class="card-body">
+
+                    <div class="d-flex align-items-center">
+<a href="{{ path('app_histo_demandes_gen_var' , {'type': 'FH' , 'entite': 'STR' , 'code' : '2' } ) }}">
+                      <div class="">
+                        <p class="mb-1 " >Aut. Heures Sup.</p>
+                        <p class="mb-0 " style="float:left;">{{ (fh_all_STR_LABTIC - fh_tr_STR_LABTIC) }} / {{fh_all_STR_LABTIC}}</p>
+                      </div>
+    </a>
+                      <div class="ms-auto  ">
+                       {% if fh_all_STR_LABTIC != 0 %}        {{(( (fh_all_STR_LABTIC - fh_tr_STR_LABTIC) / fh_all_STR_LABTIC) * 100)|number_format(2, ',', '.')}} % {% else %}  {{100|number_format(2, ',', '.')}} %    {% endif %} 
+                      </div>
+                    </div>
+                    
+                  </div>
+                </div>
+  </div>
+
+
+
+
+</div>
+
+</td>
+
+
+  
+ 
+</tr>
+
+
+
+<tr>
+
+    <td style="vertical-align: middle;" class="col-2">
+     Laboratoire IDS
+    </td>   
+                        
+    <td  style="vertical-align: middle;" class="col-2">
+    {{CHEF_IDS}}
+    </td>
+
+
+  
+
+
+<td class='col-8'>
+
+<div class="col-12">
+
+  
+
+
+  <div >
+              
+
+                                    {% if (om_all_STR_IDS ) != 0 and ( (om_all_STR_IDS - om_tr_STR_IDS) / om_all_STR_IDS) != 1  %}
+ <div class="card radius-10" style="background-color:#F6F7C4;color:#0d6efd;height:70px;width:250px;display: inline-block;float:inline-start;margin:2px; border: 3px solid red;">
+{% else %}
+<div class="card radius-10" style="background-color:#F6F7C4;color:#0d6efd;height:70px;width:250px;display: inline-block;float:inline-start;margin:2px; ">
+{% endif %}
+                  <div class="card-body">
+
+                    <div class="d-flex align-items-center">
+<a href="{{ path('app_histo_demandes_gen_var' , {'type': 'OM' , 'entite': 'STR' , 'code' : '3' } ) }}">
+                      <div class="">
+                        <p class="mb-1 " >Ordres de Missions</p>
+                        <p class="mb-0 " style="float:left;">{{ (om_all_STR_IDS - om_tr_STR_IDS) }} / {{om_all_STR_IDS}}</p>
+                      </div>
+    </a>
+                      <div class="ms-auto  ">
+                       {% if om_all_STR_IDS != 0 %}        {{(( (om_all_STR_IDS - om_tr_STR_IDS) / om_all_STR_IDS) * 100)|number_format(2, ',', '.')}} % {% else %}  {{100|number_format(2, ',', '.')}} %    {% endif %} 
+                      </div>
+                    </div>
+                    
+                  </div>
+                </div>
+  </div>
+
+
+    <div >
+                
+
+                                  {% if (fh_all_STR_IDS ) != 0 and ( (fh_all_STR_IDS - fh_tr_STR_IDS) / fh_all_STR_IDS) != 1  %}
+ <div class="card radius-10" style="background-color:#F6D6D6;color:#0d6efd;height:70px;width:250px;display: inline-block;float:inline-start;margin:2px; border: 3px solid red;">
+{% else %}
+<div class="card radius-10" style="background-color:#F6D6D6;color:#0d6efd;height:70px;width:250px;display: inline-block;float:inline-start;margin:2px; ">
+{% endif %}
+                  <div class="card-body">
+
+                    <div class="d-flex align-items-center">
+<a href="{{ path('app_histo_demandes_gen_var' , {'type': 'FH' , 'entite': 'STR' , 'code' : '3' } ) }}">
+                      <div class="">
+                        <p class="mb-1 " >Aut. Heures Sup.</p>
+                        <p class="mb-0 " style="float:left;">{{ (fh_all_STR_IDS - fh_tr_STR_IDS) }} / {{fh_all_STR_IDS}}</p>
+                      </div>
+    </a>
+                      <div class="ms-auto  ">
+                       {% if fh_all_STR_IDS != 0 %}        {{(( (fh_all_STR_IDS - fh_tr_STR_IDS) / fh_all_STR_IDS) * 100)|number_format(2, ',', '.')}} % {% else %}  {{100|number_format(2, ',', '.')}} %    {% endif %} 
+                      </div>
+                    </div>
+                    
+                  </div>
+                </div>
+  </div>
+
+
+
+</div>
+
+</td>
+
+
+  
+ 
+</tr>
+
+
+
+<tr>
+
+    <td style="vertical-align: middle;" class="col-2">
+     Laboratoire ERMIA
+    </td>   
+                        
+    <td  style="vertical-align: middle;" class="col-2">
+    {{CHEF_ERMIA}}
+    </td>
+
+
+  
+
+
+<td class='col-8'>
+
+<div class="col-12">
+
+  
+
+
+  <div >
+             
+
+                                   {% if (om_all_STR_ERMIA ) != 0 and ((om_all_STR_ERMIA - om_tr_STR_ERMIA) / om_all_STR_ERMIA) != 1  %}
+ <div class="card radius-10" style="background-color:#F6F7C4;color:#0d6efd;height:70px;width:250px;display: inline-block;float:inline-start;margin:2px; border: 3px solid red;">
+{% else %}
+<div class="card radius-10" style="background-color:#F6F7C4;color:#0d6efd;height:70px;width:250px;display: inline-block;float:inline-start;margin:2px; ">
+{% endif %}
+                  <div class="card-body">
+
+                    <div class="d-flex align-items-center">
+<a href="{{ path('app_histo_demandes_gen_var' , {'type': 'OM' , 'entite': 'STR' , 'code' : '4' } ) }}">
+                      <div class="">
+                        <p class="mb-1 " >Ordres de Missions</p>
+                        <p class="mb-0 " style="float:left;">{{ (om_all_STR_ERMIA - om_tr_STR_ERMIA) }} / {{om_all_STR_ERMIA}}</p>
+                      </div>
+    </a>
+                      <div class="ms-auto  ">
+                       {% if om_all_STR_ERMIA != 0 %}        {{(((om_all_STR_ERMIA - om_tr_STR_ERMIA) / om_all_STR_ERMIA) * 100)|number_format(2, ',', '.')}} % {% else %}  {{100|number_format(2, ',', '.')}} %    {% endif %} 
+                      </div>
+                    </div>
+                    
+                  </div>
+                </div>
+  </div>
+
+
+    <div>
+              
+
+                                         {% if (fh_all_STR_ERMIA ) != 0 and ((fh_all_STR_ERMIA - fh_tr_STR_ERMIA)  / fh_all_STR_ERMIA) != 1  %}
+ <div class="card radius-10" style="background-color:#F6D6D6;color:#0d6efd;height:70px;width:250px;display: inline-block;float:inline-start;margin:2px; border: 3px solid red;">
+{% else %}
+<div class="card radius-10" style="background-color:#F6D6D6;color:#0d6efd;height:70px;width:250px;display: inline-block;float:inline-start;margin:2px; ">
+{% endif %}
+                  <div class="card-body">
+
+                    <div class="d-flex align-items-center">
+<a href="{{ path('app_histo_demandes_gen_var' , {'type': 'FH' , 'entite': 'STR' , 'code' : '4' } ) }}">
+                      <div class="">
+                        <p class="mb-1 " >Aut. Heures Sup.</p>
+                        <p class="mb-0 " style="float:left;">{{ (fh_all_STR_ERMIA - fh_tr_STR_ERMIA) }} / {{fh_all_STR_ERMIA}}</p>
+                      </div>
+    </a>
+                      <div class="ms-auto  ">
+                       {% if fh_all_STR_ERMIA != 0 %}        {{(((fh_all_STR_ERMIA - fh_tr_STR_ERMIA)  / fh_all_STR_ERMIA) * 100)|number_format(2, ',', '.')}} % {% else %}  {{100|number_format(2, ',', '.')}} %    {% endif %} 
+                      </div>
+                    </div>
+                    
+                  </div>
+                </div>
+  </div>
+
+
+
+</div>
+
+</td>
+
+
+  
+ 
+</tr>
+
+
+<tr>
+
+    <td style="vertical-align: middle;" class="col-2">
+     Laboratoire MASI
+    </td>   
+                        
+    <td  style="vertical-align: middle;" class="col-2">
+    {{CHEF_MASI}}
+    </td>
+
+
+  
+
+
+<td class='col-8'>
+
+<div class="col-12">
+
+  
+
+
+  <div>
+            
+
+                                        {% if (om_all_STR_MASI ) != 0 and ( (om_all_STR_MASI - om_tr_STR_MASI ) / om_all_STR_MASI) != 1  %}
+ <div class="card radius-10" style="background-color:#F6F7C4;color:#0d6efd;height:70px;width:250px;display: inline-block;float:inline-start;margin:2px; border: 3px solid red;">
+{% else %}
+<div class="card radius-10" style="background-color:#F6F7C4;color:#0d6efd;height:70px;width:250px;display: inline-block;float:inline-start;margin:2px; ">
+{% endif %}
+
+                  <div class="card-body">
+
+                    <div class="d-flex align-items-center">
+<a href="{{ path('app_histo_demandes_gen_var' , {'type': 'OM' , 'entite': 'STR' , 'code' : '6' } ) }}">
+                      <div class="">
+                        <p class="mb-1 " >Ordres de Missions</p>
+                        <p class="mb-0 " style="float:left;">{{ (om_all_STR_MASI - om_tr_STR_MASI ) }} / {{om_all_STR_MASI}}</p>
+                      </div>
+    </a>
+                      <div class="ms-auto  ">
+                       {% if om_all_STR_MASI != 0 %}        {{(( (om_all_STR_MASI - om_tr_STR_MASI ) / om_all_STR_MASI) * 100)|number_format(2, ',', '.')}} % {% else %}  {{100|number_format(2, ',', '.')}} %    {% endif %} 
+                      </div>
+                    </div>
+                    
+                  </div>
+                </div>
+  </div>
+
+
+    <div >
+                
+
+                                              {% if (fh_all_STR_MASI ) != 0 and ((fh_all_STR_MASI - fh_tr_STR_MASI)   / fh_all_STR_MASI) != 1  %}
+ <div class="card radius-10" style="background-color:#F6D6D6;color:#0d6efd;height:70px;width:250px;display: inline-block;float:inline-start;margin:2px; border: 3px solid red;">
+{% else %}
+<div class="card radius-10" style="background-color:#F6D6D6;color:#0d6efd;height:70px;width:250px;display: inline-block;float:inline-start;margin:2px; ">
+{% endif %}
+
+                  <div class="card-body">
+
+                    <div class="d-flex align-items-center">
+<a href="{{ path('app_histo_demandes_gen_var' , {'type': 'FH' , 'entite': 'STR' , 'code' : '6' } ) }}">
+                      <div class="">
+                        <p class="mb-1 " >Aut. Heures Sup.</p>
+                        <p class="mb-0 " style="float:left;">{{ (fh_all_STR_MASI - fh_tr_STR_MASI)  }} / {{fh_all_STR_MASI}}</p>
+                      </div>
+    </a>
+                      <div class="ms-auto  ">
+                       {% if fh_all_STR_MASI != 0 %}        {{(((fh_all_STR_MASI - fh_tr_STR_MASI)   / fh_all_STR_MASI) * 100)|number_format(2, ',', '.')}} % {% else %}  {{100|number_format(2, ',', '.')}} %    {% endif %} 
+                      </div>
+                    </div>
+                    
+                  </div>
+                </div>
+  </div>
+
+
+
+</div>
+
+</td>
+
+
+  
+ 
+</tr>
+
+
+
+
+<tr>
+
+    <td style="vertical-align: middle;" class="col-2">
+     Filiere IITR
+    </td>   
+                        
+    <td  style="vertical-align: middle;" class="col-2">
+    {{CHEF_IITR}}
+    </td>
+
+
+
+<td class='col-8'>
+
+<div class="col-12">
+
+  
+
+    <div >
+              
+
+                                            {% if (stage_all_FIL_IITR ) != 0 and ( (stage_all_FIL_IITR - stage_tr_FIL_IITR) / stage_all_FIL_IITR)!= 1  %}
+ <div class="card radius-10" style="background-color:#F6D6D6;color:#0d6efd;height:70px;width:250px;display: inline-block;float:inline-start;margin:2px; border: 3px solid red;">
+{% else %}
+<div class="card radius-10" style="background-color:#F6D6D6;color:#0d6efd;height:70px;width:250px;display: inline-block;float:inline-start;margin:2px; ">
+{% endif %}
+                  <div class="card-body">
+
+                    <div class="d-flex align-items-center">
+<a href="{{ path('conventions_by_fil' , {'fil': 'IITR'} ) }}">
+                      <div class="">
+                        <p class="mb-1 " >Conv. de Stage</p>
+                        <p class="mb-0 " style="float:left;">{{ stage_all_FIL_IITR - stage_tr_FIL_IITR }} / {{stage_all_FIL_IITR}}</p>
+                      </div>
+    </a>
+                      <div class="ms-auto  ">
+                       {% if stage_all_FIL_IITR != 0 %}        {{(( (stage_all_FIL_IITR - stage_tr_FIL_IITR) / stage_all_FIL_IITR) * 100)|number_format(2, ',', '.')}} % {% else %}  {{100|number_format(2, ',', '.')}} %    {% endif %} 
+                      </div>
+                    </div>
+                    
+                  </div>
+                </div>
+  </div>
+
+
+
+</div>
+
+</td>
+
+ 
+</tr>
+
+
+<tr>
+
+    <td style="vertical-align: middle;" class="col-2">
+     Filiere IIGD
+    </td>   
+                        
+    <td  style="vertical-align: middle;" class="col-2">
+    {{CHEF_IIGD}}
+    </td>
+
+
+
+<td class='col-8'>
+
+<div class="col-12">
+
+  
+
+    <div >
+              
+
+                                                  {% if (stage_all_FIL_IIGD ) != 0 and ( (stage_all_FIL_IIGD - stage_tr_FIL_IIGD) / stage_all_FIL_IIGD)!= 1  %}
+ <div class="card radius-10" style="background-color:#F6D6D6;color:#0d6efd;height:70px;width:250px;display: inline-block;float:inline-start;margin:2px; border: 3px solid red;">
+{% else %}
+<div class="card radius-10" style="background-color:#F6D6D6;color:#0d6efd;height:70px;width:250px;display: inline-block;float:inline-start;margin:2px; ">
+{% endif %}
+                  <div class="card-body">
+
+                    <div class="d-flex align-items-center">
+<a href="{{ path('conventions_by_fil' , {'fil': 'IIGD'} ) }}">
+                      <div class="">
+                        <p class="mb-1 " >Conv. de Stage</p>
+                        <p class="mb-0 " style="float:left;">{{ stage_all_FIL_IIGD - stage_tr_FIL_IIGD }} / {{stage_all_FIL_IIGD}}</p>
+                      </div>
+    </a>
+                      <div class="ms-auto  ">
+                       {% if stage_all_FIL_IIGD != 0 %}        {{(( (stage_all_FIL_IIGD - stage_tr_FIL_IIGD) / stage_all_FIL_IIGD) * 100)|number_format(2, ',', '.')}} % {% else %}  {{100|number_format(2, ',', '.')}} %    {% endif %} 
+                      </div>
+                    </div>
+                    
+                  </div>
+                </div>
+  </div>
+
+
+
+</div>
+
+</td>
+
+ 
+</tr>
+
+
+<tr>
+
+    <td style="vertical-align: middle;" class="col-2">
+     Filiere IIEA
+    </td>   
+                        
+    <td  style="vertical-align: middle;" class="col-2">
+    {{CHEF_IIEA}}
+    </td>
+
+
+
+<td class='col-8'>
+
+<div class="col-12">
+
+  
+
+    <div >
+                
+
+                                                      {% if (stage_all_FIL_IIEA ) != 0 and ( (stage_all_FIL_IIEA -  stage_tr_FIL_IIEA)  / stage_all_FIL_IIEA)!= 1  %}
+ <div class="card radius-10" style="background-color:#F6D6D6;color:#0d6efd;height:70px;width:250px;display: inline-block;float:inline-start;margin:2px; border: 3px solid red;">
+{% else %}
+<div class="card radius-10" style="background-color:#F6D6D6;color:#0d6efd;height:70px;width:250px;display: inline-block;float:inline-start;margin:2px; ">
+{% endif %}
+                  <div class="card-body">
+
+                    <div class="d-flex align-items-center">
+<a href="{{ path('conventions_by_fil' , {'fil': 'IIEA'} ) }}">
+                      <div class="">
+                        <p class="mb-1 " >Conv. de Stage</p>
+                        <p class="mb-0 " style="float:left;">{{ stage_all_FIL_IIEA -  stage_tr_FIL_IIEA }} / {{stage_all_FIL_IIEA}}</p>
+                      </div>
+    </a>
+                      <div class="ms-auto  ">
+                       {% if stage_all_FIL_IIEA != 0 %}        {{(( (stage_all_FIL_IIEA -  stage_tr_FIL_IIEA)  / stage_all_FIL_IIEA) * 100)|number_format(2, ',', '.')}} % {% else %}  {{100|number_format(2, ',', '.')}} %    {% endif %} 
+                      </div>
+                    </div>
+                    
+                  </div>
+                </div>
+  </div>
+
+
+
+</div>
+
+</td>
+
+ 
+</tr>
+
+
+
+<tr>
+
+    <td style="vertical-align: middle;" class="col-2">
+     Filiere IIEE
+    </td>   
+                        
+    <td  style="vertical-align: middle;" class="col-2">
+    {{CHEF_IIEE}}
+    </td>
+
+
+
+<td class='col-8'>
+
+<div class="col-12">
+
+  
+
+    <div >
+                
+
+                                {% if (stage_all_FIL_IIEE ) != 0 and ( (stage_all_FIL_IIEE - stage_tr_FIL_IIEE) / stage_all_FIL_IIEE) != 1  %}
+ <div class="card radius-10" style="background-color:#F6D6D6;color:#0d6efd;height:70px;width:250px;display: inline-block;float:inline-start;margin:2px; border: 3px solid red;">
+{% else %}
+<div class="card radius-10" style="background-color:#F6D6D6;color:#0d6efd;height:70px;width:250px;display: inline-block;float:inline-start;margin:2px; ">
+{% endif %}
+                  <div class="card-body">
+
+                    <div class="d-flex align-items-center">
+<a href="{{ path('conventions_by_fil' , {'fil': 'IIEE'} ) }}">
+                      <div class="">
+                        <p class="mb-1 " >Conv. de Stage</p>
+                        <p class="mb-0 " style="float:left;">{{ stage_all_FIL_IIEE - stage_tr_FIL_IIEE }} / {{stage_all_FIL_IIEE}}</p>
+                      </div>
+    </a>
+                      <div class="ms-auto  ">
+                       {% if stage_all_FIL_IIEE != 0 %}    {{(( (stage_all_FIL_IIEE - stage_tr_FIL_IIEE) / stage_all_FIL_IIEE) * 100)|number_format(2, ',', '.')}} % {% else %}  {{100|number_format(2, ',', '.')}} %    {% endif %} 
+                      </div>
+                    </div>
+                    
+                  </div>
+                </div>
+  </div>
+
+
+
+</div>
+
+</td>
+
+ 
+</tr>
+
+
+<tr>
+
+    <td style="vertical-align: middle;" class="col-2">
+     Filiere IIGI
+    </td>   
+                        
+    <td  style="vertical-align: middle;" class="col-2">
+    {{CHEF_IIGI}}
+    </td>
+
+
+
+<td class='col-8'>
+
+<div class="col-12">
+
+  
+
+    <div >
+                
+
+                                      {% if (stage_all_FIL_IIGI ) != 0 and ( (stage_all_FIL_IIGI - stage_tr_FIL_IIGI) / stage_all_FIL_IIGI) != 1  %}
+ <div class="card radius-10" style="background-color:#F6D6D6;color:#0d6efd;height:70px;width:250px;display: inline-block;float:inline-start;margin:2px; border: 3px solid red;">
+{% else %}
+<div class="card radius-10" style="background-color:#F6D6D6;color:#0d6efd;height:70px;width:250px;display: inline-block;float:inline-start;margin:2px; ">
+{% endif %}
+                  <div class="card-body">
+
+                    <div class="d-flex align-items-center">
+<a href="{{ path('conventions_by_fil' , {'fil': 'IIGI'} ) }}">
+                      <div class="">
+                        <p class="mb-1 " >Conv. de Stage</p>
+                        <p class="mb-0 " style="float:left;">{{ (stage_all_FIL_IIGI - stage_tr_FIL_IIGI) }} / {{stage_all_FIL_IIGI}}</p>
+                      </div>
+    </a>
+                      <div class="ms-auto  ">
+                       {% if stage_all_FIL_IIGI != 0 %}        {{(( (stage_all_FIL_IIGI - stage_tr_FIL_IIGI) / stage_all_FIL_IIGI) * 100)|number_format(2, ',', '.')}} % {% else %}  {{100|number_format(2, ',', '.')}} %    {% endif %} 
+                      </div>
+                    </div>
+                    
+                  </div>
+                </div>
+  </div>
+
+
+
+</div>
+
+</td>
+
+ 
+</tr>
+
+
+
+
+
+<tr>
+
+    <td style="vertical-align: middle;" class="col-2">
+     Filiere IICS
+    </td>   
+                        
+    <td  style="vertical-align: middle;" class="col-2">
+    {{CHEF_IICS}}
+    </td>
+
+
+
+<td class='col-8'>
+
+<div class="col-12">
+
+  
+
+    <div >
+                
+
+                                        {% if (stage_all_FIL_IICS ) != 0 and ( (stage_all_FIL_IICS - stage_tr_FIL_IICS) / stage_all_FIL_IICS)  != 1  %}
+ <div class="card radius-10" style="background-color:#F6D6D6;color:#0d6efd;height:70px;width:250px;display: inline-block;float:inline-start;margin:2px; border: 3px solid red;">
+{% else %}
+<div class="card radius-10" style="background-color:#F6D6D6;color:#0d6efd;height:70px;width:250px;display: inline-block;float:inline-start;margin:2px; ">
+{% endif %}
+                  <div class="card-body">
+
+                    <div class="d-flex align-items-center">
+<a href="{{ path('conventions_by_fil' , {'fil': 'IICS'} ) }}">
+                      <div class="">
+                        <p class="mb-1 " >Conv. de Stage</p>
+                        <p class="mb-0 " style="float:left;">{{ stage_all_FIL_IICS - stage_tr_FIL_IICS }} / {{stage_all_FIL_IICS}}</p>
+                      </div>
+    </a>
+                      <div class="ms-auto  ">
+                       {% if stage_all_FIL_IICS != 0 %}    {{(( (stage_all_FIL_IICS - stage_tr_FIL_IICS) / stage_all_FIL_IICS) * 100)|number_format(2, ',', '.')}} % {% else %}  {{100|number_format(2, ',', '.')}} %    {% endif %} 
+                      </div>
+                    </div>
+                    
+                  </div>
+                </div>
+  </div>
+
+
+
+</div>
+
+</td>
+
+ 
+</tr>
+
+</tbody>
+							
+</table>
+
+            </div>
+
+
+          </div>
+
+
+
+
+
+
+    
+
+
+    
+
+
+
+
+
+        </div>
+
+      
+
+
+
+
+  
+{% endblock %}
+
+
+

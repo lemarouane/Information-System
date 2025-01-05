@@ -1,0 +1,29 @@
+{{ form_start(form) }}
+    <div class="card shadow-none bg-light border">
+        <div class="card-body">
+            <div class="row g-3">
+                <div class="col-6">
+                    {{ form_row(form.code) }}
+                </div>
+
+                <div class="col-6">
+                    {{ form_row(form.nature) }}
+                </div>
+
+				<div class="col-6">
+                    {{ form_row(form.libelle) }}
+                </div>
+                <div class="col-6">
+                    {{ form_row(form.rubrique) }}
+                </div>
+                {{ form_row(form._token) }}
+                <div class="col-12">
+                    <div>        
+                        <button class="btn btn btn-success px-4 col-2" style="float:right">{{ button_label|default('save') }}</button>
+                        <a class="btn btn btn-primary px-4 col-2" style="float:left" href="{{ path('app_rubrique_recette_index') }}"> {{'back'|trans}} </a>                
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{{ form_end(form , {'render_rest': false}) }} 

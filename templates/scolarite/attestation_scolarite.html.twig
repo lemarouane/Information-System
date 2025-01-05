@@ -1,0 +1,85 @@
+<html>
+<meta charset="UTF-8" />
+<body dir=LTR bgcolor="#ffffff">
+<!-- Created by Oracle Reports  -->
+
+<div style="position: absolute; top:0pt;left:1pt;">
+
+</div>
+<style>#f1{font:10pt "Arial";color:#000000}</style>
+<span style="position:absolute;top:2pt;right:35%" id=f1>المملكة المغربية</span>
+<style>#f2{font:10pt "Arial";color:#000000}</style>
+<span style="position:absolute;top:14pt;left:0pt" id=f2>Université Abdelmalek Essaâdi</span>
+<span style="position:absolute;top:2pt;left:0pt" id=f2>ROYAUME DU MAROC</span>
+<span style="position:absolute;top:3pt;right:60%" id=f2><img src="http://localhost/e-ensat/public/ensat.png"></span>
+<span style="position:absolute;top:14pt;right:35%" id=f1>جامعة عبد المالك السعدي</span>
+<div style="position:absolute;top:26pt;left:0pt;width:200;" id=f2>{{etudiant["LIB_CMP"]}}</div>
+<span style="position:absolute;top:26pt;right:35%" id=f1>{{etudiant["LIB_CMP_ARB"]}}</span>
+<span style="position:absolute;top:38pt;left:389pt" id=f1> </span>
+<span style="position:absolute;top:38pt;left:0pt" id=f2> </span>
+<span style="position:absolute;top:62pt;left:0pt" id=f2>Service des Affaires Estudiantines</span>
+<div style="position:absolute;top:74.0pt;left:0.6pt;width:200.4;height:0.5;padding-top:-4.8;font:0pt Arial;border-width:1.2 0 0 0; border-style:solid;border-color:#000000;"><table></table></div>
+<span style="position:absolute;top:58pt;right:35%" id=f1>مصلحة الشؤون الطلابية</span>
+<div style="position:absolute;top:70.1pt;right:35%;width:102.4;height:0.5;padding-top:-4.8;font:0pt Arial;border-width:1.2 0 0 0; border-style:solid;border-color:#000000;"><table></table></div>
+<style>#f3{font:bold 20pt "Arial";color:#000000}</style>
+<span style="position:absolute;top:130pt;left:92pt" id=f3>ATTESTATION DE SCOLARITE</span>
+<div style="position:absolute;top:150pt;left:92pt;width:410.4;height:0.6;padding-top:-4.8;font:0pt Arial;border-width:2 0 0 0; border-style:solid;border-color:#000000;"><table></table></div>
+<style>#f1a161a38{color:#000000;}</style>
+<style>#f2a161a38{color:#000000;}</style>
+<div style="position:absolute;top:190pt;left:38pt" id=f2>{{etudiant["QUA_SIG"]}}<span id=f1a161a38> </span><span id=f2a161a38>{{etudiant["LIB_PHR1"]}}:</span></div>
+
+<style>#f1a193a37{color:#000000;}</style>
+<style>#f2a193a37{font: bold 10pt "Arial";color:#000000;letter-spacing: 2px;}</style>
+<style>#f3a193a37{color:#000000;}</style>
+<style>#f4a193a37{font: bold 10pt "Arial";color:#000000;letter-spacing: 2px;}</style>
+<div style="position:absolute;top:220pt;left:37pt;width:600px;" id=f2>{% if etudiant["COD_SEX_ETU"]== 'F' %} Mademoiselle {% else %} Monsieur {% endif %}<span id=f1a193a37> </span><span id=f2a193a37> {{etudiant["LIB_NOM_PAT_IND"]}}  </span><span id=f3a193a37> </span><span id=f4a193a37>{{etudiant["LIB_PR1_IND"]}}</span></div>
+<span style="position:absolute;top:250pt;left:38pt" id=f2>Numéro de la carte d identité nationale  : </span>
+<span style="position:absolute;top:250pt;left:220pt" id=f2>{{etudiant["CIN_IND"]}}</span>
+<span style="position:absolute;top:280pt;left:220pt" id=f2>{{etudiant["COD_NNE_IND"]}}</span>
+<style>#f1a243a38{color:#000000;}</style>
+<style>#f2a243a38{color:#000000;}</style>
+<div style="position:absolute;top:280pt;left:38pt" id=f2>Code national de l'étudiant<span id=f1a243a38>e</span><span id=f2a243a38>  :</span></div>
+<style>#f1a270a38{color:#000000;}</style>
+<style>#f2a270a38{color:#000000;}</style>
+<div style="position:absolute;top:310pt;left:38pt" id=f2>née le {{etudiant["DATE_NAI_IND"]|format_datetime(locale='fr' , pattern="dd MMMM YYYY") }}<span id=f1a270a38> </span><span id=f2a270a38>à {{etudiant["LIB_VIL_NAI_ETU"]}} ( {{etudiant["LIB_PAY"]}} )</span></div>
+<style>#f1a292a38{color:#000000;}</style>
+<style>#f2a292a38{color:#000000;}</style>
+<style>#f3a292a38{color:#000000;}</style>
+<style>#f4a292a38{color:#000000;}</style>
+<style>#f5a292a38{color:#000000;}</style>
+<div style="position:absolute;top:340pt;left:38pt" id=f2>Poursuit ses études à  <span id=f1a292a38>l'</span><span id=f2a292a38> </span><span id=f3a292a38>{{etudiant["LIB_CMP"]}}</span><span id=f4a292a38> </span><span id=f5a292a38>pour l'année</span></div>
+<style>#f1a302a38{color:#000000;}</style>
+<style>#f2a302a38{color:#000000;}</style>
+<style>#f3a302a38{color:#000000;}</style>
+<div style="position:absolute;top:355pt;left:38pt" id=f2>universitaire<span id=f1a302a38> </span><span id=f2a302a38>{{etudiant["COD_ANU"]}}/{{(etudiant["COD_ANU"]+1)}}</span><span id=f3a302a38>. </span></div>
+<style>#f4{font:10pt "Arial";text-decoration:underline;color:#000000}</style>
+<span style="position:absolute;top:385pt;left:38pt" id=f4>Diplôme  </span>
+<span style="position:absolute;top:385pt;left:85pt" id=f2>: {{etudiant["IT1_VDI"]}}</span>
+<span style="position:absolute;top:415pt;left:85pt" id=f2>: {{etudiant["LIC_VDI"]}}</span>
+<span style="position:absolute;top:415pt;left:38pt" id=f4>Filière  </span>
+<span style="position:absolute;top:445pt;left:85pt" id=f2>: {{etudiant["LIB_ETP"]}}</span>
+<span style="position:absolute;top:445pt;left:38pt" id=f4>Année </span>
+<style>#f1a396a226{color:#000000;}</style>
+<style>#f2a396a226{color:#000000;}</style>
+<style>#f3a396a226{color:#000000;}</style>
+<div style="position:absolute;top:475pt;left:226pt" id=f2>Fait à <span id=f1a396a226>TANGER</span><span id=f2a396a226>, le </span><span id=f3a396a226>{{"now"|format_datetime(locale='fr' , pattern="dd MMMM YYYY")}}      </span></div>
+<span style="position:absolute;top:500pt;left:260pt" id=f2>{{etudiant["NOM_SIG"]}}</span>
+<span style="position:absolute;top:600pt;right:35%" id=f2> {{etudiant["COD_ETU"]}}</span>
+<style>#f1a466a304{font: 10pt "Arial";color:#000000;}</style>
+<div style="position:absolute;top:600pt;left:304pt" id=f4>N° étudiant<span id=f1a466a304> :</span></div>
+<div style="position:absolute;top:620pt;left:0.8pt;width:590.5;height:0.5;padding-top:-4.8;font:0pt Arial;border-width:1 0 0 0; border-style:solid;border-color:#000000;"><table></table></div>
+<span style="position:absolute;top:630pt;left:3pt" id=f4>Adresse :</span>
+<span style="position:absolute;top:630pt;left:50pt" id=f2>{{etudiant["LIB_AD1_CMP"]}}</span>
+<style>#f5{font:8pt "Arial";text-decoration:underline;color:#000000}</style>
+<span style="position:absolute;top:630pt;right:35%;" id=f5>: العنوان</span>
+<style>#f6{font:8pt "Arial";color:#000000}</style>
+<span style="position:absolute;top:630pt;right:40%;" id=f6>{{etudiant["LIB_AD1_CMP_ARB"]}}</span>
+<span style="position:absolute;top:645pt;left:50pt" id=f2>{{etudiant["LIB_AD3_CMP"]}}</span>
+<span style="position:absolute;top:660pt;left:50pt" id=f2>{{etudiant["LIB_AD2_CMP"]}}</span>
+<span style="position:absolute;top:660pt;right:40%;" id=f6>{{etudiant["LIB_AD2_CMP_ARB"]}}</span>
+<span style="position:absolute;top:645pt;right:40%;" id=f6>{{etudiant["LIB_AD3_CMP_ARB"]}}</span>
+<div style="position:absolute;top:680.5pt;left:0.0pt;width:590.6;height:0.5;padding-top:-4.8;font:0pt Arial;border-width:1 0 0 0; border-style:solid;border-color:#000000;"><table></table></div>
+<div style="position:absolute;top:690pt;left:92pt" id=f2>Le présent document n'est délivré qu'en un seul exemplaire.</div>
+<div style="position:absolute;top:705pt;left:71pt" id=f2>Il appartient à l'étudiant d'en faire des photocopies certifiées conformes.</div>
+
+</body></html>

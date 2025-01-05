@@ -1,0 +1,30 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Corps{% endblock %}
+
+{% block body %}
+    <h1>Corps</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ corps.id }}</td>
+            </tr>
+            <tr>
+                <th>DesignationFR</th>
+                <td>{{ corps.designationFR }}</td>
+            </tr>
+            <tr>
+                <th>DesignationAR</th>
+                <td>{{ corps.designationAR }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_corps_index') }}">back to list</a>
+
+    <a href="{{ path('app_corps_edit', {'id': corps.id}) }}">edit</a>
+
+    {{ include('corps/_delete_form.html.twig') }}
+{% endblock %}

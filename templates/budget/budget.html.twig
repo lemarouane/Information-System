@@ -1,0 +1,180 @@
+{% extends "template.html.twig" %}
+{% block title %} {{'finance'|trans}}{% endblock %}
+{% block stylesheets %}
+{{ parent() }}
+<style>
+.disabled {
+    pointer-events: none;
+    opacity: 0.4;
+}
+</style>
+
+
+{% endblock %}
+
+
+{% block body %} 
+
+<div id="budget-to-validation"  data-href="{{ path('rubriques_of_article', {id:'1111'})}}" ></div>  
+
+	<div class="page-breadcrumb d-none d-sm-flex align-items-center mb-3">
+					<div class="breadcrumb-title pe-3">{{'finance'|trans}} </div>
+					<div class="ps-3">
+						<nav aria-label="breadcrumb">
+							<ol class="breadcrumb mb-0 p-0">
+								<li class="breadcrumb-item"><a href="javascript:;"><i class="bi bi-cash-coin"></i></a>
+								</li>
+								<li class="breadcrumb-item active" aria-current="page">{{'ajouter_budget'|trans}}</li>
+							</ol>
+						</nav>
+					</div>
+				</div>
+		<hr/>
+
+
+
+
+
+
+
+       {% include "flaches.html.twig" %}
+
+      <div class="box-footer">
+      <section class="content">
+
+        <div class="row">
+          
+
+            {% if page == 'new' %}
+              {{ form_start(form, {'action': path('addBudget'), 'method': 'POST'}) }}
+            {% else %}
+              {{ form_start(form, {'action': path('updateEntreeBudget',{id: entity.id}), 'method': 'POST'}) }}         
+            {% endif %}
+
+            <div class="col-md-12">
+              <div class="box box-primary">
+                <div class="box-header with-border">
+                  <div class="box-body">
+                    <div class="form-group">
+                      <div class="row panalArticle">
+                      
+                        
+                        {% include "budget/form.html.twig" %}
+                          
+                      </div>
+ 
+                    </div>
+                  </div><br>
+
+<div class="card shadow-none bg-light border"> 
+      <div class="card-body">
+            <div class="card-header py-2 bg-transparent"><h6 class="mb-0"></h6>{{'ajouter_budget_entree'|trans}}</div>
+                <div class="row g-3">
+                   <p style="font-family: 'Times New Roman', Arial, Verdana, Sans-serif; margin-top: 20px;"> {{'ajouter_budget_rubriques_recettes'|trans}} </p>
+                <div class="box-body"  id="budget_list" data-prototype="{{ form_widget(form.budgetEntrees.vars.prototype)|e('html_attr')}}">
+                    {% for row in form.budgetEntrees %}
+                    
+                      <div class="form-group panel" {% if row.vars.value.temoin == 'F'  %} id="{{row.vars.id}}" {% endif %}>
+                        <div class="row panalArticle" style="margin-bottom: 15px;">
+
+
+                          
+                          <div class="form-group col-sm-12">
+                            <label for="rubrique_recette" class="control-label">{{'rubrique_recette'|trans}}</label>
+
+                            <div>
+                              {{ form_widget(row.rubrique_recette,{'attr': {'class':'form-select'}}) }}
+                            </div>
+                          </div>
+
+
+                          <div class="form-group col-sm-12">
+                            <label for="libelle" class="control-label">{{'libelle'|trans}}</label>
+
+                            <div>
+                              {{ form_widget(row.libelle,{'attr': {'class':'form-select'}}) }}
+                            </div>
+                          </div>
+
+                          <div class="form-group col-sm-12">
+                            <label for="montant" class="control-label">{{'montant'|trans}}</label>
+
+                            <div>
+                              {{ form_widget(row.montant,{'attr': {'class':'form-select'}}) }}
+                            </div>
+                          </div>
+                          <div class="form-group col-sm-12">
+
+                              {{ form_widget(row.temoin) }}
+
+                          </div>
+
+
+                          
+                        </div>
+
+                      </div>
+                    {% endfor %}
+                  </div>
+
+
+                  </div>
+            </div>
+      </div>
+</div>
+
+               
+                  <div>
+        
+           
+            
+
+                  </div>
+                </div>
+              </div>
+                      
+              
+            </div>
+
+              
+                     <button type="submit" class="btn btn btn-success px-4 col-12 ">Valider</button>
+            
+
+            {{ form_end(form , {'render_rest': false}) }}
+        
+
+          </div>
+        </section> 
+      </div>
+ 
+{% endblock body %}
+
+ {% block javascripts %}
+ 
+
+  {{ parent() }}
+
+ 
+    {{ encore_entry_script_tags('budget_ajouter') }}
+  
+
+<script> 
+    
+    (function($) {
+
+
+      $(".js-dateDebut").datepicker({
+        minDate: 0,
+        maxDate: "+50Y",
+        numberOfMonths: 1,
+        language:'fr',
+        dateFormat : 'yy-mm-dd',
+        prevText : '<i class="fa fa-chevron-left"></i>',
+        nextText : '<i class="fa fa-chevron-right"></i>',
+    });
+
+    })(jQuery);
+</script>
+
+
+{% endblock %}

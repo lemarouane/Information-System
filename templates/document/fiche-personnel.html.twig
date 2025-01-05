@@ -1,0 +1,245 @@
+﻿<!DOCTYPE html>
+<html dir="rtl" lang="fr">
+  <head>
+    <title>note Annuelle</title>
+    <meta charset="utf-8">
+    
+  </head>
+  <style type="text/css">
+    h1{
+      font-size: 22px;
+      font-weight: bold;
+      text-align: right;
+    }
+    p{
+      text-align: justify;
+      font-size:22px;
+    }
+    
+    .right {
+      text-align: right;
+      margin-right: 1em;
+    }
+
+    .center {
+      text-align: center;
+    }
+    .left {
+      text-align: left;
+      margin-left: 1em;
+    }
+    table {
+      font-family : "Times New Roman", Arial, Verdana, Sans-serif;
+      margin: none;
+      width:100%; 
+    }
+
+    table, th, td {
+      font-size:22px;
+      padding-right: 5px;
+      padding-left: 5px;
+      
+    }
+    .table table{
+      border-collapse: collapse;
+    }
+    .table table, th, td {
+      border: 1px solid black; 
+    }
+    th{
+      background-color: #f0f5f5;
+    }
+    span.right {
+      margin-top: 10px;
+      margin-bottom:10px;
+      vertical-align:top; 
+      display:inline-block;
+      text-align:right;
+      height:80px;
+      width:48%;
+    }
+    span.left {
+      margin-top: 10px;
+      margin-bottom:10px;
+      height:80px;
+      width:49%;
+      display:inline-block;
+    }
+  </style>
+  <body>
+    <div class="right">
+      <h1> جامعة عبد المالك السعدي <br>
+      <h1> المدرسة الوطنية للعلوم التطبيقية
+طنجة </h1>
+    </div>
+    <div  style="width: 55% ; float: left ;padding-left:15px;">
+      <table>
+        <tr>
+          <th class="left">
+                   {{persone.prenom}} 
+          </th>
+          <td class="left"  style="background-color: #f0f5f5;">
+                   Prénom
+          </td>
+          
+        </tr>
+        <tr>
+          <th class="left">
+                   {{persone.nom}} 
+          </th>
+          <td class="left"  style="background-color: #f0f5f5;">
+                  Nom
+          </td>
+          
+        </tr>
+        <tr>
+          <th class="left">
+            {{ persone.datenaissance ? persone.dateNaissance|date('d-m-Y') : '' }}  à {{ persone.provinceNaissance.nomProvince}}   
+          </th>
+          <td class="left"  style="background-color: #f0f5f5;">
+                  Date et Lieu de Naissance  
+          </td>
+          
+        </tr>
+        <tr>
+          <th class="left">
+                   {{ persone.cin}} 
+          </th>
+          <td class="left"  style="background-color: #f0f5f5;">
+                  C.I.N
+          </td>
+          
+        </tr>
+      </table>
+    </div>
+
+    <div style="width: 100%; ">
+      <span class="right">
+        <table>
+          <tr>
+            <td class="right"  style="background-color: #f0f5f5;">
+                   الإسم الشخصي   
+            </td>
+            <th class="right">
+                   {{persone.prenomArabe}}
+            </th>
+          </tr>
+          <tr>
+            <td class="right"  style="background-color: #f0f5f5;">
+                   الإسم العائلي   
+            </td>
+            <th class="right">
+                   {{persone.nomArabe}}
+            </th>
+          </tr>
+          <tr>
+            <td class="right"  style="background-color: #f0f5f5;">
+                  رقم التأجير
+            </td>
+            <th class="right">
+                   {{persone.numPpr}}
+            </th>
+          </tr>
+          <tr>
+            <td class="right"  style="background-color: #f0f5f5;">
+                   المنصب المالي         
+            </td>
+            <th class="right">
+                   {{persone.posteBudget}}
+            </th>
+          </tr>
+        </table>
+      </span>
+      <span class="left"> 
+        <table>
+
+          <tr>
+            <td class="right"  style="background-color: #f0f5f5;">
+                  تاريخ  التوظيف
+            </td>
+            <th class="right">
+                   {{ persone.daterecrutement ? persone.daterecrutement|date('Y-m-d') : '' }}
+            </th>
+          </tr>
+          <tr>
+            <td class="right"  style="background-color: #f0f5f5;">
+                  تاريخ  االتعيين بالمؤسسة
+            </td>
+            <th class="right">
+                   {{persone.dateaffectationEnsat ? persone.dateaffectationEnsat|date('Y-m-d') : ''}}
+            </th>
+          </tr>
+        </table>
+      </span>
+    </div>
+    <div class="right" id="table" style="margin-top: 40px;">
+      <table>
+        <tr>
+          <th class="center" colspan="7"> الوضعية  الحالية </th>
+          <th class="center" colspan="5"> الوضعية  االمقترحة  </th>
+        </tr>
+        <tr>
+          <th> الإطار </th>
+          <th> الدرجة </th>
+          <th> القدمية.الدرجة </th>
+          <th> الرتبة </th>
+          <th> ر.إ </th>
+          <th> تاريخ المفعول </th>
+          <th> رقم التأشيرة </th>
+          <th> الإطار  </th>
+          <th> الدرجة  </th>
+          <th> الرتبة  </th>
+          <th> ر.إ  </th>
+          <th> تاريخ المفعول </th>
+        </tr>
+          {% for avancement in persone.avancements %}
+            {% if not loop.last %} 
+              {% set echelon = avancement.echelon.designation|split('-') %}
+              <tr>
+                <td> {{avancement.corps.designationAr}} </td>
+                <td> {{avancement.grade.designationAr}} </td>
+                <td> {{avancement.dateGrade ? avancement.dateGrade|date('Y-m-d') : '' }} </td>
+                <td> {{echelon[1]}} </td>
+                <td> {{avancement.echelon.designation}} </td>
+                <td> {{avancement.dateDeci ? avancement.dateDeci|date('Y-m-d') : '' }} </td>
+                <td> {{avancement.numDeci}} </td>
+                <td>  </td>
+                <td>  </td>
+                <td>  </td>
+                <td>  </td>
+                <td>  </td>
+              </tr>
+            {% endif %}
+          {% endfor %}
+            <tr>
+              {% set echelon1 = persone.avancements.last.echelon.designation|split('-') %}
+              {% if  etatproposer is not null %}
+                {% set echelon2 = etatproposer.etatPropose.designation|split('-') %}
+              {% endif %}
+                  <td> {{persone.avancements.last.corps.designationAr}} </td>
+                  <td> {{persone.avancements.last.grade.designationAr}} </td>
+                  <td> {{persone.avancements.last.dateGrade ? persone.avancements.last.dateGrade|date('Y-m-d') : '' }} </td>
+                  <td> {{echelon1[1]}} </td>
+                  <td> {{persone.avancements.last.echelon.designation}} </td>
+                  <td> {{persone.avancements.last.dateDeci ? persone.avancements.last.dateDeci|date('Y-m-d') : '' }} </td>
+                  <td> {{persone.avancements.last.numDeci}} </td>
+              {% if  etatproposer is not null %}
+                  <td> {{persone.avancements.last.corps.designationAr}} </td>
+                  <td> {{etatproposer.etatPropose.grade.designationAr}} </td>
+                  <td> {{echelon2[1]}} </td>
+                  <td> {{etatproposer.etatPropose.designation}} </td>
+                  <td> {{persone.avancements.last.dateDeci ? persone.avancements.last.dateDeci|date_modify("+"~ etatproposer.rapide/12 ~" years")|date("Y-m-d") : '' }} </td>
+              {% else %}
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+              {% endif %}
+              </tr>
+        
+      </table>
+    </div>
+  </body>
+  
+</html>
