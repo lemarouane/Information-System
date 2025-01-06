@@ -78,4 +78,18 @@ class Doctorants
 
         return $this;
     }
+
+    #[ORM\Column(type: 'string', length: 10)]
+    private ?string $source = null; // Default value is null
+
+    public function getSource(): ?string
+    {
+        return $this->source;
+    }
+
+    public function setSource(string $source): self
+    {
+        $this->source = $source;
+        return $this;
+    }
 }

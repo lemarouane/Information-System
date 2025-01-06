@@ -741,37 +741,36 @@ or ("ROLE_DIR_ADJ" in app.user.roles) or ("ROLE_RH" in app.user.roles) or ("ROLE
 
 
 {% if ("ROLE_ADMIN" in app.user.roles) or ("ROLE_SCOLARITE" in app.user.roles) %}
-
-    <li class="{% if route  in recherche %} mm-active {% endif %}">
+    <li class="{% if route in recherche %} mm-active {% endif %}">
         <a id="recherche_totale" href="javascript:;" class="has-arrow">
             <div class="parent-icon"><i class="bi bi-search"></i></div>
-            <div class="menu-title">{{ 'recherche'|trans }}</div>
+            <div class="menu-title">{{ 'Recherche'|trans }}</div>
         </a>
         <ul>
-
             <li>
                 <a id="add_doctorant" href="{{ path('add_doctorant') }}">
-                    <i class="bi bi-arrow-right-short"></i>{{ 'Ajouter Doctorant'|trans }}
-                </a>
-            </li>
-
-              <li>
-                <a id="import_doctorants" href="{{ path('import_doctorants') }}">
-                    <i class="bi bi-arrow-right-short"></i>{{ 'Importer Doctorant'|trans }}
-                </a>
-            </li>
-            <li class="{% if route  in doctorant_list %} mm-active {% endif %}">
-                <a id="list_doctorants" href="{{ path('list_doctorants') }}">
-                    <i class="bi bi-arrow-right-short"></i>{{ 'Liste des Doctorants'|trans }}
+                    <i class="bi bi-plus-circle"></i>{{ 'Ajouter Doctorant'|trans }}
                 </a>
             </li>
             <li>
-
+                <a id="import_doctorants" href="{{ path('import_doctorants') }}">
+                    <i class="bi bi-upload"></i>{{ 'Importer Doctorant'|trans }}
+                </a>
+            </li>
+            <li class="{% if route in doctorant_list %} mm-active {% endif %}">
+                <a id="list_doctorants" href="{{ path('list_doctorants') }}">
+                    <i class="bi bi-list-ul"></i>{{ 'Liste des Doctorants'|trans }}
+                </a>
+            </li>
+            <li class="{% if route == 'doctorants_statistiques' %} mm-active {% endif %}">
+                <a id="statistiques_doctorants" href="{{ path('doctorants_statistiques') }}">
+                    <i class="bi bi-bar-chart"></i>{{ 'Statistiques'|trans }}
+                </a>
             </li>
         </ul>
     </li>
-
 {% endif %}
+
 
 
 

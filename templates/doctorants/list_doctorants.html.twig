@@ -3,50 +3,26 @@
 {% block title %}Liste des Doctorants{% endblock %}
 
 {% block body %}
-<!-- Breadcrumb -->
 <div class="page-breadcrumb d-none d-sm-flex align-items-center mb-3">
     <div class="breadcrumb-title pe-3">Liste des Doctorants</div>
-    <div class="ps-3">
-        <nav aria-label="breadcrumb">
-            <ol class="breadcrumb mb-0 p-0">
-                <li class="breadcrumb-item"><a href="javascript:;"><i class="bx bx-home-alt"></i></a></li>
-                <li class="breadcrumb-item active" aria-current="page">Liste des Doctorants</li>
-            </ol>
-        </nav>
-    </div>
 </div>
-
-
-
-<div class="d-flex justify-content-between align-items-center mb-3">
-    <h5 class="card-title">Liste des Doctorants</h5>
-    <div>
-        <a href="{{ path('import_doctorants') }}" class="btn btn-success">
-            Importer depuis Excel
-        </a>
-    </div>
-</div>
-<!-- End Breadcrumb -->
-
-<div class="card shadow-sm border-0">
-    <div class="card-header py-3">
-        <div class="row align-items-center g-3">
-            <div class="col-12 col-lg-6">
-                <h5 class="mb-0">Liste des Doctorants</h5>
-            </div>
-            <div class="col-12 col-lg-6 text-end">
-                <a href="{{ path('add_doctorant') }}" class="btn btn-primary btn-sm">
-                    <i class="bi bi-plus-circle"></i> Ajouter un Doctorant
-                </a>
-            </div>
+<div class="card shadow-lg">
+    <div class="card-header bg-gradient-primary text-white d-flex justify-content-between align-items-center">
+        <h4 class="mb-0">Liste des Doctorants</h4>
+        <div>
+            <a href="{{ path('add_doctorant') }}" class="btn btn-light rounded-pill">
+                <i class="bi bi-plus-circle"></i> Ajouter
+            </a>
+            <a href="{{ path('import_doctorants') }}" class="btn btn-light rounded-pill">
+                <i class="bi bi-file-earmark-arrow-up"></i> Importer
+            </a>
         </div>
     </div>
-
     <div class="card-body">
         {% include "flaches.html.twig" %}
         <div class="table-responsive">
-            <table id="doctorantsTable" class="table table-striped table-bordered text-center">
-                <thead class="table-primary">
+            <table class="table table-bordered text-center align-middle shadow-sm">
+                <thead class="bg-primary text-white">
                     <tr>
                         <th>ID</th>
                         <th>Email</th>
@@ -57,64 +33,30 @@
                     </tr>
                 </thead>
                 <tbody>
-                    {% if doctorants is not empty %}
-                        {% for doctorant in doctorants %}
-                            <tr>
-                                <td>{{ doctorant.id }}</td>
-                                <td>{{ doctorant.email }}</td>
-                                <td>{{ doctorant.code }}</td>
-                                <td>{{ doctorant.nom }}</td>
-                                <td>{{ doctorant.prenom }}</td>
-                                <td>
-                                    <div class="table-actions fs-6">
-                                        <a href="{{ path('edit_doctorant', {id: doctorant.id}) }}" class="text-warning" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Modifier">
-                                            <i class="bi bi-pencil-fill"></i>
-                                        </a>
-                                        &nbsp;
-                                        <a href="{{ path('delete_doctorant', {id: doctorant.id}) }}" class="text-danger" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Supprimer" onclick="return confirm('Êtes-vous sûr de vouloir supprimer ce doctorant ?');">
-                                            <i class="bi bi-trash-fill"></i>
-                                        </a>
-                                    </div>
-                                </td>
-                            </tr>
-                        {% endfor %}
+                    {% for doctorant in doctorants %}
+                        <tr style="background: #f7f9fc;">
+                            <td>{{ doctorant.id }}</td>
+                            <td>{{ doctorant.email }}</td>
+                            <td>{{ doctorant.code }}</td>
+                            <td>{{ doctorant.nom }}</td>
+                            <td>{{ doctorant.prenom }}</td>
+                            <td>
+                                <a href="{{ path('edit_doctorant', {id: doctorant.id}) }}" class="btn btn-warning rounded-pill px-3 me-2">
+                                    <i class="bi bi-pencil-fill"></i> Modifier
+                                </a>
+                                <a href="{{ path('delete_doctorant', {id: doctorant.id}) }}" class="btn btn-danger rounded-pill px-3" onclick="return confirm('Êtes-vous sûr de vouloir supprimer ce doctorant ?');">
+                                    <i class="bi bi-trash-fill"></i> Supprimer
+                                </a>
+                            </td>
+                        </tr>
                     {% else %}
                         <tr>
-                            <td colspan="6" class="text-center">Aucun doctorant trouvé.</td>
+                            <td colspan="6" class="text-muted">Aucun doctorant trouvé.</td>
                         </tr>
-                    {% endif %}
+                    {% endfor %}
                 </tbody>
             </table>
         </div>
     </div>
-
-    <div class="card-footer text-end">
-        <small class="text-muted">Gestion des Doctorants</small>
-    </div>
 </div>
-
-<!-- Add any additional icons or buttons as needed -->
-{% endblock %}
-
-{% block stylesheets %}
-{{ parent() }}
-<style>
-    .breadcrumb-title {
-        font-size: 1.25rem;
-        font-weight: bold;
-    }
-
-    .table-actions .bi {
-        font-size: 1.25rem;
-        cursor: pointer;
-    }
-
-    .table-actions .bi-pencil-fill:hover {
-        color: #ffc107; /* Bootstrap warning color */
-    }
-
-    .table-actions .bi-trash-fill:hover {
-        color: #dc3545; /* Bootstrap danger color */
-    }
-</style>
 {% endblock %}

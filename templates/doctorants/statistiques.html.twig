@@ -1,0 +1,79 @@
+{% extends 'template.html.twig' %}
+
+{% block title %}Statistiques des Doctorants{% endblock %}
+
+{% block body %}
+<div class="page-breadcrumb d-none d-sm-flex align-items-center mb-3">
+    <div class="breadcrumb-title pe-3">Statistiques des Doctorants</div>
+</div>
+<div class="card shadow-lg">
+    <div class="card-header bg-primary text-white">
+        <h4 class="mb-0">Sources des Doctorants</h4>
+    </div>
+    <div class="card-body">
+        <div class="row justify-content-center">
+            <div class="col-md-6 text-center">
+                <h5>Graphique des Sources</h5>
+                <canvas id="sourceChart" style="max-width: 400px; max-height: 400px;"></canvas>
+            </div>
+            <div class="col-md-6 text-center">
+                <h5>Total des Doctorants</h5>
+                <h1 class="display-4 text-primary">{{ data.manual + data.excel }}</h1>
+                <p class="text-muted">Ajout manuel: {{ data.manual }}</p>
+                <p class="text-muted">Import Excel: {{ data.excel }}</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% block javascripts %}
+{{ parent() }}
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const ctx = document.getElementById('sourceChart').getContext('2d');
+        const data = {{ data|json_encode|raw }};
+
+        new Chart(ctx, {
+            type: 'doughnut',
+            data: {
+                labels: ['Ajout Manuel', 'Import Excel'],
+                datasets: [{
+                    data: [data.manual, data.excel],
+                    backgroundColor: ['rgba(75, 192, 192, 0.6)', 'rgba(255, 99, 132, 0.6)'],
+                    borderColor: ['rgba(75, 192, 192, 1)', 'rgba(255, 99, 132, 1)'],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        position: 'top',
+                    },
+                    title: {
+                        display: true,
+                        text: 'Répartition des Doctorants par Source'
+                    },
+                    datalabels: {
+                        color: '#fff',
+                        font: {
+                            weight: 'bold',
+                            size: 14
+                        },
+                        formatter: function(value, context) {
+                            const total = context.chart.data.datasets[0].data.reduce((a, b) => a + b, 0);
+                            const percentage = ((value / total) * 100).toFixed(1);
+                            return `${value} (${percentage}%)`;
+                        }
+                    }
+                }
+            },
+            plugins: [ChartDataLabels] // Enable the plugin
+        });
+    });
+</script>
+{% endblock %}
+{% endblock %}

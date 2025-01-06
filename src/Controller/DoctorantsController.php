@@ -12,6 +12,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use PhpOffice\PhpSpreadsheet\IOFactory;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
+use Symfony\Component\HttpFoundation\JsonResponse;
 
 
 class DoctorantsController extends AbstractController
@@ -20,6 +21,7 @@ class DoctorantsController extends AbstractController
     public function addDoctorant(Request $request, EntityManagerInterface $entityManager): Response
     {
         $doctorant = new Doctorants();
+        $doctorant->setSource('manual');
         $form = $this->createForm(DoctorantType::class, $doctorant);
         $form->handleRequest($request);
 
@@ -134,10 +136,12 @@ class DoctorantsController extends AbstractController
 
                         try {
                             $doctorant = new Doctorants();
-                            $doctorant->setEmail($row[0] ?? ''); // E-mail Institutionnel
+                            $doctorant->setEmail($row[0] ?? ''); // E-mail 
                             $doctorant->setCode($row[1] ?? '');  // Code Apogee
                             $doctorant->setNom($row[2] ?? '');   // Nom
                             $doctorant->setPrenom($row[3] ?? ''); // Prenom
+                            $doctorant->setSource('excel');
+
 
                             $entityManager->persist($doctorant);
                             $importCount++;
@@ -167,4 +171,24 @@ class DoctorantsController extends AbstractController
 
         return $this->render('doctorants/import_doctorants.html.twig');
     }
+
+
+    #[Route('/doctorants-statistiques', name: 'doctorants_statistiques')]
+    public function statistiques(EntityManagerInterface $entityManager): Response
+    {
+        // Fetch counts by source
+        $manualCount = $entityManager->getRepository(Doctorants::class)->count(['source' => 'manual']);
+        $excelCount = $entityManager->getRepository(Doctorants::class)->count(['source' => 'excel']);
+    
+        $data = [
+            'manual' => $manualCount,
+            'excel' => $excelCount,
+        ];
+    
+        return $this->render('doctorants/statistiques.html.twig', [
+            'data' => $data, // Pass the source-based data directly
+        ]);
+    }
+    
+    
 }
