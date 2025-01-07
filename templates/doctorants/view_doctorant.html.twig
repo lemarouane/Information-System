@@ -1,0 +1,107 @@
+{% extends 'template.html.twig' %}
+
+{% block title %}Détails du Doctorant{% endblock %}
+
+{% block body %}
+<div class="page-breadcrumb d-none d-sm-flex align-items-center mb-3">
+    <div class="breadcrumb-title pe-3">Détails du Doctorant</div>
+</div>
+<div class="card shadow-lg">
+    <div class="card-body">
+        <h5 class="card-title">Détails du Doctorant</h5>
+        <hr>
+        <div class="row">
+            <!-- Left Column -->
+            <div class="col-md-6">
+                <p><strong>Établissement:</strong> {{ doctorant.etablissement }}</p>
+                <p><strong>Nom:</strong> {{ doctorant.nom }}</p>
+                <p><strong>Prénom:</strong> {{ doctorant.prenom }}</p>
+                <p><strong>Nom Arabe:</strong> {{ doctorant.nomArabe }}</p>
+                <p><strong>Prénom Arabe:</strong> {{ doctorant.prenomArabe }}</p>
+                <p><strong>CIN:</strong> {{ doctorant.cin }}</p>
+                <p><strong>CNE:</strong> {{ doctorant.cne }}</p>
+                <p><strong>Date de Naissance:</strong> {{ doctorant.dateDeNaissance|date('d/m/Y') }}</p>
+                <p><strong>Lieu de Naissance:</strong> {{ doctorant.lieuDeNaissance }}</p>
+                <p><strong>Province de Naissance:</strong> {{ doctorant.provinceDeNaissance }}</p>
+                <p><strong>Pays de Naissance:</strong> {{ doctorant.paysNaissance }}</p>
+                <p><strong>Nationalité:</strong> {{ doctorant.nationalite }}</p>
+                <p><strong>Sexe:</strong> {{ doctorant.sexe }}</p>
+            </div>
+
+            <!-- Right Column -->
+            <div class="col-md-6">
+                <p><strong>Téléphone:</strong> {{ doctorant.telephone }}</p>
+                <p><strong>Email:</strong> {{ doctorant.email }}</p>
+                <p><strong>Email Institutionnel:</strong> {{ doctorant.emailInstitutionnel }}</p>
+                <p><strong>Code Postal:</strong> {{ doctorant.codePostal }}</p>
+                <p><strong>Organisme Employeur:</strong> {{ doctorant.organismeEmployeur }}</p>
+                <p><strong>Profession:</strong> {{ doctorant.profession }}</p>
+                <p><strong>Académie BAC:</strong> {{ doctorant.academieBac }}</p>
+                <p><strong>Province BAC:</strong> {{ doctorant.provinceBac }}</p>
+                <p><strong>Lycée BAC:</strong> {{ doctorant.lyceeBac }}</p>
+                <p><strong>Mention BAC:</strong> {{ doctorant.mentionBac }}</p>
+                <p><strong>Note BAC:</strong> {{ doctorant.noteBac }}</p>
+                <p><strong>Date Obtention BAC:</strong> {{ doctorant.dateObtentionBac }}</p>
+                <p><strong>Pays BAC:</strong> {{ doctorant.paysBac }}</p>
+            </div>
+        </div>
+
+        <hr>
+
+        <!-- More Sections -->
+        <div class="row">
+            <div class="col-md-6">
+                <p><strong>Licence Etablissement:</strong> {{ doctorant.licenceEtablissement }}</p>
+                <p><strong>Mention Licence:</strong> {{ doctorant.mentionLicence }}</p>
+                <p><strong>Date Obtention Licence:</strong> {{ doctorant.dateObtentionLicence }}</p>
+                <p><strong>Licence Pays:</strong> {{ doctorant.licencePays }}</p>
+                <p><strong>Licence Specialité:</strong> {{ doctorant.licenceSpecialite }}</p>
+                <p><strong>Université Licence:</strong> {{ doctorant.universiteLicence }}</p>
+                <p><strong>Note Licence:</strong> {{ doctorant.noteLicence }}</p>
+            </div>
+
+            <div class="col-md-6">
+                <p><strong>Master Etablissement:</strong> {{ doctorant.masterEtablissement }}</p>
+                <p><strong>Note Master:</strong> {{ doctorant.noteMaster }}</p>
+                <p><strong>Mention Master:</strong> {{ doctorant.mentionMaster }}</p>
+                <p><strong>Date Obtention Master:</strong> {{ doctorant.dateObtentionMaster }}</p>
+                <p><strong>Pays Master:</strong> {{ doctorant.paysObtentionMaster }}</p>
+                <p><strong>Master Spécialité:</strong> {{ doctorant.masterSpecialite }}</p>
+                <p><strong>Master Université:</strong> {{ doctorant.masterUniversite }}</p>
+                <p><strong>Master Secteur:</strong> {{ doctorant.masterSecteur }}</p>
+            </div>
+        </div>
+
+        <hr>
+
+        <!-- Diplomas and Additional Information -->
+        <div class="row">
+            <div class="col-md-6">
+                <p><strong>Autre Diplôme Type:</strong> {{ doctorant.autreDiplomeType }}</p>
+                <p><strong>Autre Diplôme Etablissement:</strong> {{ doctorant.autreDiplomeEtablissement }}</p>
+                <p><strong>Autre Diplôme Mention:</strong> {{ doctorant.autreDiplomeMention }}</p>
+                <p><strong>Autre Diplôme Date:</strong> {{ doctorant.autreDiplomeDateObtention }}</p>
+                <p><strong>Autre Diplôme Pays:</strong> {{ doctorant.autreDiplomePays }}</p>
+                <p><strong>Autre Diplôme Specialité:</strong> {{ doctorant.autreDiplomeSpecialite }}</p>
+            </div>
+
+            <div class="col-md-6">
+                <p><strong>Langue 1:</strong> {{ doctorant.langue1 }}</p>
+                <p><strong>Niveau Langue 1:</strong> {{ doctorant.niveauLangue1 }}</p>
+                <p><strong>Langue 2:</strong> {{ doctorant.langue2 }}</p>
+                <p><strong>Niveau Langue 2:</strong> {{ doctorant.niveauLangue2 }}</p>
+                <p><strong>Langue 3:</strong> {{ doctorant.langue3 }}</p>
+                <p><strong>Niveau Langue 3:</strong> {{ doctorant.niveauLangue3 }}</p>
+                <p><strong>Langue 4:</strong> {{ doctorant.langue4 }}</p>
+                <p><strong>Niveau Langue 4:</strong> {{ doctorant.niveauLangue4 }}</p>
+            </div>
+        </div>
+
+        <hr>
+
+        <div class="text-end">
+            <a href="{{ path('list_doctorants') }}" class="btn btn-secondary">Retour</a>
+        </div>
+    </div>
+</div>
+{% endblock %}

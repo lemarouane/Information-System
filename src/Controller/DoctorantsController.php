@@ -52,27 +52,26 @@ class DoctorantsController extends AbstractController
         EntityManagerInterface $entityManager,
         DoctorantsRepository $doctorantsRepository
     ): Response {
+        // Fetch the entity
         $doctorant = $doctorantsRepository->find($id);
-        
+    
         if (!$doctorant) {
             $this->addFlash('error', 'Doctorant non trouvé.');
             return $this->redirectToRoute('list_doctorants');
         }
     
+        // Create and bind the form
         $form = $this->createForm(DoctorantsType::class, $doctorant);
         $form->handleRequest($request);
     
-        // Add this debugging
-        if ($form->isSubmitted()) {
-            dump('Form is submitted');
-            dump($form->isValid()); // Check if the form is valid
-            dump($form->getErrors(true)); // Get any form errors
-        }
-    
         if ($form->isSubmitted() && $form->isValid()) {
             try {
-                // Add this line to ensure changes are tracked
-                $entityManager->persist($doctorant);
+                // Ensure Doctrine tracks the entity
+                if (!$entityManager->contains($doctorant)) {
+                    $doctorant = $entityManager->merge($doctorant);
+                }
+    
+                // Flush the changes
                 $entityManager->flush();
     
                 $this->addFlash('success', 'Doctorant mis à jour avec succès!');
@@ -88,7 +87,7 @@ class DoctorantsController extends AbstractController
             'doctorant' => $doctorant,
         ]);
     }
-    
+        
     
     
     #[Route('/delete-doctorant/{id}', name: 'delete_doctorant')]
@@ -130,24 +129,31 @@ class DoctorantsController extends AbstractController
         if ($request->isMethod('POST')) {
             /** @var UploadedFile $file */
             $file = $request->files->get('excel_file');
-
+    
             if ($file) {
                 try {
                     $spreadsheet = IOFactory::load($file->getPathname());
                     $worksheet = $spreadsheet->getActiveSheet();
                     $rows = $worksheet->toArray();
-
+    
                     // Remove header row
                     array_shift($rows);
-
+    
                     $importCount = 0;
                     $errors = [];
-
+                    $seenCINs = []; // Set to keep track of seen CINs
+    
                     foreach ($rows as $index => $row) {
                         if (empty(array_filter($row))) {
                             continue; // Skip empty rows
                         }
-
+    
+                        $cin = $row[7] ?? '';
+                        if (isset($seenCINs[$cin])) {
+                            $errors[] = "Ligne " . ($index + 2) . ": CIN dupliqué trouvé - " . $cin;
+                            continue; // Skip duplicate CIN
+                        }
+    
                         try {
                             $doctorant = new Doctorants();
                             $doctorant->setEtablissement($row[2] ?? '');
@@ -155,7 +161,7 @@ class DoctorantsController extends AbstractController
                             $doctorant->setPrenom($row[4] ?? '');
                             $doctorant->setNomArabe($row[5] ?? '');
                             $doctorant->setPrenomArabe($row[6] ?? '');
-                            $doctorant->setCin($row[7] ?? '');
+                            $doctorant->setCin($cin);
                             $doctorant->setCne($row[8] ?? '');
                             $doctorant->setDateDeNaissance($row[9] ? new \DateTime($row[9]) : null);
                             $doctorant->setLieuDeNaissance($row[10] ?? '');
@@ -235,33 +241,34 @@ class DoctorantsController extends AbstractController
                             $doctorant->setEnseignantChercheur($row[84] ?? '');
                             $doctorant->setChoix($row[85] ?? '');
                             $doctorant->setSujet($row[86] ?? '');
-
+    
                             $entityManager->persist($doctorant);
+                            $seenCINs[$cin] = true; // Mark this CIN as seen
                             $importCount++;
                         } catch (\Exception $e) {
                             $errors[] = "Ligne " . ($index + 2) . ": " . $e->getMessage();
                         }
                     }
-
+    
                     if ($importCount > 0) {
                         $entityManager->flush();
                         $this->addFlash('success', "$importCount doctorants importés avec succès!");
                     }
-
+    
                     if ($errors) {
                         $this->addFlash('error', "Erreurs lors de l'import: " . implode(', ', $errors));
                     }
-
+    
                 } catch (\Exception $e) {
                     $this->addFlash('error', "Erreur lors de l'import du fichier: " . $e->getMessage());
                 }
             } else {
                 $this->addFlash('error', 'Aucun fichier n\'a été uploadé.');
             }
-
+    
             return $this->redirectToRoute('list_doctorants');
         }
-
+    
         return $this->render('doctorants/import_doctorants.html.twig');
     }
     
@@ -280,6 +287,25 @@ class DoctorantsController extends AbstractController
             'data' => $data,
         ]);
     }
+
+    #[Route('/view-doctorant/{id}', name: 'view_doctorant')]
+public function viewDoctorant(int $id, DoctorantsRepository $doctorantsRepository): Response
+{
+    $doctorant = $doctorantsRepository->find($id);
+
+    if (!$doctorant) {
+        $this->addFlash('error', 'Doctorant non trouvé.');
+        return $this->redirectToRoute('list_doctorants');
+    }
+
+    return $this->render('doctorants/view_doctorant.html.twig', [
+        'doctorant' => $doctorant,
+    ]);
+}
+
+
+
+    
 }
 
 

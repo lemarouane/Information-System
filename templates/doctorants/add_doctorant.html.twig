@@ -16,6 +16,7 @@
                 <div class="form-container">
                     {{ form_start(form) }}
                     <div class="row g-3">
+                        {# Existing fields #}
                         <div class="col-md-6">
                             <label for="Etablissement" class="form-label fw-bold">Etablissement</label>
                             {{ form_row(form.Etablissement, {'label': false, 'attr': {'class': 'form-control'}}) }}
@@ -56,7 +57,34 @@
                             <label for="sexe" class="form-label fw-bold">Sexe</label>
                             {{ form_row(form.sexe, {'label': false, 'attr': {'class': 'form-control'}}) }}
                         </div>
+
+                        {# Additional fields #}
+                        <div class="col-md-6">
+                            <label for="lieuDeNaissance" class="form-label fw-bold">Lieu de Naissance</label>
+                            {{ form_row(form.lieuDeNaissance, {'label': false, 'attr': {'class': 'form-control'}}) }}
+                        </div>
+                        <div class="col-md-6">
+                            <label for="provinceDeNaissance" class="form-label fw-bold">Province de Naissance</label>
+                            {{ form_row(form.provinceDeNaissance, {'label': false, 'attr': {'class': 'form-control'}}) }}
+                        </div>
+                        <div class="col-md-6">
+                            <label for="emailInstitutionnel" class="form-label fw-bold">Email Institutionnel</label>
+                            {{ form_row(form.emailInstitutionnel, {'label': false, 'attr': {'class': 'form-control'}}) }}
+                        </div>
+                        <div class="col-md-6">
+                            <label for="codePostal" class="form-label fw-bold">Code Postal</label>
+                            {{ form_row(form.codePostal, {'label': false, 'attr': {'class': 'form-control'}}) }}
+                        </div>
+                        <div class="col-md-6">
+                            <label for="organismeEmployeur" class="form-label fw-bold">Organisme Employeur</label>
+                            {{ form_row(form.organismeEmployeur, {'label': false, 'attr': {'class': 'form-control'}}) }}
+                        </div>
+                        <div class="col-md-6">
+                            <label for="profession" class="form-label fw-bold">Profession</label>
+                            {{ form_row(form.profession, {'label': false, 'attr': {'class': 'form-control'}}) }}
+                        </div>
                     </div>
+
                     <div class="text-end mt-3">
                         <button type="submit" class="btn btn-primary">{{ edit_mode ? 'Modifier' : 'Ajouter' }}</button>
                         <a href="{{ path('list_doctorants') }}" class="btn btn-secondary">Retour</a>
