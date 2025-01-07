@@ -12,18 +12,15 @@
             <div class="card-body">
                 <h5 class="card-title">Importer des Doctorants depuis Excel</h5>
                 <hr>
-                {% include "flaches.html.twig" %}
                 
-                <div class="alert alert-info">
-                    <h6>Instructions:</h6>
-                    <p>Le fichier Excel doit contenir les colonnes suivantes dans cet ordre:</p>
-                    <ol>
-                        <li>E-mail Institutionnel (A1)</li>
-                        <li>Code Apogee (B1)</li>
-                        <li>Nom (C1)</li>
-                        <li>Prenom (D1)</li>
-                    </ol>
-                </div>
+                {% for label, messages in app.flashes %}
+                    {% for message in messages %}
+                        <div class="alert alert-{{ label == 'error' ? 'danger' : label }} alert-dismissible fade show" role="alert">
+                            {{ message|nl2br }}
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>
+                    {% endfor %}
+                {% endfor %}
 
                 <form method="post" enctype="multipart/form-data" class="mt-4">
                     <div class="mb-3">
@@ -34,6 +31,10 @@
                                name="excel_file" 
                                accept=".xlsx,.xls"
                                required>
+                        <small class="form-text text-muted">
+                            Format attendu: fichier Excel (.xlsx, .xls) avec les colonnes suivantes:<br>
+                            Etablissement, Nom, Prénom, etc.
+                        </small>
                     </div>
 
                     <div class="text-end mt-3">

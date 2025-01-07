@@ -2,6 +2,11 @@
 
 {% block title %}Liste des Doctorants{% endblock %}
 
+{% block stylesheets %}
+{{ parent() }}
+<link rel="stylesheet" href="https://cdn.datatables.net/1.13.1/css/jquery.dataTables.min.css">
+{% endblock %}
+
 {% block body %}
 <div class="page-breadcrumb d-none d-sm-flex align-items-center mb-3">
     <div class="breadcrumb-title pe-3">Liste des Doctorants</div>
@@ -21,37 +26,39 @@
     <div class="card-body">
         {% include "flaches.html.twig" %}
         <div class="table-responsive">
-            <table class="table table-bordered text-center align-middle shadow-sm">
+            <table id="doctorantsTable" class="table table-bordered text-center align-middle shadow-sm">
                 <thead class="bg-primary text-white">
                     <tr>
                         <th>ID</th>
-                        <th>Email</th>
-                        <th>Code</th>
+                        <th>Établissement</th>
                         <th>Nom</th>
                         <th>Prénom</th>
+                        <th>Email</th>
+                        <th>Téléphone</th>
                         <th>Actions</th>
                     </tr>
                 </thead>
                 <tbody>
                     {% for doctorant in doctorants %}
-                        <tr style="background: #f7f9fc;">
+                        <tr>
                             <td>{{ doctorant.id }}</td>
-                            <td>{{ doctorant.email }}</td>
-                            <td>{{ doctorant.code }}</td>
+                            <td>{{ doctorant.etablissement }}</td>
                             <td>{{ doctorant.nom }}</td>
                             <td>{{ doctorant.prenom }}</td>
+                            <td>{{ doctorant.email }}</td>
+                            <td>{{ doctorant.telephone }}</td>
                             <td>
-                                <a href="{{ path('edit_doctorant', {id: doctorant.id}) }}" class="btn btn-warning rounded-pill px-3 me-2">
+                                <a href="{{ path('edit_doctorant', {id: doctorant.id}) }}" class="btn btn-warning btn-sm">
                                     <i class="bi bi-pencil-fill"></i> Modifier
                                 </a>
-                                <a href="{{ path('delete_doctorant', {id: doctorant.id}) }}" class="btn btn-danger rounded-pill px-3" onclick="return confirm('Êtes-vous sûr de vouloir supprimer ce doctorant ?');">
+                                <a href="{{ path('delete_doctorant', {id: doctorant.id}) }}" class="btn btn-danger btn-sm" onclick="return confirm('Êtes-vous sûr de vouloir supprimer ce doctorant ?');">
                                     <i class="bi bi-trash-fill"></i> Supprimer
                                 </a>
                             </td>
                         </tr>
                     {% else %}
                         <tr>
-                            <td colspan="6" class="text-muted">Aucun doctorant trouvé.</td>
+                            <td colspan="7" class="text-muted">Aucun doctorant trouvé.</td>
                         </tr>
                     {% endfor %}
                 </tbody>
@@ -59,4 +66,22 @@
         </div>
     </div>
 </div>
+{% endblock %}
+
+{% block javascripts %}
+{{ parent() }}
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.datatables.net/1.13.1/js/jquery.dataTables.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $('#doctorantsTable').DataTable({
+            language: {
+                url: '//cdn.datatables.net/plug-ins/1.13.1/i18n/fr-FR.json'
+            },
+            responsive: true,
+            autoWidth: false,
+            order: [[0, 'asc']],
+        });
+    });
+</script>
 {% endblock %}

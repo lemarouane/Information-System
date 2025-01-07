@@ -4,6 +4,7 @@
 
 {% block body %}
 <div class="page-breadcrumb d-none d-sm-flex align-items-center mb-3">
+    <div class="breadcrumb-title pe-3">{{ edit_mode ? 'Modifier un Doctorant' : 'Ajouter un Doctorant' }}</div>
 </div>
 <div class="row">
     <div class="col-lg-12 mx-auto">
@@ -16,20 +17,44 @@
                     {{ form_start(form) }}
                     <div class="row g-3">
                         <div class="col-md-6">
-                            <label for="nom" class="form-label fw-bold">Nom</label>
-                            {{ form_row(form.nom, {'label': false, 'attr': {'class': 'form-control'}}) }}
+                            <label for="Etablissement" class="form-label fw-bold">Etablissement</label>
+                            {{ form_row(form.Etablissement, {'label': false, 'attr': {'class': 'form-control'}}) }}
+                        </div>
+                        <div class="col-md-6">
+                            <label for="Nom" class="form-label fw-bold">Nom</label>
+                            {{ form_row(form.Nom, {'label': false, 'attr': {'class': 'form-control'}}) }}
                         </div>
                         <div class="col-md-6">
                             <label for="prenom" class="form-label fw-bold">Prénom</label>
                             {{ form_row(form.prenom, {'label': false, 'attr': {'class': 'form-control'}}) }}
                         </div>
                         <div class="col-md-6">
-                            <label for="code" class="form-label fw-bold">Code Apogée</label>
-                            {{ form_row(form.code, {'label': false, 'attr': {'class': 'form-control'}}) }}
+                            <label for="cin" class="form-label fw-bold">CIN</label>
+                            {{ form_row(form.cin, {'label': false, 'attr': {'class': 'form-control'}}) }}
                         </div>
                         <div class="col-md-6">
-                            <label for="email" class="form-label fw-bold">Email Institutionnel</label>
+                            <label for="cne" class="form-label fw-bold">CNE</label>
+                            {{ form_row(form.cne, {'label': false, 'attr': {'class': 'form-control'}}) }}
+                        </div>
+                        <div class="col-md-6">
+                            <label for="dateDeNaissance" class="form-label fw-bold">Date de Naissance</label>
+                            {{ form_row(form.dateDeNaissance, {'label': false, 'attr': {'class': 'form-control'}}) }}
+                        </div>
+                        <div class="col-md-6">
+                            <label for="email" class="form-label fw-bold">Email</label>
                             {{ form_row(form.email, {'label': false, 'attr': {'class': 'form-control'}}) }}
+                        </div>
+                        <div class="col-md-6">
+                            <label for="telephone" class="form-label fw-bold">Téléphone</label>
+                            {{ form_row(form.telephone, {'label': false, 'attr': {'class': 'form-control'}}) }}
+                        </div>
+                        <div class="col-md-6">
+                            <label for="nationalite" class="form-label fw-bold">Nationalité</label>
+                            {{ form_row(form.nationalite, {'label': false, 'attr': {'class': 'form-control'}}) }}
+                        </div>
+                        <div class="col-md-6">
+                            <label for="sexe" class="form-label fw-bold">Sexe</label>
+                            {{ form_row(form.sexe, {'label': false, 'attr': {'class': 'form-control'}}) }}
                         </div>
                     </div>
                     <div class="text-end mt-3">
