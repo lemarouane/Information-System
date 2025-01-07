@@ -30,7 +30,8 @@
                 <thead class="bg-primary text-white">
                     <tr>
                         <th>ID</th>
-                        <th>Établissement</th>
+                        <th>الإسم الشخصي</th>
+                        <th> النسب</th>
                         <th>Nom</th>
                         <th>Prénom</th>
                         <th>Email</th>
@@ -42,7 +43,8 @@
                     {% for doctorant in doctorants %}
                         <tr>
                             <td>{{ doctorant.id }}</td>
-                            <td>{{ doctorant.etablissement }}</td>
+                            <td>{{ doctorant.prenomArabe }}</td>
+                            <td>{{ doctorant.nomArabe }}</td>
                             <td>{{ doctorant.nom }}</td>
                             <td>{{ doctorant.prenom }}</td>
                             <td>{{ doctorant.email }}</td>
