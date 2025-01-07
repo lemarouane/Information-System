@@ -1,14 +1,13 @@
 {% extends 'template.html.twig' %}
 
-{% block title %}Détails du Doctorant{% endblock %}
+{% block title %}{{ doctorant.nom }} {{ doctorant.prenom }}{% endblock %}
 
 {% block body %}
 <div class="page-breadcrumb d-none d-sm-flex align-items-center mb-3">
-    <div class="breadcrumb-title pe-3">Détails du Doctorant</div>
 </div>
 <div class="card shadow-lg">
     <div class="card-body">
-        <h5 class="card-title">Détails du Doctorant</h5>
+<h5 class="card-title">Détails du Doctorant: <strong>{{ doctorant.nom }} {{ doctorant.prenom }}</strong></h5>
         <hr>
         <div class="row">
             <!-- Left Column -->

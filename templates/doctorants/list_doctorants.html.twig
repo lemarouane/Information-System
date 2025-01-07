@@ -48,15 +48,16 @@
                             <td>{{ doctorant.email }}</td>
                             <td>{{ doctorant.telephone }}</td>
                             <td>
+                                <a href="{{ path('view_doctorant', { id: doctorant.id }) }}" class="btn btn-info btn-sm">
+                                    <i class="bi bi-eye-fill"></i> Voir
+                                </a>
                                 <a href="{{ path('edit_doctorant', {id: doctorant.id}) }}" class="btn btn-warning btn-sm">
                                     <i class="bi bi-pencil-fill"></i> Modifier
                                 </a>
                                 <a href="{{ path('delete_doctorant', {id: doctorant.id}) }}" class="btn btn-danger btn-sm" onclick="return confirm('Êtes-vous sûr de vouloir supprimer ce doctorant ?');">
                                     <i class="bi bi-trash-fill"></i> Supprimer
                                 </a>
-                                <a href="{{ path('view_doctorant', { id: doctorant.id }) }}" class="btn btn-info btn-sm">
-    <i class="bi bi-eye-fill"></i> Voir
-</a>
+                                
 
                             </td>
                         </tr>
