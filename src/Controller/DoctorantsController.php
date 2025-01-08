@@ -141,17 +141,10 @@ class DoctorantsController extends AbstractController
     
                     $importCount = 0;
                     $errors = [];
-                    $seenCINs = []; // Set to keep track of seen CINs
     
                     foreach ($rows as $index => $row) {
                         if (empty(array_filter($row))) {
                             continue; // Skip empty rows
-                        }
-    
-                        $cin = $row[7] ?? '';
-                        if (isset($seenCINs[$cin])) {
-                            $errors[] = "Ligne " . ($index + 2) . ": CIN dupliqué trouvé - " . $cin;
-                            continue; // Skip duplicate CIN
                         }
     
                         try {
@@ -161,7 +154,7 @@ class DoctorantsController extends AbstractController
                             $doctorant->setPrenom($row[4] ?? '');
                             $doctorant->setNomArabe($row[5] ?? '');
                             $doctorant->setPrenomArabe($row[6] ?? '');
-                            $doctorant->setCin($cin);
+                            $doctorant->setCin($row[7] ?? '');
                             $doctorant->setCne($row[8] ?? '');
                             $doctorant->setDateDeNaissance($row[9] ? new \DateTime($row[9]) : null);
                             $doctorant->setLieuDeNaissance($row[10] ?? '');
@@ -243,7 +236,6 @@ class DoctorantsController extends AbstractController
                             $doctorant->setSujet($row[86] ?? '');
     
                             $entityManager->persist($doctorant);
-                            $seenCINs[$cin] = true; // Mark this CIN as seen
                             $importCount++;
                         } catch (\Exception $e) {
                             $errors[] = "Ligne " . ($index + 2) . ": " . $e->getMessage();
@@ -272,21 +264,74 @@ class DoctorantsController extends AbstractController
         return $this->render('doctorants/import_doctorants.html.twig');
     }
     
+    
     #[Route('/doctorants-statistiques', name: 'doctorants_statistiques')]
     public function statistiques(EntityManagerInterface $entityManager): Response
     {
-        $maleCount = $entityManager->getRepository(Doctorants::class)->count(['sexe' => 'Homme']);
-        $femaleCount = $entityManager->getRepository(Doctorants::class)->count(['sexe' => 'Femme']);
-
-        $data = [
-            'male' => $maleCount,
-            'female' => $femaleCount,
+        // Fetch data for Répartition par Genre
+        $genderDistribution = [
+            'MASCULIN' => $entityManager->getRepository(Doctorants::class)->count(['sexe' => 'MASCULIN']),
+            'FEMININ' => $entityManager->getRepository(Doctorants::class)->count(['sexe' => 'FEMININ']),
         ];
-
+    
+        // Fetch data for Répartition par Nationalité
+        $nationalityDistribution = $entityManager->createQueryBuilder()
+            ->select('d.nationalite AS nationality, COUNT(d.id) AS count')
+            ->from(Doctorants::class, 'd')
+            ->groupBy('d.nationalite')
+            ->orderBy('count', 'DESC')
+            ->getQuery()
+            ->getResult();
+    
+        $nationalityLabels = array_column($nationalityDistribution, 'nationality');
+        $nationalityCounts = array_column($nationalityDistribution, 'count');
+    
+        // Fetch data for Bac Mentions
+        $bacMentions = $entityManager->createQueryBuilder()
+            ->select('d.mentionBac AS mention, COUNT(d.id) AS count')
+            ->from(Doctorants::class, 'd')
+            ->groupBy('d.mentionBac')
+            ->orderBy('count', 'DESC')
+            ->getQuery()
+            ->getResult();
+    
+        $bacMentionLabels = array_column($bacMentions, 'mention');
+        $bacMentionCounts = array_column($bacMentions, 'count');
+    
+        // Fetch average Bac and Master Notes
+        $averageBacNote = (float)$entityManager->createQueryBuilder()
+            ->select('AVG(d.noteBac)')
+            ->from(Doctorants::class, 'd')
+            ->getQuery()
+            ->getSingleScalarResult();
+    
+        $averageMasterNote = (float)$entityManager->createQueryBuilder()
+            ->select('AVG(d.noteMaster)')
+            ->from(Doctorants::class, 'd')
+            ->getQuery()
+            ->getSingleScalarResult();
+    
+        // Prepare data for the template
+        $data = [
+            'genderDistribution' => $genderDistribution,
+            'nationalityDistribution' => [
+                'labels' => $nationalityLabels,
+                'values' => $nationalityCounts,
+            ],
+            'bacMentions' => [
+                'labels' => $bacMentionLabels,
+                'values' => $bacMentionCounts,
+            ],
+            'averageBacNote' => $averageBacNote,
+            'averageMasterNote' => $averageMasterNote,
+        ];
+    
         return $this->render('doctorants/statistiques.html.twig', [
             'data' => $data,
         ]);
     }
+    
+    
 
     #[Route('/view-doctorant/{id}', name: 'view_doctorant')]
 public function viewDoctorant(int $id, DoctorantsRepository $doctorantsRepository): Response

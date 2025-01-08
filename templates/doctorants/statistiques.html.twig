@@ -6,74 +6,149 @@
 <div class="page-breadcrumb d-none d-sm-flex align-items-center mb-3">
     <div class="breadcrumb-title pe-3">Statistiques des Doctorants</div>
 </div>
-<div class="card shadow-lg">
-    <div class="card-header bg-primary text-white">
-        <h4 class="mb-0">Sources des Doctorants</h4>
-    </div>
-    <div class="card-body">
-        <div class="row justify-content-center">
-            <div class="col-md-6 text-center">
-                <h5>Graphique des Sources</h5>
-                <canvas id="sourceChart" style="max-width: 400px; max-height: 400px;"></canvas>
+
+<div class="row">
+    <!-- Gender Distribution -->
+    <div class="col-lg-6 col-md-12 mb-4">
+        <div class="card shadow-sm">
+            <div class="card-body">
+                <h5 class="card-title text-center">Répartition par Genre</h5>
+                <hr>
+                <div style="position: relative; height: 400px;">
+                    <canvas id="genderChart"></canvas>
+                </div>
             </div>
-            <div class="col-md-6 text-center">
-                <h5>Total des Doctorants</h5>
-                <h1 class="display-4 text-primary">{{ data.manual + data.excel }}</h1>
-                <p class="text-muted">Ajout manuel: {{ data.manual }}</p>
-                <p class="text-muted">Import Excel: {{ data.excel }}</p>
+        </div>
+    </div>
+
+    <!-- Nationality Distribution -->
+    <div class="col-lg-6 col-md-12 mb-4">
+        <div class="card shadow-sm">
+            <div class="card-body">
+                <h5 class="card-title text-center">Répartition par Nationalité</h5>
+                <hr>
+                <div style="position: relative; height: 400px;">
+                    <canvas id="nationalityChart"></canvas>
+                </div>
             </div>
         </div>
     </div>
 </div>
 
+<div class="row">
+    <!-- Bac Mentions -->
+    <div class="col-lg-6 col-md-12 mb-4">
+        <div class="card shadow-sm">
+            <div class="card-body">
+                <h5 class="card-title text-center">Répartition des Mentions au Bac</h5>
+                <hr>
+                <div style="position: relative; height: 400px;">
+                    <canvas id="bacMentionsChart"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Average Scores -->
+    <div class="col-lg-6 col-md-12 mb-4">
+        <div class="card shadow-sm">
+            <div class="card-body">
+                <h5 class="card-title text-center">Statistiques Moyennes</h5>
+                <hr>
+                <div class="bg-light p-4 rounded">
+                    <div class="mb-4">
+                        <label><strong>Note Moyenne au Bac:</strong></label>
+                        <div class="progress">
+                            <div class="progress-bar bg-success" role="progressbar" style="width: {{ data.averageBacNote / 20 * 100 }}%;" aria-valuenow="{{ data.averageBacNote }}" aria-valuemin="0" aria-valuemax="20">
+                                {{ data.averageBacNote|number_format(2) }} / 20
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <label><strong>Note Moyenne au Master:</strong></label>
+                        <div class="progress">
+                            <div class="progress-bar bg-info" role="progressbar" style="width: {{ data.averageMasterNote / 20 * 100 }}%;" aria-valuenow="{{ data.averageMasterNote }}" aria-valuemin="0" aria-valuemax="20">
+                                {{ data.averageMasterNote|number_format(2) }} / 20
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
 {% block javascripts %}
 {{ parent() }}
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels"></script>
 <script>
-    document.addEventListener('DOMContentLoaded', function () {
-        const ctx = document.getElementById('sourceChart').getContext('2d');
-        const data = {{ data|json_encode|raw }};
+    // Gender Distribution Chart
+    const genderChart = new Chart(document.getElementById('genderChart'), {
+        type: 'pie',
+        data: {
+            labels: ['MASCULIN', 'FEMININ'],
+            datasets: [{
+                data: [{{ data.genderDistribution.MASCULIN }}, {{ data.genderDistribution.FEMININ }}],
+                backgroundColor: ['#007bff', '#e83e8c']
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: { position: 'bottom', labels: { font: { size: 14 } } }
+            }
+        }
+    });
 
-        new Chart(ctx, {
-            type: 'doughnut',
-            data: {
-                labels: ['Ajout Manuel', 'Import Excel'],
-                datasets: [{
-                    data: [data.manual, data.excel],
-                    backgroundColor: ['rgba(75, 192, 192, 0.6)', 'rgba(255, 99, 132, 0.6)'],
-                    borderColor: ['rgba(75, 192, 192, 1)', 'rgba(255, 99, 132, 1)'],
-                    borderWidth: 1
-                }]
+    // Nationality Distribution Chart
+    const nationalityChart = new Chart(document.getElementById('nationalityChart'), {
+        type: 'bar',
+        data: {
+            labels: {{ data.nationalityDistribution.labels|json_encode|raw }},
+            datasets: [{
+                label: 'Nationalités',
+                data: {{ data.nationalityDistribution.values|json_encode|raw }},
+                backgroundColor: '#28a745'
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: { display: false }
             },
-            options: {
-                responsive: true,
-                maintainAspectRatio: false,
-                plugins: {
-                    legend: {
-                        position: 'top',
-                    },
-                    title: {
-                        display: true,
-                        text: 'Répartition des Doctorants par Source'
-                    },
-                    datalabels: {
-                        color: '#fff',
-                        font: {
-                            weight: 'bold',
-                            size: 14
-                        },
-                        formatter: function(value, context) {
-                            const total = context.chart.data.datasets[0].data.reduce((a, b) => a + b, 0);
-                            const percentage = ((value / total) * 100).toFixed(1);
-                            return `${value} (${percentage}%)`;
-                        }
-                    }
+            scales: {
+                x: { 
+                    title: { display: true, text: 'Nationalité', font: { size: 14 } },
+                    ticks: { font: { size: 12 }, autoSkip: false }
+                },
+                y: { 
+                    title: { display: true, text: 'Nombre', font: { size: 14 } },
+                    ticks: { font: { size: 12 } }
                 }
-            },
-            plugins: [ChartDataLabels] // Enable the plugin
-        });
+            }
+        }
+    });
+
+    // Bac Mentions Chart
+    const bacMentionsChart = new Chart(document.getElementById('bacMentionsChart'), {
+        type: 'doughnut',
+        data: {
+            labels: {{ data.bacMentions.labels|json_encode|raw }},
+            datasets: [{
+                data: {{ data.bacMentions.values|json_encode|raw }},
+                backgroundColor: ['#17a2b8', '#ffc107', '#28a745', '#dc3545', '#6c757d']
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: { position: 'bottom', labels: { font: { size: 14 } } }
+            }
+        }
     });
 </script>
-{% endblock %}
 {% endblock %}
