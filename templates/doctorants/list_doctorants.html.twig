@@ -34,8 +34,10 @@
                         <th> النسب</th>
                         <th>Nom</th>
                         <th>Prénom</th>
+                        <th>CIN</th>
                         <th>Email</th>
                         <th>Téléphone</th>
+                        <th>Choix</th>
                         <th>Actions</th>
                     </tr>
                 </thead>
@@ -47,8 +49,10 @@
                             <td>{{ doctorant.nomArabe }}</td>
                             <td>{{ doctorant.nom }}</td>
                             <td>{{ doctorant.prenom }}</td>
+                            <td>{{ doctorant.cin }}</td>
                             <td>{{ doctorant.email }}</td>
                             <td>{{ doctorant.telephone }}</td>
+                            <td>{{ doctorant.choix }}</td>
                             <td>
                                 <a href="{{ path('view_doctorant', { id: doctorant.id }) }}" class="btn btn-info btn-sm">
                                     <i class="bi bi-eye-fill"></i> Voir
