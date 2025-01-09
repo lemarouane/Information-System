@@ -2,33 +2,25 @@
 
 {% block title %}Statistiques des Doctorants{% endblock %}
 
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/chart.js/dist/Chart.min.css">
+{% endblock %}
+
 {% block body %}
 <div class="page-breadcrumb d-none d-sm-flex align-items-center mb-3">
     <div class="breadcrumb-title pe-3">Statistiques des Doctorants</div>
 </div>
 
 <div class="row">
-    <!-- Gender Distribution -->
-    <div class="col-lg-6 col-md-12 mb-4">
-        <div class="card shadow-sm">
+    <!-- Total Doctorants -->
+    <div class="col-lg-12 col-md-12 mb-4">
+        <div class="card shadow-sm text-center">
             <div class="card-body">
-                <h5 class="card-title text-center">Répartition par Genre</h5>
+                <h5 class="card-title">Nombre Total de Doctorants</h5>
                 <hr>
-                <div style="position: relative; height: 400px;">
-                    <canvas id="genderChart"></canvas>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Nationality Distribution -->
-    <div class="col-lg-6 col-md-12 mb-4">
-        <div class="card shadow-sm">
-            <div class="card-body">
-                <h5 class="card-title text-center">Répartition par Nationalité</h5>
-                <hr>
-                <div style="position: relative; height: 400px;">
-                    <canvas id="nationalityChart"></canvas>
+                <div class="display-4 text-primary">
+                    {{ data.totalDoctorants }} <small class="text-muted" style="font-size: 1.5rem;">doctorants</small>
                 </div>
             </div>
         </div>
@@ -36,41 +28,76 @@
 </div>
 
 <div class="row">
-    <!-- Bac Mentions -->
+    <!-- Validated vs Non-Validated Doctorants -->
     <div class="col-lg-6 col-md-12 mb-4">
         <div class="card shadow-sm">
-            <div class="card-body">
-                <h5 class="card-title text-center">Répartition des Mentions au Bac</h5>
+            <div class="card-body text-center">
+                <h5 class="card-title">Doctorants Validés vs Non Validés</h5>
                 <hr>
-                <div style="position: relative; height: 400px;">
-                    <canvas id="bacMentionsChart"></canvas>
+                <div style="position: relative; height: 400px; display: flex; justify-content: center; align-items: center;">
+                    <canvas id="validationStatusChart"></canvas>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- Average Scores -->
+    <!-- Gender Distribution -->
     <div class="col-lg-6 col-md-12 mb-4">
+        <div class="card shadow-sm">
+            <div class="card-body text-center">
+                <h5 class="card-title">Répartition par Genre</h5>
+                <hr>
+                <div style="position: relative; height: 400px; display: flex; justify-content: center; align-items: center;">
+                    <canvas id="genderChart"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <!-- Nationality Distribution -->
+    <div class="col-lg-6 col-md-12 mb-4">
+        <div class="card shadow-sm">
+            <div class="card-body text-center">
+                <h5 class="card-title">Répartition par Nationalité</h5>
+                <hr>
+                <div style="position: relative; height: 400px; display: flex; justify-content: center; align-items: center;">
+                    <canvas id="nationalityChart"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bac Mentions -->
+    <div class="col-lg-6 col-md-12 mb-4">
+        <div class="card shadow-sm">
+            <div class="card-body text-center">
+                <h5 class="card-title">Répartition des Mentions au Bac</h5>
+                <hr>
+                <div style="position: relative; height: 400px; display: flex; justify-content: center; align-items: center;">
+                    <canvas id="bacMentionsChart"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <!-- Average Scores -->
+    <div class="col-lg-12 col-md-12 mb-4">
         <div class="card shadow-sm">
             <div class="card-body">
                 <h5 class="card-title text-center">Statistiques Moyennes</h5>
                 <hr>
-                <div class="bg-light p-4 rounded">
-                    <div class="mb-4">
-                        <label><strong>Note Moyenne au Bac:</strong></label>
-                        <div class="progress">
-                            <div class="progress-bar bg-success" role="progressbar" style="width: {{ data.averageBacNote / 20 * 100 }}%;" aria-valuenow="{{ data.averageBacNote }}" aria-valuemin="0" aria-valuemax="20">
-                                {{ data.averageBacNote|number_format(2) }} / 20
-                            </div>
-                        </div>
+                <div class="row text-center">
+                    <div class="col-md-6">
+                        <h6>Note Moyenne au Bac</h6>
+                        <div class="display-6 text-success">{{ data.averageBacNote|number_format(2) }}/20</div>
                     </div>
-                    <div>
-                        <label><strong>Note Moyenne au Master:</strong></label>
-                        <div class="progress">
-                            <div class="progress-bar bg-info" role="progressbar" style="width: {{ data.averageMasterNote / 20 * 100 }}%;" aria-valuenow="{{ data.averageMasterNote }}" aria-valuemin="0" aria-valuemax="20">
-                                {{ data.averageMasterNote|number_format(2) }} / 20
-                            </div>
-                        </div>
+                    <div class="col-md-6">
+                        <h6>Note Moyenne au Master</h6>
+                        <div class="display-6 text-info">{{ data.averageMasterNote|number_format(2) }}/20</div>
                     </div>
                 </div>
             </div>
@@ -80,75 +107,81 @@
 {% endblock %}
 
 {% block javascripts %}
-{{ parent() }}
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-<script>
-    // Gender Distribution Chart
-    const genderChart = new Chart(document.getElementById('genderChart'), {
-        type: 'pie',
-        data: {
-            labels: ['MASCULIN', 'FEMININ'],
-            datasets: [{
-                data: [{{ data.genderDistribution.MASCULIN }}, {{ data.genderDistribution.FEMININ }}],
-                backgroundColor: ['#007bff', '#e83e8c']
-            }]
-        },
-        options: {
-            responsive: true,
-            maintainAspectRatio: false,
-            plugins: {
-                legend: { position: 'bottom', labels: { font: { size: 14 } } }
-            }
-        }
-    });
+    {{ parent() }}
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
-    // Nationality Distribution Chart
-    const nationalityChart = new Chart(document.getElementById('nationalityChart'), {
-        type: 'bar',
-        data: {
-            labels: {{ data.nationalityDistribution.labels|json_encode|raw }},
-            datasets: [{
-                label: 'Nationalités',
-                data: {{ data.nationalityDistribution.values|json_encode|raw }},
-                backgroundColor: '#28a745'
-            }]
-        },
-        options: {
-            responsive: true,
-            maintainAspectRatio: false,
-            plugins: {
-                legend: { display: false }
+    <script>
+        // Validation Status Chart
+        new Chart(document.getElementById('validationStatusChart'), {
+            type: 'pie',
+            data: {
+                labels: ['Validés', 'Non Validés'],
+                datasets: [{
+                    data: [{{ data.validatedDoctorants }}, {{ data.nonValidatedDoctorants }}],
+                    backgroundColor: ['#28a745', '#dc3545']
+                }]
             },
-            scales: {
-                x: { 
-                    title: { display: true, text: 'Nationalité', font: { size: 14 } },
-                    ticks: { font: { size: 12 }, autoSkip: false }
-                },
-                y: { 
-                    title: { display: true, text: 'Nombre', font: { size: 14 } },
-                    ticks: { font: { size: 12 } }
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: { position: 'bottom' }
                 }
             }
-        }
-    });
+        });
 
-    // Bac Mentions Chart
-    const bacMentionsChart = new Chart(document.getElementById('bacMentionsChart'), {
-        type: 'doughnut',
-        data: {
-            labels: {{ data.bacMentions.labels|json_encode|raw }},
-            datasets: [{
-                data: {{ data.bacMentions.values|json_encode|raw }},
-                backgroundColor: ['#17a2b8', '#ffc107', '#28a745', '#dc3545', '#6c757d']
-            }]
-        },
-        options: {
-            responsive: true,
-            maintainAspectRatio: false,
-            plugins: {
-                legend: { position: 'bottom', labels: { font: { size: 14 } } }
+        // Gender Distribution Chart
+        new Chart(document.getElementById('genderChart'), {
+            type: 'pie',
+            data: {
+                labels: ['MASCULIN', 'FEMININ'],
+                datasets: [{
+                    data: [{{ data.genderDistribution.MASCULIN }}, {{ data.genderDistribution.FEMININ }}],
+                    backgroundColor: ['#007bff', '#e83e8c']
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: { position: 'bottom' }
+                }
             }
-        }
-    });
-</script>
+        });
+
+        // Nationality Distribution Chart
+        new Chart(document.getElementById('nationalityChart'), {
+            type: 'bar',
+            data: {
+                labels: {{ data.nationalityDistribution.labels|json_encode|raw }},
+                datasets: [{
+                    data: {{ data.nationalityDistribution.values|json_encode|raw }},
+                    backgroundColor: '#17a2b8'
+                }]
+            },
+            options: {
+                responsive: true,
+                scales: {
+                    x: { title: { display: true, text: 'Nationalité' } },
+                    y: { title: { display: true, text: 'Nombre' } }
+                }
+            }
+        });
+
+        // Bac Mentions Chart
+        new Chart(document.getElementById('bacMentionsChart'), {
+            type: 'doughnut',
+            data: {
+                labels: {{ data.bacMentions.labels|json_encode|raw }},
+                datasets: [{
+                    data: {{ data.bacMentions.values|json_encode|raw }},
+                    backgroundColor: ['#007bff', '#ffc107', '#28a745', '#dc3545', '#6c757d']
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: { position: 'bottom' }
+                }
+            }
+        });
+    </script>
 {% endblock %}

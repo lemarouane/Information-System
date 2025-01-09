@@ -1,0 +1,111 @@
+<?php
+
+namespace App\Entity;
+
+use App\Repository\ValidatedDoctorantsRepository;
+use Doctrine\ORM\Mapping as ORM;
+
+#[ORM\Entity(repositoryClass: ValidatedDoctorantsRepository::class)]
+#[ORM\Table(name: "validated_doctorants", schema: "pgi_doc_db")]
+class ValidatedDoctorants
+{
+    #[ORM\Id]
+    #[ORM\GeneratedValue]
+    #[ORM\Column]
+    private ?int $id = null;
+
+    #[ORM\Column(length: 255)]
+    private ?string $nom = null;
+
+    #[ORM\Column(length: 255)]
+    private ?string $prenom = null;
+
+    #[ORM\Column(length: 255)]
+    private ?string $cin = null;
+
+    #[ORM\Column(length: 255)]
+    private ?string $cne = null;
+
+    #[ORM\Column(length: 255)]
+    private ?string $choix = null;
+
+    #[ORM\Column(length: 255)]
+    private ?string $sujet = null;
+
+    public function getId(): ?int
+    {
+        return $this->id;
+    }
+
+    public function getNom(): ?string
+    {
+        return $this->nom;
+    }
+
+    public function setNom(string $nom): self
+    {
+        $this->nom = $nom;
+
+        return $this;
+    }
+
+    public function getPrenom(): ?string
+    {
+        return $this->prenom;
+    }
+
+    public function setPrenom(string $prenom): self
+    {
+        $this->prenom = $prenom;
+
+        return $this;
+    }
+
+    public function getCin(): ?string
+    {
+        return $this->cin;
+    }
+
+    public function setCin(string $cin): self
+    {
+        $this->cin = $cin;
+
+        return $this;
+    }
+
+    public function getCne(): ?string
+    {
+        return $this->cne;
+    }
+
+    public function setCne(string $cne): self
+    {
+        $this->cne = $cne;
+
+        return $this;
+    }
+
+    public function getChoix(): ?string
+    {
+        return $this->choix;
+    }
+
+    public function setChoix(string $choix): self
+    {
+        $this->choix = $choix;
+
+        return $this;
+    }
+
+    public function getSujet(): ?string
+    {
+        return $this->sujet;
+    }
+
+    public function setSujet(string $sujet): self
+    {
+        $this->sujet = $sujet;
+
+        return $this;
+    }
+}

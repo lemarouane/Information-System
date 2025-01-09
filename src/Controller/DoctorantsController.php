@@ -3,8 +3,12 @@
 namespace App\Controller;
 
 use App\Entity\Doctorants;
+use App\Entity\ValidatedDoctorants;
+
 use App\Form\DoctorantsType;
 use App\Repository\DoctorantsRepository;
+use App\Repository\ValidatedDoctorantsRepository;
+
 use Doctrine\ORM\EntityManagerInterface;
 use PhpOffice\PhpSpreadsheet\IOFactory;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -268,6 +272,15 @@ class DoctorantsController extends AbstractController
     #[Route('/doctorants-statistiques', name: 'doctorants_statistiques')]
     public function statistiques(EntityManagerInterface $entityManager): Response
     {
+        // Fetch total number of doctorants
+        $totalDoctorants = $entityManager->getRepository(Doctorants::class)->count([]);
+    
+        // Fetch number of validated doctorants
+        $validatedDoctorants = $entityManager->getRepository(ValidatedDoctorants::class)->count([]);
+    
+        // Calculate non-validated doctorants
+        $nonValidatedDoctorants = $totalDoctorants - $validatedDoctorants;
+    
         // Fetch data for Répartition par Genre
         $genderDistribution = [
             'MASCULIN' => $entityManager->getRepository(Doctorants::class)->count(['sexe' => 'MASCULIN']),
@@ -313,6 +326,9 @@ class DoctorantsController extends AbstractController
     
         // Prepare data for the template
         $data = [
+            'totalDoctorants' => $totalDoctorants, // Add total doctorants
+            'validatedDoctorants' => $validatedDoctorants, // Add validated doctorants
+            'nonValidatedDoctorants' => $nonValidatedDoctorants, // Add non-validated doctorants
             'genderDistribution' => $genderDistribution,
             'nationalityDistribution' => [
                 'labels' => $nationalityLabels,
@@ -350,7 +366,73 @@ public function viewDoctorant(int $id, DoctorantsRepository $doctorantsRepositor
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// src/Controller/DoctorantsController.php
+#[Route('/validate-doctorant/{id}', name: 'validate_doctorant')]
+public function validateDoctorant(
+    int $id,
+    EntityManagerInterface $entityManager,
+    DoctorantsRepository $doctorantsRepository
+): Response {
+    // Fetch the doctorant from the general table
+    $doctorant = $doctorantsRepository->find($id);
+
+    if (!$doctorant) {
+        $this->addFlash('error', 'Doctorant non trouvé.');
+        return $this->redirectToRoute('list_doctorants');
+    }
+
+    // Create a new ValidatedDoctorants entity and populate it with the necessary data
+    $validatedDoctorant = new ValidatedDoctorants();
+    $validatedDoctorant->setNom($doctorant->getNom());
+    $validatedDoctorant->setPrenom($doctorant->getPrenom());
+    $validatedDoctorant->setCin($doctorant->getCin());
+    $validatedDoctorant->setCne($doctorant->getCne());
+    $validatedDoctorant->setChoix($doctorant->getChoix());
+    $validatedDoctorant->setSujet($doctorant->getSujet());
+
+    // Persist and flush the new entity
+    $entityManager->persist($validatedDoctorant);
+    $entityManager->flush();
+
+    $this->addFlash('success', 'Doctorant validé et ajouté à la table des validés.');
+    return $this->redirectToRoute('list_doctorants');
+}
     
+
+
+
+
+
+
+#[Route('/list-validated-doctorants', name: 'list_validated_doctorants')]
+public function listValidatedDoctorants(ValidatedDoctorantsRepository $validatedDoctorantsRepository): Response
+{
+    // Fetch all validated doctorants from the validated_doctorants table
+    $validatedDoctorants = $validatedDoctorantsRepository->findAll();
+
+    // Log the fetched data for debugging (optional)
+    // $this->logger->info('Fetched validated doctorants:', $validatedDoctorants);
+
+    // Render the Twig template with the validated doctorants data
+    return $this->render('doctorants/list_validated_doctorants.html.twig', [
+        'validatedDoctorants' => $validatedDoctorants,
+    ]);
+}
+
 }
 
 

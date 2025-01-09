@@ -1,0 +1,81 @@
+{# templates/doctorants/list_validated_doctorants.html.twig #}
+{% extends 'template.html.twig' %}
+
+{% block title %}Liste des Doctorants Validés{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <!-- Include DataTables CSS -->
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.1/css/jquery.dataTables.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.4.0/css/responsive.dataTables.min.css">
+{% endblock %}
+
+{% block body %}
+<div class="page-breadcrumb d-none d-sm-flex align-items-center mb-3">
+    <div class="breadcrumb-title pe-3">Liste des Doctorants Validés</div>
+</div>
+<div class="card shadow-lg">
+    <div class="card-header bg-gradient-primary text-white d-flex justify-content-between align-items-center">
+        <h4 class="mb-0">Liste des Doctorants Validés</h4>
+    </div>
+    <div class="card-body">
+        <div class="table-responsive">
+            <table id="validatedDoctorantsTable" class="table table-bordered text-center align-middle shadow-sm">
+                <thead class="bg-primary text-white">
+                    <tr>
+                        <th>Nom</th>
+                        <th>Prénom</th>
+                        <th>CIN</th>
+                        <th>CNE</th>
+                        <th>Choix</th>
+                        <th>Sujet</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for validatedDoctorant in validatedDoctorants %}
+                        <tr>
+                            <td>{{ validatedDoctorant.nom }}</td>
+                            <td>{{ validatedDoctorant.prenom }}</td>
+                            <td>{{ validatedDoctorant.cin }}</td>
+                            <td>{{ validatedDoctorant.cne }}</td>
+                            <td>{{ validatedDoctorant.choix }}</td>
+                            <td>{{ validatedDoctorant.sujet }}</td>
+                        </tr>
+                    {% else %}
+                        <tr>
+                            <td colspan="6" class="text-muted">Aucun doctorant validé trouvé.</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <!-- Include jQuery and DataTables JS -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.1/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/responsive/2.4.0/js/dataTables.responsive.min.js"></script>
+
+    <!-- Initialize DataTable -->
+    <script>
+        $(document).ready(function () {
+            $('#validatedDoctorantsTable').DataTable({
+                language: {
+                    url: '//cdn.datatables.net/plug-ins/1.13.1/i18n/fr-FR.json'
+                },
+                responsive: true, // Enable responsive feature
+                autoWidth: false, // Disable automatic column width calculation
+                order: [[0, 'asc']], // Default sorting by the first column (Nom) in ascending order
+                paging: true, // Enable pagination
+                pageLength: 10, // Set the number of rows per page
+                lengthMenu: [10, 25, 50, 100], // Define the page length options
+                searching: true, // Enable search functionality
+                info: true, // Show table information (e.g., "Showing 1 to 10 of 50 entries")
+            });
+        });
+    </script>
+{% endblock %}
