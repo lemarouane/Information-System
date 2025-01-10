@@ -7,7 +7,7 @@ use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: DoctorantsRepository::class)]
-#[ORM\Table(name: "doctorants", schema: "pgi_doc_db")]
+#[ORM\Table(name: "doctorants", schema: "pgi_ensa_db")]
 
 class Doctorants
 {

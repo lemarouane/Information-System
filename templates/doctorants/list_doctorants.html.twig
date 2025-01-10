@@ -6,9 +6,12 @@
 {{ parent() }}
 <link rel="stylesheet" href="https://cdn.datatables.net/1.13.1/css/jquery.dataTables.min.css">
 <style>
-    /* Custom CSS to add margin between the search field and the table */
+    /* Custom CSS for better layout and spacing */
     #doctorantsTable_wrapper .dataTables_filter {
-        margin-bottom: 20px; /* Adjust the margin as needed */
+        margin-bottom: 20px;
+    }
+    .dataTables_wrapper .dataTables_paginate {
+        margin-top: 10px;
     }
 </style>
 {% endblock %}
@@ -69,14 +72,19 @@
                                 <a href="{{ path('edit_doctorant', {id: doctorant.id}) }}" class="btn btn-warning btn-sm">
                                     <i class="bi bi-pencil-fill"></i> Modifier
                                 </a>
-                                <a href="{{ path('validate_doctorant', {id: doctorant.id}) }}" class="btn btn-success btn-sm">
+                                <button 
+                                    class="btn btn-success btn-sm" 
+                                    data-bs-toggle="modal" 
+                                    data-bs-target="#validationModal" 
+                                    data-doctorant-id="{{ doctorant.id }}" 
+                                    data-doctorant-name="{{ doctorant.nom }} {{ doctorant.prenom }}">
                                     <i class="bi bi-check-circle-fill"></i> Valider
-                                </a>
+                                </button>
                             </td>
                         </tr>
                     {% else %}
                         <tr>
-                            <td colspan="7" class="text-muted">Aucun doctorant trouvé.</td>
+                            <td colspan="10" class="text-muted">Aucun doctorant trouvé.</td>
                         </tr>
                     {% endfor %}
                 </tbody>
@@ -85,25 +93,40 @@
     </div>
 </div>
 
-{# Modal for Validation Confirmation #}
+<!-- Modal for Validation -->
 <div class="modal fade" id="validationModal" tabindex="-1" aria-labelledby="validationModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header bg-primary text-white">
-                <h5 class="modal-title" id="validationModalLabel">Confirmer la Validation</h5>
+                <h5 class="modal-title" id="validationModalLabel">Validation du Doctorant</h5>
                 <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <div class="modal-body">
-                <p>Veuillez vérifier les informations du doctorant avant de confirmer la validation :</p>
-                <div id="doctorantDetails"></div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
-                <a id="confirmValidationButton" href="#" class="btn btn-success">Confirmer</a>
-            </div>
+            <form method="POST" action="#" id="validationForm">
+                <div class="modal-body">
+                    <p>Veuillez sélectionner un personnel pour valider le doctorant suivant :</p>
+                    <div>
+                        <strong>Doctorant :</strong>
+                        <span id="doctorantName"></span>
+                    </div>
+                    <div class="mt-3">
+                        <label for="personnelSelect" class="form-label">Choisir un Personnel :</label>
+                        <select class="form-select" id="personnelSelect" name="personnel_id" required>
+                            <option value="" selected disabled>-- Sélectionner un personnel --</option>
+                            {% for personnel in personnels %}
+                                <option value="{{ personnel.id }}">{{ personnel.nom }} {{ personnel.prenom }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
+                    <button type="submit" class="btn btn-success">Valider</button>
+                </div>
+            </form>
         </div>
     </div>
 </div>
+
 {% endblock %}
 
 {% block javascripts %}
@@ -119,6 +142,22 @@
             responsive: true,
             autoWidth: false,
             order: [[0, 'asc']],
+        });
+    });
+
+    document.addEventListener('DOMContentLoaded', function () {
+        const validationModal = document.getElementById('validationModal');
+
+        validationModal.addEventListener('show.bs.modal', function (event) {
+            const button = event.relatedTarget;
+            const doctorantId = button.getAttribute('data-doctorant-id');
+            const doctorantName = button.getAttribute('data-doctorant-name');
+
+            const doctorantNameSpan = document.getElementById('doctorantName');
+            doctorantNameSpan.textContent = doctorantName;
+
+            const validationForm = document.getElementById('validationForm');
+            validationForm.action = "{{ path('validate_doctorant', { id: 'doctorantId' }) }}".replace('doctorantId', doctorantId);
         });
     });
 </script>

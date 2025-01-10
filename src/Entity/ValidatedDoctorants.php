@@ -6,7 +6,7 @@ use App\Repository\ValidatedDoctorantsRepository;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: ValidatedDoctorantsRepository::class)]
-#[ORM\Table(name: "validated_doctorants", schema: "pgi_doc_db")]
+#[ORM\Table(name: "validated_doctorants", schema: "pgi_ensa_db")]
 class ValidatedDoctorants
 {
     #[ORM\Id]
@@ -17,8 +17,10 @@ class ValidatedDoctorants
     #[ORM\ManyToOne(targetEntity: Doctorants::class)]
     #[ORM\JoinColumn(name: "doctorant_id", referencedColumnName: "id", nullable: false, onDelete: "CASCADE")]
     private ?Doctorants $doctorant = null;
-    
-    
+
+    #[ORM\ManyToOne(targetEntity: Personnel::class)]
+    #[ORM\JoinColumn(name: "personnel_id", referencedColumnName: "id", nullable: false, onDelete: "CASCADE")]
+    private ?Personnel $personnel = null;
 
     #[ORM\Column(length: 255)]
     private ?string $nom = null;
@@ -51,6 +53,18 @@ class ValidatedDoctorants
     public function setDoctorant(?Doctorants $doctorant): self
     {
         $this->doctorant = $doctorant;
+
+        return $this;
+    }
+
+    public function getPersonnel(): ?Personnel
+    {
+        return $this->personnel;
+    }
+
+    public function setPersonnel(?Personnel $personnel): self
+    {
+        $this->personnel = $personnel;
 
         return $this;
     }

@@ -3,16 +3,40 @@
 {% block title %}{{ doctorant.nom }} {{ doctorant.prenom }}{% endblock %}
 
 {% block body %}
-<div class="page-breadcrumb d-none d-sm-flex align-items-center mb-3">
-</div>
+<div class="page-breadcrumb d-none d-sm-flex align-items-center mb-3"></div>
 <div class="card shadow-lg">
     <div class="card-body">
-<h5 class="card-title">Détails du Doctorant: <strong>{{ doctorant.nom }} {{ doctorant.prenom }}</strong></h5>
+        <h5 class="card-title">Détails du Doctorant: <strong>{{ doctorant.nom }} {{ doctorant.prenom }}</strong></h5>
         <hr>
+
+<!-- Validation Status -->
+<div class="mb-4">
+    {% if validatedDoctorants is not empty %}
+        <div class="alert alert-success text-center">
+            <strong>Validé!</strong> Ce doctorant a été validé.
+            <ul>
+                {% for validation in validatedDoctorants %}
+                    <li>
+                        Validé par: 
+                        <strong>{{ validation.personnel.nom }} {{ validation.personnel.prenom }}</strong>
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+    {% else %}
+        <div class="alert alert-warning text-center">
+            <strong>Non Validé!</strong> Ce doctorant n'a pas encore été validé.
+        </div>
+    {% endif %}
+</div>
+
+
+
+        <!-- Doctorant Details -->
         <div class="row">
-            <!-- Left Column -->
+            <!-- Personal Details -->
             <div class="col-md-6">
-                <p><strong>Établissement:</strong> {{ doctorant.etablissement }}</p>
+                <h6><strong>Informations Personnelles:</strong></h6>
                 <p><strong>Nom:</strong> {{ doctorant.nom }}</p>
                 <p><strong>Prénom:</strong> {{ doctorant.prenom }}</p>
                 <p><strong>Nom Arabe:</strong> {{ doctorant.nomArabe }}</p>
@@ -27,14 +51,24 @@
                 <p><strong>Sexe:</strong> {{ doctorant.sexe }}</p>
             </div>
 
-            <!-- Right Column -->
+            <!-- Contact Details -->
             <div class="col-md-6">
+                <h6><strong>Coordonnées:</strong></h6>
                 <p><strong>Téléphone:</strong> {{ doctorant.telephone }}</p>
                 <p><strong>Email:</strong> {{ doctorant.email }}</p>
                 <p><strong>Email Institutionnel:</strong> {{ doctorant.emailInstitutionnel }}</p>
                 <p><strong>Code Postal:</strong> {{ doctorant.codePostal }}</p>
                 <p><strong>Organisme Employeur:</strong> {{ doctorant.organismeEmployeur }}</p>
                 <p><strong>Profession:</strong> {{ doctorant.profession }}</p>
+            </div>
+        </div>
+
+        <hr>
+
+        <!-- Academic Details -->
+        <div class="row">
+            <div class="col-md-6">
+                <h6><strong>Informations Académiques:</strong></h6>
                 <p><strong>Académie BAC:</strong> {{ doctorant.academieBac }}</p>
                 <p><strong>Province BAC:</strong> {{ doctorant.provinceBac }}</p>
                 <p><strong>Lycée BAC:</strong> {{ doctorant.lyceeBac }}</p>
@@ -43,22 +77,22 @@
                 <p><strong>Date Obtention BAC:</strong> {{ doctorant.dateObtentionBac }}</p>
                 <p><strong>Pays BAC:</strong> {{ doctorant.paysBac }}</p>
             </div>
-        </div>
 
-        <hr>
-
-        <!-- More Sections -->
-        <div class="row">
             <div class="col-md-6">
                 <p><strong>Licence Etablissement:</strong> {{ doctorant.licenceEtablissement }}</p>
                 <p><strong>Mention Licence:</strong> {{ doctorant.mentionLicence }}</p>
                 <p><strong>Date Obtention Licence:</strong> {{ doctorant.dateObtentionLicence }}</p>
                 <p><strong>Licence Pays:</strong> {{ doctorant.licencePays }}</p>
-                <p><strong>Licence Specialité:</strong> {{ doctorant.licenceSpecialite }}</p>
+                <p><strong>Licence Spécialité:</strong> {{ doctorant.licenceSpecialite }}</p>
                 <p><strong>Université Licence:</strong> {{ doctorant.universiteLicence }}</p>
                 <p><strong>Note Licence:</strong> {{ doctorant.noteLicence }}</p>
             </div>
+        </div>
 
+        <hr>
+
+        <!-- Master and Additional Information -->
+        <div class="row">
             <div class="col-md-6">
                 <p><strong>Master Etablissement:</strong> {{ doctorant.masterEtablissement }}</p>
                 <p><strong>Note Master:</strong> {{ doctorant.noteMaster }}</p>
@@ -69,30 +103,27 @@
                 <p><strong>Master Université:</strong> {{ doctorant.masterUniversite }}</p>
                 <p><strong>Master Secteur:</strong> {{ doctorant.masterSecteur }}</p>
             </div>
-        </div>
 
-        <hr>
-
-        <!-- Diplomas and Additional Information -->
-        <div class="row">
             <div class="col-md-6">
                 <p><strong>Autre Diplôme Type:</strong> {{ doctorant.autreDiplomeType }}</p>
                 <p><strong>Autre Diplôme Etablissement:</strong> {{ doctorant.autreDiplomeEtablissement }}</p>
                 <p><strong>Autre Diplôme Mention:</strong> {{ doctorant.autreDiplomeMention }}</p>
                 <p><strong>Autre Diplôme Date:</strong> {{ doctorant.autreDiplomeDateObtention }}</p>
                 <p><strong>Autre Diplôme Pays:</strong> {{ doctorant.autreDiplomePays }}</p>
-                <p><strong>Autre Diplôme Specialité:</strong> {{ doctorant.autreDiplomeSpecialite }}</p>
+                <p><strong>Autre Diplôme Spécialité:</strong> {{ doctorant.autreDiplomeSpecialite }}</p>
             </div>
+        </div>
 
+        <hr>
+
+        <!-- Additional Skills -->
+        <div class="row">
             <div class="col-md-6">
-                <p><strong>Langue 1:</strong> {{ doctorant.langue1 }}</p>
-                <p><strong>Niveau Langue 1:</strong> {{ doctorant.niveauLangue1 }}</p>
-                <p><strong>Langue 2:</strong> {{ doctorant.langue2 }}</p>
-                <p><strong>Niveau Langue 2:</strong> {{ doctorant.niveauLangue2 }}</p>
-                <p><strong>Langue 3:</strong> {{ doctorant.langue3 }}</p>
-                <p><strong>Niveau Langue 3:</strong> {{ doctorant.niveauLangue3 }}</p>
-                <p><strong>Langue 4:</strong> {{ doctorant.langue4 }}</p>
-                <p><strong>Niveau Langue 4:</strong> {{ doctorant.niveauLangue4 }}</p>
+                <h6><strong>Langues:</strong></h6>
+                <p><strong>Langue 1:</strong> {{ doctorant.langue1 }} - Niveau: {{ doctorant.niveauLangue1 }}</p>
+                <p><strong>Langue 2:</strong> {{ doctorant.langue2 }} - Niveau: {{ doctorant.niveauLangue2 }}</p>
+                <p><strong>Langue 3:</strong> {{ doctorant.langue3 }} - Niveau: {{ doctorant.niveauLangue3 }}</p>
+                <p><strong>Langue 4:</strong> {{ doctorant.langue4 }} - Niveau: {{ doctorant.niveauLangue4 }}</p>
             </div>
         </div>
 

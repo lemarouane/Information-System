@@ -5,7 +5,6 @@
 
 {% block stylesheets %}
     {{ parent() }}
-    <!-- Include DataTables CSS -->
     <link rel="stylesheet" href="https://cdn.datatables.net/1.13.1/css/jquery.dataTables.min.css">
     <link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.4.0/css/responsive.dataTables.min.css">
 {% endblock %}
@@ -29,6 +28,7 @@
                         <th>CNE</th>
                         <th>Choix</th>
                         <th>Sujet</th>
+                        <th>Personnel</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -40,10 +40,17 @@
                             <td>{{ validatedDoctorant.cne }}</td>
                             <td>{{ validatedDoctorant.choix }}</td>
                             <td>{{ validatedDoctorant.sujet }}</td>
+                            <td>
+                                {% if validatedDoctorant.personnel %}
+                                    {{ validatedDoctorant.personnel.nom }} {{ validatedDoctorant.personnel.prenom }}
+                                {% else %}
+                                    Non assigné
+                                {% endif %}
+                            </td>
                         </tr>
                     {% else %}
                         <tr>
-                            <td colspan="6" class="text-muted">Aucun doctorant validé trouvé.</td>
+                            <td colspan="7" class="text-muted">Aucun doctorant validé trouvé.</td>
                         </tr>
                     {% endfor %}
                 </tbody>
@@ -55,26 +62,24 @@
 
 {% block javascripts %}
     {{ parent() }}
-    <!-- Include jQuery and DataTables JS -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.datatables.net/1.13.1/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/responsive/2.4.0/js/dataTables.responsive.min.js"></script>
 
-    <!-- Initialize DataTable -->
     <script>
         $(document).ready(function () {
             $('#validatedDoctorantsTable').DataTable({
                 language: {
                     url: '//cdn.datatables.net/plug-ins/1.13.1/i18n/fr-FR.json'
                 },
-                responsive: true, // Enable responsive feature
-                autoWidth: false, // Disable automatic column width calculation
-                order: [[0, 'asc']], // Default sorting by the first column (Nom) in ascending order
-                paging: true, // Enable pagination
-                pageLength: 10, // Set the number of rows per page
-                lengthMenu: [10, 25, 50, 100], // Define the page length options
-                searching: true, // Enable search functionality
-                info: true, // Show table information (e.g., "Showing 1 to 10 of 50 entries")
+                responsive: true,
+                autoWidth: false,
+                order: [[0, 'asc']],
+                paging: true,
+                pageLength: 10,
+                lengthMenu: [10, 25, 50, 100],
+                searching: true,
+                info: true,
             });
         });
     </script>

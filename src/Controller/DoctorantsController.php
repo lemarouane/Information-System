@@ -8,6 +8,7 @@ use App\Entity\ValidatedDoctorants;
 use App\Form\DoctorantsType;
 use App\Repository\DoctorantsRepository;
 use App\Repository\ValidatedDoctorantsRepository;
+use App\Repository\PersonnelRepository;
 
 use Doctrine\ORM\EntityManagerInterface;
 use PhpOffice\PhpSpreadsheet\IOFactory;
@@ -41,13 +42,19 @@ class DoctorantsController extends AbstractController
     }
 
     #[Route('/list-doctorants', name: 'list_doctorants')]
-    public function listDoctorants(DoctorantsRepository $doctorantsRepository): Response
-    {
+    public function listDoctorants(
+        DoctorantsRepository $doctorantsRepository,
+        PersonnelRepository $personnelRepository
+    ): Response {
         $doctorants = $doctorantsRepository->findAll();
+        $personnels = $personnelRepository->findAll();
+    
         return $this->render('doctorants/list_doctorants.html.twig', [
             'doctorants' => $doctorants,
+            'personnels' => $personnels,
         ]);
     }
+    
 
     #[Route('/edit-doctorant/{id}', name: 'edit_doctorant')]
     public function editDoctorant(
@@ -350,19 +357,26 @@ class DoctorantsController extends AbstractController
     
 
     #[Route('/view-doctorant/{id}', name: 'view_doctorant')]
-public function viewDoctorant(int $id, DoctorantsRepository $doctorantsRepository): Response
-{
-    $doctorant = $doctorantsRepository->find($id);
-
-    if (!$doctorant) {
-        $this->addFlash('error', 'Doctorant non trouvé.');
-        return $this->redirectToRoute('list_doctorants');
+    public function viewDoctorant(
+        int $id,
+        DoctorantsRepository $doctorantsRepository,
+        ValidatedDoctorantsRepository $validatedDoctorantsRepository
+    ): Response {
+        $doctorant = $doctorantsRepository->find($id);
+    
+        if (!$doctorant) {
+            throw $this->createNotFoundException('Doctorant introuvable.');
+        }
+    
+        // Fetch all validations for this doctorant
+        $validatedDoctorants = $validatedDoctorantsRepository->findBy(['doctorant' => $doctorant]);
+    
+        return $this->render('doctorants/view_doctorant.html.twig', [
+            'doctorant' => $doctorant,
+            'validatedDoctorants' => $validatedDoctorants,
+        ]);
     }
-
-    return $this->render('doctorants/view_doctorant.html.twig', [
-        'doctorant' => $doctorant,
-    ]);
-}
+    
 
 
 
@@ -380,51 +394,70 @@ public function viewDoctorant(int $id, DoctorantsRepository $doctorantsRepositor
 
 
 
-#[Route('/validate-doctorant/{id}', name: 'validate_doctorant')]
+
+#[Route('/validate-doctorant/{id}', name: 'validate_doctorant', methods: ['POST'])]
 public function validateDoctorant(
-    int $id,
+    Request $request,
+    DoctorantsRepository $doctorantsRepository,
+    ValidatedDoctorantsRepository $validatedDoctorantsRepository,
+    PersonnelRepository $personnelRepository,
     EntityManagerInterface $entityManager,
-    DoctorantsRepository $doctorantsRepository
+    int $id
 ): Response {
-    // Fetch the existing doctorant from the database
     $doctorant = $doctorantsRepository->find($id);
-
     if (!$doctorant) {
-        $this->addFlash('error', 'Doctorant non trouvé.');
+        $this->addFlash('error', 'Doctorant introuvable.');
         return $this->redirectToRoute('list_doctorants');
     }
 
-    // Ensure the Doctorants entity is managed
-    if (!$entityManager->contains($doctorant)) {
-        $doctorant = $entityManager->merge($doctorant);
+    $personnelId = $request->request->get('personnel_id');
+    $personnel = $personnelRepository->find($personnelId);
+
+    if (!$personnel) {
+        $this->addFlash('error', 'Personnel introuvable.');
+        return $this->redirectToRoute('list_doctorants');
     }
 
-    // Check if the doctorant is already validated
-    $validatedDoctorantRepository = $entityManager->getRepository(ValidatedDoctorants::class);
-    $existingValidation = $validatedDoctorantRepository->findOneBy(['doctorant' => $doctorant]);
+    // Check for existing validation
+    $existingValidation = $validatedDoctorantsRepository->findOneBy([
+        'doctorant' => $doctorant,
+        'personnel' => $personnel,
+    ]);
 
     if ($existingValidation) {
-        $this->addFlash('info', 'Ce doctorant est déjà validé.');
+        $this->addFlash('warning', 'Ce doctorant est déjà validé par ce personnel.');
         return $this->redirectToRoute('list_doctorants');
     }
 
-    // Create the validated doctorant without persisting the original doctorant again
-    $validatedDoctorant = new ValidatedDoctorants();
-    $validatedDoctorant->setDoctorant($doctorant); // Reference existing doctorant
-    $validatedDoctorant->setNom($doctorant->getNom());
-    $validatedDoctorant->setPrenom($doctorant->getPrenom());
-    $validatedDoctorant->setCin($doctorant->getCin());
-    $validatedDoctorant->setCne($doctorant->getCne());
-    $validatedDoctorant->setChoix($doctorant->getChoix());
-    $validatedDoctorant->setSujet($doctorant->getSujet());
+    try {
+        // Create a new validation entry
+        $validatedDoctorant = new ValidatedDoctorants();
+        $validatedDoctorant->setDoctorant($doctorant);
+        $validatedDoctorant->setPersonnel($personnel);
 
-    // Persist only the validated doctorant
-    $entityManager->persist($validatedDoctorant);
-    $entityManager->flush();
+        // Ensure all required fields are set
+        $validatedDoctorant->setNom($doctorant->getNom());
+        $validatedDoctorant->setPrenom($doctorant->getPrenom());
+        $validatedDoctorant->setCin($doctorant->getCin());
+        $validatedDoctorant->setCne($doctorant->getCne());
+        $validatedDoctorant->setChoix($doctorant->getChoix());
+        $validatedDoctorant->setSujet($doctorant->getSujet());
 
-    $this->addFlash('success', 'Doctorant validé et ajouté à la table des validés.');
+        $entityManager->persist($validatedDoctorant);
+        $entityManager->flush();
+
+        $this->addFlash('success', 'Le doctorant a été validé avec succès.');
+    } catch (\Exception $e) {
+        $this->addFlash('error', 'Une erreur est survenue lors de la validation: ' . $e->getMessage());
+    }
+
     return $this->redirectToRoute('list_doctorants');
 }
+
+
+
+
+
 
 
     
@@ -435,19 +468,29 @@ public function validateDoctorant(
 
 
 #[Route('/list-validated-doctorants', name: 'list_validated_doctorants')]
-public function listValidatedDoctorants(ValidatedDoctorantsRepository $validatedDoctorantsRepository): Response
-{
-    // Fetch all validated doctorants from the validated_doctorants table
-    $validatedDoctorants = $validatedDoctorantsRepository->findAll();
+public function listValidatedDoctorants(ValidatedDoctorantsRepository $validatedDoctorantsRepository): Response {
+    try {
+        // Fetch all validated doctorants from the repository
+        $validatedDoctorants = $validatedDoctorantsRepository->findAll();
 
-    // Log the fetched data for debugging (optional)
-    // $this->logger->info('Fetched validated doctorants:', $validatedDoctorants);
-
-    // Render the Twig template with the validated doctorants data
-    return $this->render('doctorants/list_validated_doctorants.html.twig', [
-        'validatedDoctorants' => $validatedDoctorants,
-    ]);
+        return $this->render('doctorants/list_validated_doctorants.html.twig', [
+            'validatedDoctorants' => $validatedDoctorants,
+        ]);
+    } catch (\Exception $e) {
+        $this->addFlash('error', 'Une erreur est survenue lors du chargement des doctorants validés: ' . $e->getMessage());
+        return $this->redirectToRoute('list_doctorants');
+    }
 }
+
+
+
+
+
+
+
+
+
+
 
 }
 

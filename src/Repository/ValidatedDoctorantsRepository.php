@@ -38,6 +38,11 @@ class ValidatedDoctorantsRepository extends ServiceEntityRepository
             $this->getEntityManager()->flush();
         }
     }
+    public function findByDoctorant(Doctorants $doctorant): array
+{
+    return $this->findBy(['doctorant' => $doctorant]);
+}
+
 
 //    /**
 //     * @return ValidatedDoctorants[] Returns an array of ValidatedDoctorants objects
