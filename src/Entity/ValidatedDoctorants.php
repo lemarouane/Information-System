@@ -14,6 +14,12 @@ class ValidatedDoctorants
     #[ORM\Column]
     private ?int $id = null;
 
+    #[ORM\ManyToOne(targetEntity: Doctorants::class)]
+    #[ORM\JoinColumn(name: "doctorant_id", referencedColumnName: "id", nullable: false, onDelete: "CASCADE")]
+    private ?Doctorants $doctorant = null;
+    
+    
+
     #[ORM\Column(length: 255)]
     private ?string $nom = null;
 
@@ -35,6 +41,18 @@ class ValidatedDoctorants
     public function getId(): ?int
     {
         return $this->id;
+    }
+
+    public function getDoctorant(): ?Doctorants
+    {
+        return $this->doctorant;
+    }
+
+    public function setDoctorant(?Doctorants $doctorant): self
+    {
+        $this->doctorant = $doctorant;
+
+        return $this;
     }
 
     public function getNom(): ?string

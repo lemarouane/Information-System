@@ -380,14 +380,13 @@ public function viewDoctorant(int $id, DoctorantsRepository $doctorantsRepositor
 
 
 
-// src/Controller/DoctorantsController.php
 #[Route('/validate-doctorant/{id}', name: 'validate_doctorant')]
 public function validateDoctorant(
     int $id,
     EntityManagerInterface $entityManager,
     DoctorantsRepository $doctorantsRepository
 ): Response {
-    // Fetch the doctorant from the general table
+    // Fetch the existing doctorant from the database
     $doctorant = $doctorantsRepository->find($id);
 
     if (!$doctorant) {
@@ -395,8 +394,23 @@ public function validateDoctorant(
         return $this->redirectToRoute('list_doctorants');
     }
 
-    // Create a new ValidatedDoctorants entity and populate it with the necessary data
+    // Ensure the Doctorants entity is managed
+    if (!$entityManager->contains($doctorant)) {
+        $doctorant = $entityManager->merge($doctorant);
+    }
+
+    // Check if the doctorant is already validated
+    $validatedDoctorantRepository = $entityManager->getRepository(ValidatedDoctorants::class);
+    $existingValidation = $validatedDoctorantRepository->findOneBy(['doctorant' => $doctorant]);
+
+    if ($existingValidation) {
+        $this->addFlash('info', 'Ce doctorant est déjà validé.');
+        return $this->redirectToRoute('list_doctorants');
+    }
+
+    // Create the validated doctorant without persisting the original doctorant again
     $validatedDoctorant = new ValidatedDoctorants();
+    $validatedDoctorant->setDoctorant($doctorant); // Reference existing doctorant
     $validatedDoctorant->setNom($doctorant->getNom());
     $validatedDoctorant->setPrenom($doctorant->getPrenom());
     $validatedDoctorant->setCin($doctorant->getCin());
@@ -404,13 +418,15 @@ public function validateDoctorant(
     $validatedDoctorant->setChoix($doctorant->getChoix());
     $validatedDoctorant->setSujet($doctorant->getSujet());
 
-    // Persist and flush the new entity
+    // Persist only the validated doctorant
     $entityManager->persist($validatedDoctorant);
     $entityManager->flush();
 
     $this->addFlash('success', 'Doctorant validé et ajouté à la table des validés.');
     return $this->redirectToRoute('list_doctorants');
 }
+
+
     
 
 

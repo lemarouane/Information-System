@@ -15,6 +15,7 @@ class Doctorants
     #[ORM\GeneratedValue]
     #[ORM\Column(type: 'integer')]
     private ?int $id = null;
+    
 
     #[ORM\Column(length: 255)]
     private ?string $Etablissement = null;
