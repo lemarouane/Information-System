@@ -22,6 +22,10 @@ class ValidatedDoctorants
     #[ORM\JoinColumn(name: "personnel_id", referencedColumnName: "id", nullable: false, onDelete: "CASCADE")]
     private ?Personnel $personnel = null;
 
+    #[ORM\ManyToOne(targetEntity: StructRech::class)]
+    #[ORM\JoinColumn(name: "structure_id", referencedColumnName: "id", nullable: true, onDelete: "SET NULL")]
+    private ?StructRech $structure = null;
+
     #[ORM\Column(length: 255)]
     private ?string $nom = null;
 
@@ -65,6 +69,18 @@ class ValidatedDoctorants
     public function setPersonnel(?Personnel $personnel): self
     {
         $this->personnel = $personnel;
+
+        return $this;
+    }
+
+    public function getStructure(): ?StructRech
+    {
+        return $this->structure;
+    }
+
+    public function setStructure(?StructRech $structure): self
+    {
+        $this->structure = $structure;
 
         return $this;
     }

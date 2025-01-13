@@ -6,7 +6,6 @@
 {{ parent() }}
 <link rel="stylesheet" href="https://cdn.datatables.net/1.13.1/css/jquery.dataTables.min.css">
 <style>
-    /* Custom CSS for better layout and spacing */
     #doctorantsTable_wrapper .dataTables_filter {
         margin-bottom: 20px;
     }
@@ -36,14 +35,23 @@
         </div>
     </div>
     <div class="card-body">
-        {% include "flaches.html.twig" %}
+        <!-- Messages -->
+        {% for type, messages in app.flashes %}
+            {% for message in messages %}
+                <div class="alert alert-{{ type }} text-center">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        {% endfor %}
+        
+        <!-- Table -->
         <div class="table-responsive">
             <table id="doctorantsTable" class="table table-bordered text-center align-middle shadow-sm">
                 <thead class="bg-primary text-white">
                     <tr>
                         <th>ID</th>
                         <th>الإسم الشخصي</th>
-                        <th> النسب</th>
+                        <th>النسب</th>
                         <th>Nom</th>
                         <th>Prénom</th>
                         <th>CIN</th>
@@ -103,7 +111,7 @@
             </div>
             <form method="POST" action="#" id="validationForm">
                 <div class="modal-body">
-                    <p>Veuillez sélectionner un personnel pour valider le doctorant suivant :</p>
+                    <p>Veuillez sélectionner un personnel et une structure pour valider le doctorant suivant :</p>
                     <div>
                         <strong>Doctorant :</strong>
                         <span id="doctorantName"></span>
@@ -117,6 +125,15 @@
                             {% endfor %}
                         </select>
                     </div>
+                    <div class="mt-3">
+                        <label for="structureSelect" class="form-label">Choisir une Structure :</label>
+                        <select class="form-select" id="structureSelect" name="structure_id" required>
+                            <option value="" selected disabled>-- Sélectionner une structure --</option>
+                            {% for structure in structures %}
+                                <option value="{{ structure.id }}">{{ structure.libelleStructure }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
@@ -126,7 +143,6 @@
         </div>
     </div>
 </div>
-
 {% endblock %}
 
 {% block javascripts %}

@@ -9,28 +9,27 @@
         <h5 class="card-title">Détails du Doctorant: <strong>{{ doctorant.nom }} {{ doctorant.prenom }}</strong></h5>
         <hr>
 
-<!-- Validation Status -->
-<div class="mb-4">
-    {% if validatedDoctorants is not empty %}
-        <div class="alert alert-success text-center">
-            <strong>Validé!</strong> Ce doctorant a été validé.
-            <ul>
-                {% for validation in validatedDoctorants %}
-                    <li>
-                        Validé par: 
-                        <strong>{{ validation.personnel.nom }} {{ validation.personnel.prenom }}</strong>
-                    </li>
-                {% endfor %}
-            </ul>
+        <!-- Validation Status -->
+        <div class="mb-4">
+            {% if validatedDoctorants is not empty %}
+                <div class="alert alert-success text-center">
+                    <strong>Validé!</strong> Ce doctorant a été validé.
+                    <ul>
+                        {% for validation in validatedDoctorants %}
+                            <li>
+                                Validé par: 
+                                <strong>{{ validation.personnel.nom }} {{ validation.personnel.prenom }}</strong>, 
+                                Structure: <strong>{{ validation.structure.libelleStructure ?? 'Non définie' }}</strong>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            {% else %}
+                <div class="alert alert-warning text-center">
+                    <strong>Non Validé!</strong> Ce doctorant n'a pas encore été validé.
+                </div>
+            {% endif %}
         </div>
-    {% else %}
-        <div class="alert alert-warning text-center">
-            <strong>Non Validé!</strong> Ce doctorant n'a pas encore été validé.
-        </div>
-    {% endif %}
-</div>
-
-
 
         <!-- Doctorant Details -->
         <div class="row">

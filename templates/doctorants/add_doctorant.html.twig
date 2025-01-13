@@ -2,103 +2,174 @@
 
 {% block title %}{{ edit_mode ? 'Modifier un Doctorant' : 'Ajouter un Doctorant' }}{% endblock %}
 
+{% block stylesheets %}
+{{ parent() }}
+<style>
+    /* Form Container */
+    .form-container {
+        padding: 25px;
+        border-radius: 12px;
+        background: #f8f9fa;
+        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+    }
+
+    /* Form Section Headings */
+    .form-section-title {
+        font-size: 1.3rem;
+        font-weight: 600;
+        color: #495057;
+        margin-bottom: 15px;
+        border-bottom: 2px solid #007bff;
+        padding-bottom: 5px;
+    }
+
+    /* Floating Labels */
+    .form-floating > label {
+        color: #6c757d;
+        font-size: 0.95rem;
+    }
+    .form-floating > .form-control {
+        border-radius: 8px;
+        border: 1px solid #ced4da;
+        padding: 10px 12px;
+    }
+    .form-floating > .form-control:focus {
+        border-color: #007bff;
+        box-shadow: 0 0 5px rgba(0, 123, 255, 0.25);
+    }
+    .form-floating > .form-control::placeholder {
+        color: transparent;
+    }
+
+    /* Section Dividers */
+    .section-divider {
+        margin: 20px 0;
+        border-top: 1px dashed #dee2e6;
+    }
+
+    /* Buttons */
+    .btn-primary {
+        background: #007bff;
+        font-size: 1rem;
+        font-weight: 600;
+        padding: 12px 20px;
+        border-radius: 8px;
+        transition: 0.3s ease-in-out;
+    }
+    .btn-primary:hover {
+        background: #0056b3;
+        transform: translateY(-2px);
+    }
+    .btn-secondary {
+        background: #6c757d;
+        padding: 12px 20px;
+        font-size: 1rem;
+        font-weight: 600;
+        border-radius: 8px;
+        transition: 0.3s ease-in-out;
+    }
+    .btn-secondary:hover {
+        background: #5a6268;
+        transform: translateY(-2px);
+    }
+
+    /* Validation Errors */
+    .alert-danger {
+        font-size: 0.9rem;
+        border-radius: 8px;
+        padding: 15px;
+    }
+
+    /* Icons */
+    .input-group-text {
+        background: #e9ecef;
+        border-radius: 8px 0 0 8px;
+        border-right: 0;
+        color: #495057;
+    }
+    .form-control {
+        border-radius: 0 8px 8px 0;
+    }
+</style>
+{% endblock %}
+
 {% block body %}
-<div class="page-breadcrumb d-none d-sm-flex align-items-center mb-3">
-    <div class="breadcrumb-title pe-3">{{ edit_mode ? 'Modifier un Doctorant' : 'Ajouter un Doctorant' }}</div>
-</div>
-<div class="row">
-    <div class="col-lg-12 mx-auto">
-        <div class="card shadow-sm border-0">
-            <div class="card-body">
-                <h5 class="card-title">{{ edit_mode ? 'Modifier un Doctorant' : 'Ajouter un Doctorant' }}</h5>
-                <hr>
-                {% include "flaches.html.twig" %}
-                <div class="form-container">
-                    {{ form_start(form) }}
-                    <div class="row g-3">
-                        {# Existing fields #}
-                        <div class="col-md-6">
-                            <label for="Etablissement" class="form-label fw-bold">Etablissement</label>
-                            {{ form_row(form.Etablissement, {'label': false, 'attr': {'class': 'form-control'}}) }}
-                        </div>
-                        <div class="col-md-6">
-                            <label for="Nom" class="form-label fw-bold">Nom</label>
-                            {{ form_row(form.Nom, {'label': false, 'attr': {'class': 'form-control'}}) }}
-                        </div>
-                        <div class="col-md-6">
-                            <label for="prenom" class="form-label fw-bold">Prénom</label>
-                            {{ form_row(form.prenom, {'label': false, 'attr': {'class': 'form-control'}}) }}
-                        </div>
-                        <div class="col-md-6">
-                            <label for="cin" class="form-label fw-bold">CIN</label>
-                            {{ form_row(form.cin, {'label': false, 'attr': {'class': 'form-control'}}) }}
-                        </div>
-                        <div class="col-md-6">
-                            <label for="cne" class="form-label fw-bold">CNE</label>
-                            {{ form_row(form.cne, {'label': false, 'attr': {'class': 'form-control'}}) }}
-                        </div>
-                        <div class="col-md-6">
-                            <label for="dateDeNaissance" class="form-label fw-bold">Date de Naissance</label>
-                            {{ form_row(form.dateDeNaissance, {'label': false, 'attr': {'class': 'form-control'}}) }}
-                        </div>
-                        <div class="col-md-6">
-                            <label for="email" class="form-label fw-bold">Email</label>
-                            {{ form_row(form.email, {'label': false, 'attr': {'class': 'form-control'}}) }}
-                        </div>
-                        <div class="col-md-6">
-                            <label for="telephone" class="form-label fw-bold">Téléphone</label>
-                            {{ form_row(form.telephone, {'label': false, 'attr': {'class': 'form-control'}}) }}
-                        </div>
-                        <div class="col-md-6">
-                            <label for="nationalite" class="form-label fw-bold">Nationalité</label>
-                            {{ form_row(form.nationalite, {'label': false, 'attr': {'class': 'form-control'}}) }}
-                        </div>
-                        <div class="col-md-6">
-                            <label for="sexe" class="form-label fw-bold">Sexe</label>
-                            {{ form_row(form.sexe, {'label': false, 'attr': {'class': 'form-control'}}) }}
-                        </div>
+<div class="container mt-4">
+    <div class="page-breadcrumb d-none d-sm-flex align-items-center mb-4">
+        <h3 class="breadcrumb-title">{{ edit_mode ? 'Modifier un Doctorant' : 'Ajouter un Doctorant' }}</h3>
+    </div>
 
-                        {# Additional fields #}
-                        <div class="col-md-6">
-                            <label for="lieuDeNaissance" class="form-label fw-bold">Lieu de Naissance</label>
-                            {{ form_row(form.lieuDeNaissance, {'label': false, 'attr': {'class': 'form-control'}}) }}
-                        </div>
-                        <div class="col-md-6">
-                            <label for="provinceDeNaissance" class="form-label fw-bold">Province de Naissance</label>
-                            {{ form_row(form.provinceDeNaissance, {'label': false, 'attr': {'class': 'form-control'}}) }}
-                        </div>
-                        <div class="col-md-6">
-                            <label for="emailInstitutionnel" class="form-label fw-bold">Email Institutionnel</label>
-                            {{ form_row(form.emailInstitutionnel, {'label': false, 'attr': {'class': 'form-control'}}) }}
-                        </div>
-                        <div class="col-md-6">
-                            <label for="codePostal" class="form-label fw-bold">Code Postal</label>
-                            {{ form_row(form.codePostal, {'label': false, 'attr': {'class': 'form-control'}}) }}
-                        </div>
-                        <div class="col-md-6">
-                            <label for="organismeEmployeur" class="form-label fw-bold">Organisme Employeur</label>
-                            {{ form_row(form.organismeEmployeur, {'label': false, 'attr': {'class': 'form-control'}}) }}
-                        </div>
-                        <div class="col-md-6">
-                            <label for="profession" class="form-label fw-bold">Profession</label>
-                            {{ form_row(form.profession, {'label': false, 'attr': {'class': 'form-control'}}) }}
-                        </div>
-                    </div>
+    <div class="card shadow-sm border-0">
+        <div class="card-body">
+            <h5 class="text-center mb-4">{{ edit_mode ? 'Modifier un Doctorant' : 'Ajouter un Doctorant' }}</h5>
 
-                    <div class="text-end mt-3">
-                        <button type="submit" class="btn btn-primary">{{ edit_mode ? 'Modifier' : 'Ajouter' }}</button>
-                        <a href="{{ path('list_doctorants') }}" class="btn btn-secondary">Retour</a>
+            <!-- Flash Messages -->
+            {% for type, messages in app.flashes %}
+                {% for message in messages %}
+                    <div class="alert alert-{{ type }} text-center">
+                        {{ message }}
                     </div>
-                    {{ form_end(form) }}
+                {% endfor %}
+            {% endfor %}
+
+            <div class="form-container">
+                {{ form_start(form, {'attr': {'class': 'needs-validation', 'novalidate': true}}) }}
+
+                <!-- Personal Details Section -->
+                <h6 class="form-section-title">Informations Personnelles</h6>
+                <div class="row g-4">
+                    <div class="col-md-6 form-floating">
+                        {{ form_row(form.Nom, {'label': 'Nom', 'attr': {'class': 'form-control', 'placeholder': 'Nom'}}) }}
+                    </div>
+                    <div class="col-md-6 form-floating">
+                        {{ form_row(form.prenom, {'label': 'Prénom', 'attr': {'class': 'form-control', 'placeholder': 'Prénom'}}) }}
+                    </div>
+                    <div class="col-md-6 form-floating">
+                        {{ form_row(form.cin, {'label': 'CIN', 'attr': {'class': 'form-control', 'placeholder': 'CIN'}}) }}
+                    </div>
+                    <div class="col-md-6 form-floating">
+                        {{ form_row(form.cne, {'label': 'CNE', 'attr': {'class': 'form-control', 'placeholder': 'CNE'}}) }}
+                    </div>
                 </div>
+
+                <div class="section-divider"></div>
+
+                <!-- Contact Details Section -->
+                <h6 class="form-section-title">Coordonnées</h6>
+                <div class="row g-4">
+                    <div class="col-md-6 form-floating">
+                        {{ form_row(form.email, {'label': 'Email', 'attr': {'class': 'form-control', 'placeholder': 'Email'}}) }}
+                    </div>
+                    <div class="col-md-6 form-floating">
+                        {{ form_row(form.telephone, {'label': 'Téléphone', 'attr': {'class': 'form-control', 'placeholder': 'Téléphone'}}) }}
+                    </div>
+                </div>
+
+                <div class="section-divider"></div>
+
+                <!-- Additional Details Section -->
+                <h6 class="form-section-title">Informations Supplémentaires</h6>
+                <div class="row g-4">
+                    <div class="col-md-6 form-floating">
+                        {{ form_row(form.nationalite, {'label': 'Nationalité', 'attr': {'class': 'form-control', 'placeholder': 'Nationalité'}}) }}
+                    </div>
+                    <div class="col-md-6 form-floating">
+                        {{ form_row(form.sexe, {'label': 'Sexe', 'attr': {'class': 'form-control', 'placeholder': 'Sexe'}}) }}
+                    </div>
+                </div>
+
+                <!-- Buttons -->
+                <div class="text-end mt-4">
+                    <button type="submit" class="btn btn-primary">
+                        {{ edit_mode ? 'Modifier' : 'Ajouter' }}
+                    </button>
+                    <a href="{{ path('list_doctorants') }}" class="btn btn-secondary">Retour</a>
+                </div>
+
+                {{ form_end(form) }}
             </div>
         </div>
     </div>
 </div>
 
-{% if not form.vars.valid %}
-    <div class="alert alert-danger">
-        {{ form_errors(form) }}
-    </div>
-{% endif %}
 {% endblock %}
