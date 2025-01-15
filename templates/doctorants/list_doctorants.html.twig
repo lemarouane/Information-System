@@ -3,178 +3,328 @@
 {% block title %}Liste des Doctorants{% endblock %}
 
 {% block stylesheets %}
-{{ parent() }}
-<link rel="stylesheet" href="https://cdn.datatables.net/1.13.1/css/jquery.dataTables.min.css">
-<style>
-    #doctorantsTable_wrapper .dataTables_filter {
-        margin-bottom: 20px;
-    }
-    .dataTables_wrapper .dataTables_paginate {
-        margin-top: 10px;
-    }
-</style>
+    {{ parent() }}
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.1/css/jquery.dataTables.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.4.0/css/responsive.dataTables.min.css">
+    <style>
+        .card-header .btn { margin-left: 0.5rem; }
+        #doctorantsTable_wrapper .dataTables_filter { margin-bottom: 20px; }
+        .dataTables_wrapper .dataTables_paginate { margin-top: 10px; }
+        #validateSelectedButton { 
+            display: none;
+            transition: opacity 0.3s ease-in-out;
+        }
+        .table-responsive { overflow-x: auto; }
+        .btn-sm { margin: 0.2rem; }
+        
+        /* Ensure all headers have the same color */
+        #doctorantsTable thead th {
+            background-color: #ff6632; /* Primary color */
+            color: white; /* Text color */
+        }
+
+        /* Responsive improvements */
+        @media (max-width: 768px) {
+            .card-header { flex-direction: column; gap: 1rem; }
+            .card-header .btn-group { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+        }
+
+        /* Modern clickable link styling */
+        .flash-link {
+            color: #fff; /* Text color */
+            background-color: #17a2b8; /* Button background */
+            padding: 0.3rem 0.5rem; /* Add padding */
+            border-radius: 5px; /* Rounded corners */
+            text-decoration: none; /* Remove underline */
+            font-weight: bold; /* Bold text */
+            transition: all 0.2s ease-in-out; /* Smooth transition */
+            display: inline-block; /* Ensure proper spacing */
+        }
+
+        .flash-link:hover {
+            background-color: #138496; /* Darker shade on hover */
+            text-decoration: none; /* Prevent underline on hover */
+            color: #fff; /* Ensure text remains visible */
+        }
+
+        /* Increase the size of checkboxes */
+        .doctorantCheckbox {
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
+        }
+
+        /* Highlight row on hover for better visibility */
+        #doctorantsTable tbody tr:hover {
+            background-color: #f9f9f9; /* Light grey hover effect */
+            cursor: pointer;
+        }
+    </style>
 {% endblock %}
 
 {% block body %}
-<div class="page-breadcrumb d-none d-sm-flex align-items-center mb-3">
-    <div class="breadcrumb-title pe-3">Liste des Doctorants</div>
-</div>
-<div class="card shadow-lg">
-    <div class="card-header bg-gradient-primary text-white d-flex justify-content-between align-items-center">
-        <h4 class="mb-0">Liste des Doctorants</h4>
-        <div>
-            <a href="{{ path('add_doctorant') }}" class="btn btn-light rounded-pill">
-                <i class="bi bi-plus-circle"></i> Ajouter
-            </a>
-            <a href="{{ path('import_doctorants') }}" class="btn btn-light rounded-pill">
-                <i class="bi bi-file-earmark-arrow-up"></i> Importer
-            </a>
-            <a href="{{ path('list_validated_doctorants') }}" class="btn btn-primary">
-                <i class="bi bi-list-check"></i> Voir les Doctorants Validés
-            </a>
-        </div>
+    {# Breadcrumb #}
+    <div class="page-breadcrumb d-none d-sm-flex align-items-center mb-3">
+        <div class="breadcrumb-title pe-3">Liste des Doctorants</div>
     </div>
-    <div class="card-body">
-        <!-- Messages -->
-        {% for type, messages in app.flashes %}
-            {% for message in messages %}
-                <div class="alert alert-{{ type }} text-center">
-                    {{ message }}
-                </div>
-            {% endfor %}
-        {% endfor %}
-        
-        <!-- Table -->
-        <div class="table-responsive">
-            <table id="doctorantsTable" class="table table-bordered text-center align-middle shadow-sm">
-                <thead class="bg-primary text-white">
-                    <tr>
-                        <th>ID</th>
-                        <th>الإسم الشخصي</th>
-                        <th>النسب</th>
-                        <th>Nom</th>
-                        <th>Prénom</th>
-                        <th>CIN</th>
-                        <th>Email</th>
-                        <th>Téléphone</th>
-                        <th>Choix</th>
-                        <th>Actions</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {% for doctorant in doctorants %}
-                        <tr>
-                            <td>{{ doctorant.id }}</td>
-                            <td>{{ doctorant.prenomArabe }}</td>
-                            <td>{{ doctorant.nomArabe }}</td>
-                            <td>{{ doctorant.nom }}</td>
-                            <td>{{ doctorant.prenom }}</td>
-                            <td>{{ doctorant.cin }}</td>
-                            <td>{{ doctorant.email }}</td>
-                            <td>{{ doctorant.telephone }}</td>
-                            <td>{{ doctorant.choix }}</td>
-                            <td>
-                                <a href="{{ path('view_doctorant', { id: doctorant.id }) }}" class="btn btn-info btn-sm">
-                                    <i class="bi bi-eye-fill"></i> Voir
-                                </a>
-                                <a href="{{ path('edit_doctorant', {id: doctorant.id}) }}" class="btn btn-warning btn-sm">
-                                    <i class="bi bi-pencil-fill"></i> Modifier
-                                </a>
-                                <button 
-                                    class="btn btn-success btn-sm" 
-                                    data-bs-toggle="modal" 
-                                    data-bs-target="#validationModal" 
-                                    data-doctorant-id="{{ doctorant.id }}" 
-                                    data-doctorant-name="{{ doctorant.nom }} {{ doctorant.prenom }}">
-                                    <i class="bi bi-check-circle-fill"></i> Valider
-                                </button>
-                            </td>
-                        </tr>
-                    {% else %}
-                        <tr>
-                            <td colspan="10" class="text-muted">Aucun doctorant trouvé.</td>
-                        </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
-        </div>
-    </div>
-</div>
 
-<!-- Modal for Validation -->
-<div class="modal fade" id="validationModal" tabindex="-1" aria-labelledby="validationModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg">
-        <div class="modal-content">
-            <div class="modal-header bg-primary text-white">
-                <h5 class="modal-title" id="validationModalLabel">Validation du Doctorant</h5>
-                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+    {# Flash Messages #}
+    {% for type, messages in app.flashes %}
+        {% for message in messages %}
+            <div class="alert alert-{{ type }} alert-dismissible fade show" role="alert">
+                {{ message|raw }} {# Use |raw to render HTML #}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
             </div>
-            <form method="POST" action="#" id="validationForm">
-                <div class="modal-body">
-                    <p>Veuillez sélectionner un personnel et une structure pour valider le doctorant suivant :</p>
-                    <div>
-                        <strong>Doctorant :</strong>
-                        <span id="doctorantName"></span>
-                    </div>
-                    <div class="mt-3">
-                        <label for="personnelSelect" class="form-label">Choisir un Personnel :</label>
-                        <select class="form-select" id="personnelSelect" name="personnel_id" required>
-                            <option value="" selected disabled>-- Sélectionner un personnel --</option>
-                            {% for personnel in personnels %}
-                                <option value="{{ personnel.id }}">{{ personnel.nom }} {{ personnel.prenom }}</option>
-                            {% endfor %}
-                        </select>
-                    </div>
-                    <div class="mt-3">
-                        <label for="structureSelect" class="form-label">Choisir une Structure :</label>
-                        <select class="form-select" id="structureSelect" name="structure_id" required>
-                            <option value="" selected disabled>-- Sélectionner une structure --</option>
-                            {% for structure in structures %}
-                                <option value="{{ structure.id }}">{{ structure.libelleStructure }}</option>
-                            {% endfor %}
-                        </select>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
-                    <button type="submit" class="btn btn-success">Valider</button>
-                </div>
-            </form>
+        {% endfor %}
+    {% endfor %}
+
+    {# Main Card #}
+    <div class="card shadow-lg">
+        {# Card Header #}
+        <div class="card-header bg-gradient-primary text-white d-flex justify-content-between align-items-center">
+            <h4 class="mb-0">Liste des Doctorants</h4>
+            <div class="btn-group">
+                <a href="{{ path('add_doctorant') }}" class="btn btn-light rounded-pill">
+                    <i class="bi bi-plus-circle"></i> Ajouter
+                </a>
+                <a href="{{ path('import_doctorants') }}" class="btn btn-light rounded-pill">
+                    <i class="bi bi-file-earmark-arrow-up"></i> Importer
+                </a>
+                <a href="{{ path('list_validated_doctorants') }}" class="btn btn-primary">
+                    <i class="bi bi-list-check"></i> Voir les Validés
+                </a>
+                <button id="validateSelectedButton" class="btn btn-success">
+                    <i class="bi bi-check-circle-fill"></i> Valider la Sélection
+                </button>
+            </div>
+        </div>
+
+        {# Card Body #}
+        <div class="card-body">
+            <div class="table-responsive">
+                <table id="doctorantsTable" class="table table-bordered text-center align-middle shadow-sm hover stripe">
+                    <thead class="bg-primary text-white">
+                        <tr>
+                            <th><input type="checkbox" id="selectAll" class="form-check-input"></th>
+                            <th>ID</th>
+                            <th>الإسم الشخصي</th>
+                            <th>النسب</th>
+                            <th>Nom</th>
+                            <th>Prénom</th>
+                            <th>CIN</th>
+                            <th>Email</th>
+                            <th>Téléphone</th>
+                            <th>Choix</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for doctorant in doctorants %}
+                            <tr>
+                                <td><input type="checkbox" class="doctorantCheckbox form-check-input" value="{{ doctorant.id }}"></td>
+                                <td>{{ doctorant.id }}</td>
+                                <td>{{ doctorant.prenomArabe }}</td>
+                                <td>{{ doctorant.nomArabe }}</td>
+                                <td>{{ doctorant.nom }}</td>
+                                <td>{{ doctorant.prenom }}</td>
+                                <td>{{ doctorant.cin }}</td>
+                                <td>{{ doctorant.email }}</td>
+                                <td>{{ doctorant.telephone }}</td>
+                                <td>{{ doctorant.choix }}</td>
+                                <td>
+                                    <div class="btn-group" role="group">
+                                        <a href="{{ path('view_doctorant', { id: doctorant.id }) }}" 
+                                           class="btn btn-info btn-sm" 
+                                           title="Voir les détails">
+                                            <i class="bi bi-eye-fill"></i>
+                                        </a>
+                                        <a href="{{ path('edit_doctorant', {id: doctorant.id}) }}" 
+                                           class="btn btn-warning btn-sm"
+                                           title="Modifier">
+                                            <i class="bi bi-pencil-fill"></i>
+                                        </a>
+                                        <button class="btn btn-success btn-sm validate-doctorant-button"
+                                                data-bs-toggle="modal"
+                                                data-bs-target="#validationModal"
+                                                data-doctorant-id="{{ doctorant.id }}"
+                                                data-doctorant-name="{{ doctorant.nom }} {{ doctorant.prenom }}"
+                                                title="Valider">
+                                            <i class="bi bi-check-circle-fill"></i>
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+                        {% else %}
+                            <tr>
+                                <td colspan="11" class="text-muted text-center">Aucun doctorant trouvé.</td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
-</div>
+
+    <!-- Validation Modal -->
+    <div class="modal fade" id="validationModal" tabindex="-1" aria-labelledby="validationModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header bg-primary text-white">
+                    <h5 class="modal-title" id="validationModalLabel">Validation des Doctorants</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <form method="POST" action="#" id="validationForm">
+                    <div class="modal-body">
+                        <div class="mb-3">
+                            <strong>Doctorants sélectionnés :</strong>
+                            <span id="doctorantName" class="ms-2"></span>
+                        </div>
+                        <div class="mb-3">
+                            <label for="personnelSelect" class="form-label">Personnel :</label>
+                            <select class="form-select" id="personnelSelect" name="personnel_id" required>
+                                <option value="" selected disabled>-- Sélectionner un personnel --</option>
+                                {% for personnel in personnels %}
+                                    <option value="{{ personnel.id }}">{{ personnel.nom }} {{ personnel.prenom }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label for="structureSelect" class="form-label">Structure :</label>
+                            <select class="form-select" id="structureSelect" name="structure_id" required>
+                                <option value="" selected disabled>-- Sélectionner une structure --</option>
+                                {% for structure in structures %}
+                                    <option value="{{ structure.id }}">{{ structure.libelleStructure }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
+                        <button type="submit" class="btn btn-success">
+                            <i class="bi bi-check-circle"></i> Valider
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
 {% endblock %}
 
 {% block javascripts %}
-{{ parent() }}
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script src="https://cdn.datatables.net/1.13.1/js/jquery.dataTables.min.js"></script>
-<script>
-    $(document).ready(function () {
-        $('#doctorantsTable').DataTable({
-            language: {
-                url: '//cdn.datatables.net/plug-ins/1.13.1/i18n/fr-FR.json'
-            },
-            responsive: true,
-            autoWidth: false,
-            order: [[0, 'asc']],
+    {{ parent() }}
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.1/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/responsive/2.4.0/js/dataTables.responsive.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            // Initialize DataTable
+            const table = $('#doctorantsTable').DataTable({
+                language: {
+                    url: '//cdn.datatables.net/plug-ins/1.13.1/i18n/fr-FR.json'
+                },
+                responsive: true,
+                autoWidth: false,
+                order: [[1, 'asc']],
+                columnDefs: [
+                    { orderable: false, targets: [0, 10] },
+                    { className: 'text-center', targets: '_all' }
+                ]
+            });
+
+            // Toggle checkbox when row is clicked
+            $('#doctorantsTable tbody').on('click', 'tr', function (e) {
+                if ($(e.target).is('a, button, .form-check-input')) {
+                    return;
+                }
+                const checkbox = $(this).find('.doctorantCheckbox');
+                checkbox.prop('checked', !checkbox.prop('checked')).trigger('change');
+            });
+
+            // Handle select all functionality
+            $('#selectAll').on('change', function () {
+                const isChecked = $(this).prop('checked');
+                $('.doctorantCheckbox').prop('checked', isChecked);
+                toggleValidateButton();
+            });
+
+            // Handle checkbox changes
+            $(document).on('change', '.doctorantCheckbox', function () {
+                const allVisible = $('.doctorantCheckbox:visible').length;
+                const allChecked = $('.doctorantCheckbox:visible:checked').length;
+                $('#selectAll').prop('checked', allVisible === allChecked);
+                toggleValidateButton();
+            });
+
+            // Toggle validate button visibility
+            function toggleValidateButton() {
+                const checkedCount = $('.doctorantCheckbox:checked').length;
+                if (checkedCount > 0) {
+                    $('#validateSelectedButton').show();
+                } else {
+                    $('#validateSelectedButton').hide();
+                }
+            }
+
+            // Handle validation modal for single doctorant
+            $('.validate-doctorant-button').click(function() {
+                const doctorantId = $(this).data('doctorant-id');
+                const doctorantName = $(this).data('doctorant-name');
+                $('#doctorantName').text(doctorantName);
+                $('#validationForm').attr('action', `/validate-doctorant/${doctorantId}`);
+            });
+
+            // Handle validation modal for multiple doctorants
+            $('#validateSelectedButton').click(function() {
+                const selectedIds = $('.doctorantCheckbox:checked').map(function() {
+                    return $(this).val();
+                }).get();
+
+                if (selectedIds.length === 0) {
+                    alert('Veuillez sélectionner au moins un doctorant.');
+                    return;
+                }
+
+                $('#doctorantName').text(`${selectedIds.length} doctorant(s) sélectionné(s)`);
+                $('#validationForm').attr('action', '/validate-multiple-doctorants');
+                $('#validationModal').modal('show');
+            });
+
+            // Handle form submission
+            $('#validationForm').submit(function(e) {
+                if ($(this).attr('action').includes('validate-multiple-doctorants')) {
+                    const selectedIds = $('.doctorantCheckbox:checked').map(function() {
+                        return $(this).val();
+                    }).get();
+
+                    if (selectedIds.length === 0) {
+                        e.preventDefault();
+                        alert('Aucun doctorant sélectionné.');
+                        return;
+                    }
+
+                    // Remove any existing hidden inputs
+                    $(this).find('input[name="doctorant_ids[]"]').remove();
+
+                    // Add hidden inputs for selected IDs
+                    selectedIds.forEach(id => {
+                        $('<input>').attr({
+                            type: 'hidden',
+                            name: 'doctorant_ids[]',
+                            value: id
+                        }).appendTo(this);
+                    });
+                }
+            });
+
+            // Initial check for validate button visibility
+            toggleValidateButton();
+
+            // Handle DataTable page changes
+            table.on('page.dt', function () {
+                $('#selectAll').prop('checked', false);
+                toggleValidateButton();
+            });
         });
-    });
-
-    document.addEventListener('DOMContentLoaded', function () {
-        const validationModal = document.getElementById('validationModal');
-
-        validationModal.addEventListener('show.bs.modal', function (event) {
-            const button = event.relatedTarget;
-            const doctorantId = button.getAttribute('data-doctorant-id');
-            const doctorantName = button.getAttribute('data-doctorant-name');
-
-            const doctorantNameSpan = document.getElementById('doctorantName');
-            doctorantNameSpan.textContent = doctorantName;
-
-            const validationForm = document.getElementById('validationForm');
-            validationForm.action = "{{ path('validate_doctorant', { id: 'doctorantId' }) }}".replace('doctorantId', doctorantId);
-        });
-    });
-</script>
+    </script>
 {% endblock %}
