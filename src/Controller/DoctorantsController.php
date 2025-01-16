@@ -4,13 +4,11 @@ namespace App\Controller;
 
 use App\Entity\Doctorants;
 use App\Entity\ValidatedDoctorants;
-
 use App\Form\DoctorantsType;
 use App\Repository\DoctorantsRepository;
 use App\Repository\ValidatedDoctorantsRepository;
 use App\Repository\PersonnelRepository;
 use App\Repository\StructRechRepository;
-
 use Doctrine\ORM\EntityManagerInterface;
 use PhpOffice\PhpSpreadsheet\IOFactory;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -21,6 +19,14 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class DoctorantsController extends AbstractController
 {
+    /**
+     * Route to add a new doctorant.
+     * Handles the form submission and persists the new doctorant to the database.
+     *
+     * @param Request $request
+     * @param EntityManagerInterface $entityManager
+     * @return Response
+     */
     #[Route('/add-doctorant', name: 'add_doctorant')]
     public function addDoctorant(Request $request, EntityManagerInterface $entityManager): Response
     {
@@ -42,6 +48,15 @@ class DoctorantsController extends AbstractController
         ]);
     }
 
+    /**
+     * Route to list all doctorants.
+     * Fetches and displays all doctorants, personnel, and research structures.
+     *
+     * @param DoctorantsRepository $doctorantsRepository
+     * @param PersonnelRepository $personnelRepository
+     * @param StructRechRepository $structRechRepository
+     * @return Response
+     */
     #[Route('/list-doctorants', name: 'list_doctorants')]
     public function listDoctorants(
         DoctorantsRepository $doctorantsRepository,
@@ -58,9 +73,17 @@ class DoctorantsController extends AbstractController
             'structures' => $structures,
         ]);
     }
-    
-    
 
+    /**
+     * Route to edit an existing doctorant.
+     * Fetches the doctorant by ID, handles the form submission, and updates the doctorant in the database.
+     *
+     * @param int $id
+     * @param Request $request
+     * @param EntityManagerInterface $entityManager
+     * @param DoctorantsRepository $doctorantsRepository
+     * @return Response
+     */
     #[Route('/edit-doctorant/{id}', name: 'edit_doctorant')]
     public function editDoctorant(
         int $id,
@@ -68,7 +91,6 @@ class DoctorantsController extends AbstractController
         EntityManagerInterface $entityManager,
         DoctorantsRepository $doctorantsRepository
     ): Response {
-        // Fetch the entity
         $doctorant = $doctorantsRepository->find($id);
     
         if (!$doctorant) {
@@ -76,18 +98,15 @@ class DoctorantsController extends AbstractController
             return $this->redirectToRoute('list_doctorants');
         }
     
-        // Create and bind the form
         $form = $this->createForm(DoctorantsType::class, $doctorant);
         $form->handleRequest($request);
     
         if ($form->isSubmitted() && $form->isValid()) {
             try {
-                // Ensure Doctrine tracks the entity
                 if (!$entityManager->contains($doctorant)) {
                     $doctorant = $entityManager->merge($doctorant);
                 }
     
-                // Flush the changes
                 $entityManager->flush();
     
                 $this->addFlash('success', 'Doctorant mis à jour avec succès!');
@@ -103,9 +122,16 @@ class DoctorantsController extends AbstractController
             'doctorant' => $doctorant,
         ]);
     }
-        
-    
-    
+
+    /**
+     * Route to delete a doctorant.
+     * Fetches the doctorant by ID and removes it from the database.
+     *
+     * @param int $id
+     * @param EntityManagerInterface $entityManager
+     * @param DoctorantsRepository $doctorantsRepository
+     * @return Response
+     */
     #[Route('/delete-doctorant/{id}', name: 'delete_doctorant')]
     public function deleteDoctorant(
         int $id,
@@ -113,7 +139,6 @@ class DoctorantsController extends AbstractController
         DoctorantsRepository $doctorantsRepository
     ): Response {
         try {
-            // Fetch the entity directly from the database
             $doctorant = $doctorantsRepository->find($id);
     
             if (!$doctorant) {
@@ -121,10 +146,7 @@ class DoctorantsController extends AbstractController
                 return $this->redirectToRoute('list_doctorants');
             }
     
-            // Explicitly ensure the entity is managed
             $doctorant = $entityManager->merge($doctorant);
-    
-            // Proceed to remove the entity
             $entityManager->remove($doctorant);
             $entityManager->flush();
     
@@ -137,8 +159,15 @@ class DoctorantsController extends AbstractController
     
         return $this->redirectToRoute('list_doctorants');
     }
-    
 
+    /**
+     * Route to import doctorants from an Excel file.
+     * Handles the file upload, processes the data, and persists new doctorants to the database.
+     *
+     * @param Request $request
+     * @param EntityManagerInterface $entityManager
+     * @return Response
+     */
     #[Route('/import-doctorants', name: 'import_doctorants')]
     public function importDoctorants(Request $request, EntityManagerInterface $entityManager): Response
     {
@@ -279,27 +308,26 @@ class DoctorantsController extends AbstractController
     
         return $this->render('doctorants/import_doctorants.html.twig');
     }
-    
-    
+
+    /**
+     * Route to display statistics about doctorants.
+     * Fetches and calculates various statistics such as gender distribution, nationality distribution, etc.
+     *
+     * @param EntityManagerInterface $entityManager
+     * @return Response
+     */
     #[Route('/doctorants-statistiques', name: 'doctorants_statistiques')]
     public function statistiques(EntityManagerInterface $entityManager): Response
     {
-        // Fetch total number of doctorants
         $totalDoctorants = $entityManager->getRepository(Doctorants::class)->count([]);
-    
-        // Fetch number of validated doctorants
         $validatedDoctorants = $entityManager->getRepository(ValidatedDoctorants::class)->count([]);
-    
-        // Calculate non-validated doctorants
         $nonValidatedDoctorants = $totalDoctorants - $validatedDoctorants;
     
-        // Fetch data for Répartition par Genre
         $genderDistribution = [
             'MASCULIN' => $entityManager->getRepository(Doctorants::class)->count(['sexe' => 'MASCULIN']),
             'FEMININ' => $entityManager->getRepository(Doctorants::class)->count(['sexe' => 'FEMININ']),
         ];
     
-        // Fetch data for Répartition par Nationalité
         $nationalityDistribution = $entityManager->createQueryBuilder()
             ->select('d.nationalite AS nationality, COUNT(d.id) AS count')
             ->from(Doctorants::class, 'd')
@@ -311,7 +339,6 @@ class DoctorantsController extends AbstractController
         $nationalityLabels = array_column($nationalityDistribution, 'nationality');
         $nationalityCounts = array_column($nationalityDistribution, 'count');
     
-        // Fetch data for Bac Mentions
         $bacMentions = $entityManager->createQueryBuilder()
             ->select('d.mentionBac AS mention, COUNT(d.id) AS count')
             ->from(Doctorants::class, 'd')
@@ -323,7 +350,6 @@ class DoctorantsController extends AbstractController
         $bacMentionLabels = array_column($bacMentions, 'mention');
         $bacMentionCounts = array_column($bacMentions, 'count');
     
-        // Fetch average Bac and Master Notes
         $averageBacNote = (float)$entityManager->createQueryBuilder()
             ->select('AVG(d.noteBac)')
             ->from(Doctorants::class, 'd')
@@ -336,11 +362,10 @@ class DoctorantsController extends AbstractController
             ->getQuery()
             ->getSingleScalarResult();
     
-        // Prepare data for the template
         $data = [
-            'totalDoctorants' => $totalDoctorants, // Add total doctorants
-            'validatedDoctorants' => $validatedDoctorants, // Add validated doctorants
-            'nonValidatedDoctorants' => $nonValidatedDoctorants, // Add non-validated doctorants
+            'totalDoctorants' => $totalDoctorants,
+            'validatedDoctorants' => $validatedDoctorants,
+            'nonValidatedDoctorants' => $nonValidatedDoctorants,
             'genderDistribution' => $genderDistribution,
             'nationalityDistribution' => [
                 'labels' => $nationalityLabels,
@@ -358,9 +383,16 @@ class DoctorantsController extends AbstractController
             'data' => $data,
         ]);
     }
-    
-    
 
+    /**
+     * Route to view details of a specific doctorant.
+     * Fetches and displays the doctorant's details along with their validation history.
+     *
+     * @param int $id
+     * @param DoctorantsRepository $doctorantsRepository
+     * @param ValidatedDoctorantsRepository $validatedDoctorantsRepository
+     * @return Response
+     */
     #[Route('/view-doctorant/{id}', name: 'view_doctorant')]
     public function viewDoctorant(
         int $id,
@@ -373,7 +405,6 @@ class DoctorantsController extends AbstractController
             throw $this->createNotFoundException('Doctorant introuvable.');
         }
     
-        // Fetch all validations for this doctorant
         $validatedDoctorants = $validatedDoctorantsRepository->findBy(['doctorant' => $doctorant]);
     
         return $this->render('doctorants/view_doctorant.html.twig', [
@@ -381,25 +412,20 @@ class DoctorantsController extends AbstractController
             'validatedDoctorants' => $validatedDoctorants,
         ]);
     }
-    
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    /**
+     * Route to validate a doctorant.
+     * Handles the validation of a doctorant by associating them with personnel and a research structure.
+     *
+     * @param Request $request
+     * @param DoctorantsRepository $doctorantsRepository
+     * @param ValidatedDoctorantsRepository $validatedDoctorantsRepository
+     * @param PersonnelRepository $personnelRepository
+     * @param StructRechRepository $structRechRepository
+     * @param EntityManagerInterface $entityManager
+     * @param int $id
+     * @return Response
+     */
     #[Route('/validate-doctorant/{id}', name: 'validate_doctorant', methods: ['POST'])]
     public function validateDoctorant(
         Request $request,
@@ -477,15 +503,17 @@ class DoctorantsController extends AbstractController
     
         return $this->redirectToRoute('list_doctorants');
     }
-    
-    
 
-    
-
+    /**
+     * Route to list all validated doctorants.
+     * Fetches and displays all doctorants that have been validated.
+     *
+     * @param ValidatedDoctorantsRepository $validatedDoctorantsRepository
+     * @return Response
+     */
     #[Route('/list-validated-doctorants', name: 'list_validated_doctorants')]
     public function listValidatedDoctorants(ValidatedDoctorantsRepository $validatedDoctorantsRepository): Response {
         try {
-            // Fetch all validated doctorants from the repository
             $validatedDoctorants = $validatedDoctorantsRepository->findAll();
 
             return $this->render('doctorants/list_validated_doctorants.html.twig', [
@@ -497,6 +525,18 @@ class DoctorantsController extends AbstractController
         }
     }
 
+    /**
+     * Route to validate multiple doctorants at once.
+     * Handles the validation of multiple doctorants by associating them with personnel and a research structure.
+     *
+     * @param Request $request
+     * @param DoctorantsRepository $doctorantsRepository
+     * @param ValidatedDoctorantsRepository $validatedDoctorantsRepository
+     * @param PersonnelRepository $personnelRepository
+     * @param StructRechRepository $structRechRepository
+     * @param EntityManagerInterface $entityManager
+     * @return Response
+     */
     #[Route('/validate-multiple-doctorants', name: 'validate_multiple_doctorants', methods: ['POST'])]
     public function validateMultipleDoctorants(
         Request $request,
@@ -555,7 +595,6 @@ class DoctorantsController extends AbstractController
     
                 $entityManager->persist($validatedDoctorant);
     
-                // Include clickable link for the validated doctorant
                 $validatedDoctorants[] = sprintf(
                     '<a href="/view-doctorant/%d" class="flash-link">%s</a>',
                     $doctorant->getId(),
@@ -601,5 +640,4 @@ class DoctorantsController extends AbstractController
     
         return $this->redirectToRoute('list_doctorants');
     }
-    
 }

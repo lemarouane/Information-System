@@ -747,11 +747,7 @@ or ("ROLE_DIR_ADJ" in app.user.roles) or ("ROLE_RH" in app.user.roles) or ("ROLE
             <div class="menu-title">{{ 'Recherche'|trans }}</div>
         </a>
         <ul>
-            <li>
-                <a id="add_doctorant" href="{{ path('add_doctorant') }}">
-                    <i class="bi bi-plus-circle"></i>{{ 'Ajouter Doctorant'|trans }}
-                </a>
-            </li>
+
             <li>
                 <a id="import_doctorants" href="{{ path('import_doctorants') }}">
                     <i class="bi bi-upload"></i>{{ 'Importer Doctorant'|trans }}

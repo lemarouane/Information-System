@@ -66,6 +66,14 @@
     {# Breadcrumb #}
     <div class="page-breadcrumb d-none d-sm-flex align-items-center mb-3">
         <div class="breadcrumb-title pe-3">Liste des Doctorants</div>
+        <div class="ps-3">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb mb-0 p-0">
+                    <li class="breadcrumb-item"><a href="javascript:;"><i class="bx bx-home-alt"></i></a></li>
+                    <li class="breadcrumb-item active" aria-current="page">Liste des Doctorants</li>
+                </ol>
+            </nav>
+        </div>
     </div>
 
     {# Flash Messages #}
@@ -79,23 +87,27 @@
     {% endfor %}
 
     {# Main Card #}
-    <div class="card shadow-lg">
+    <div class="card border shadow-none">
         {# Card Header #}
-        <div class="card-header bg-gradient-primary text-white d-flex justify-content-between align-items-center">
-            <h4 class="mb-0">Liste des Doctorants</h4>
-            <div class="btn-group">
-                <a href="{{ path('add_doctorant') }}" class="btn btn-light rounded-pill">
-                    <i class="bi bi-plus-circle"></i> Ajouter
-                </a>
-                <a href="{{ path('import_doctorants') }}" class="btn btn-light rounded-pill">
-                    <i class="bi bi-file-earmark-arrow-up"></i> Importer
-                </a>
-                <a href="{{ path('list_validated_doctorants') }}" class="btn btn-primary">
-                    <i class="bi bi-list-check"></i> Voir les Validés
-                </a>
-                <button id="validateSelectedButton" class="btn btn-success">
-                    <i class="bi bi-check-circle-fill"></i> Valider la Sélection
-                </button>
+        <div class="card-header py-3">
+            <div class="row align-items-center g-3">
+                <div class="col-12 col-lg-6">
+                    <h5 class="mb-0">Liste des Doctorants</h5>
+                </div>
+                <div class="col-12 col-lg-6 text-md-end">
+                    <div class="btn-group">
+
+                        <a href="{{ path('import_doctorants') }}" class="btn btn-light rounded-pill">
+                            <i class="bi bi-file-earmark-arrow-up"></i> Importer
+                        </a>
+                        <a href="{{ path('list_validated_doctorants') }}" class="btn btn-primary">
+                            <i class="bi bi-list-check"></i> Voir les doctorants Validés
+                        </a>
+                        <button id="validateSelectedButton" class="btn btn-success">
+                            <i class="bi bi-check-circle-fill"></i> Valider la Sélection
+                        </button>
+                    </div>
+                </div>
             </div>
         </div>
 
@@ -327,4 +339,4 @@
             });
         });
     </script>
-{% endblock %}                      
+{% endblock %}
