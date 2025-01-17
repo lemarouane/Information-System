@@ -271,7 +271,23 @@
         // Handle "Select All" functionality
         $('#selectAll').on('change', function () {
             const isChecked = $(this).prop('checked');
-            $('.doctorantCheckbox').prop('checked', isChecked).trigger('change');
+
+            // Clear the selectedDoctorantIds array if unchecking
+            if (!isChecked) {
+                selectedDoctorantIds = [];
+            } else {
+                // Select all doctorants across all pages
+                table.rows({ search: 'applied' }).every(function () {
+                    const doctorantId = $(this.node()).find('.doctorantCheckbox').val();
+                    if (!selectedDoctorantIds.includes(doctorantId)) {
+                        selectedDoctorantIds.push(doctorantId);
+                    }
+                });
+            }
+
+            // Update checkbox states on the current page
+            $('.doctorantCheckbox').prop('checked', isChecked);
+            toggleValidateButton();
         });
 
         // Handle individual checkbox changes
@@ -283,6 +299,7 @@
                 }
             } else {
                 selectedDoctorantIds = selectedDoctorantIds.filter(id => id !== doctorantId);
+                $('#selectAll').prop('checked', false); // Uncheck "Select All" if any checkbox is unchecked
             }
             toggleValidateButton();
         });
