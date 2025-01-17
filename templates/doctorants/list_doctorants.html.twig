@@ -228,115 +228,126 @@
     <script src="https://cdn.datatables.net/1.13.1/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/responsive/2.4.0/js/dataTables.responsive.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    <script>
-        $(document).ready(function () {
-            // Initialize DataTable
-            const table = $('#doctorantsTable').DataTable({
-                language: {
-                    url: '//cdn.datatables.net/plug-ins/1.13.1/i18n/fr-FR.json'
-                },
-                responsive: true,
-                autoWidth: false,
-                order: [[1, 'asc']],
-                columnDefs: [
-                    { orderable: false, targets: [0, 10] },
-                    { className: 'text-center', targets: '_all' }
-                ]
-            });
+<script>
+    $(document).ready(function () {
+        // Global variable to store selected doctorant IDs
+        let selectedDoctorantIds = [];
 
-            // Toggle checkbox when row is clicked
-            $('#doctorantsTable tbody').on('click', 'tr', function (e) {
-                if ($(e.target).is('a, button, .form-check-input')) {
-                    return;
-                }
-                const checkbox = $(this).find('.doctorantCheckbox');
-                checkbox.prop('checked', !checkbox.prop('checked')).trigger('change');
-            });
-
-            // Handle select all functionality
-            $('#selectAll').on('change', function () {
-                const isChecked = $(this).prop('checked');
-                $('.doctorantCheckbox').prop('checked', isChecked);
+        // Initialize DataTable
+        const table = $('#doctorantsTable').DataTable({
+            language: {
+                url: '//cdn.datatables.net/plug-ins/1.13.1/i18n/fr-FR.json'
+            },
+            responsive: true,
+            autoWidth: false,
+            order: [[1, 'asc']],
+            columnDefs: [
+                { orderable: false, targets: [0, 10] }, // Disable sorting for checkbox and actions columns
+                { className: 'text-center', targets: '_all' } // Center-align all columns
+            ],
+            drawCallback: function () {
+                // Update checkbox states based on selectedDoctorantIds
+                $('.doctorantCheckbox').each(function () {
+                    const doctorantId = $(this).val();
+                    if (selectedDoctorantIds.includes(doctorantId)) {
+                        $(this).prop('checked', true);
+                    } else {
+                        $(this).prop('checked', false);
+                    }
+                });
                 toggleValidateButton();
-            });
+            }
+        });
 
-            // Handle checkbox changes
-            $(document).on('change', '.doctorantCheckbox', function () {
-                const allVisible = $('.doctorantCheckbox:visible').length;
-                const allChecked = $('.doctorantCheckbox:visible:checked').length;
-                $('#selectAll').prop('checked', allVisible === allChecked);
-                toggleValidateButton();
-            });
+        // Toggle checkbox when row is clicked (excluding links, buttons, and checkboxes)
+        $('#doctorantsTable tbody').on('click', 'tr', function (e) {
+            if ($(e.target).is('a, button, .form-check-input')) {
+                return;
+            }
+            const checkbox = $(this).find('.doctorantCheckbox');
+            checkbox.prop('checked', !checkbox.prop('checked')).trigger('change');
+        });
 
-            // Toggle validate button visibility
-            function toggleValidateButton() {
-                const checkedCount = $('.doctorantCheckbox:checked').length;
-                if (checkedCount > 0) {
-                    $('#validateSelectedButton').show();
-                } else {
-                    $('#validateSelectedButton').hide();
+        // Handle "Select All" functionality
+        $('#selectAll').on('change', function () {
+            const isChecked = $(this).prop('checked');
+            $('.doctorantCheckbox').prop('checked', isChecked).trigger('change');
+        });
+
+        // Handle individual checkbox changes
+        $(document).on('change', '.doctorantCheckbox', function () {
+            const doctorantId = $(this).val();
+            if ($(this).prop('checked')) {
+                if (!selectedDoctorantIds.includes(doctorantId)) {
+                    selectedDoctorantIds.push(doctorantId);
                 }
+            } else {
+                selectedDoctorantIds = selectedDoctorantIds.filter(id => id !== doctorantId);
+            }
+            toggleValidateButton();
+        });
+
+        // Toggle visibility of the "Validate Selected" button
+        function toggleValidateButton() {
+            const checkedCount = selectedDoctorantIds.length;
+            if (checkedCount > 0) {
+                $('#validateSelectedButton').show();
+            } else {
+                $('#validateSelectedButton').hide();
+            }
+        }
+
+        // Handle validation modal for single doctorant
+        $('.validate-doctorant-button').click(function () {
+            const doctorantId = $(this).data('doctorant-id');
+            const doctorantName = $(this).data('doctorant-name');
+            $('#doctorantName').text(doctorantName);
+            $('#validationForm').attr('action', `/validate-doctorant/${doctorantId}`);
+        });
+
+        // Handle validation modal for multiple doctorants
+        $('#validateSelectedButton').click(function () {
+            if (selectedDoctorantIds.length === 0) {
+                alert('Veuillez sélectionner au moins un doctorant.');
+                return;
             }
 
-            // Handle validation modal for single doctorant
-            $('.validate-doctorant-button').click(function() {
-                const doctorantId = $(this).data('doctorant-id');
-                const doctorantName = $(this).data('doctorant-name');
-                $('#doctorantName').text(doctorantName);
-                $('#validationForm').attr('action', `/validate-doctorant/${doctorantId}`);
-            });
+            $('#doctorantName').text(`${selectedDoctorantIds.length} doctorant(s) sélectionné(s)`);
+            $('#validationForm').attr('action', '/validate-multiple-doctorants');
+            $('#validationModal').modal('show');
+        });
 
-            // Handle validation modal for multiple doctorants
-            $('#validateSelectedButton').click(function() {
-                const selectedIds = $('.doctorantCheckbox:checked').map(function() {
-                    return $(this).val();
-                }).get();
-
-                if (selectedIds.length === 0) {
-                    alert('Veuillez sélectionner au moins un doctorant.');
+        // Handle form submission for multiple doctorants
+        $('#validationForm').submit(function (e) {
+            if ($(this).attr('action').includes('validate-multiple-doctorants')) {
+                if (selectedDoctorantIds.length === 0) {
+                    e.preventDefault();
+                    alert('Aucun doctorant sélectionné.');
                     return;
                 }
 
-                $('#doctorantName').text(`${selectedIds.length} doctorant(s) sélectionné(s)`);
-                $('#validationForm').attr('action', '/validate-multiple-doctorants');
-                $('#validationModal').modal('show');
-            });
+                // Remove any existing hidden inputs
+                $(this).find('input[name="doctorant_ids[]"]').remove();
 
-            // Handle form submission
-            $('#validationForm').submit(function(e) {
-                if ($(this).attr('action').includes('validate-multiple-doctorants')) {
-                    const selectedIds = $('.doctorantCheckbox:checked').map(function() {
-                        return $(this).val();
-                    }).get();
-
-                    if (selectedIds.length === 0) {
-                        e.preventDefault();
-                        alert('Aucun doctorant sélectionné.');
-                        return;
-                    }
-
-                    // Remove any existing hidden inputs
-                    $(this).find('input[name="doctorant_ids[]"]').remove();
-
-                    // Add hidden inputs for selected IDs
-                    selectedIds.forEach(id => {
-                        $('<input>').attr({
-                            type: 'hidden',
-                            name: 'doctorant_ids[]',
-                            value: id
-                        }).appendTo(this);
-                    });
-                }
-            });
-
-            // Initial check for validate button visibility
-            toggleValidateButton();
-
-            // Handle DataTable page changes
-            table.on('page.dt', function () {
-                $('#selectAll').prop('checked', false);
-                toggleValidateButton();
-            });
+                // Add hidden inputs for selected IDs
+                selectedDoctorantIds.forEach(id => {
+                    $('<input>').attr({
+                        type: 'hidden',
+                        name: 'doctorant_ids[]',
+                        value: id
+                    }).appendTo(this);
+                });
+            }
         });
-    </script>
+
+        // Initial check for validate button visibility
+        toggleValidateButton();
+
+        // Handle DataTable page changes
+        table.on('page.dt', function () {
+            $('#selectAll').prop('checked', false);
+            toggleValidateButton();
+        });
+    });
+</script>
 {% endblock %}
