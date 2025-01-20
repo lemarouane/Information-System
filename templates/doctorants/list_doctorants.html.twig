@@ -7,51 +7,75 @@
     <link rel="stylesheet" href="https://cdn.datatables.net/1.13.1/css/jquery.dataTables.min.css">
     <link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.4.0/css/responsive.dataTables.min.css">
     <style>
-        .card-header .btn { margin-left: 0.5rem; }
-        #doctorantsTable_wrapper .dataTables_filter { margin-bottom: 20px; }
-        .dataTables_wrapper .dataTables_paginate { margin-top: 10px; }
-        #validateSelectedButton { 
-            display: none;
-            transition: opacity 0.3s ease-in-out;
+        /* General button styles */
+        .btn-custom {
+            border-radius: 8px;
+            padding: 0.5rem 1rem;
+            font-size: 0.9rem;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
         }
-        .table-responsive { overflow-x: auto; }
-        .btn-sm { margin: 0.2rem; }
-        
+
+        /* Filter button */
+        .btn-filter {
+            background-color: #4CAF50; /* Green */
+            color: white;
+            border: none;
+        }
+
+        .btn-filter:hover {
+            background-color: #45a049; /* Darker green */
+        }
+
+        /* Import button */
+        .btn-import {
+            background-color: #2196F3; /* Blue */
+            color: white;
+            border: none;
+        }
+
+        .btn-import:hover {
+            background-color: #1e88e5; /* Darker blue */
+        }
+
+        /* View validated button */
+        .btn-view {
+            background-color: #1e88e5; /* Purple */
+            color: white;
+            border: none;
+        }
+
+        .btn-view:hover {
+            background-color: #1e88e5; /* Darker purple */
+        }
+
+        /* Button group spacing */
+        .btn-group-custom {
+            display: flex;
+            gap: 0.75rem;
+            flex-wrap: wrap;
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .btn-group-custom {
+                flex-direction: column;
+                width: 100%;
+            }
+
+            .btn-custom {
+                width: 100%;
+                justify-content: center;
+            }
+        }
+
         /* Ensure all headers have the same color */
         #doctorantsTable thead th {
             background-color: #ff6632; /* Primary color */
             color: white; /* Text color */
-        }
-
-        /* Responsive improvements */
-        @media (max-width: 768px) {
-            .card-header { flex-direction: column; gap: 1rem; }
-            .card-header .btn-group { display: flex; flex-wrap: wrap; gap: 0.5rem; }
-        }
-
-        /* Modern clickable link styling */
-        .flash-link {
-            color: #fff; /* Text color */
-            background-color: #17a2b8; /* Button background */
-            padding: 0.3rem 0.5rem; /* Add padding */
-            border-radius: 5px; /* Rounded corners */
-            text-decoration: none; /* Remove underline */
-            font-weight: bold; /* Bold text */
-            transition: all 0.2s ease-in-out; /* Smooth transition */
-            display: inline-block; /* Ensure proper spacing */
-        }
-
-        .flash-link:hover {
-            background-color: #138496; /* Darker shade on hover */
-            text-decoration: none; /* Prevent underline on hover */
-            color: #fff; /* Ensure text remains visible */
-        }
-
-        /* Increase the size of checkboxes */
-        .doctorantCheckbox {
-            width: 20px;
-            height: 20px;
-            cursor: pointer;
         }
 
         /* Highlight row on hover for better visibility */
@@ -94,18 +118,32 @@
                 <div class="col-12 col-lg-6">
                     <h5 class="mb-0">Liste des Doctorants</h5>
                 </div>
-                <div class="col-12 col-lg-6 text-md-end">
-                    <div class="btn-group">
+                <div class="col-12 col-lg-6">
+                    <div class="d-flex flex-column flex-lg-row justify-content-lg-end gap-3">
+                        {# Filter Form #}
+                        <form method="get" action="{{ path('list_doctorants') }}" class="d-flex align-items-center">
+                            <select name="dateEnvoi" class="form-select me-2">
+                                <option value="" {% if not dateFilter %}selected{% endif %}>Tous</option>
+                                <option value="2024" {% if dateFilter == '2024' %}selected{% endif %}>2024</option>
+                                <option value="2025" {% if dateFilter == '2025' %}selected{% endif %}>2025</option>
+                            </select>
+                            <button type="submit" class="btn btn-custom btn-filter">
+                                <i class="bi bi-search"></i> Filtrer
+                            </button>
+                        </form>
 
-                        <a href="{{ path('import_doctorants') }}" class="btn btn-light rounded-pill">
-                            <i class="bi bi-file-earmark-arrow-up"></i> Importer
-                        </a>
-                        <a href="{{ path('list_validated_doctorants') }}" class="btn btn-primary">
-                            <i class="bi bi-list-check"></i> Voir les doctorants Validés
-                        </a>
-                        <button id="validateSelectedButton" class="btn btn-success">
-                            <i class="bi bi-check-circle-fill"></i> Valider la Sélection
-                        </button>
+                        {# Buttons Group #}
+                        <div class="btn-group-custom">
+                            <a href="{{ path('import_doctorants') }}" class="btn btn-custom btn-import">
+                                <i class="bi bi-file-earmark-arrow-up"></i> Importer
+                            </a>
+                            <a href="{{ path('list_validated_doctorants') }}" class="btn btn-custom btn-view">
+                                <i class="bi bi-list-check"></i> Voir les doctorants Validés
+                            </a>
+                            <button id="validateSelectedButton" class="btn btn-custom btn-success">
+                                <i class="bi bi-check-circle-fill"></i> Valider la Sélection
+                            </button>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -228,143 +266,143 @@
     <script src="https://cdn.datatables.net/1.13.1/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/responsive/2.4.0/js/dataTables.responsive.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-<script>
-    $(document).ready(function () {
-        // Global variable to store selected doctorant IDs
-        let selectedDoctorantIds = [];
+    <script>
+        $(document).ready(function () {
+            // Global variable to store selected doctorant IDs
+            let selectedDoctorantIds = [];
 
-        // Initialize DataTable
-        const table = $('#doctorantsTable').DataTable({
-            language: {
-                url: '//cdn.datatables.net/plug-ins/1.13.1/i18n/fr-FR.json'
-            },
-            responsive: true,
-            autoWidth: false,
-            order: [[1, 'asc']],
-            columnDefs: [
-                { orderable: false, targets: [0, 10] }, // Disable sorting for checkbox and actions columns
-                { className: 'text-center', targets: '_all' } // Center-align all columns
-            ],
-            drawCallback: function () {
-                // Update checkbox states based on selectedDoctorantIds
-                $('.doctorantCheckbox').each(function () {
-                    const doctorantId = $(this).val();
-                    if (selectedDoctorantIds.includes(doctorantId)) {
-                        $(this).prop('checked', true);
-                    } else {
-                        $(this).prop('checked', false);
-                    }
-                });
+            // Initialize DataTable
+            const table = $('#doctorantsTable').DataTable({
+                language: {
+                    url: '//cdn.datatables.net/plug-ins/1.13.1/i18n/fr-FR.json'
+                },
+                responsive: true,
+                autoWidth: false,
+                order: [[1, 'asc']],
+                columnDefs: [
+                    { orderable: false, targets: [0, 10] }, // Disable sorting for checkbox and actions columns
+                    { className: 'text-center', targets: '_all' } // Center-align all columns
+                ],
+                drawCallback: function () {
+                    // Update checkbox states based on selectedDoctorantIds
+                    $('.doctorantCheckbox').each(function () {
+                        const doctorantId = $(this).val();
+                        if (selectedDoctorantIds.includes(doctorantId)) {
+                            $(this).prop('checked', true);
+                        } else {
+                            $(this).prop('checked', false);
+                        }
+                    });
+                    toggleValidateButton();
+                }
+            });
+
+            // Toggle checkbox when row is clicked (excluding links, buttons, and checkboxes)
+            $('#doctorantsTable tbody').on('click', 'tr', function (e) {
+                if ($(e.target).is('a, button, .form-check-input')) {
+                    return;
+                }
+                const checkbox = $(this).find('.doctorantCheckbox');
+                checkbox.prop('checked', !checkbox.prop('checked')).trigger('change');
+            });
+
+            // Handle "Select All" functionality
+            $('#selectAll').on('change', function () {
+                const isChecked = $(this).prop('checked');
+
+                // Clear the selectedDoctorantIds array if unchecking
+                if (!isChecked) {
+                    selectedDoctorantIds = [];
+                } else {
+                    // Select all doctorants across all pages
+                    table.rows({ search: 'applied' }).every(function () {
+                        const doctorantId = $(this.node()).find('.doctorantCheckbox').val();
+                        if (!selectedDoctorantIds.includes(doctorantId)) {
+                            selectedDoctorantIds.push(doctorantId);
+                        }
+                    });
+                }
+
+                // Update checkbox states on the current page
+                $('.doctorantCheckbox').prop('checked', isChecked);
                 toggleValidateButton();
-            }
-        });
+            });
 
-        // Toggle checkbox when row is clicked (excluding links, buttons, and checkboxes)
-        $('#doctorantsTable tbody').on('click', 'tr', function (e) {
-            if ($(e.target).is('a, button, .form-check-input')) {
-                return;
-            }
-            const checkbox = $(this).find('.doctorantCheckbox');
-            checkbox.prop('checked', !checkbox.prop('checked')).trigger('change');
-        });
-
-        // Handle "Select All" functionality
-        $('#selectAll').on('change', function () {
-            const isChecked = $(this).prop('checked');
-
-            // Clear the selectedDoctorantIds array if unchecking
-            if (!isChecked) {
-                selectedDoctorantIds = [];
-            } else {
-                // Select all doctorants across all pages
-                table.rows({ search: 'applied' }).every(function () {
-                    const doctorantId = $(this.node()).find('.doctorantCheckbox').val();
+            // Handle individual checkbox changes
+            $(document).on('change', '.doctorantCheckbox', function () {
+                const doctorantId = $(this).val();
+                if ($(this).prop('checked')) {
                     if (!selectedDoctorantIds.includes(doctorantId)) {
                         selectedDoctorantIds.push(doctorantId);
                     }
-                });
-            }
-
-            // Update checkbox states on the current page
-            $('.doctorantCheckbox').prop('checked', isChecked);
-            toggleValidateButton();
-        });
-
-        // Handle individual checkbox changes
-        $(document).on('change', '.doctorantCheckbox', function () {
-            const doctorantId = $(this).val();
-            if ($(this).prop('checked')) {
-                if (!selectedDoctorantIds.includes(doctorantId)) {
-                    selectedDoctorantIds.push(doctorantId);
+                } else {
+                    selectedDoctorantIds = selectedDoctorantIds.filter(id => id !== doctorantId);
+                    $('#selectAll').prop('checked', false); // Uncheck "Select All" if any checkbox is unchecked
                 }
-            } else {
-                selectedDoctorantIds = selectedDoctorantIds.filter(id => id !== doctorantId);
-                $('#selectAll').prop('checked', false); // Uncheck "Select All" if any checkbox is unchecked
-            }
-            toggleValidateButton();
-        });
+                toggleValidateButton();
+            });
 
-        // Toggle visibility of the "Validate Selected" button
-        function toggleValidateButton() {
-            const checkedCount = selectedDoctorantIds.length;
-            if (checkedCount > 0) {
-                $('#validateSelectedButton').show();
-            } else {
-                $('#validateSelectedButton').hide();
-            }
-        }
-
-        // Handle validation modal for single doctorant
-        $('.validate-doctorant-button').click(function () {
-            const doctorantId = $(this).data('doctorant-id');
-            const doctorantName = $(this).data('doctorant-name');
-            $('#doctorantName').text(doctorantName);
-            $('#validationForm').attr('action', `/validate-doctorant/${doctorantId}`);
-        });
-
-        // Handle validation modal for multiple doctorants
-        $('#validateSelectedButton').click(function () {
-            if (selectedDoctorantIds.length === 0) {
-                alert('Veuillez sélectionner au moins un doctorant.');
-                return;
+            // Toggle visibility of the "Validate Selected" button
+            function toggleValidateButton() {
+                const checkedCount = selectedDoctorantIds.length;
+                if (checkedCount > 0) {
+                    $('#validateSelectedButton').show();
+                } else {
+                    $('#validateSelectedButton').hide();
+                }
             }
 
-            $('#doctorantName').text(`${selectedDoctorantIds.length} doctorant(s) sélectionné(s)`);
-            $('#validationForm').attr('action', '/validate-multiple-doctorants');
-            $('#validationModal').modal('show');
-        });
+            // Handle validation modal for single doctorant
+            $('.validate-doctorant-button').click(function () {
+                const doctorantId = $(this).data('doctorant-id');
+                const doctorantName = $(this).data('doctorant-name');
+                $('#doctorantName').text(doctorantName);
+                $('#validationForm').attr('action', `/validate-doctorant/${doctorantId}`);
+            });
 
-        // Handle form submission for multiple doctorants
-        $('#validationForm').submit(function (e) {
-            if ($(this).attr('action').includes('validate-multiple-doctorants')) {
+            // Handle validation modal for multiple doctorants
+            $('#validateSelectedButton').click(function () {
                 if (selectedDoctorantIds.length === 0) {
-                    e.preventDefault();
-                    alert('Aucun doctorant sélectionné.');
+                    alert('Veuillez sélectionner au moins un doctorant.');
                     return;
                 }
 
-                // Remove any existing hidden inputs
-                $(this).find('input[name="doctorant_ids[]"]').remove();
+                $('#doctorantName').text(`${selectedDoctorantIds.length} doctorant(s) sélectionné(s)`);
+                $('#validationForm').attr('action', '/validate-multiple-doctorants');
+                $('#validationModal').modal('show');
+            });
 
-                // Add hidden inputs for selected IDs
-                selectedDoctorantIds.forEach(id => {
-                    $('<input>').attr({
-                        type: 'hidden',
-                        name: 'doctorant_ids[]',
-                        value: id
-                    }).appendTo(this);
-                });
-            }
-        });
+            // Handle form submission for multiple doctorants
+            $('#validationForm').submit(function (e) {
+                if ($(this).attr('action').includes('validate-multiple-doctorants')) {
+                    if (selectedDoctorantIds.length === 0) {
+                        e.preventDefault();
+                        alert('Aucun doctorant sélectionné.');
+                        return;
+                    }
 
-        // Initial check for validate button visibility
-        toggleValidateButton();
+                    // Remove any existing hidden inputs
+                    $(this).find('input[name="doctorant_ids[]"]').remove();
 
-        // Handle DataTable page changes
-        table.on('page.dt', function () {
-            $('#selectAll').prop('checked', false);
+                    // Add hidden inputs for selected IDs
+                    selectedDoctorantIds.forEach(id => {
+                        $('<input>').attr({
+                            type: 'hidden',
+                            name: 'doctorant_ids[]',
+                            value: id
+                        }).appendTo(this);
+                    });
+                }
+            });
+
+            // Initial check for validate button visibility
             toggleValidateButton();
+
+            // Handle DataTable page changes
+            table.on('page.dt', function () {
+                $('#selectAll').prop('checked', false);
+                toggleValidateButton();
+            });
         });
-    });
-</script>
+    </script>
 {% endblock %}

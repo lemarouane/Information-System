@@ -61,9 +61,14 @@ class DoctorantsController extends AbstractController
     public function listDoctorants(
         DoctorantsRepository $doctorantsRepository,
         PersonnelRepository $personnelRepository,
-        StructRechRepository $structRechRepository
+        StructRechRepository $structRechRepository,
+        Request $request
     ): Response {
-        $doctorants = $doctorantsRepository->findAll();
+        $dateFilter = $request->query->get('dateEnvoi', null); // Get the filter from the query string
+    
+        // Fetch filtered doctorants
+        $doctorants = $doctorantsRepository->findByDateEnvoi($dateFilter);
+    
         $personnels = $personnelRepository->findAll();
         $structures = $structRechRepository->findAll();
     
@@ -71,8 +76,10 @@ class DoctorantsController extends AbstractController
             'doctorants' => $doctorants,
             'personnels' => $personnels,
             'structures' => $structures,
+            'dateFilter' => $dateFilter, // Pass the current filter to the view
         ]);
     }
+    
 
     /**
      * Route to edit an existing doctorant.
@@ -279,6 +286,7 @@ class DoctorantsController extends AbstractController
                             $doctorant->setEnseignantChercheur($row[84] ?? '');
                             $doctorant->setChoix($row[85] ?? '');
                             $doctorant->setSujet($row[86] ?? '');
+                            $doctorant->setDateEnvoi($row[87] ?? '');
     
                             $entityManager->persist($doctorant);
                             $importCount++;

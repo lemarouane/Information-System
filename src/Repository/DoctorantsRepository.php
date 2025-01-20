@@ -38,6 +38,20 @@ class DoctorantsRepository extends ServiceEntityRepository
             $this->getEntityManager()->flush();
         }
     }
+    public function findByDateEnvoi(?string $dateEnvoi): array
+{
+    $qb = $this->createQueryBuilder('d');
+
+    if ($dateEnvoi) {
+        $qb->andWhere('d.dateEnvoi = :dateEnvoi')
+           ->setParameter('dateEnvoi', $dateEnvoi);
+    }
+
+    return $qb->orderBy('d.id', 'ASC')
+              ->getQuery()
+              ->getResult();
+}
+
 
 //    /**
 //     * @return Doctorants[] Returns an array of Doctorants objects

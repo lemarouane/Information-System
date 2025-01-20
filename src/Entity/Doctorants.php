@@ -272,6 +272,9 @@ class Doctorants
     #[ORM\Column(length: 255)]
     private ?string $n_etabliss = null;
 
+    #[ORM\Column(length: 255)]
+    private ?string $dateEnvoi = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -1293,6 +1296,18 @@ class Doctorants
     public function setNEtabliss(string $n_etabliss): self
     {
         $this->n_etabliss = $n_etabliss;
+
+        return $this;
+    }
+
+    public function getDateEnvoi(): ?string
+    {
+        return $this->dateEnvoi;
+    }
+
+    public function setDateEnvoi(string $dateEnvoi): self
+    {
+        $this->dateEnvoi = $dateEnvoi;
 
         return $this;
     }
