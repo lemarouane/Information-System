@@ -763,6 +763,11 @@ or ("ROLE_DIR_ADJ" in app.user.roles) or ("ROLE_RH" in app.user.roles) or ("ROLE
                     <i class="bi bi-bar-chart"></i>{{ 'Statistiques'|trans }}
                 </a>
             </li>
+                        <li>
+                <a id="import_scopus_ids" href="{{ path('import_scopus_ids') }}">
+                    <i class="bi bi-upload"></i>{{ 'Importer Scopus IDs'|trans }}
+                </a>
+            </li>
         </ul>
     </li>
 {% endif %}

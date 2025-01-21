@@ -648,4 +648,136 @@ class DoctorantsController extends AbstractController
     
         return $this->redirectToRoute('list_doctorants');
     }
-}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    #[Route('/import-scopus-ids', name: 'import_scopus_ids', methods: ['GET', 'POST'])]
+    public function importScopusIds(Request $request, EntityManagerInterface $entityManager, PersonnelRepository $personnelRepository): Response
+    {
+        if ($request->isMethod('POST')) {
+            /** @var UploadedFile $file */
+            $file = $request->files->get('excel_file');
+    
+            if ($file) {
+                try {
+                    // Load the Excel file
+                    $spreadsheet = IOFactory::load($file->getPathname());
+                    $worksheet = $spreadsheet->getActiveSheet();
+                    $rows = $worksheet->toArray();
+    
+                    // Debug: Log the total number of rows
+                    error_log("Total rows in Excel file: " . count($rows));
+    
+                    // Remove header row
+                    array_shift($rows);
+    
+                    $processed = 0;
+                    $skipped = 0;
+                    $errors = [];
+    
+                    foreach ($rows as $index => $row) {
+                        // Debug: Log the entire row
+                        error_log("Row " . ($index + 2) . ": " . print_r($row, true));
+    
+                        // Ensure the row has at least 5 columns
+                        if (count($row) < 5) {
+                            $errors[] = "Ligne " . ($index + 2) . ": La ligne ne contient pas suffisamment de colonnes.";
+                            $skipped++;
+                            continue;
+                        }
+    
+                        // Trim and convert ID to integer
+                        $id = isset($row[0]) ? (int)trim($row[0]) : null; // Column A: Personnel ID
+                        $scopusId = isset($row[4]) ? trim($row[4]) : null; // Column E: Scopus ID
+    
+                        // Debug: Log the ID and Scopus ID
+                        error_log("ID: " . $id . ", Scopus ID: " . $scopusId);
+    
+                        if (!$id) {
+                            $errors[] = "Ligne " . ($index + 2) . ": ID manquant ou invalide.";
+                            $skipped++;
+                            continue;
+                        }
+    
+                        // Fetch the Personnel by ID
+                        $personnel = $personnelRepository->find($id);
+    
+                        if (!$personnel) {
+                            $errors[] = "Ligne " . ($index + 2) . ": ID $id n'existe pas dans la base de données.";
+                            $skipped++;
+                            continue;
+                        }
+    
+                        // Debug: Log the personnel found
+                        error_log("Personnel trouvé: " . $personnel->getNom() . " " . $personnel->getPrenom());
+    
+                        if ($scopusId) {
+                            $personnel->setScopusId($scopusId);
+                            $entityManager->persist($personnel);
+                            $processed++;
+                        } else {
+                            $skipped++;
+                        }
+                    }
+    
+                    // Save changes to the database
+                    $entityManager->flush();
+    
+                    $this->addFlash('success', sprintf(
+                        '%d lignes traitées avec succès. %d lignes ignorées. Erreurs: %s',
+                        $processed,
+                        $skipped,
+                        implode(', ', $errors)
+                    ));
+                } catch (\Exception $e) {
+                    $this->addFlash('error', 'Une erreur est survenue lors du traitement du fichier: ' . $e->getMessage());
+                }
+            } else {
+                $this->addFlash('error', 'Aucun fichier n\'a été uploadé.');
+            }
+    
+            return $this->redirectToRoute('import_scopus_ids');
+        }
+    
+        return $this->render('doctorants/import_scopus_ids.html.twig');
+    }}

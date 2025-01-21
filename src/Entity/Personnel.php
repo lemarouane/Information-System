@@ -194,6 +194,9 @@ class Personnel
     #[ORM\OneToMany(mappedBy: 'responsable', targetEntity: Paiementprojet::class)]
     private Collection $paiementprojets;
 
+    #[ORM\Column]
+    private ?int $scopusId = null;
+
     public function __construct()
     {
         $this->avancements = new ArrayCollection();
@@ -1196,6 +1199,18 @@ class Personnel
                 $paiementprojet->setResponsable(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getScopusId(): ?int
+    {
+        return $this->scopusId;
+    }
+
+    public function setScopusId(int $scopusId): self
+    {
+        $this->scopusId = $scopusId;
 
         return $this;
     }
