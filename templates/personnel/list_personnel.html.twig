@@ -1,0 +1,150 @@
+{% extends 'template.html.twig' %}
+
+{% block title %}Liste du Personnel{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.1/css/jquery.dataTables.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.4.0/css/responsive.dataTables.min.css">
+    <style>
+        /* General styles for buttons */
+        .btn-custom {
+            border-radius: 8px;
+            padding: 0.5rem 1rem;
+            font-size: 0.9rem;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .btn-import {
+            background-color: #2196F3; /* Blue */
+            color: white;
+        }
+
+        .btn-import:hover {
+            background-color: #1e88e5; /* Darker blue */
+        }
+
+        /* Table Header Style */
+        #personnelTable thead th {
+            background-color: #ff6632; /* Primary color */
+            color: white;
+            text-align: center;
+        }
+
+        /* Table Hover Effect */
+        #personnelTable tbody tr:hover {
+            background-color: #f9f9f9; /* Light grey */
+            cursor: pointer;
+        }
+
+        /* Center align table content */
+        #personnelTable td, #personnelTable th {
+            text-align: center;
+            vertical-align: middle;
+        }
+    </style>
+{% endblock %}
+
+{% block body %}
+    {# Breadcrumb Navigation #}
+    <div class="page-breadcrumb d-none d-sm-flex align-items-center mb-3">
+        <div class="breadcrumb-title pe-3">Liste du Personnel</div>
+        <div class="ps-3">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb mb-0 p-0">
+                    <li class="breadcrumb-item"><a href="javascript:;"><i class="bx bx-home-alt"></i></a></li>
+                    <li class="breadcrumb-item active" aria-current="page">Liste du Personnel</li>
+                </ol>
+            </nav>
+        </div>
+    </div>
+
+    {# Flash Messages #}
+    {% for type, messages in app.flashes %}
+        {% for message in messages %}
+            <div class="alert alert-{{ type }} alert-dismissible fade show" role="alert">
+                {{ message|raw }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        {% endfor %}
+    {% endfor %}
+
+    {# Personnel Table Card #}
+    <div class="card border shadow-none">
+        <div class="card-header py-3">
+            <div class="row align-items-center">
+                <div class="col-lg-6">
+                    <h5 class="mb-0">Liste du Personnel</h5>
+                </div>
+                <div class="col-lg-6 d-flex justify-content-lg-end gap-2">
+                    <a href="{{ path('import_scopus_ids') }}" class="btn btn-custom btn-import">
+                        <i class="bi bi-file-earmark-arrow-up"></i> Importer Scopus IDs
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table id="personnelTable" class="table table-bordered table-hover align-middle">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Nom</th>
+                            <th>Prénom</th>
+                            <th>Email</th>
+                            <th>Scopus ID</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for personnel in personnels %}
+                            <tr>
+                                <td>{{ personnel.id }}</td>
+                                <td>{{ personnel.nom }}</td>
+                                <td>{{ personnel.prenom }}</td>
+                                <td>{{ personnel.email }}</td>
+                                <td>{{ personnel.scopusId }}</td>
+                                <td>
+                                    <div class="btn-group">
+                                        <a href="{{ path('view_personnel_details', { id: personnel.id }) }}"
+                                           class="btn btn-info btn-sm" 
+                                           title="Voir les détails">
+                                            <i class="bi bi-eye-fill"></i>
+                                        </a>
+                                    </div>
+                                </td>
+                            </tr>
+                        {% else %}
+                            <tr>
+                                <td colspan="6" class="text-muted">Aucun personnel trouvé.</td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.1/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/responsive/2.4.0/js/dataTables.responsive.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('#personnelTable').DataTable({
+                language: {
+                    url: '//cdn.datatables.net/plug-ins/1.13.1/i18n/fr-FR.json'
+                },
+                responsive: true,
+                autoWidth: false,
+                order: [[0, 'asc']]
+            });
+        });
+    </script>
+{% endblock %}

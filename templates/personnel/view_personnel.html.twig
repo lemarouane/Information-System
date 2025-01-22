@@ -1,0 +1,171 @@
+{% extends 'template.html.twig' %}
+
+{% block title %}Détails du Personnel{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.1/css/jquery.dataTables.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.4.0/css/responsive.dataTables.min.css">
+    <style>
+        /* General styles for buttons */
+        .btn-custom {
+            border-radius: 8px;
+            padding: 0.5rem 1rem;
+            font-size: 0.9rem;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .btn-import {
+            background-color: #2196F3; /* Blue */
+            color: white;
+        }
+
+        .btn-import:hover {
+            background-color: #1e88e5; /* Darker blue */
+        }
+
+        /* Table Header Style */
+        #publicationsTable thead th {
+            background-color: #ff6632; /* Primary color */
+            color: white;
+            text-align: center;
+        }
+
+        /* Table Hover Effect */
+        #publicationsTable tbody tr:hover {
+            background-color: #f9f9f9; /* Light grey */
+            cursor: pointer;
+        }
+
+        /* Center align table content */
+        #publicationsTable td, #publicationsTable th {
+            text-align: center;
+            vertical-align: middle;
+        }
+    </style>
+{% endblock %}
+
+{% block body %}
+    {# Breadcrumb Navigation #}
+    <div class="page-breadcrumb d-none d-sm-flex align-items-center mb-3">
+        <div class="breadcrumb-title pe-3">Détails du Personnel</div>
+        <div class="ps-3">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb mb-0 p-0">
+                    <li class="breadcrumb-item"><a href="javascript:;"><i class="bx bx-home-alt"></i></a></li>
+                    <li class="breadcrumb-item"><a href="{{ path('personnel_list') }}">Liste du Personnel</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">Détails du Personnel</li>
+                </ol>
+            </nav>
+        </div>
+    </div>
+
+    {# Flash Messages #}
+    {% for type, messages in app.flashes %}
+        {% for message in messages %}
+            <div class="alert alert-{{ type }} alert-dismissible fade show" role="alert">
+                {{ message|raw }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        {% endfor %}
+    {% endfor %}
+
+    {# Personnel Details Card #}
+    <div class="card border shadow-none">
+        <div class="card-header py-3">
+            <div class="row align-items-center">
+                <div class="col-lg-6">
+                    <h5 class="mb-0">Détails du Personnel</h5>
+                </div>
+                <div class="col-lg-6 d-flex justify-content-lg-end gap-2">
+                    <a href="{{ path('personnel_list') }}" class="btn btn-custom btn-import">
+                        <i class="bi bi-arrow-left"></i> Retour à la liste
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-bordered table-hover align-middle">
+                    <tbody>
+                        <tr><th class="w-25">ID</th><td>{{ personnel.id }}</td></tr>
+                        <tr><th>Nom</th><td>{{ personnel.nom }}</td></tr>
+                        <tr><th>Prénom</th><td>{{ personnel.prenom }}</td></tr>
+                        <tr><th>Email</th><td>{{ personnel.email }}</td></tr>
+                        <tr><th>Scopus ID</th><td>{{ personnel.scopusId }}</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    {# Publications Section #}
+    <div class="card border shadow-none mt-4">
+        <div class="card-header py-3">
+            <h5 class="mb-0">Publications</h5>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table id="publicationsTable" class="table table-bordered table-hover align-middle">
+                    <thead>
+                        <tr>
+                            <th>Titre</th>
+                            <th>Auteurs</th>
+                            <th>Cité Par</th>
+                            <th>Type de Publication</th> {# Added publication type column #}
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for publication in publications %}
+                            <tr>
+                                <td>
+                                    {# Removed hyperlink from the title #}
+                                    {{ publication.title }}
+                                </td>
+                                <td>
+                                    {% for author in publication.authors %}
+                                        <span class="badge bg-secondary">{{ author['ce:indexed-name'] }}</span>
+                                    {% endfor %}
+                                </td>
+                                <td>
+                                    <span class="badge bg-info">{{ publication.citationCount }}</span>
+                                </td>
+                                <td>
+                                    {# Display publication type #}
+                                    {{ publication.type|default('N/A') }}
+                                </td>
+                            </tr>
+                        {% else %}
+                            <tr>
+                                <td colspan="4" class="text-muted">Aucune publication trouvée.</td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.1/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/responsive/2.4.0/js/dataTables.responsive.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('#publicationsTable').DataTable({
+                language: {
+                    url: '//cdn.datatables.net/plug-ins/1.13.1/i18n/fr-FR.json'
+                },
+                responsive: true,
+                autoWidth: false,
+                order: [[0, 'asc']]
+            });
+        });
+    </script>
+{% endblock %}

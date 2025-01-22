@@ -16,6 +16,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Contracts\HttpClient\HttpClientInterface;
 
 class DoctorantsController extends AbstractController
 {
@@ -780,4 +781,95 @@ class DoctorantsController extends AbstractController
         }
     
         return $this->render('doctorants/import_scopus_ids.html.twig');
-    }}
+    }
+
+
+
+
+
+
+/**
+ * @Route("/list-personnel", name="personnel_list")
+ */
+public function listPersonnel(PersonnelRepository $personnelRepository): Response
+{
+    $personnels = $personnelRepository->findAll();
+
+    return $this->render('personnel/list_personnel.html.twig', [
+        'personnels' => $personnels,
+    ]);
+}
+        /**
+         * @Route("/personnel/details/{id}", name="view_personnel_details")
+         */
+        #[Route('/personnel/details/{id}', name: 'view_personnel_details')]
+        public function viewPersonnelDetails(
+            int $id,
+            PersonnelRepository $personnelRepository,
+            HttpClientInterface $client
+        ): Response {
+            $apiKey = 'a0ff4e7a41d6e1c8a8c1170993e29668';
+            $personnel = $personnelRepository->find($id);
+        
+            if (!$personnel || !$personnel->getScopusId()) {
+                throw $this->createNotFoundException('Personnel not found or Scopus ID is missing.');
+            }
+        
+            $scopusId = $personnel->getScopusId();
+            $publications = [];
+        
+            try {
+                $url1 = "https://api.elsevier.com/content/search/scopus?query=au-id($scopusId)";
+                $response1 = $client->request('GET', $url1, [
+                    'headers' => [
+                        'X-ELS-APIKey' => $apiKey,
+                        'Accept' => 'application/json',
+                    ],
+                ]);
+        
+                $data1 = $response1->toArray();
+                $entries = $data1['search-results']['entry'] ?? [];
+        
+                foreach ($entries as $entry) {
+                    $pubScopusId = str_replace('SCOPUS_ID:', '', $entry['dc:identifier']);
+                    $url2 = "https://api.elsevier.com/content/abstract/scopus_id/$pubScopusId";
+        
+                    try {
+                        $response2 = $client->request('GET', $url2, [
+                            'headers' => [
+                                'X-ELS-APIKey' => $apiKey,
+                                'Accept' => 'application/json',
+                            ],
+                        ]);
+        
+                        $publicationDetails = $response2->toArray();
+                        $publications[] = [
+                            'title' => $publicationDetails['abstracts-retrieval-response']['coredata']['dc:title'] ?? 'N/A',
+                            'authors' => $publicationDetails['abstracts-retrieval-response']['authors']['author'] ?? [],
+                            'citationCount' => $publicationDetails['abstracts-retrieval-response']['coredata']['citedby-count'] ?? 0,
+                            'type' => $publicationDetails['abstracts-retrieval-response']['coredata']['prism:aggregationType'] ?? 'N/A', // Added publication type
+                        ];
+                    } catch (\Exception $e) {
+                        continue; // Skip errors for individual publications
+                    }
+                }
+            } catch (\Exception $e) {
+                // Handle API errors
+            }
+        
+            return $this->render('personnel/view_personnel.html.twig', [
+                'personnel' => $personnel,
+                'publications' => $publications,
+            ]);
+        }
+    }
+    
+
+
+
+
+
+
+
+
+
