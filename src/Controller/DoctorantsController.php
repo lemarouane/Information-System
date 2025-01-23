@@ -17,6 +17,8 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
+use Symfony\Contracts\Cache\CacheInterface;
+
 
 class DoctorantsController extends AbstractController
 {
@@ -862,6 +864,107 @@ public function listPersonnel(PersonnelRepository $personnelRepository): Respons
                 'publications' => $publications,
             ]);
         }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        #[Route('/personnel/statistics', name: 'personnel_statistics')]
+        public function personnelStatistics(
+            PersonnelRepository $personnelRepository,
+            HttpClientInterface $client
+        ): Response {
+            $apiKey = 'a0ff4e7a41d6e1c8a8c1170993e29668';
+        
+            $personnels = $personnelRepository->findAll();
+            $totalPublications = 0;
+            $mostPublications = ['personnel' => null, 'count' => 0];
+            $mostCited = [];
+            $publicationTypes = [];
+            $publicationTrends = array_fill_keys(range(2000, (int)date('Y')), 0);
+        
+            // Prepare API requests for all personnel with Scopus IDs
+            $requests = [];
+            foreach ($personnels as $personnel) {
+                if ($personnel->getScopusId()) {
+                    $requests[] = [
+                        'personnel' => $personnel,
+                        'request' => $client->request('GET', "https://api.elsevier.com/content/search/scopus?query=au-id(" . $personnel->getScopusId() . ")", [
+                            'headers' => [
+                                'X-ELS-APIKey' => $apiKey,
+                                'Accept' => 'application/json',
+                            ],
+                        ]),
+                    ];
+                }
+            }
+        
+            // Process responses
+            foreach ($requests as $requestData) {
+                $personnel = $requestData['personnel'];
+                $response = $requestData['request'];
+        
+                try {
+                    $data = $response->toArray();
+                    $entries = $data['search-results']['entry'] ?? [];
+        
+                    $publicationCount = count($entries);
+                    $totalPublications += $publicationCount;
+        
+                    if ($publicationCount > $mostPublications['count']) {
+                        $mostPublications = ['personnel' => $personnel, 'count' => $publicationCount];
+                    }
+        
+                    $citationCount = 0;
+        
+                    foreach ($entries as $entry) {
+                        $type = $entry['prism:aggregationType'] ?? 'Other';
+                        $publicationTypes[$type] = ($publicationTypes[$type] ?? 0) + 1;
+        
+                        $year = (int)substr($entry['prism:coverDate'] ?? '', 0, 4);
+                        if ($year >= 2000 && $year <= date('Y')) {
+                            $publicationTrends[$year]++;
+                        }
+        
+                        $citationCount += (int)($entry['citedby-count'] ?? 0);
+                    }
+        
+                    if ($citationCount > 0) {
+                        $mostCited[] = ['personnel' => $personnel, 'citations' => $citationCount];
+                    }
+                } catch (\Exception $e) {
+                    continue; // Skip errors for this personnel
+                }
+            }
+        
+            // Sort mostCited by citations
+            usort($mostCited, fn($a, $b) => $b['citations'] <=> $a['citations']);
+        
+            return $this->render('personnel/statistics.html.twig', [
+                'statistics' => [
+                    'totalPublications' => $totalPublications,
+                    'mostPublications' => $mostPublications,
+                    'mostCited' => $mostCited,
+                    'publicationTypes' => $publicationTypes,
+                    'publicationTrends' => array_filter($publicationTrends), // Remove empty years
+                ],
+            ]);
+        }
+        
+        
+
+
     }
     
 

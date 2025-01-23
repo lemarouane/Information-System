@@ -768,6 +768,11 @@ or ("ROLE_DIR_ADJ" in app.user.roles) or ("ROLE_RH" in app.user.roles) or ("ROLE
                     <i class="bi bi-upload"></i>{{ 'Importer Scopus IDs'|trans }}
                 </a>
             </li>
+                        <li class="{% if route in doctorant_list %} mm {% endif %}">
+                <a id="list-personnel" href="{{ path('personnel_list') }}">
+                    <i class="bi bi-list-ul"></i>{{ 'Liste des Personnels'|trans }}
+                </a>
+            </li>
         </ul>
     </li>
 {% endif %}
