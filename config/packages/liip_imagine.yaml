@@ -8,4 +8,4 @@ liip_imagine:
                 filters: # Liste des filtres à appliquer
                     thumbnail: # Filtre "Thumbnail"
                         size: [200, 200] # Taille de l'image de sortie
-                        mode: outbound # Découpage de l'image
+                        mode: lazy # Découpage de l'image

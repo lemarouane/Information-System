@@ -187,12 +187,35 @@ class Personnel
 
 
 
+
+    
+
+
+
     #[ORM\OneToMany(mappedBy: 'responsable', targetEntity: FiliereFcResponsable::class)]
     private Collection $filiereFcResponsables;
 
 
     #[ORM\OneToMany(mappedBy: 'responsable', targetEntity: Paiementprojet::class)]
     private Collection $paiementprojets;
+
+
+
+
+
+
+
+
+
+
+
+    #[ORM\OneToMany(mappedBy: 'personnel', targetEntity: Publication::class, cascade: ['persist', 'remove'])]
+    private Collection $publications;
+
+
+
+
+    
 
     #[ORM\Column]
     private ?int $scopusId = null;
@@ -215,6 +238,10 @@ class Personnel
         $this->paiements = new ArrayCollection();
         $this->filiereFcResponsables = new ArrayCollection();
         $this->paiementprojets = new ArrayCollection();
+
+
+
+        $this->publications = new ArrayCollection();
     }
 
    
@@ -1216,5 +1243,34 @@ class Personnel
     }
 
 
+/**
+ * @return Collection<int, Publication>
+ */
+public function getPublications(): Collection
+{
+    return $this->publications;
+}
+
+public function addPublication(Publication $publication): self
+{
+    if (!$this->publications->contains($publication)) {
+        $this->publications->add($publication);
+        $publication->setPersonnel($this);
+    }
+
+    return $this;
+}
+
+public function removePublication(Publication $publication): self
+{
+    if ($this->publications->removeElement($publication)) {
+        // Set the owning side to null (unless already changed)
+        if ($publication->getPersonnel() === $this) {
+            $publication->setPersonnel(null);
+        }
+    }
+
+    return $this;
+}
 
 }

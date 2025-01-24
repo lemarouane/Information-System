@@ -2,121 +2,92 @@
 
 {% block title %}Personnel Statistics{% endblock %}
 
-{% block stylesheets %}
-    {{ parent() }}
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/chart.js/dist/chart.min.css">
-    <style>
-        .loading-spinner {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 200px;
-            font-size: 1.5rem;
-            color: #666;
-        }
-    </style>
-{% endblock %}
-
 {% block body %}
-<div class="container mt-4">
     <h1>Personnel Statistics</h1>
 
-    <div id="loading" class="loading-spinner">
-        Loading statistics... Please wait.
-    </div>
-
-    <div id="content" style="display: none;">
-        <div class="row">
-            <div class="col-md-6">
-                <h3>Total Publications</h3>
-                <p><strong>{{ statistics.totalPublications }}</strong></p>
-            </div>
-            <div class="col-md-6">
-                <h3>Most Publications</h3>
-                {% if statistics.mostPublications.personnel is not null %}
-                    <p>
-                        <strong>{{ statistics.mostPublications.personnel.nom }} {{ statistics.mostPublications.personnel.prenom }}</strong> -
-                        <strong>{{ statistics.mostPublications.count }}</strong> publications
-                    </p>
-                {% else %}
-                    <p>No data available for most publications.</p>
-                {% endif %}
-            </div>
+    <div class="row">
+        <div class="col-md-6">
+            <h3>Total Publications</h3>
+            <p><strong>{{ statistics.totalPublications }}</strong></p>
         </div>
-
-        <hr>
-
-        <h3>Publication Types Distribution</h3>
-        <canvas id="publicationTypesChart" width="400" height="200"></canvas>
-
-        <hr>
-
-        <h3>Publication Trends Over Years</h3>
-        <canvas id="publicationTrendsChart" width="400" height="200"></canvas>
-
-        <hr>
-
-        <h3>Top Personnel with Most Citations</h3>
-        <table class="table table-bordered table-striped">
-            <thead>
-                <tr>
-                    <th>Personnel</th>
-                    <th>Total Citations</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% if statistics.mostCited is defined and statistics.mostCited is not empty %}
-                    {% for item in statistics.mostCited %}
-                        <tr>
-                            <td>{{ item.personnel.nom }} {{ item.personnel.prenom }}</td>
-                            <td>{{ item.citations }}</td>
-                        </tr>
-                    {% endfor %}
-                {% else %}
-                    <tr>
-                        <td colspan="2" class="text-center">No citation data available.</td>
-                    </tr>
-                {% endif %}
-            </tbody>
-        </table>
+        <div class="col-md-6">
+            <h3>Most Publications</h3>
+            {% if statistics.mostPublications.personnel %}
+                <p>
+                    <strong>{{ statistics.mostPublications.personnel.nom }} {{ statistics.mostPublications.personnel.prenom }}</strong> -
+                    <strong>{{ statistics.mostPublications.count }}</strong> publications
+                </p>
+            {% else %}
+                <p>No data available for most publications.</p>
+            {% endif %}
+        </div>
     </div>
-</div>
 
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-<script>
-    document.addEventListener("DOMContentLoaded", function() {
-        const publicationTypesData = {{ statistics.publicationTypes|json_encode|raw }};
-        const publicationTrendsData = {{ statistics.publicationTrends|json_encode|raw }};
+    <hr>
 
-        // Hide loading spinner and show content
-        document.getElementById('loading').style.display = 'none';
-        document.getElementById('content').style.display = 'block';
+    <h3>Publication Types Distribution</h3>
+    <canvas id="publicationTypesChart" width="400" height="200"></canvas>
 
-        // Publication Types Chart
-        new Chart(document.getElementById('publicationTypesChart'), {
-            type: 'doughnut',
-            data: {
-                labels: Object.keys(publicationTypesData),
-                datasets: [{
-                    data: Object.values(publicationTypesData),
-                    backgroundColor: ['#FF6384', '#36A2EB', '#FFCE56', '#4BC0C0', '#9966FF'],
-                }]
-            }
+    <hr>
+
+    <h3>Publication Trends Over Years</h3>
+    <canvas id="publicationTrendsChart" width="400" height="200"></canvas>
+
+    <hr>
+
+    <h3>Top Personnel with Most Citations</h3>
+    <table class="table table-bordered table-striped">
+        <thead>
+            <tr>
+                <th>Personnel</th>
+                <th>Total Citations</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for item in statistics.mostCited %}
+                <tr>
+                    <td>{{ item.personnel.nom }} {{ item.personnel.prenom }}</td>
+                    <td>{{ item.citations }}</td>
+                </tr>
+            {% else %}
+                <tr>
+                    <td colspan="2" class="text-center">No citation data available.</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const publicationTypesData = {{ statistics.publicationTypes|json_encode|raw }};
+            const publicationTrendsData = {{ statistics.publicationTrends|json_encode|raw }};
+
+            // Publication Types Chart
+            new Chart(document.getElementById('publicationTypesChart'), {
+                type: 'doughnut',
+                data: {
+                    labels: Object.keys(publicationTypesData),
+                    datasets: [{
+                        data: Object.values(publicationTypesData),
+                        backgroundColor: ['#FF6384', '#36A2EB', '#FFCE56', '#4BC0C0', '#9966FF'],
+                    }]
+                }
+            });
+
+            // Publication Trends Chart
+            new Chart(document.getElementById('publicationTrendsChart'), {
+                type: 'line',
+                data: {
+                    labels: Object.keys(publicationTrendsData),
+                    datasets: [{
+                        label: 'Publications Over Time',
+                        data: Object.values(publicationTrendsData),
+                        borderColor: '#4BC0C0',
+                        fill: false,
+                    }]
+                }
+            });
         });
-
-        // Publication Trends Chart
-        new Chart(document.getElementById('publicationTrendsChart'), {
-            type: 'line',
-            data: {
-                labels: Object.keys(publicationTrendsData),
-                datasets: [{
-                    label: 'Publications Over Time',
-                    data: Object.values(publicationTrendsData),
-                    borderColor: '#4BC0C0',
-                    fill: false,
-                }]
-            }
-        });
-    });
-</script>
+    </script>
 {% endblock %}

@@ -4,8 +4,11 @@ namespace App\Controller;
 
 use App\Entity\Doctorants;
 use App\Entity\ValidatedDoctorants;
+use App\Entity\Publication;
+
 use App\Form\DoctorantsType;
 use App\Repository\DoctorantsRepository;
+use App\Repository\PublicationRepository;
 use App\Repository\ValidatedDoctorantsRepository;
 use App\Repository\PersonnelRepository;
 use App\Repository\StructRechRepository;
@@ -18,6 +21,8 @@ use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
 use Symfony\Contracts\Cache\CacheInterface;
+use Psr\Log\LoggerInterface; 
+
 
 
 class DoctorantsController extends AbstractController
@@ -694,96 +699,181 @@ class DoctorantsController extends AbstractController
 
 
 
+
     #[Route('/import-scopus-ids', name: 'import_scopus_ids', methods: ['GET', 'POST'])]
-    public function importScopusIds(Request $request, EntityManagerInterface $entityManager, PersonnelRepository $personnelRepository): Response
-    {
+    public function importScopusIds(
+        Request $request,
+        EntityManagerInterface $entityManager,
+        PersonnelRepository $personnelRepository,
+        HttpClientInterface $client,
+        LoggerInterface $logger
+    ): Response {
         if ($request->isMethod('POST')) {
-            /** @var UploadedFile $file */
             $file = $request->files->get('excel_file');
-    
             if ($file) {
                 try {
-                    // Load the Excel file
                     $spreadsheet = IOFactory::load($file->getPathname());
                     $worksheet = $spreadsheet->getActiveSheet();
                     $rows = $worksheet->toArray();
-    
-                    // Debug: Log the total number of rows
-                    error_log("Total rows in Excel file: " . count($rows));
-    
-                    // Remove header row
-                    array_shift($rows);
+                    array_shift($rows); // Remove header row
     
                     $processed = 0;
                     $skipped = 0;
                     $errors = [];
+                    $batchSize = 5;
+                    $apiKey = 'a0ff4e7a41d6e1c8a8c1170993e29668';
     
-                    foreach ($rows as $index => $row) {
-                        // Debug: Log the entire row
-                        error_log("Row " . ($index + 2) . ": " . print_r($row, true));
+                    foreach (array_chunk($rows, $batchSize) as $batch) {
+                        foreach ($batch as $row) {
+                            try {
+                                $personnelId = (int)trim($row[0] ?? null);
+                                $scopusId = trim($row[4] ?? null);
     
-                        // Ensure the row has at least 5 columns
-                        if (count($row) < 5) {
-                            $errors[] = "Ligne " . ($index + 2) . ": La ligne ne contient pas suffisamment de colonnes.";
-                            $skipped++;
-                            continue;
+                                if (!$personnelId || !$scopusId) {
+                                    $skipped++;
+                                    continue;
+                                }
+    
+                                $personnel = $personnelRepository->find($personnelId);
+                                if (!$personnel) {
+                                    $errors[] = "Personnel ID $personnelId not found.";
+                                    $skipped++;
+                                    continue;
+                                }
+    
+                                // Set the Scopus ID in the Personnel table
+                                $personnel->setScopusId($scopusId);
+                                $entityManager->persist($personnel);
+    
+                                // Fetch publications from the first URL
+                                $url = "https://api.elsevier.com/content/search/scopus?query=au-id($scopusId)";
+                                $response = $client->request('GET', $url, [
+                                    'headers' => [
+                                        'X-ELS-APIKey' => $apiKey,
+                                        'Accept' => 'application/json',
+                                    ],
+                                ]);
+    
+                                $data = $response->toArray();
+                                $entries = $data['search-results']['entry'] ?? [];
+    
+                                foreach ($entries as $entry) {
+                                    $pubScopusId = str_replace('SCOPUS_ID:', '', $entry['dc:identifier']);
+                                    $pubDetailsUrl = "https://api.elsevier.com/content/abstract/scopus_id/$pubScopusId";
+    
+                                    try {
+                                        // Fetch publication details from the second URL
+                                        $pubResponse = $client->request('GET', $pubDetailsUrl, [
+                                            'headers' => [
+                                                'X-ELS-APIKey' => $apiKey,
+                                                'Accept' => 'application/json',
+                                            ],
+                                        ]);
+    
+                                        $pubData = $pubResponse->toArray();
+                                        $abstracts = $pubData['abstracts-retrieval-response'];
+    
+                                        $publication = new Publication();
+                                        $publication->setPersonnel($personnel);
+                                        $publication->setPersonnelFullName($personnel->getNom() . ' ' . $personnel->getPrenom()); // Set personnel full name
+                                        $publication->setTitle($abstracts['coredata']['dc:title'] ?? 'N/A');
+                                        $publication->setAggregationType($abstracts['coredata']['prism:aggregationType'] ?? 'N/A');
+                                        $publication->setPublicationName($abstracts['coredata']['prism:publicationName'] ?? 'N/A');
+                                        $publication->setPublisher($abstracts['coredata']['dc:publisher'] ?? 'N/A');
+                                        $publication->setPageRange($abstracts['coredata']['prism:pageRange'] ?? 'N/A');
+                                        $publication->setCoverDate($abstracts['coredata']['prism:coverDate'] ?? 'N/A');
+                                        $publication->setAbstract($abstracts['coredata']['dc:description'] ?? 'N/A');
+    
+                                        // Author Names
+                                        $authors = $abstracts['authors']['author'] ?? [];
+                                        $authorNames = [];
+                                        $authorIds = [];
+                                        foreach ($authors as $author) {
+                                            $givenName = $author['ce:given-name'] ?? null;
+                                            $surname = $author['ce:surname'] ?? null;
+                                            if ($givenName && $surname) {
+                                                $authorNames[] = "$givenName $surname";
+                                            }
+                                            $authorIds[] = $author['@auid'] ?? null;
+                                        }
+                                        $publication->setAuthorNames($authorNames);
+                                        $publication->setAuthorIds(array_filter($authorIds));
+    
+                                        // Creator (from the first URL response)
+                                        $creator = $entry['dc:creator'] ?? 'N/A';
+                                        $publication->setCreator($creator);
+    
+                                        // Organization (from the second URL response)
+                                        $organization = 'N/A';
+                                        $affiliations = $abstracts['affiliation'] ?? [];
+                                        if (is_array($affiliations)) {
+                                            foreach ($affiliations as $affiliation) {
+                                                if (isset($affiliation['organization'])) {
+                                                    // Extract the second organization if available
+                                                    $organizations = $affiliation['organization'];
+                                                    if (is_array($organizations) && count($organizations) > 1) {
+                                                        $organization = $organizations[1]; // Second organization
+                                                    } elseif (is_string($organizations)) {
+                                                        $organization = $organizations;
+                                                    }
+                                                    break;
+                                                }
+                                            }
+                                        }
+                                        $publication->setOrganization($organization);
+    
+                                        $entityManager->persist($publication);
+                                    } catch (\Exception $e) {
+                                        $errors[] = "Erreur publication $pubScopusId: " . $e->getMessage();
+                                        $logger->error("Error processing publication $pubScopusId: " . $e->getMessage());
+                                    }
+                                }
+    
+                                $processed++;
+                            } catch (\Exception $e) {
+                                $errors[] = "Error processing row: " . $e->getMessage();
+                                $logger->error("Error processing row: " . $e->getMessage());
+                            }
                         }
     
-                        // Trim and convert ID to integer
-                        $id = isset($row[0]) ? (int)trim($row[0]) : null; // Column A: Personnel ID
-                        $scopusId = isset($row[4]) ? trim($row[4]) : null; // Column E: Scopus ID
+                        // Flush in batches
+                        $entityManager->flush();
+                        $entityManager->clear();
     
-                        // Debug: Log the ID and Scopus ID
-                        error_log("ID: " . $id . ", Scopus ID: " . $scopusId);
-    
-                        if (!$id) {
-                            $errors[] = "Ligne " . ($index + 2) . ": ID manquant ou invalide.";
-                            $skipped++;
-                            continue;
-                        }
-    
-                        // Fetch the Personnel by ID
-                        $personnel = $personnelRepository->find($id);
-    
-                        if (!$personnel) {
-                            $errors[] = "Ligne " . ($index + 2) . ": ID $id n'existe pas dans la base de données.";
-                            $skipped++;
-                            continue;
-                        }
-    
-                        // Debug: Log the personnel found
-                        error_log("Personnel trouvé: " . $personnel->getNom() . " " . $personnel->getPrenom());
-    
-                        if ($scopusId) {
-                            $personnel->setScopusId($scopusId);
-                            $entityManager->persist($personnel);
-                            $processed++;
-                        } else {
-                            $skipped++;
-                        }
+                        // Sleep between batches to prevent rate limiting
+                        sleep(1);
                     }
     
-                    // Save changes to the database
-                    $entityManager->flush();
-    
-                    $this->addFlash('success', sprintf(
-                        '%d lignes traitées avec succès. %d lignes ignorées. Erreurs: %s',
-                        $processed,
-                        $skipped,
-                        implode(', ', $errors)
-                    ));
+                    $this->addFlash('success', "$processed records processed, $skipped skipped.");
+                    if (!empty($errors)) {
+                        $this->addFlash('error', implode('<br>', $errors));
+                    }
                 } catch (\Exception $e) {
-                    $this->addFlash('error', 'Une erreur est survenue lors du traitement du fichier: ' . $e->getMessage());
+                    $this->addFlash('error', 'Error processing file: ' . $e->getMessage());
+                    $logger->error("Error processing file: " . $e->getMessage());
                 }
-            } else {
-                $this->addFlash('error', 'Aucun fichier n\'a été uploadé.');
+    
+                return $this->redirectToRoute('import_scopus_ids');
             }
     
-            return $this->redirectToRoute('import_scopus_ids');
+            $this->addFlash('error', 'No file uploaded.');
         }
     
+        // Render the form if no POST request is detected
         return $this->render('doctorants/import_scopus_ids.html.twig');
     }
+
+
+    
+    #[Route('/list-publications', name: 'list_publications')]
+public function listPublications(PublicationRepository $publicationRepository): Response
+{
+    $publications = $publicationRepository->findAll();
+
+    return $this->render('publications/list_publications.html.twig', [
+        'publications' => $publications,
+    ]);
+}
 
 
 
@@ -883,96 +973,87 @@ public function listPersonnel(PersonnelRepository $personnelRepository): Respons
         #[Route('/personnel/statistics', name: 'personnel_statistics')]
         public function personnelStatistics(
             PersonnelRepository $personnelRepository,
-            HttpClientInterface $client
+            PublicationRepository $publicationRepository
         ): Response {
-            $apiKey = 'a0ff4e7a41d6e1c8a8c1170993e29668';
-        
+            // Fetch all personnel
             $personnels = $personnelRepository->findAll();
+        
+            // Initialize statistics arrays
             $totalPublications = 0;
             $mostPublications = ['personnel' => null, 'count' => 0];
             $mostCited = [];
             $publicationTypes = [];
             $publicationTrends = array_fill_keys(range(2000, (int)date('Y')), 0);
         
-            // Prepare API requests for all personnel with Scopus IDs
-            $requests = [];
+            // Loop through each personnel to calculate statistics
             foreach ($personnels as $personnel) {
-                if ($personnel->getScopusId()) {
-                    $requests[] = [
-                        'personnel' => $personnel,
-                        'request' => $client->request('GET', "https://api.elsevier.com/content/search/scopus?query=au-id(" . $personnel->getScopusId() . ")", [
-                            'headers' => [
-                                'X-ELS-APIKey' => $apiKey,
-                                'Accept' => 'application/json',
-                            ],
-                        ]),
-                    ];
+                // Fetch publications for this personnel
+                $publications = $publicationRepository->findBy(['personnel' => $personnel]);
+        
+                // Count publications
+                $publicationCount = count($publications);
+                $totalPublications += $publicationCount;
+        
+                // Check if this personnel has the most publications
+                if ($publicationCount > $mostPublications['count']) {
+                    $mostPublications = ['personnel' => $personnel, 'count' => $publicationCount];
+                }
+        
+                // Calculate total citations for this personnel
+                $citationCount = 0;
+                foreach ($publications as $publication) {
+                    // Dynamically calculate citation count based on publication data
+                    $citationCount += $this->calculateCitationCount($publication);
+        
+                    // Track publication types
+                    $type = $publication->getAggregationType() ?? 'Other';
+                    $publicationTypes[$type] = ($publicationTypes[$type] ?? 0) + 1;
+        
+                    // Track publication trends by year
+                    $year = $publication->getCoverDate() ? $publication->getCoverDate()->format('Y') : null;
+                    if ($year && isset($publicationTrends[$year])) {
+                        $publicationTrends[$year]++;
+                    }
+                }
+        
+                // Add to most cited list if this personnel has citations
+                if ($citationCount > 0) {
+                    $mostCited[] = ['personnel' => $personnel, 'citations' => $citationCount];
                 }
             }
         
-            // Process responses
-            foreach ($requests as $requestData) {
-                $personnel = $requestData['personnel'];
-                $response = $requestData['request'];
-        
-                try {
-                    $data = $response->toArray();
-                    $entries = $data['search-results']['entry'] ?? [];
-        
-                    $publicationCount = count($entries);
-                    $totalPublications += $publicationCount;
-        
-                    if ($publicationCount > $mostPublications['count']) {
-                        $mostPublications = ['personnel' => $personnel, 'count' => $publicationCount];
-                    }
-        
-                    $citationCount = 0;
-        
-                    foreach ($entries as $entry) {
-                        $type = $entry['prism:aggregationType'] ?? 'Other';
-                        $publicationTypes[$type] = ($publicationTypes[$type] ?? 0) + 1;
-        
-                        $year = (int)substr($entry['prism:coverDate'] ?? '', 0, 4);
-                        if ($year >= 2000 && $year <= date('Y')) {
-                            $publicationTrends[$year]++;
-                        }
-        
-                        $citationCount += (int)($entry['citedby-count'] ?? 0);
-                    }
-        
-                    if ($citationCount > 0) {
-                        $mostCited[] = ['personnel' => $personnel, 'citations' => $citationCount];
-                    }
-                } catch (\Exception $e) {
-                    continue; // Skip errors for this personnel
-                }
-            }
-        
-            // Sort mostCited by citations
+            // Sort most cited by citations (descending)
             usort($mostCited, fn($a, $b) => $b['citations'] <=> $a['citations']);
         
+            // Prepare data for the view
+            $statistics = [
+                'totalPublications' => $totalPublications,
+                'mostPublications' => $mostPublications,
+                'mostCited' => $mostCited,
+                'publicationTypes' => $publicationTypes,
+                'publicationTrends' => array_filter($publicationTrends), // Remove empty years
+            ];
+        
             return $this->render('personnel/statistics.html.twig', [
-                'statistics' => [
-                    'totalPublications' => $totalPublications,
-                    'mostPublications' => $mostPublications,
-                    'mostCited' => $mostCited,
-                    'publicationTypes' => $publicationTypes,
-                    'publicationTrends' => array_filter($publicationTrends), // Remove empty years
-                ],
+                'statistics' => $statistics,
             ]);
+        }
+        
+        /**
+         * Dynamically calculate citation count for a publication.
+         */
+        private function calculateCitationCount(Publication $publication): int
+        {
+            // Example: Use the number of authors as a proxy for citation count
+            $authorCount = count($publication->getAuthorNames() ?? []);
+        
+            // Example: Use a fixed value or another field as a proxy
+            // return $publication->getSomeField() ?? 0;
+        
+            return $authorCount; // Replace with your logic
         }
         
         
 
 
     }
-    
-
-
-
-
-
-
-
-
-
