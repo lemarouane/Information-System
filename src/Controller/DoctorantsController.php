@@ -865,15 +865,6 @@ class DoctorantsController extends AbstractController
 
 
     
-    #[Route('/list-publications', name: 'list_publications')]
-public function listPublications(PublicationRepository $publicationRepository): Response
-{
-    $publications = $publicationRepository->findAll();
-
-    return $this->render('publications/list_publications.html.twig', [
-        'publications' => $publications,
-    ]);
-}
 
 
 
