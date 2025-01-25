@@ -966,7 +966,7 @@ public function listPersonnel(PersonnelRepository $personnelRepository): Respons
             PersonnelRepository $personnelRepository,
             PublicationRepository $publicationRepository
         ): Response {
-            // Fetch all personnel
+            // Fetch all personnel   
             $personnels = $personnelRepository->findAll();
         
             // Initialize statistics arrays
