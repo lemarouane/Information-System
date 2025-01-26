@@ -882,85 +882,39 @@ public function listPersonnel(PersonnelRepository $personnelRepository): Respons
         'personnels' => $personnels,
     ]);
 }
+
+
+
+
+
+
+
+
+
+
         /**
          * @Route("/personnel/details/{id}", name="view_personnel_details")
          */
-        #[Route('/personnel/details/{id}', name: 'view_personnel_details')]
-        public function viewPersonnelDetails(
+        #[Route('/personnel/{id}', name: 'view_personnel', requirements: ['id' => '\d+'])]
+        public function viewPersonnel(
             int $id,
             PersonnelRepository $personnelRepository,
-            HttpClientInterface $client
+            PublicationRepository $publicationRepository
         ): Response {
-            $apiKey = 'a0ff4e7a41d6e1c8a8c1170993e29668';
             $personnel = $personnelRepository->find($id);
         
-            if (!$personnel || !$personnel->getScopusId()) {
-                throw $this->createNotFoundException('Personnel not found or Scopus ID is missing.');
+            if (!$personnel) {
+                throw $this->createNotFoundException('Personnel not found.');
             }
         
-            $scopusId = $personnel->getScopusId();
-            $publications = [];
-        
-            try {
-                $url1 = "https://api.elsevier.com/content/search/scopus?query=au-id($scopusId)";
-                $response1 = $client->request('GET', $url1, [
-                    'headers' => [
-                        'X-ELS-APIKey' => $apiKey,
-                        'Accept' => 'application/json',
-                    ],
-                ]);
-        
-                $data1 = $response1->toArray();
-                $entries = $data1['search-results']['entry'] ?? [];
-        
-                foreach ($entries as $entry) {
-                    $pubScopusId = str_replace('SCOPUS_ID:', '', $entry['dc:identifier']);
-                    $url2 = "https://api.elsevier.com/content/abstract/scopus_id/$pubScopusId";
-        
-                    try {
-                        $response2 = $client->request('GET', $url2, [
-                            'headers' => [
-                                'X-ELS-APIKey' => $apiKey,
-                                'Accept' => 'application/json',
-                            ],
-                        ]);
-        
-                        $publicationDetails = $response2->toArray();
-                        $publications[] = [
-                            'title' => $publicationDetails['abstracts-retrieval-response']['coredata']['dc:title'] ?? 'N/A',
-                            'authors' => $publicationDetails['abstracts-retrieval-response']['authors']['author'] ?? [],
-                            'citationCount' => $publicationDetails['abstracts-retrieval-response']['coredata']['citedby-count'] ?? 0,
-                            'type' => $publicationDetails['abstracts-retrieval-response']['coredata']['prism:aggregationType'] ?? 'N/A', // Added publication type
-                        ];
-                    } catch (\Exception $e) {
-                        continue; // Skip errors for individual publications
-                    }
-                }
-            } catch (\Exception $e) {
-                // Handle API errors
-            }
+            $publications = $publicationRepository->findBy(['personnel' => $personnel]);
         
             return $this->render('personnel/view_personnel.html.twig', [
                 'personnel' => $personnel,
                 'publications' => $publications,
             ]);
         }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+        
         #[Route('/personnel/statistics', name: 'personnel_statistics')]
         public function personnelStatistics(
             PersonnelRepository $personnelRepository,
@@ -972,13 +926,11 @@ public function listPersonnel(PersonnelRepository $personnelRepository): Respons
             // Initialize statistics arrays
             $totalPublications = 0;
             $mostPublications = ['personnel' => null, 'count' => 0];
-            $mostCited = [];
             $publicationTypes = [];
-            $publicationTrends = array_fill_keys(range(2000, (int)date('Y')), 0);
+            $publicationTrends = array_fill_keys(range(2000, (int)date('Y')), 0); // Adjust year range as needed
         
-            // Loop through each personnel to calculate statistics
             foreach ($personnels as $personnel) {
-                // Fetch publications for this personnel
+                // Fetch all publications for the current personnel
                 $publications = $publicationRepository->findBy(['personnel' => $personnel]);
         
                 // Count publications
@@ -990,37 +942,25 @@ public function listPersonnel(PersonnelRepository $personnelRepository): Respons
                     $mostPublications = ['personnel' => $personnel, 'count' => $publicationCount];
                 }
         
-                // Calculate total citations for this personnel
-                $citationCount = 0;
+                // Track publication types and trends
                 foreach ($publications as $publication) {
-                    // Dynamically calculate citation count based on publication data
-                    $citationCount += $this->calculateCitationCount($publication);
-        
                     // Track publication types
                     $type = $publication->getAggregationType() ?? 'Other';
                     $publicationTypes[$type] = ($publicationTypes[$type] ?? 0) + 1;
         
                     // Track publication trends by year
-                    $year = $publication->getCoverDate() ? $publication->getCoverDate()->format('Y') : null;
+                    $coverDate = $publication->getCoverDate();
+                    $year = $coverDate ? (int)substr($coverDate, 0, 4) : null;
                     if ($year && isset($publicationTrends[$year])) {
                         $publicationTrends[$year]++;
                     }
                 }
-        
-                // Add to most cited list if this personnel has citations
-                if ($citationCount > 0) {
-                    $mostCited[] = ['personnel' => $personnel, 'citations' => $citationCount];
-                }
             }
-        
-            // Sort most cited by citations (descending)
-            usort($mostCited, fn($a, $b) => $b['citations'] <=> $a['citations']);
         
             // Prepare data for the view
             $statistics = [
                 'totalPublications' => $totalPublications,
                 'mostPublications' => $mostPublications,
-                'mostCited' => $mostCited,
                 'publicationTypes' => $publicationTypes,
                 'publicationTrends' => array_filter($publicationTrends), // Remove empty years
             ];
@@ -1028,23 +968,145 @@ public function listPersonnel(PersonnelRepository $personnelRepository): Respons
             return $this->render('personnel/statistics.html.twig', [
                 'statistics' => $statistics,
             ]);
-        }
+        }    
+
         
-        /**
-         * Dynamically calculate citation count for a publication.
-         */
-        private function calculateCitationCount(Publication $publication): int
+        #[Route('/publication-type/{type}', name: 'publication_type_details')]
+        public function publicationTypeDetails(string $type, PublicationRepository $publicationRepository, PersonnelRepository $personnelRepository): Response
         {
-            // Example: Use the number of authors as a proxy for citation count
-            $authorCount = count($publication->getAuthorNames() ?? []);
+            // Fetch publications of the selected type
+            $publications = $publicationRepository->findBy(['aggregationType' => $type]);
         
-            // Example: Use a fixed value or another field as a proxy
-            // return $publication->getSomeField() ?? 0;
+            // Data for Personnel Contribution Table
+            $personnelContributions = [];
+            $personnels = $personnelRepository->findAll();
+            foreach ($personnels as $personnel) {
+                $publicationCount = $publicationRepository->count(['personnel' => $personnel, 'aggregationType' => $type]);
+                if ($publicationCount > 0) {
+                    $personnelContributions[] = [
+                        'nom' => $personnel->getNom(),
+                        'prenom' => $personnel->getPrenom(),
+                        'publicationCount' => $publicationCount,
+                    ];
+                }
+            }
         
-            return $authorCount; // Replace with your logic
+            // Data for Publication Trends Over Time
+            $publicationYears = [];
+            $publicationCountsByYear = [];
+            $allPublications = $publicationRepository->findBy(['aggregationType' => $type]);
+            foreach ($allPublications as $publication) {
+                $year = $publication->getCoverDate() ? substr($publication->getCoverDate(), 0, 4) : null;
+                if ($year) {
+                    if (!isset($publicationCountsByYear[$year])) {
+                        $publicationCountsByYear[$year] = 0;
+                    }
+                    $publicationCountsByYear[$year]++;
+                }
+            }
+            $publicationYears = array_keys($publicationCountsByYear);
+            $publicationCountsByYear = array_values($publicationCountsByYear);
+        
+            return $this->render('personnel/type_details.html.twig', [
+                'type' => $type,
+                'publications' => $publications,
+                'personnel_contributions' => $personnelContributions,
+                'publication_years' => $publicationYears,
+                'publication_counts_by_year' => $publicationCountsByYear,
+            ]);
+        }
+
+
+
+
+
+
+
+
+
+        #[Route('/import-auth-abstract-infos', name: 'import_auth_abstract_infos', methods: ['GET', 'POST'])]
+        public function importAuthAbstractInfos(
+            Request $request,
+            EntityManagerInterface $entityManager,
+            PublicationRepository $publicationRepository
+        ): Response {
+            if ($request->isMethod('POST')) {
+                $file = $request->files->get('excel_file');
+                if ($file) {
+                    try {
+                        $spreadsheet = IOFactory::load($file->getPathname());
+                        $worksheet = $spreadsheet->getActiveSheet();
+                        $rows = $worksheet->toArray();
+                        array_shift($rows); // Remove header row
+        
+                        $processed = 0;
+                        $skipped = 0;
+                        $unmatchedTitles = []; // Collect unmatched titles here
+                        $batchSize = 20;
+        
+                        foreach (array_chunk($rows, $batchSize) as $batch) {
+                            foreach ($batch as $index => $row) {
+                                try {
+                                    $excelTitle = trim($row[3] ?? ''); // Title column
+                                    $authorNames = explode(';', trim($row[1] ?? ''));
+                                    $authorIds = explode(';', trim($row[2] ?? ''));
+                                    $abstract = trim($row[17] ?? '');
+                                    $organization = trim($row[15] ?? '');
+        
+                                    if (empty($excelTitle)) {
+                                        $skipped++;
+                                        continue;
+                                    }
+        
+                                    // Find publication by title
+                                    $publication = $publicationRepository->findOneBy(['title' => $excelTitle]);
+                                    if (!$publication) {
+                                        $unmatchedTitles[] = $excelTitle;
+                                        $skipped++;
+                                        continue;
+                                    }
+        
+                                    // Update publication fields
+                                    $publication->setAuthorNames($authorNames);
+                                    $publication->setAuthorIds($authorIds);
+                                    $publication->setAbstract($abstract);
+                                    $publication->setOrganization($organization);
+                                    $entityManager->persist($publication);
+                                    $processed++;
+                                } catch (\Exception $e) {
+                                    $skipped++;
+                                }
+                            }
+                            $entityManager->flush();
+                            $entityManager->clear();
+                        }
+        
+                        // Add success message
+                        $this->addFlash('success', "$processed publications updated successfully.");
+        
+                        // Report unmatched titles (grouped together)
+                        if (!empty($unmatchedTitles)) {
+                            $this->addFlash(
+                                'warning',
+                                count($unmatchedTitles) . " unmatched titles: <br>" . implode('<br>', array_slice($unmatchedTitles, 0, 10)) .
+                                (count($unmatchedTitles) > 10 ? "<br>...and more" : "")
+                            );
+                        }
+                    } catch (\Exception $e) {
+                        $this->addFlash('error', 'Error processing the file: ' . $e->getMessage());
+                    }
+                } else {
+                    $this->addFlash('error', 'No file uploaded.');
+                }
+        
+                return $this->redirectToRoute('import_auth_abstract_infos');
+            }
+        
+            return $this->render('personnel/import_auth_abstract_infos.html.twig');
         }
         
         
 
+        
 
     }
