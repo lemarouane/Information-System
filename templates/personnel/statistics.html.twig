@@ -1,70 +1,114 @@
 {% extends 'template.html.twig' %}
 
-{% block title %}Personnel Statistics{% endblock %}
+{% block title %}Statistiques du Personnel{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <style>
+        /* Custom styles for the statistics page */
+        .statistics-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .statistics-section {
+            margin-bottom: 40px;
+        }
+
+        .statistics-section h3 {
+            margin-bottom: 20px;
+            color: #333;
+            font-size: 1.5rem;
+        }
+
+        .chart-container {
+            position: relative;
+            margin: 0 auto;
+            max-width: 600px; /* Limit chart width */
+            height: 300px; /* Fixed height for charts */
+        }
+
+        .table {
+            width: 100%;
+            margin-bottom: 20px;
+            border-collapse: collapse;
+        }
+
+        .table th,
+        .table td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .table th {
+            background-color: #f8f9fa;
+            font-weight: bold;
+        }
+
+        .table tbody tr:hover {
+            background-color: #f1f1f1;
+        }
+
+        .no-data {
+            text-align: center;
+            color: #777;
+            font-style: italic;
+        }
+    </style>
+{% endblock %}
 
 {% block body %}
-    <h1>Personnel Statistics</h1>
+    <div class="statistics-container">
+        <h1 class="mb-4">Statistiques du Personnel</h1>
 
-    <div class="row">
-        <div class="col-md-6">
-            <h3>Total Publications</h3>
-            <p><strong>{{ statistics.totalPublications }}</strong></p>
+        <div class="row statistics-section">
+            <div class="col-md-6">
+                <h3>Total des Publications</h3>
+                <p><strong>{{ statistics.totalPublications }}</strong></p>
+            </div>
+            <div class="col-md-6">
+                <h3>Personnel avec le Plus de Publications</h3>
+                {% if statistics.mostPublications.personnel %}
+                    <p>
+                        <strong>{{ statistics.mostPublications.personnel.nom }} {{ statistics.mostPublications.personnel.prenom }}</strong> -
+                        <strong>{{ statistics.mostPublications.count }}</strong> publications
+                    </p>
+                {% else %}
+                    <p class="no-data">Aucune donnée disponible.</p>
+                {% endif %}
+            </div>
         </div>
-        <div class="col-md-6">
-            <h3>Most Publications</h3>
-            {% if statistics.mostPublications.personnel %}
-                <p>
-                    <strong>{{ statistics.mostPublications.personnel.nom }} {{ statistics.mostPublications.personnel.prenom }}</strong> -
-                    <strong>{{ statistics.mostPublications.count }}</strong> publications
-                </p>
-            {% else %}
-                <p>No data available for most publications.</p>
-            {% endif %}
+
+        <hr>
+
+        <div class="statistics-section">
+            <h3>Répartition des Types de Publications</h3>
+            <div class="chart-container">
+                <canvas id="publicationTypesChart"></canvas>
+            </div>
+        </div>
+
+        <hr>
+
+        <div class="statistics-section">
+            <h3>Tendances des Publications au Fil des Ans</h3>
+            <div class="chart-container">
+                <canvas id="publicationTrendsChart"></canvas>
+            </div>
         </div>
     </div>
 
-    <hr>
-
-    <h3>Publication Types Distribution</h3>
-    <canvas id="publicationTypesChart" width="400" height="200"></canvas>
-
-    <hr>
-
-    <h3>Publication Trends Over Years</h3>
-    <canvas id="publicationTrendsChart" width="400" height="200"></canvas>
-
-    <hr>
-
-    <h3>Top Personnel with Most Citations</h3>
-    <table class="table table-bordered table-striped">
-        <thead>
-            <tr>
-                <th>Personnel</th>
-                <th>Total Citations</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for item in statistics.mostCited %}
-                <tr>
-                    <td>{{ item.personnel.nom }} {{ item.personnel.prenom }}</td>
-                    <td>{{ item.citations }}</td>
-                </tr>
-            {% else %}
-                <tr>
-                    <td colspan="2" class="text-center">No citation data available.</td>
-                </tr>
-            {% endfor %}
-        </tbody>
-    </table>
-
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script>
-        document.addEventListener("DOMContentLoaded", function() {
+        document.addEventListener("DOMContentLoaded", function () {
             const publicationTypesData = {{ statistics.publicationTypes|json_encode|raw }};
             const publicationTrendsData = {{ statistics.publicationTrends|json_encode|raw }};
 
-            // Publication Types Chart
-            new Chart(document.getElementById('publicationTypesChart'), {
+            // Doughnut Chart for Publication Types
+            const typesChartCtx = document.getElementById('publicationTypesChart').getContext('2d');
+            const typesChart = new Chart(typesChartCtx, {
                 type: 'doughnut',
                 data: {
                     labels: Object.keys(publicationTypesData),
@@ -72,20 +116,58 @@
                         data: Object.values(publicationTypesData),
                         backgroundColor: ['#FF6384', '#36A2EB', '#FFCE56', '#4BC0C0', '#9966FF'],
                     }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            position: 'bottom',
+                        }
+                    }
                 }
             });
 
-            // Publication Trends Chart
+            // Add click event to the doughnut chart
+            document.getElementById('publicationTypesChart').onclick = function (evt) {
+                const activePoint = typesChart.getElementsAtEventForMode(evt, 'nearest', { intersect: true }, true);
+                if (activePoint.length > 0) {
+                    const clickedIndex = activePoint[0].index;
+                    const clickedLabel = typesChart.data.labels[clickedIndex];
+                    window.location.href = `{{ path('publication_type_details', { 'type': 'TYPE_PLACEHOLDER' }) }}`.replace('TYPE_PLACEHOLDER', clickedLabel);
+                }
+            };
+
+            // Line Chart for Publication Trends
             new Chart(document.getElementById('publicationTrendsChart'), {
                 type: 'line',
                 data: {
                     labels: Object.keys(publicationTrendsData),
                     datasets: [{
-                        label: 'Publications Over Time',
+                        label: 'Publications au Fil des Ans',
                         data: Object.values(publicationTrendsData),
                         borderColor: '#4BC0C0',
                         fill: false,
                     }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        x: {
+                            title: {
+                                display: true,
+                                text: 'Année'
+                            }
+                        },
+                        y: {
+                            title: {
+                                display: true,
+                                text: 'Nombre de Publications'
+                            },
+                            beginAtZero: true
+                        }
+                    }
                 }
             });
         });
