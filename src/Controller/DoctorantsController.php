@@ -696,8 +696,8 @@ class DoctorantsController extends AbstractController
 
 
 
-
-
+    
+    
 
 
     #[Route('/import-scopus-ids', name: 'import_scopus_ids', methods: ['GET', 'POST'])]
@@ -1042,44 +1042,57 @@ public function listPersonnel(PersonnelRepository $personnelRepository): Respons
                         $processed = 0;
                         $skipped = 0;
                         $unmatchedTitles = []; // Collect unmatched titles here
+                        $errors = []; // Collect errors here
                         $batchSize = 20;
         
-                        foreach (array_chunk($rows, $batchSize) as $batch) {
-                            foreach ($batch as $index => $row) {
-                                try {
-                                    $excelTitle = trim($row[3] ?? ''); // Title column
-                                    $authorNames = explode(';', trim($row[1] ?? ''));
-                                    $authorIds = explode(';', trim($row[2] ?? ''));
-                                    $abstract = trim($row[17] ?? '');
-                                    $organization = trim($row[15] ?? '');
+                        foreach ($rows as $index => $row) { // Iterate over $rows
+                            try {
+                                $excelTitle = trim($row[3] ?? ''); // Title column
+                                $authorNames = explode(';', trim($row[1] ?? '')); // Author full names column
         
-                                    if (empty($excelTitle)) {
-                                        $skipped++;
-                                        continue;
-                                    }
+                                // Process author names to remove commas and Scopus IDs
+                                $processedAuthorNames = array_map(function ($author) {
+                                    // Remove commas and parentheses (Scopus IDs)
+                                    return trim(preg_replace('/\s*\(.*?\)/', '', str_replace(',', '', $author)));
+                                }, $authorNames);
         
-                                    // Find publication by title
-                                    $publication = $publicationRepository->findOneBy(['title' => $excelTitle]);
-                                    if (!$publication) {
-                                        $unmatchedTitles[] = $excelTitle;
-                                        $skipped++;
-                                        continue;
-                                    }
+                                $authorIds = explode(';', trim($row[2] ?? '')); // Author(s) ID column
+                                $abstract = trim($row[17] ?? ''); // Abstract column
+                                $organization = trim($row[15] ?? ''); // Affiliations column
         
-                                    // Update publication fields
-                                    $publication->setAuthorNames($authorNames);
-                                    $publication->setAuthorIds($authorIds);
-                                    $publication->setAbstract($abstract);
-                                    $publication->setOrganization($organization);
-                                    $entityManager->persist($publication);
-                                    $processed++;
-                                } catch (\Exception $e) {
+                                if (empty($excelTitle)) {
                                     $skipped++;
+                                    continue; // Skip rows with empty titles
                                 }
+        
+                                // Find publication by title
+                                $publication = $publicationRepository->findOneBy(['title' => $excelTitle]);
+                                if (!$publication) {
+                                    $unmatchedTitles[] = $excelTitle; // Add to unmatched titles
+                                    $skipped++;
+                                    continue;
+                                }
+        
+                                // Update the publication fields
+                                $publication->setAuthorNames($processedAuthorNames); // Use processed names
+                                $publication->setAuthorIds($authorIds);
+                                $publication->setAbstract($abstract);
+                                $publication->setOrganization($organization);
+        
+                                $entityManager->persist($publication);
+                                $processed++;
+        
+                                // Flush in batches
+                                if (($processed % $batchSize) === 0) {
+                                    $entityManager->flush();
+                                }
+                            } catch (\Exception $e) {
+                                $errors[] = "Error processing row $index: " . $e->getMessage();
                             }
-                            $entityManager->flush();
-                            $entityManager->clear();
                         }
+        
+                        // Flush any remaining entities
+                        $entityManager->flush();
         
                         // Add success message
                         $this->addFlash('success', "$processed publications updated successfully.");
@@ -1090,6 +1103,15 @@ public function listPersonnel(PersonnelRepository $personnelRepository): Respons
                                 'warning',
                                 count($unmatchedTitles) . " unmatched titles: <br>" . implode('<br>', array_slice($unmatchedTitles, 0, 10)) .
                                 (count($unmatchedTitles) > 10 ? "<br>...and more" : "")
+                            );
+                        }
+        
+                        // Report errors (if any)
+                        if (!empty($errors)) {
+                            $this->addFlash(
+                                'error',
+                                "Errors occurred during processing: <br>" . implode('<br>', array_slice($errors, 0, 10)) .
+                                (count($errors) > 10 ? "<br>...and more" : "")
                             );
                         }
                     } catch (\Exception $e) {
